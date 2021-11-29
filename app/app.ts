@@ -28,7 +28,7 @@ const SESSION_SECRET = getEnv("SESSION_SECRET");
 const app = express();
 
 app.set("views", path.join(__dirname, "../views"));
-app.set("view engine", "handlebars");
+app.set("view engine", "hbs");
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,6 +40,7 @@ app.use(
     resave: false,
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, "public")));
