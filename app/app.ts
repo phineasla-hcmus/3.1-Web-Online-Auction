@@ -26,7 +26,6 @@ const DB_CONFIG = {
 const SESSION_SECRET = getEnv("SESSION_SECRET");
 
 const app = express();
-
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
 app.use(compression());
@@ -43,6 +42,12 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static("public"));
+// app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", function (req, res) {
+  // res.send("Hello World!");
+  res.render("home");
+});
 
 export default app;

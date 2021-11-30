@@ -1,11 +1,176 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Example App</title>
-</head>
-<body>
-    <h1>CHACHACHA</h1>
-    <p>SAY HI TO THE WORLD</p>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Auction</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/css/home.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light header">
+      <a class="navbar-brand header__logo" href="#">
+        <i class="fa fa-gavel fa-lg" aria-hidden="true"></i>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div style="display: flex; margin-left: auto" id="navbarSupportedContent">
+        {{! <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              <i class="fa fa-home mr-2" aria-hidden="true"></i>Home
+              <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropbtn"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa fa-th-list" aria-hidden="true"></i>
+              Categories
+            </a>
+            <ul
+              style="list-style: none; padding: 0"
+              class="dropdown-content"
+              aria-labelledby="navbarDropdown"
+            >
+              <li class="dropdown-item-wrapper">
+                <a class="dropdown-item" href="#">Điện tử</a>
+                <ul class="dropdown-item-content">
+                  <li>
+                    Điện thoại di động
+                  </li>
+                  <li>
+                    Máy tính xách tay
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Nội thất</a>
+                <ul class="dropdown-item-content">
+                  <li>
+                    Giường ngủ
+                  </li>
+                  <li>
+                    Tủ quần áo
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <a class="dropdown-item" href="#">Đồ gia dụng</a>
+                <ul class="dropdown-item-content">
+                  <li>
+                    Bàn
+                  </li>
+                  <li>
+                    Ghế
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a
+              style="background-color: #fdb03d; color: white; height: 100%"
+              href="#"
+              class="btn mx-2 header__btn"
+              role="button"
+            >Sign in</a>
+          </li>
+        </ul> }}
+        <ul class="navbar-nav header-top-level-menu">
+          <li class="nav-item active"><a class="nav-link" href="#">
+              <i class="fa fa-home mr-2" aria-hidden="true"></i>Home
+              <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i
+                class="fa fa-th-list"
+                aria-hidden="true"
+              ></i>
+              Categories</a>
+            <ul class="header-second-level-menu">
+              <li>
+                <a href="#">Điện tử</a>
+                <ul class="header-third-level-menu">
+                  <li><a href="#">Máy tính</a></li>
+                  <li><a href="#">Điện thoại di động</a></li>
+                  <li><a href="#">Chuột</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Nội thất</a>
+                <ul class="header-third-level-menu">
+                  <li><a href="#">Chảo</a></li>
+                  <li><a href="#">Máy giặt</a></li>
+                  <li><a href="#">Bếp ga</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Đồ gia dụng</a>
+                <ul class="header-third-level-menu">
+                  <li><a href="#">Chảo</a></li>
+                  <li><a href="#">Máy giặt</a></li>
+                  <li><a href="#">Bếp ga</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="btn mx-2 header__btn" role="button">Sign in</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="header__input form-control"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn header__btn header__search" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </nav>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
