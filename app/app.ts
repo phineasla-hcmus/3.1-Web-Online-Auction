@@ -2,8 +2,9 @@ import compression from "compression";
 import express from "express";
 import session from "express-session";
 import morgan from "morgan";
-import path from "path";
+// import path from "path";
 import passport from "passport";
+import { engine } from "express-handlebars";
 
 import logger from "./utils/logger";
 
@@ -26,8 +27,16 @@ const DB_CONFIG = {
 const SESSION_SECRET = getEnv("SESSION_SECRET");
 
 const app = express();
-app.set("views", path.join(__dirname, "../views"));
+
+app.engine(
+  "hbs",
+  engine({
+    defaultLayout: "layout.hbs",
+  })
+);
 app.set("view engine", "hbs");
+app.set("views", "./views");
+
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,10 +52,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/public", express.static("public"));
-// app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (req, res) {
-  // res.send("Hello World!");
   res.render("home");
 });
 

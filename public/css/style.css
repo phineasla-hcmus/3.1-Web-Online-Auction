@@ -1,3 +1,59 @@
+.has-fade {
+  visibility: hidden;
+}
+
+@keyframes fade-in {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade-in 200ms ease-in-out forwards;
+}
+
+@keyframes fade-out {
+  from {
+    visibility: visible;
+    opacity: 1;
+  }
+  99% {
+    visibility: visible;
+    opacity: 0;
+  }
+  to {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+.fade-out {
+  animation: fade-out 200ms ease-in-out forwards;
+}
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .header {
   background-color: #292560;
 }
@@ -11,6 +67,10 @@
 .header__logo > i {
   color: #fdb03d;
   font-size: 2rem;
+}
+.header__content {
+  display: flex;
+  margin-left: auto;
 }
 .header__btn {
   background-color: #fdb03d;
@@ -76,6 +136,4 @@
   color: black;
 }
 
-/* Menu Link Styles */
-
-/*# sourceMappingURL=home.css.map */
+/*# sourceMappingURL=style.css.map */
