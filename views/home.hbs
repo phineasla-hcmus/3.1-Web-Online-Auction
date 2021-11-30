@@ -1,71 +1,725 @@
-<nav class="navbar navbar-expand-lg navbar-light header">
-  <a class="navbar-brand header__logo" href="#">
-    <i class="fa fa-gavel fa-lg" aria-hidden="true"></i>
-  </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<header class="header">
+  <nav class="container navbar navbar-expand-lg navbar-light header">
+    <a class="navbar-brand header__logo" href="#">
+      <i class="fa fa-gavel fa-lg" aria-hidden="true"></i>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="header__content">
-    <ul class="navbar-nav header-top-level-menu">
-      <li class="nav-item active"><a class="nav-link" href="#">
-          <i class="fa fa-home mr-2" aria-hidden="true"></i>Home
-          <span class="sr-only">(current)</span></a></li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i
-            class="fa fa-th-list"
-            aria-hidden="true"
-          ></i>
-          Categories</a>
-        <ul class="header-second-level-menu">
-          <li>
-            <a href="#">Điện tử</a>
-            <ul class="header-third-level-menu">
-              <li><a href="#">Máy tính</a></li>
-              <li><a href="#">Điện thoại di động</a></li>
-              <li><a href="#">Chuột</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">Nội thất</a>
-            <ul class="header-third-level-menu">
-              <li><a href="#">Chảo</a></li>
-              <li><a href="#">Máy giặt</a></li>
-              <li><a href="#">Bếp ga</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">Đồ gia dụng</a>
-            <ul class="header-third-level-menu">
-              <li><a href="#">Chảo</a></li>
-              <li><a href="#">Máy giặt</a></li>
-              <li><a href="#">Bếp ga</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="btn mx-2 header__btn" role="button">Sign in</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input
-        class="header__input form-control"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn header__btn header__search" type="submit">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-    </form>
+    <div class="header__content">
+      <ul class="navbar-nav header-top-level-menu">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            <i class="fa fa-home mr-2" aria-hidden="true"></i>Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i
+              class="fa fa-th-list"
+              aria-hidden="true"
+            ></i>
+            Categories</a>
+          <ul class="header-second-level-menu">
+            <li>
+              <a href="#">Electronics</a>
+              <ul class="header-third-level-menu">
+                <li><a href="#">Laptop</a></li>
+                <li><a href="#">Phone</a></li>
+                <li><a href="#">iPad</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Furniture</a>
+              <ul class="header-third-level-menu">
+                <li><a href="#">Bed</a></li>
+                <li><a href="#">Desk</a></li>
+                <li><a href="#">Cabinet</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Houseware</a>
+              <ul class="header-third-level-menu">
+                <li><a href="#">Coffee press</a></li>
+                <li><a href="#">Chopping board</a></li>
+                <li><a href="#">Baking dish</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="btn mx-2 header__btn" role="button">Sign in</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="header__input form-control"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn header__btn header__search" type="submit">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </nav>
+</header>
+<section class="products">
+  <div class="container container--py">
+    <div class="products__near--end">
+      <h1 class="products__title">Top 5 products near the end</h1>
+      <div class="products__content">
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="products__most--bids">
+      <h1 class="products__title">Top 5 products with the most bids</h1>
+      <div class="products__content">
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="products__highest--price">
+      <h1 class="products__title">Top 5 products with the highest price</h1>
+      <div class="products__content">
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="products__item">
+          <div class="products__item--content">
+            <figure class="products__item--img">
+              <a
+                href="#"
+                class="popover-test"
+                title="Popover title"
+                data-content="Popover body content is set in this attribute."
+                data-trigger="hover"
+              ><img
+                  src="https://demo.w3layouts.com/demos_new/template_demo/11-06-2021/electronics-mart-liberty-demo_Free/1081434887/web/images/m1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </a>
+              <div class="products__item--price" style="margin-bottom: 10px;">
+                <span>300 USD</span>
+              </div>
+
+              <div class="products__item--img--preview">
+                <a href="#">Quick view</a>
+              </div>
+            </figure>
+
+            <div class="products__item--wrapper" style="height: 11em;">
+              <h3 class="name">
+                Redmi 9 Prime
+              </h3>
+              <small>30/11/2021</small>
+              <p class="text-danger">3 days left</p>
+              <p>
+                Tam Nguyen
+              </p>
+              <ul>
+                <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                  132
+                </li>
+                <li><a href="#">Bid now</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
+</section>
