@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "repository": "https://github.com/phineasla-hcmus/3.1-Web-Online-Auction",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "build-node": "tsc",
     "build-sass": "sass public/scss:public/css",
@@ -39,7 +42,6 @@
     "@types/errorhandler": "^1.5.0",
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
-    "@types/hbs": "^4.0.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.10",
     "@types/passport": "^1.0.7",

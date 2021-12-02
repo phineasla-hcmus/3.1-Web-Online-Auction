@@ -2,13 +2,10 @@ import compression from "compression";
 import express from "express";
 import session from "express-session";
 import morgan from "morgan";
-// import path from "path";
 import passport from "passport";
 import { engine } from "express-handlebars";
-
-import logger from "./utils/logger";
-
 import categoryModel from "./models/category.model";
+import logger from "./utils/logger";
 
 const getEnv = (key: string, defaultVal?: any) => {
   const env = process.env[key] || defaultVal;
