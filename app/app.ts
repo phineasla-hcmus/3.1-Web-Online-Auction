@@ -1,14 +1,15 @@
+import express from "express";
 import compression from "compression";
 import knexSession from "connect-session-knex";
-import express from "express";
 import session from "express-session";
-import morgan from "morgan";
 import passport from "passport";
+import morgan from "morgan";
 import { engine } from "express-handlebars";
 
 import knex from "./config/database";
 import { SESSION_SECRET } from "./config/secret";
-import categoryModel from "./models/category.model";
+
+import homeRouter from "./routes/home";
 
 const app = express();
 
@@ -41,19 +42,36 @@ app.use(
     store: new (knexSession as any)(knex),
   })
 );
+app.use((req, res, next) => {
+  // After successful login, redirect back to the intended page
+  if (
+    !req.user &&
+    req.path !== "/login" &&
+    req.path !== "/signup" &&
+    !req.path.match(/^\/auth/) &&
+    !req.path.match(/\./)
+  ) {
+    req.session.returnTo = req.path;
+  } else if (req.user && req.path == "/account") {
+    req.session.returnTo = req.path;
+  }
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/public", express.static("public"));
 
-app.use(async function (req, res, next) {
-  res.locals.parentCategories = await categoryModel.findParentCategory();
-  res.locals.childCategories = await categoryModel.findChildCategory();
-  next();
-});
+// app.use(async function (req, res, next) {
+//   res.locals.parentCategories = await categoryModel.findParentCategory();
+//   res.locals.childCategories = await categoryModel.findChildCategory();
+//   next();
+// });
 
-app.get("/", async function (req, res) {
-  res.render("home");
-});
+// app.get("/", async function (req, res) {
+//   res.render("home");
+// });
+
+app.use("/", homeRouter);
 
 export default app;
