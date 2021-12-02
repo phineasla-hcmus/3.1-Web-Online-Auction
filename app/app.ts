@@ -1,29 +1,14 @@
 import compression from "compression";
+import knexSession from "connect-session-knex";
 import express from "express";
 import session from "express-session";
 import morgan from "morgan";
 import passport from "passport";
 import { engine } from "express-handlebars";
+
+import knex from "./config/database";
+import { SESSION_SECRET } from "./config/secret";
 import categoryModel from "./models/category.model";
-import logger from "./utils/logger";
-
-const getEnv = (key: string, defaultVal?: any) => {
-  const env = process.env[key] || defaultVal;
-  if (!env) {
-    logger.error(`Missing ${key} environment variable`);
-    process.exit(1);
-  }
-  return String(env);
-};
-
-const DB_CONFIG = {
-  host: getEnv("DB_HOST"),
-  port: getEnv("DB_PORT"),
-  user: getEnv("DB_USER"),
-  password: getEnv("DB_PASSWORD"),
-  database: getEnv("DB_DATABASE"),
-};
-const SESSION_SECRET = getEnv("SESSION_SECRET");
 
 const app = express();
 
@@ -51,6 +36,9 @@ app.use(
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
+    // --noImplicitAny enabled
+    // Fix: https://stackoverflow.com/q/43623461/12405558
+    store: new (knexSession as any)(knex),
   })
 );
 

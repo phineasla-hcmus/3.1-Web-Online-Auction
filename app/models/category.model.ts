@@ -1,4 +1,4 @@
-import db from "../utils/db";
+import db from "../config/database";
 export default {
   findParentCategory() {
     return db("categories").where("parentId", null);
