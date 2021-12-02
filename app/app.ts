@@ -8,6 +8,8 @@ import { engine } from "express-handlebars";
 
 import logger from "./utils/logger";
 
+import categoryModel from "./models/category.model";
+
 const getEnv = (key: string, defaultVal?: any) => {
   const env = process.env[key] || defaultVal;
   if (!env) {
@@ -32,6 +34,12 @@ app.engine(
   "hbs",
   engine({
     defaultLayout: "layout.hbs",
+    helpers: {
+      isChildOf(parentId: string, catId: string) {
+        if (parentId === catId) return true;
+        return false;
+      },
+    },
   })
 );
 app.set("view engine", "hbs");
@@ -53,7 +61,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/public", express.static("public"));
 
-app.get("/", function (req, res) {
+app.use(async function (req, res, next) {
+  res.locals.parentCategories = await categoryModel.findParentCategory();
+  res.locals.childCategories = await categoryModel.findChildCategory();
+  next();
+});
+
+app.get("/", async function (req, res) {
   res.render("home");
 });
 

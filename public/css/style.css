@@ -136,7 +136,15 @@ body {
 .header .nav-link:hover {
   color: #fdb03d !important;
 }
-.header__logo > i {
+.header__logo {
+  color: white;
+  font-size: 1.5rem;
+}
+.header__logo:hover {
+  text-decoration: none;
+  color: white;
+}
+.header__logo > span {
   color: #fdb03d;
   font-size: 2rem;
 }

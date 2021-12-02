@@ -1,0 +1,101 @@
+.header {
+  background-color: $darkBlue;
+  .nav-link {
+    color: white !important;
+    transition: color 300ms ease-in-out;
+    &:hover {
+      color: $darkYellow !important;
+    }
+  }
+  &__logo {
+    color: white;
+    font-size: 1.5rem;
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+    & > span {
+      color: $darkYellow;
+      font-size: 2rem;
+    }
+  }
+  &__content {
+    display: flex;
+    margin-left: auto;
+  }
+  &__btn {
+    background-color: $darkYellow;
+    color: white;
+    height: 100%;
+  }
+  &__input {
+    border-radius: 0.25rem 0 0 0.25rem;
+    height: 100%;
+  }
+  &__search {
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+  &-top-level-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    & > li {
+      position: relative;
+      float: left;
+      &:hover > ul {
+        display: inline;
+      }
+    }
+  }
+  &-second-level-menu {
+    position: absolute;
+    top: 40px;
+    left: 0.5rem;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    z-index: 1;
+    & > li {
+      position: relative;
+      height: 30px;
+      background: white;
+      & > a {
+        color: black;
+        text-decoration: none;
+        transition: color 300ms ease-in-out;
+        &:hover {
+          color: $darkYellow;
+          text-decoration: none;
+        }
+      }
+      &:hover > ul {
+        display: inline;
+      }
+    }
+  }
+  &-third-level-menu {
+    position: absolute;
+    top: 0;
+    right: -150px;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    & > li {
+      height: 30px;
+      background: white;
+      & > a {
+        color: black;
+        text-decoration: none;
+        transition: color 300ms ease-in-out;
+        &:hover {
+          color: $darkYellow;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
