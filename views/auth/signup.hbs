@@ -1,25 +1,27 @@
-<section class="login">
+<section class="signup">
   <div class="row justify-content-center">
     <div class="col-md-7 col-lg-5">
       <div class="login-wrap p-4 p-md-5">
         <div class="d-flex">
           <div class="w-100">
-            <h3 class="mb-4">Sign In</h3>
-          </div>
-          <div class="w-100">
-            <p class="social-media d-flex justify-content-end">
-              <a
-                href="#"
-                class="social-icon d-flex align-items-center justify-content-center"
-              ><span class="fa fa-facebook"></span></a>
-              <a
-                href="#"
-                class="social-icon d-flex align-items-center justify-content-center"
-              ><span class="fa fa-google"></span></a>
-            </p>
+            <h3 class="mb-4">Sign Up</h3>
           </div>
         </div>
         <form method="POST" class="login-form">
+          <div class="form-group">
+            <div
+              class="icon d-flex align-items-center justify-content-center"
+            ><span class="fa fa-envelope"></span>
+            </div>
+            <input
+              type="email"
+              class="form-control rounded-left"
+              placeholder="Email"
+              name="email"
+              id="email"
+              required
+            />
+          </div>
           <div class="form-group">
             <div
               class="icon d-flex align-items-center justify-content-center"
@@ -46,23 +48,20 @@
               required
             />
           </div>
+          <div class="w-100">
+            <input type="checkbox" id="term" required />
+            <label for="term">I agree to the
+              <a href="#">Term & Conditions</a></label>
+          </div>
           <div class="form-group d-flex align-items-center">
-            <div class="w-100">
-              <input type="checkbox" id="rememberMe" />
-              <label for="rememberMe">Remember me</label>
-            </div>
             <div class="w-100 d-flex justify-content-end">
-              <button
-                type="submit"
-                class="btn btn-primary rounded submit"
-              >Login</button>
+              <button type="submit" class="btn btn-primary rounded submit">Sign
+                Up</button>
             </div>
           </div>
           <div class="form-group mt-4">
             <div class="w-100 text-center">
-              <p class="mb-1">Don't have an account?
-                <a href="/signup">Sign Up</a></p>
-              <p><a href="#">Forgot Password</a></p>
+              <p class="mb-1">Already have account? <a href="#">Login</a></p>
             </div>
           </div>
         </form>

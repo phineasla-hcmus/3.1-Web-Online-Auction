@@ -1,6 +1,6 @@
-import express from "express";
 import compression from "compression";
 import knexSessionStore from "connect-session-knex";
+import express from "express";
 import session from "express-session";
 import path from "path";
 import passport from "passport";
@@ -10,7 +10,7 @@ import { engine } from "express-handlebars";
 import knex from "./config/database";
 import { SESSION_SECRET } from "./config/secret";
 
-import { loginRouter } from "./routes/auth";
+import { loginRouter, signUpRouter } from "./routes/auth";
 import homeRouter from "./routes/home";
 
 import categoryModel from "./models/category.model";
@@ -87,5 +87,6 @@ app.use(async function (req, res, next) {
 
 app.use("/", homeRouter);
 app.use("/login", loginRouter);
+app.use("/signup", signUpRouter);
 
 export default app;
