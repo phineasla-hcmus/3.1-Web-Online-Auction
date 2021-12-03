@@ -1,6 +1,10 @@
 import { Router } from "express";
-import { getLogin } from "../controllers/auth";
 
 export const loginRouter = Router();
 
-loginRouter.get("/", getLogin);
+loginRouter.get("/", (req, res) => {
+  if (req.user) return res.redirect("/");
+  res.render("auth/login", {
+    css: ["auth/login.css"],
+  });
+});
