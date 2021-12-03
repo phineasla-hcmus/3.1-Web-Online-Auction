@@ -27,6 +27,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "passport": "^0.5.0",
+    "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
     "sass": "^1.43.5",
     "winston": "^3.3.3"
@@ -43,6 +44,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.10",
     "@types/passport": "^1.0.7",
+    "@types/passport-facebook": "^2.1.11",
     "@types/passport-local": "^1.0.34",
     "@types/winston": "^2.4.4",
     "concurrently": "^6.4.0",
