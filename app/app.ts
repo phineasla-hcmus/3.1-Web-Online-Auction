@@ -11,6 +11,8 @@ import { SESSION_SECRET } from "./config/secret";
 
 import homeRouter from "./routes/home";
 
+import categoryModel from "./models/category.model";
+
 const app = express();
 
 app.engine(
@@ -21,6 +23,15 @@ app.engine(
       isChildOf(parentId: string, catId: string) {
         if (parentId === catId) return true;
         return false;
+      },
+      parseDate(date: string) {
+        let dateString = new Date(date).toLocaleDateString();
+        return dateString;
+      },
+      getRemainingTime(date: string) {
+        let today = new Date();
+        let expiredDate = new Date(date);
+        return expiredDate.getDate() - today.getDate();
       },
     },
   })
@@ -63,15 +74,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/public", express.static("public"));
 
-// app.use(async function (req, res, next) {
-//   res.locals.parentCategories = await categoryModel.findParentCategory();
-//   res.locals.childCategories = await categoryModel.findChildCategory();
-//   next();
-// });
-
-// app.get("/", async function (req, res) {
-//   res.render("home");
-// });
+// load categories in header
+app.use(async function (req, res, next) {
+  res.locals.parentCategories = await categoryModel.findParentCategory();
+  res.locals.childCategories = await categoryModel.findChildCategory();
+  next();
+});
 
 app.use("/", homeRouter);
 

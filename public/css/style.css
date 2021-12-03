@@ -139,6 +139,7 @@ body {
 .header__logo {
   color: white;
   font-size: 1.5rem;
+  font-weight: bold;
 }
 .header__logo:hover {
   text-decoration: none;
@@ -237,7 +238,6 @@ body {
   gap: 1.25rem;
 }
 .products__item--content {
-  padding: 20px 0px;
   background-color: #fff;
   display: block;
   position: relative;
@@ -345,6 +345,7 @@ body {
   font-size: 20px;
   font-size: 1.25rem;
   margin-top: 0;
+  min-height: 50px;
 }
 .products__item ul {
   display: flex;

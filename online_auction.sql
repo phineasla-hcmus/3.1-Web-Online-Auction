@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` char(60) NOT NULL,
   `fullName` varchar(30) NOT NULL,
   `dob` date NOT NULL,
   `address` varchar(50) NOT NULL,
@@ -43,10 +43,9 @@ CREATE TABLE `products` (
   `postDate` datetime NOT NULL,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
-  `bidderId` int unsigned DEFAULT NULL,
+  `bidderName` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`proId`),
-  CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_products_bidders` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
@@ -59,19 +58,6 @@ CREATE TABLE `watchlist` (
   PRIMARY KEY (`bidderId`, `proId`),
   CONSTRAINT `FK_watchlist_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_watchlist_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- ----------------------------
--- Table structure for sessions
--- ----------------------------
-DROP TABLE IF EXISTS `sessions`;
-CREATE TABLE `sessions` (
-  `sessionId` int unsigned NOT NULL,
-  `expires` int unsigned NOT NULL,
-  `data` varchar(100) NOT NULL,
-  `userId` int unsigned NOT NULL,
-  PRIMARY KEY (`sessionId`),
-  CONSTRAINT `FK_sessions_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
