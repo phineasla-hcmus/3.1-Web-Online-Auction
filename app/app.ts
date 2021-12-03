@@ -1,6 +1,6 @@
 import express from "express";
 import compression from "compression";
-import knexSession from "connect-session-knex";
+import knexSessionStore from "connect-session-knex";
 import session from "express-session";
 import passport from "passport";
 import morgan from "morgan";
@@ -32,16 +32,17 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+
+const knexSession = knexSessionStore(session);
 app.use(
   session({
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    // --noImplicitAny enabled
-    // Fix: https://stackoverflow.com/q/43623461/12405558
-    store: new (knexSession as any)(knex),
+    store: new knexSession({ knex: knex }),
   })
 );
+
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
   if (
