@@ -8,7 +8,7 @@
     "build-sass": "sass public/scss:public/css",
     "build": "npm run build-node && npm run build-sass",
     "start": "node dist/server.js",
-    "watch-node": "nodemon --exec ts-node -T -r dotenv/config app/server.ts",
+    "watch-node": "nodemon --exec ts-node -T -e ts,hbs -r dotenv/config app/server.ts",
     "watch-sass": "sass --watch public/scss:public/css",
     "watch": "concurrently -k -n \"Sass,Node\" -c \"cyan,blue\" \"npm run watch-sass\" \"npm run watch-node\""
   },

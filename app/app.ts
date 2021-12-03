@@ -2,6 +2,7 @@ import express from "express";
 import compression from "compression";
 import knexSessionStore from "connect-session-knex";
 import session from "express-session";
+import path from "path";
 import passport from "passport";
 import morgan from "morgan";
 import { engine } from "express-handlebars";
@@ -9,6 +10,7 @@ import { engine } from "express-handlebars";
 import knex from "./config/database";
 import { SESSION_SECRET } from "./config/secret";
 
+import { loginRouter } from "./routes/auth";
 import homeRouter from "./routes/home";
 
 import categoryModel from "./models/category.model";
@@ -19,6 +21,8 @@ app.engine(
   "hbs",
   engine({
     defaultLayout: "layout.hbs",
+    extname: ".hbs",
+    partialsDir: ["views/partials/"],
     helpers: {
       isChildOf(parentId: string, catId: string) {
         if (parentId === catId) return true;
@@ -37,7 +41,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
-app.set("views", "./views");
+app.set("views", path.resolve(__dirname, "../views"));
 
 app.use(compression());
 app.use(express.json());
@@ -82,5 +86,6 @@ app.use(async function (req, res, next) {
 });
 
 app.use("/", homeRouter);
+app.use("/login", loginRouter);
 
 export default app;
