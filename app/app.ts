@@ -5,8 +5,7 @@ import session from "express-session";
 import path from "path";
 import passport from "passport";
 import morgan from "morgan";
-import { engine } from "express-handlebars";
-
+import hbs from "./utils/hbs";
 import knex from "./config/database";
 import { SESSION_SECRET } from "./config/secret";
 
@@ -17,29 +16,7 @@ import categoryModel from "./models/category.model";
 
 const app = express();
 
-app.engine(
-  "hbs",
-  engine({
-    defaultLayout: "layout.hbs",
-    extname: ".hbs",
-    partialsDir: ["views/partials/"],
-    helpers: {
-      isChildOf(parentId: string, catId: string) {
-        if (parentId === catId) return true;
-        return false;
-      },
-      parseDate(date: string) {
-        let dateString = new Date(date).toLocaleDateString();
-        return dateString;
-      },
-      getRemainingTime(date: string) {
-        let today = new Date();
-        let expiredDate = new Date(date);
-        return expiredDate.getDate() - today.getDate();
-      },
-    },
-  })
-);
+app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", path.resolve(__dirname, "../views"));
 
