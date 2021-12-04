@@ -1,4 +1,4 @@
-document.getElementById("signup-form").onsubmit = async function (e) {
+document.getElementsByTagName("form")[0].onsubmit = async function (e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const res = await fetch(e.target.getAttribute("action"), {
