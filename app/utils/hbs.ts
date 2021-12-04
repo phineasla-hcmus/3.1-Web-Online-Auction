@@ -42,7 +42,7 @@ function getRemainingTime(date: string) {
  * {{/section}}
  */
 function section(this: any, name: string, options: any) {
-  if (!this.sections) this.sections = {};
-  this.sections[name] = options.fn(this);
+  if (!this.sections) this.section = {};
+  this.section[name] = options.fn(this);
   return null;
 }

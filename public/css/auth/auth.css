@@ -3,13 +3,13 @@
   height: 20%;
 }
 
-.login-wrap {
+.login-wrap, .signup-wrap {
   position: relative;
   background: white;
   border-radius: 5px;
   box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
 }
-.login-wrap h3 {
+.login-wrap h3, .signup-wrap h3 {
   font-weight: 300;
 }
 
