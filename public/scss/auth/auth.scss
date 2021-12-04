@@ -1,5 +1,10 @@
 @import "../_variables";
 
+.logo {
+  width: auto;
+  height: 20%;
+}
+
 .login-wrap {
   position: relative;
   background: white;
@@ -71,37 +76,37 @@
 }
 
 input[type="checkbox"] {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .btn {
-    cursor: pointer;
-    box-shadow: none !important;
-    font-size: 15px;
-    padding: 10px 20px;
-    &:hover,
-    &:active,
-    &:focus {
-      outline: none;
-    }
-    &.btn-primary {
-      background: $primary;
+  cursor: pointer;
+  box-shadow: none !important;
+  font-size: 15px;
+  padding: 10px 20px;
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+  &.btn-primary {
+    background: $primary;
+    border: 1px solid $primary;
+    color: white;
+    &:hover {
       border: 1px solid $primary;
-      color: white;
+      background: transparent;
+      color: $primary;
+    }
+    &.btn-outline-primary {
+      border: 1px solid $primary;
+      background: transparent;
+      color: $primary;
       &:hover {
-        border: 1px solid $primary;
-        background: transparent;
-        color: $primary;
-      }
-      &.btn-outline-primary {
-        border: 1px solid $primary;
-        background: transparent;
-        color: $primary;
-        &:hover {
-          border: 1px solid transparent;
-          background: $primary;
-          color: white;
-        }
+        border: 1px solid transparent;
+        background: $primary;
+        color: white;
       }
     }
   }
+}

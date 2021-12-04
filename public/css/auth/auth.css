@@ -1,3 +1,8 @@
+.logo {
+  width: auto;
+  height: 20%;
+}
+
 .login-wrap {
   position: relative;
   background: white;
@@ -100,4 +105,4 @@ input[type=checkbox] {
   color: white;
 }
 
-/*# sourceMappingURL=login.css.map */
+/*# sourceMappingURL=auth.css.map */

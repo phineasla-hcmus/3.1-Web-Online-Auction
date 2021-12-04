@@ -13,6 +13,7 @@ import { loginRouter, signUpRouter } from "./routes/auth";
 import homeRouter from "./routes/home";
 
 import categoryModel from "./models/category.model";
+import errorRouter from "./routes/error";
 
 const app = express();
 
@@ -63,6 +64,7 @@ app.use(async function (req, res, next) {
 });
 
 app.use("/", homeRouter);
+app.use("/error", errorRouter)
 app.use("/login", loginRouter);
 app.use("/signup", signUpRouter);
 

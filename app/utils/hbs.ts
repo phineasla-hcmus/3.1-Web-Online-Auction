@@ -3,7 +3,6 @@ import { create } from "express-handlebars";
 const hbs = create({
   defaultLayout: "layout.hbs",
   extname: ".hbs",
-  partialsDir: ["views/partials/"],
   helpers: {
     isChildOf,
     parseDate,

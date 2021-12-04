@@ -7,7 +7,7 @@ export const signUpRouter = Router();
 loginRouter.get("/", (req, res) => {
   if (req.user) return res.redirect("/");
   res.render("auth/login", {
-    css: [{ href: "public/css/auth/login.css" }],
+    layout: "auth",
   });
 });
 
@@ -18,7 +18,7 @@ loginRouter.post("/", (req, res) => {
 signUpRouter.get("/", (req, res) => {
   if (req.user) return res.redirect("/");
   res.render("auth/signup", {
-    css: [{ href: "public/css/auth/login.css" }],
+    layout: "auth",
   });
 });
 
