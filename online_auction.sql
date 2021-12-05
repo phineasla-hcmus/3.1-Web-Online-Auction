@@ -1,10 +1,9 @@
-CREATE DATABASE  IF NOT EXISTS `onlineauction` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `onlineauction`;
 USE `onlineauction`;
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
@@ -15,23 +14,21 @@ CREATE TABLE `users` (
   `email` varchar(30) NOT NULL,
   `permission` tinyint unsigned,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for categories
 -- ----------------------------
-DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `catId` int unsigned NOT NULL AUTO_INCREMENT,
-  `catName` varchar(50) COLLATE utf8_general_ci NOT NULL,
+  `catName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `parentId` int unsigned,
   PRIMARY KEY (`catId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for products
 -- ----------------------------
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `proId` int unsigned NOT NULL AUTO_INCREMENT,
   `proName` varchar(50) NOT NULL,
@@ -46,24 +43,22 @@ CREATE TABLE `products` (
   `bidderName` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`proId`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for watchlist
 -- ----------------------------
-DROP TABLE IF EXISTS `watchlist`;
 CREATE TABLE `watchlist` (
   `bidderId` int unsigned NOT NULL,
   `proId` int unsigned NOT NULL,
   PRIMARY KEY (`bidderId`, `proId`),
   CONSTRAINT `FK_watchlist_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_watchlist_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for auction history
 -- ----------------------------
-DROP TABLE IF EXISTS `auctionHistory`;
 CREATE TABLE `auctionHistory` (
   `proId` int unsigned NOT NULL,
   `auctionTime` datetime NOT NULL,
@@ -72,12 +67,11 @@ CREATE TABLE `auctionHistory` (
   PRIMARY KEY (`proId`, `auctionTime`),
   CONSTRAINT `FK_auctionHistory_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auctionHistory_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for rating history
 -- ----------------------------
-DROP TABLE IF EXISTS `ratingHistory`;
 CREATE TABLE `ratingHistory` (
   `bidderId` int unsigned NOT NULL,
   `assessorId` int unsigned NOT NULL,
@@ -87,12 +81,11 @@ CREATE TABLE `ratingHistory` (
   PRIMARY KEY (`bidderId`, `assessorId`, `ratingTime`),
   CONSTRAINT `FK_ratingHistory_users_1` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_ratingHistory_users_2` FOREIGN KEY (`assessorId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for auction list
 -- ----------------------------
-DROP TABLE IF EXISTS `auctionList`;
 CREATE TABLE `auctionList` (
   `sellerId` int unsigned NOT NULL,
   `proId` int unsigned NOT NULL,
@@ -100,15 +93,14 @@ CREATE TABLE `auctionList` (
   PRIMARY KEY (`sellerId`, `proId`),
   CONSTRAINT `FK_auctionList_users` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auctionList_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for upgrade list
 -- ----------------------------
-DROP TABLE IF EXISTS `upgradeList`;
 CREATE TABLE `upgradeList` (
   `bidderId` int unsigned NOT NULL,
   `registerTime` datetime NOT NULL,
   PRIMARY KEY (`bidderId`),
   CONSTRAINT `FK_upgradeList_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
