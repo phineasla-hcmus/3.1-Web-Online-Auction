@@ -1,27 +1,12 @@
 import db from "../config/database";
 export default {
   async findNearEndProducts() {
-    const sql = `
-    SELECT * FROM products
-    ORDER BY expiredDate ASC
-    LIMIT 5;`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db("products").orderBy("expiredDate", "asc").limit(5);
   },
   async findMostBidsProducts() {
-    const sql = `
-    SELECT * FROM products
-    ORDER BY numberOfBids DESC
-    LIMIT 5;`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db("products").orderBy("numberOfBids", "desc").limit(5);
   },
   async findHighestPriceProducts() {
-    const sql = `
-    SELECT * FROM products
-    ORDER BY currentPrice DESC
-    LIMIT 5;`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db("products").orderBy("currentPrice", "desc").limit(5);
   },
 };

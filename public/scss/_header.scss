@@ -1,5 +1,8 @@
 .header {
   background-color: $darkBlue;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
   .nav-link {
     color: white !important;
     transition: color 300ms ease-in-out;
@@ -16,7 +19,12 @@
       text-decoration: none;
       color: white;
     }
-    & > span {
+    & img {
+      width: 20%;
+      height: fit-content;
+      filter: brightness(150%);
+    }
+    & span {
       color: $darkYellow;
       font-size: 2rem;
     }

@@ -150,6 +150,9 @@ body {
 
 .header {
   background-color: #292560;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
 }
 .header .nav-link {
   color: white !important;
@@ -168,7 +171,12 @@ body {
   text-decoration: none;
   color: white;
 }
-.header__logo > span {
+.header__logo img {
+  width: 20%;
+  height: fit-content;
+  filter: brightness(150%);
+}
+.header__logo span {
   color: #fdb03d;
   font-size: 2rem;
 }

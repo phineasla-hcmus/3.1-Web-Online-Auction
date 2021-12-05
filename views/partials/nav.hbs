@@ -1,20 +1,26 @@
-<nav class="myContainer navbar navbar-expand-lg navbar-light">
-  <a class="header__logo" href="/"><span>O</span>nline <span>A</span>uction</a>
-  {{! <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button> }}
-
+<nav class="myContainer navbar navbar-expand-lg navbar-light px-0">
+  <a class="header__logo flex flex-jc-sb flex-ai-c" href="/">
+    <img class="img-fluid" src="public/images/logo-simple.svg" alt="logo" />
+    <p class="m-0">
+      <span>E</span>xpress
+      <span>A</span>uction
+    </p>
+  </a>
   <div class="header__content">
-    <form class="form-inline my-2 my-lg-0">
+    {{! <div id="searchdropdown" class="dropdown nav-item form-inline ml-auto show">
+      
+      <div id="resultbar" class="dropdown-menu-spec dropdown-with-icons"></div>
+
+    </div> }}
+    <form
+      style="margin-left: auto;"
+      id="search-area"
+      class="form-inline my-2 my-lg-0"
+      method="GET"
+      action="/product/search"
+    >
       <input
+        id="search-bar"
         class="header__input form-control"
         type="search"
         placeholder="Search"
@@ -24,12 +30,11 @@
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
     </form>
-    <ul class="navbar-nav header-top-level-menu">
-
-      <li class="nav-item">
-        <a href="/login" class="btn mx-2 header__btn" role="button">Sign in</a>
-      </li>
-    </ul>
-
+    <a
+      style="margin-left: auto;"
+      href="/login"
+      class="btn header__btn"
+      role="button"
+    >Sign in</a>
   </div>
 </nav>

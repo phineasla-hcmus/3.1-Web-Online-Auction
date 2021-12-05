@@ -5,7 +5,7 @@
 	</defs>
 	<style>
 		tspan { white-space:pre }
-		.shp0 { fill: #ffffff } 
+		.shp0 { fill: transparent } 
 	</style>
 	<g >
 		<path class="shp0" d="M1500 1500L0 1500L0 0L1500 0L1500 1500Z" />
