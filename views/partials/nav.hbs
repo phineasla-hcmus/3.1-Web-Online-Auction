@@ -1,48 +1,35 @@
-<nav class="container navbar navbar-expand-lg navbar-light header">
-  {{!-- <a class="navbar-brand header__logo" href="#">
-    <i class="fa fa-gavel fa-lg" aria-hidden="true"></i>
-  </a> --}}
+<nav class="myContainer navbar navbar-expand-lg navbar-light">
   <a class="header__logo" href="/"><span>O</span>nline <span>A</span>uction</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  {{! <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
-  </button>
+  </button> }}
 
   <div class="header__content">
-    <ul class="navbar-nav header-top-level-menu">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fa fa-home mr-2" aria-hidden="true"></i>Home
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-th-list" aria-hidden="true"></i>
-          Categories</a>
-        <ul class="header-second-level-menu">
-          {{#each parentCategories as |parent|}}
-          <li>
-            <a href="#">{{parent.catName}}</a>
-            <ul class="header-third-level-menu">
-              {{#each ../childCategories as |child|}}
-              {{#if (isChildOf child.parentId parent.catId)}}
-              <li><a href="#">{{child.catName}}</a></li>
-              {{/if}}
-              {{/each}}
-            </ul>
-          </li>
-          {{/each}}
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="/login" class="btn mx-2 header__btn" role="button">Sign in</a>
-      </li>
-    </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="header__input form-control" type="search" placeholder="Search" aria-label="Search" />
+      <input
+        class="header__input form-control"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
       <button class="btn header__btn header__search" type="submit">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
     </form>
+    <ul class="navbar-nav header-top-level-menu">
+
+      <li class="nav-item">
+        <a href="/login" class="btn mx-2 header__btn" role="button">Sign in</a>
+      </li>
+    </ul>
+
   </div>
 </nav>

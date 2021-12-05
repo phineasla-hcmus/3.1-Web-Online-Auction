@@ -1,155 +1,194 @@
 <section class="products">
-  <div class="container container--py">
-    <div class="products__near--end">
-      <h1 class="products__title">Top 5 products near the end</h1>
-      <div class="products__content">
-        {{#each this.nearEndList}}
-          <div class="products__item">
-            <div class="products__item--content">
-              <figure class="products__item--img">
-                <a
-                  href="#"
-                  class="popover-test"
-                  title="Popover title"
-                  data-content="Popover body content is set in this attribute."
-                  data-trigger="hover"
-                ><img
-                    src={{proImg}}
-                    class="img-fluid"
-                    alt=""
-                  />
-                </a>
-                <div class="products__item--price" style="margin-bottom: 10px;">
-                  <span><i class="fa fa-usd" aria-hidden="true"></i> {{currentPrice}}</span>
-                </div>
-
-                <div class="products__item--img--preview">
-                  <a href="#">Quick view</a>
-                </div>
-              </figure>
-
-              <div class="products__item--wrapper">
-                <div>
-                  <h3 class="name">
-                  {{proName}}
-                </h3>
-                <small><i class="fa fa-calendar" aria-hidden="true"></i> {{parseDate postDate}}</small>
-                <p class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i> {{getRemainingTime expiredDate}} days left</p>
-                <p>
-                  <i class="fa fa-trophy" aria-hidden="true"></i> {{bidderName}}
-                </p>
-                </div>
-                <ul>
-                  <li><i class="fa fa-gavel" aria-hidden="true"></i>
-                    {{numberOfBids}}
-                  </li>
-                  <li><a href="#">Bid now</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        {{/each}}
+  <div class="myContainer myContainer--py row">
+    <div class="col-sm-2 px-0">
+      <ul class="list-group list-group-flush header-second-level-menu">
+          {{#each parentCategories as |parent|}}
+          <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
+            <a  href="#">
+            {{parent.catName}}
+            </a>
+            <ul class="header-third-level-menu">
+              {{#each ../childCategories as |child|}}
+              {{#if (isChildOf child.parentId parent.catId)}}
+              <li><a href="#">{{child.catName}}</a></li>
+              {{/if}}
+              {{/each}}
+            </ul>
+          </li>
+          {{/each}}
+        </ul>
     </div>
-    <div class="products__most--bids">
-      <h1 class="products__title">Top 5 products with the most bids</h1>
-      <div class="products__content">
-        {{#each this.mostBidsList}}
-          <div class="products__item">
-            <div class="products__item--content">
-              <figure class="products__item--img">
-                <a
-                  href="#"
-                  class="popover-test"
-                  title="Popover title"
-                  data-content="Popover body content is set in this attribute."
-                  data-trigger="hover"
-                ><img
-                    src={{proImg}}
-                    class="img-fluid"
-                    alt=""
-                  />
-                </a>
-                <div class="products__item--price" style="margin-bottom: 10px;">
-                  <span><i class="fa fa-usd" aria-hidden="true"></i> {{currentPrice}}</span>
-                </div>
+    <div class="products__wrapper col-sm-10">
+      <div class="products__near--end">
+        <h1 class="products__title">Top 5 products near the end</h1>
+        <div class="products__content">
+          {{#each this.nearEndList}}
+            <div class="products__item">
+              <div class="products__item--content">
+                <figure class="products__item--img">
+                  <a
+                    href="#"
+                    class="popover-test"
+                    title="Popover title"
+                    data-content="Popover body content is set in this attribute."
+                    data-trigger="hover"
+                  ><img src={{proImg}} class="img-fluid" alt="" />
+                  </a>
+                  <div class="products__item--price">
+                    <span><i class="fa fa-usd" aria-hidden="true"></i>
+                      {{currentPrice}}</span>
+                  </div>
 
-                <div class="products__item--img--preview">
-                  <a href="#">Quick view</a>
-                </div>
-              </figure>
+                  <div class="products__item--img--preview">
+                    <a href="#">Quick view</a>
+                  </div>
+                </figure>
 
-              <div class="products__item--wrapper">
-                <div>
-                  <h3 class="name">
-                  {{proName}}
-                </h3>
-                <small><i class="fa fa-calendar" aria-hidden="true"></i> {{parseDate postDate}}</small>
-                <p class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i> {{getRemainingTime expiredDate}} days left</p>
-                <p>
-                  <i class="fa fa-trophy" aria-hidden="true"></i> {{bidderName}}
-                </p>
+                <div class="products__item--wrapper">
+                  <div>
+                    <h3 class="name">
+                      {{proName}}
+                    </h3>
+                    <small><i class="fa fa-calendar" aria-hidden="true"></i>
+                      {{parseDate postDate}}</small>
+                    <p class="text-danger"><i
+                        class="fa fa-clock-o"
+                        aria-hidden="true"
+                      ></i>
+                      {{getRemainingTime expiredDate}}
+                      days left</p>
+                    <p>
+                      <i class="fa fa-trophy" aria-hidden="true"></i>
+                      {{bidderName}}
+                    </p>
+                  </div>
+                  <ul>
+                    <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                      {{numberOfBids}}
+                    </li>
+                    <li><a href="#">Bid now</a></li>
+                  </ul>
                 </div>
-                <ul>
-                  <li><i class="fa fa-gavel" aria-hidden="true"></i>
-                    {{numberOfBids}}
-                  </li>
-                  <li><a href="#">Bid now</a></li>
-                </ul>
               </div>
             </div>
-          </div>
-        {{/each}}
+          {{/each}}
         </div>
-    </div>
-    <div class="products__highest--price">
-      <h1 class="products__title">Top 5 products with the highest price</h1>
-      <div class="products__content">
-        {{#each this.highestPriceList}}
-          <div class="products__item">
-            <div class="products__item--content">
-              <figure class="products__item--img">
-                <a
-                  href="#"
-                  class="popover-test"
-                  title="Popover title"
-                  data-content="Popover body content is set in this attribute."
-                  data-trigger="hover"
-                ><img
-                    src={{proImg}}
-                    class="img-fluid"
-                    alt=""
-                  />
-                </a>
-                <div class="products__item--price" style="margin-bottom: 10px;">
-                  <span><i class="fa fa-usd" aria-hidden="true"></i> {{currentPrice}}</span>
-                </div>
+      </div>
+      <div class="products__most--bids">
+        <h1 class="products__title">Top 5 products with the most bids</h1>
+        <div class="products__content">
+          {{#each this.mostBidsList}}
+            <div class="products__item">
+              <div class="products__item--content">
+                <figure class="products__item--img">
+                  <a
+                    href="#"
+                    class="popover-test"
+                    title="Popover title"
+                    data-content="Popover body content is set in this attribute."
+                    data-trigger="hover"
+                  ><img src={{proImg}} class="img-fluid" alt="" />
+                  </a>
+                  <div
+                    class="products__item--price"
+                    style="margin-bottom: 10px;"
+                  >
+                    <span><i class="fa fa-usd" aria-hidden="true"></i>
+                      {{currentPrice}}</span>
+                  </div>
 
-                <div class="products__item--img--preview">
-                  <a href="#">Quick view</a>
-                </div>
-              </figure>
+                  <div class="products__item--img--preview">
+                    <a href="#">Quick view</a>
+                  </div>
+                </figure>
 
-              <div class="products__item--wrapper">
-                <div>
-                  <h3 class="name">
-                  {{proName}}
-                </h3>
-                <small><i class="fa fa-calendar" aria-hidden="true"></i> {{parseDate postDate}}</small>
-                <p class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i> {{getRemainingTime expiredDate}} days left</p>
-                <p>
-                  <i class="fa fa-trophy" aria-hidden="true"></i> {{bidderName}}
-                </p>
+                <div class="products__item--wrapper">
+                  <div>
+                    <h3 class="name">
+                      {{proName}}
+                    </h3>
+                    <small><i class="fa fa-calendar" aria-hidden="true"></i>
+                      {{parseDate postDate}}</small>
+                    <p class="text-danger"><i
+                        class="fa fa-clock-o"
+                        aria-hidden="true"
+                      ></i>
+                      {{getRemainingTime expiredDate}}
+                      days left</p>
+                    <p>
+                      <i class="fa fa-trophy" aria-hidden="true"></i>
+                      {{bidderName}}
+                    </p>
+                  </div>
+                  <ul>
+                    <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                      {{numberOfBids}}
+                    </li>
+                    <li><a href="#">Bid now</a></li>
+                  </ul>
                 </div>
-                <ul>
-                  <li><i class="fa fa-gavel" aria-hidden="true"></i>
-                    {{numberOfBids}}
-                  </li>
-                  <li><a href="#">Bid now</a></li>
-                </ul>
               </div>
             </div>
-          </div>
-        {{/each}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="products__highest--price">
+        <h1 class="products__title">Top 5 products with the highest price</h1>
+        <div class="products__content">
+          {{#each this.highestPriceList}}
+            <div class="products__item">
+              <div class="products__item--content">
+                <figure class="products__item--img">
+                  <a
+                    href="#"
+                    class="popover-test"
+                    title="Popover title"
+                    data-content="Popover body content is set in this attribute."
+                    data-trigger="hover"
+                  ><img src={{proImg}} class="img-fluid" alt="" />
+                  </a>
+                  <div
+                    class="products__item--price"
+                    style="margin-bottom: 10px;"
+                  >
+                    <span><i class="fa fa-usd" aria-hidden="true"></i>
+                      {{currentPrice}}</span>
+                  </div>
+
+                  <div class="products__item--img--preview">
+                    <a href="#">Quick view</a>
+                  </div>
+                </figure>
+
+                <div class="products__item--wrapper">
+                  <div>
+                    <h3 class="name">
+                      {{proName}}
+                    </h3>
+                    <small><i class="fa fa-calendar" aria-hidden="true"></i>
+                      {{parseDate postDate}}</small>
+                    <p class="text-danger"><i
+                        class="fa fa-clock-o"
+                        aria-hidden="true"
+                      ></i>
+                      {{getRemainingTime expiredDate}}
+                      days left</p>
+                    <p>
+                      <i class="fa fa-trophy" aria-hidden="true"></i>
+                      {{bidderName}}
+                    </p>
+                  </div>
+                  <ul>
+                    <li><i class="fa fa-gavel" aria-hidden="true"></i>
+                      {{numberOfBids}}
+                    </li>
+                    <li><a href="#">Bid now</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
       </div>
     </div>
   </div>

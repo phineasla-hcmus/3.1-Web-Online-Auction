@@ -52,52 +52,53 @@ html {
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
-.container {
+.myContainer {
   max-width: 75rem;
   margin: 0 auto;
 }
-.container--pall {
+.myContainer--pall {
   padding-top: 4.375rem;
   padding-bottom: 4.375rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
 @media (min-width: 64em) {
-  .container--pall {
+  .myContainer--pall {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
-.container--py {
+.myContainer--py {
   padding-top: 4.375rem;
   padding-bottom: 4.375rem;
 }
-.container--px {
+.myContainer--px {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
-.container--pt {
+.myContainer--pt {
   padding-top: 4.375rem;
 }
 @media (min-width: 64em) {
-  .container--pt {
+  .myContainer--pt {
     padding-top: 6rem;
   }
 }
-.container--pr {
+.myContainer--pr {
   padding-right: 1.5rem;
 }
-.container--pb {
+.myContainer--pb {
   padding-bottom: 4.375rem;
 }
 @media (min-width: 64em) {
-  .container--pb {
+  .myContainer--pb {
     padding-bottom: 6rem;
   }
 }
-.container--pl {
+.myContainer--pl {
   padding-left: 1.5rem;
 }
 
@@ -140,6 +141,7 @@ body {
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+  width: 20%;
 }
 .header__logo:hover {
   text-decoration: none;
@@ -151,7 +153,10 @@ body {
 }
 .header__content {
   display: flex;
-  margin-left: auto;
+  width: 80%;
+}
+.header__content form {
+  width: 80%;
 }
 .header__btn {
   background-color: #fdb03d;
@@ -160,7 +165,8 @@ body {
 }
 .header__input {
   border-radius: 0.25rem 0 0 0.25rem;
-  height: 100%;
+  height: fit-content;
+  width: 80% !important;
 }
 .header__search {
   border-radius: 0 0.25rem 0.25rem 0;
@@ -177,21 +183,10 @@ body {
 .header-top-level-menu > li:hover > ul {
   display: inline;
 }
-.header-second-level-menu {
-  position: absolute;
-  top: 40px;
-  left: 0.5rem;
-  width: 150px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: none;
-  z-index: 1;
-}
 .header-second-level-menu > li {
-  position: relative;
-  height: 30px;
+  position: initial;
   background: white;
+  padding-left: 15px;
 }
 .header-second-level-menu > li > a {
   color: black;
@@ -234,7 +229,7 @@ body {
 }
 .products__content {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 .products__item--content {

@@ -4,13 +4,11 @@
   }
   &__content {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
   &__item {
     &--content {
-      // padding: 20px 0px;
-      // height: 100%;
       background-color: #fff;
       display: block;
       position: relative;
