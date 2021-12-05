@@ -85,3 +85,35 @@ body {
     display: none;
   }
 }
+
+// customize owl carousel
+.owl-carousel .owl-nav button {
+  &.owl-prev,
+  &.owl-next {
+    font-size: 2rem;
+    // transition: color 300ms ease-in-out;
+    &:hover {
+      background: none;
+      color: $darkBlue;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.owl-theme .owl-dots .owl-dot {
+  &:hover {
+    span {
+      background: $darkYellow;
+    }
+  }
+  &.active {
+    span {
+      background: $darkYellow;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}

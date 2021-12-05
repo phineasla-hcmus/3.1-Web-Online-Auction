@@ -4,7 +4,7 @@ export default {
     const sql = `
     SELECT * FROM products
     ORDER BY expiredDate ASC
-    LIMIT 3;`;
+    LIMIT 5;`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -12,7 +12,7 @@ export default {
     const sql = `
     SELECT * FROM products
     ORDER BY numberOfBids DESC
-    LIMIT 3;`;
+    LIMIT 5;`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -20,7 +20,7 @@ export default {
     const sql = `
     SELECT * FROM products
     ORDER BY currentPrice DESC
-    LIMIT 3;`;
+    LIMIT 5;`;
     const raw = await db.raw(sql);
     return raw[0];
   },
