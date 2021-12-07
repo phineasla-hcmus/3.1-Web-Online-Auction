@@ -15,13 +15,14 @@ CREATE TABLE `roles` (
 -- ----------------------------
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(30) NOT NULL,
+  `email` varchar(60) NOT NULL UNIQUE,
+  `username` varchar(30),
   `password` char(60) NOT NULL,
-  `fullName` varchar(30) NOT NULL,
+  `firstname` varchar(40) NOT NULL,
+  `lastname` varchar(40) NOT NULL,
   `dob` date NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `roleId` tinyint unsigned,
+  `address` varchar(100) NOT NULL,
+  `roleId` tinyint unsigned NOT NULL,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
