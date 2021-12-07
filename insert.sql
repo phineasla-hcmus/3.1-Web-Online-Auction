@@ -1,3 +1,10 @@
+USE `onlineauction`;
+
+insert into roles values(1, 'Unverified');
+insert into roles values(2, 'Bidder');
+insert into roles values(3, 'Seller');
+insert into roles values(4, 'Admin');
+
 insert into categories values(1, 'Electronics', null);
 insert into categories values(2, 'Furniture', null);
 insert into categories values(3, 'Houseware', null);

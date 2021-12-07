@@ -1,5 +1,14 @@
-CREATE DATABASE  IF NOT EXISTS `onlineauction`;
+CREATE DATABASE IF NOT EXISTS `onlineauction`;
 USE `onlineauction`;
+
+-- ----------------------------
+-- Table structure for roles
+-- ----------------------------
+CREATE TABLE `roles` (
+  `roleId` tinyint unsigned NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(20) NOT NULL,
+  PRIMARY KEY (`roleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for users
@@ -12,8 +21,9 @@ CREATE TABLE `users` (
   `dob` date NOT NULL,
   `address` varchar(50) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `permission` tinyint unsigned,
-  PRIMARY KEY (`userId`)
+  `roleId` tinyint unsigned,
+  PRIMARY KEY (`userId`),
+  CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

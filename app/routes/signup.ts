@@ -1,9 +1,9 @@
-import { NextFunction, Response, Router } from 'express';
-import { body, check, validationResult } from 'express-validator';
+import { Router } from 'express';
+import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
-import { randomBytes } from 'crypto';
 
 import { addUser, findUserByEmail, User } from '../models/user.model';
+import logger from '../utils/logger';
 
 const signUpRouter = Router();
 
@@ -57,8 +57,8 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
     hashedPassword
   );
 
+  logger.info(result);
   // Send OTP to user
-
   res.redirect('/auth/otp');
 });
 
