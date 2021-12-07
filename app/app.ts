@@ -8,6 +8,8 @@ import morgan from 'morgan';
 import hbs from './utils/hbs';
 import knex from './config/database';
 import { SESSION_SECRET } from './config/secret';
+// Need import for passport to work
+import './config/passport';
 
 import signUpRouter from './routes/signup';
 import loginRouter from './routes/login';

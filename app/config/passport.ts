@@ -1,33 +1,30 @@
-import passport from "passport";
-import passportLocal from "passport-local";
-import passportFacebook from "passport-facebook";
+import passport from 'passport';
+import passportLocal from 'passport-local';
+import passportFacebook from 'passport-facebook';
+
+import { findUserByEmail, findUserById } from '../models/user.model';
+import { compare } from 'bcrypt';
 
 const LocalStrategy = passportLocal.Strategy;
+const FacebookStrategy = passportFacebook.Strategy;
 
+passport.serializeUser<any, any>((req, user, done) => done(undefined, user));
 
-passport.serializeUser<any, any>((req, user, done) => {
-    done(undefined, user);
-});
-
-passport.deserializeUser((id, done) => {
-    // User.findById(id, (err: NativeError, user: UserDocument) => done(err, user));
-});
+passport.deserializeUser((id: string, done) => done(null, findUserById(id)));
 
 /**
  * Sign in using Email and Password.
  */
- passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-    // User.findOne({ email: email.toLowerCase() }, (err: NativeError, user: UserDocument) => {
-    //     if (err) { return done(err); }
-    //     if (!user) {
-    //         return done(undefined, false, { message: `Email ${email} not found.` });
-    //     }
-    //     user.comparePassword(password, (err: Error, isMatch: boolean) => {
-    //         if (err) { return done(err); }
-    //         if (isMatch) {
-    //             return done(undefined, user);
-    //         }
-    //         return done(undefined, false, { message: "Invalid email or password." });
-    //     });
-    // });
-}));
+passport.use(
+  new LocalStrategy(
+    { usernameField: 'email', passReqToCallback: true },
+    async (req, email, password, done) => {
+      const user = await findUserByEmail(email);
+      if (!user) {
+        return done(undefined, false);
+      }
+      const isMatch = await compare(password, user.password);
+      return isMatch ? done(undefined, user) : done(undefined, false);
+    }
+  )
+);

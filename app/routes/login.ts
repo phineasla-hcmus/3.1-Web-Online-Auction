@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 
 const loginRouter = Router();
 
@@ -9,8 +10,11 @@ loginRouter.get('/', (req, res) => {
   });
 });
 
-loginRouter.post('/', (req, res) => {
-  // Authentication stuff here
-});
+loginRouter.post(
+  '/',
+  passport.authenticate('local', {
+    failureMessage: 'Invalid email or password',
+  })
+);
 
 export default loginRouter;

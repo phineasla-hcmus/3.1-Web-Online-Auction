@@ -5,6 +5,7 @@ import { RoleType } from './role.model';
 export interface User {
   userId: number;
   email: string;
+  password: string;
   username: string;
   fullname: string;
   dob: Date;
@@ -13,15 +14,19 @@ export interface User {
 }
 
 export function findUserByEmail(email: string) {
-  return knex<User>('users').where('email', email).first() || null;
+  return knex<User>('users').where('email', email).first();
+}
+
+export function findUserById(id: string) {
+  return knex<User>('users').where('userId', id).first();
 }
 
 /**
  * Insert new user to the database
- * @note 
+ * @note
  * - `roleId = 1` (Unverified user)
  * - `password` must be hashed
- * @param user 
+ * @param user
  * @returns userId
  */
 export function addUser(user: {
