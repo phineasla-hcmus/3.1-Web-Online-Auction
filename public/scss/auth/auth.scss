@@ -1,11 +1,12 @@
-@import "../_variables";
+@import '../_variables';
 
 .logo {
   width: auto;
   height: 20%;
 }
 
-.login-wrap, .signup-wrap {
+.login-wrap,
+.signup-wrap {
   position: relative;
   background: white;
   border-radius: 5px;
@@ -75,7 +76,7 @@
   }
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   margin-right: 5px;
 }
 
