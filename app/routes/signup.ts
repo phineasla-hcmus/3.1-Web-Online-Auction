@@ -21,6 +21,7 @@ const signUpValidator = [
     .isEmail()
     .custom(async (email) => {
       const user = await findUserByEmail(email);
+      logger.debug(JSON.stringify(user));
       if (user) {
         throw new Error('E-mail already in use');
       }
@@ -51,13 +52,19 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
   }
   // Insert user to DB
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const result = await addUser(
-    req.body.email,
-    req.body.username,
-    hashedPassword
-  );
+  const reqBody = req.body;
+  const result = await addUser({
+    email: reqBody.email,
+    username: reqBody.username,
+    password: hashedPassword,
+    firstname: reqBody.firstName,
+    lastname: reqBody.lastName,
+    dob: new Date(reqBody.dob),
+    address: reqBody.address,
+  });
 
-  logger.info(result);
+  logger.debug(JSON.stringify(reqBody));
+  logger.debug('Insert result: ' + result);
   // Send OTP to user
   res.redirect('/auth/otp');
 });

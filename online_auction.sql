@@ -22,7 +22,7 @@ CREATE TABLE `users` (
   `lastname` varchar(40) NOT NULL,
   `dob` date NOT NULL,
   `address` varchar(100) NOT NULL,
-  `roleId` tinyint unsigned NOT NULL,
+  `roleId` tinyint unsigned DEFAULT 1,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

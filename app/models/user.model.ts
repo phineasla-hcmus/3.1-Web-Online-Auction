@@ -16,16 +16,22 @@ export function findUserByEmail(email: string) {
   return knex<User>('users').where('email', email).first() || null;
 }
 
-export function addUser(
-  email: string,
-  username: string,
-  hashedPassword: string,
-  roleId = RoleType.Unverified
-) {
-  return knex('users').insert({
-    email: email,
-    username: username,
-    password: hashedPassword,
-    roleId: roleId,
-  });
+/**
+ * Insert new user to the database
+ * @note 
+ * - `roleId = 1` (Unverified user)
+ * - `password` must be hashed
+ * @param user 
+ * @returns userId
+ */
+export function addUser(user: {
+  email: string;
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  dob: Date;
+  address: string;
+}) {
+  return knex('users').insert(user);
 }
