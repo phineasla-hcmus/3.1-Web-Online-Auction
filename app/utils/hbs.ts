@@ -1,8 +1,8 @@
-import { create } from "express-handlebars";
+import { create } from 'express-handlebars';
 
 const hbs = create({
-  defaultLayout: "layout.hbs",
-  extname: ".hbs",
+  defaultLayout: 'layout.hbs',
+  extname: '.hbs',
   helpers: {
     isChildOf,
     parseDate,
@@ -34,7 +34,7 @@ function getRemainingTime(date: string) {
  * <body>
  *  {{{sections.script}}}
  * </body>
- * 
+ *
  * "login.hbs"
  * <p>Custom script section</p>
  * {{#section "script"}}
@@ -42,7 +42,7 @@ function getRemainingTime(date: string) {
  * {{/section}}
  */
 function section(this: any, name: string, options: any) {
-  if (!this.sections) this.section = {};
+  if (!this.section) this.section = {};
   this.section[name] = options.fn(this);
   return null;
 }

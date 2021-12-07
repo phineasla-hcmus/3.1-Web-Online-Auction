@@ -11,9 +11,6 @@
   background: white;
   border-radius: 5px;
   box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-  h3 {
-    font-weight: 300;
-  }
 }
 
 .form-control {
@@ -30,25 +27,31 @@
     box-shadow: none;
     border: 1px solid $primary;
   }
+  outline: none;
 }
 
-.form-group {
-  position: relative;
-  .icon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 48px;
-    height: 48px;
-    background: $primary;
-    font-size: 20px;
-    border-radius: 5px 0 0 5px;
-    span {
-      color: white;
-    }
-  }
+.icon {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: white;
+  // color: white;
+  font-size: 20px;
+  border-radius: 5px 0 0 5px;
+}
+
+.form-control:not(select) {
+  padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+  height: 52px;
+  padding-left: 0.5rem;
+}
+
+.form-control:focus {
+  box-shadow: none;
 }
 
 .social-media {

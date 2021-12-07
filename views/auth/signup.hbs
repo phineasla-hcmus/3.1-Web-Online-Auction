@@ -1,4 +1,4 @@
-<section class="signup">
+{{! <section class="signup">
   <div class="row justify-content-center m-0">
     <div class="col-md-7 col-lg-5">
       <div class="signup-wrap p-4 p-md-5">
@@ -70,4 +70,187 @@
       </div>
     </div>
   </div>
-</section>
+</section> }}
+
+<div class='container'>
+  <div class='row mt-4 align-items-center'>
+    <div class='col-md-5 pr-lg-5 mb-5 mb-md-0'>
+      <img
+        src='public/images/undraw_window_shopping_re_0kbm.svg'
+        class='img-fluid mb-3 d-none d-md-block'
+      />
+      <h1>Sign up</h1>
+      <p class='font-italic text-muted'>Logo created by freepik -
+        <a href='https://www.freepik.com/vectors/logo'>
+          www.freepik.com</a>
+      </p>
+    </div>
+
+    <!-- Sign up Form -->
+    <div class='col-md-7 col-lg-6 ml-auto'>
+      <form action='/signup' method='POST'>
+        <div class='row'>
+
+          <!-- First Name -->
+          <div class='input-group col-lg-6 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-user'></span>
+            </div>
+            <input
+              id='firstName'
+              type='firstName'
+              name='firstName'
+              placeholder='First Name'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Last Name -->
+          <div class='input-group col-lg-6 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-user'></span>
+            </div>
+            <input
+              id='lastName'
+              type='lastName'
+              name='lastName'
+              placeholder='Last Name'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Username -->
+          <div class='input-group col-lg-6 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-hashtag'></span>
+            </div>
+            <input
+              id='username'
+              type='username'
+              name='username'
+              placeholder='Username'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Date of Birth -->
+          <div class='input-group col-lg-6 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-calendar'></span>
+            </div>
+            <input
+              id='dob'
+              type='dob'
+              name='dob'
+              placeholder='Date of Birth '
+              class='form-control border-left-0 border-md'
+              data-provide='datepicker'
+            />
+          </div>
+
+          <!-- Email -->
+          <div class='input-group col-lg-12 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-envelope'></span>
+            </div>
+            <input
+              id='email'
+              type='email'
+              name='email'
+              placeholder='Email'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Address -->
+          <div class='input-group col-lg-12 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-map-marker'></span>
+            </div>
+            <input
+              id='address'
+              type='address'
+              name='address'
+              placeholder='Address'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Password -->
+          <div class='input-group col-lg-12 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-lock'></span>
+            </div>
+            <input
+              id='password'
+              type='password'
+              name='password'
+              placeholder='Password'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          {{! <!-- Password Confirmation -->
+          <div class='input-group col-lg-6 mb-4'>
+            <div class='input-group-prepend'>
+              <span
+                class='input-group-text px-4'
+              >
+                <i class='fa fa-lock text-muted'></i>
+              </span>
+            </div>
+            <input
+              id='passwordConfirmation'
+              type='text'
+              name='passwordConfirmation'
+              placeholder='Confirm Password'
+              class='form-control border-left-0 border-md'
+            />
+          </div> }}
+
+          <!-- Submit Button -->
+          <div class='form-group col-lg-12 mx-auto mb-0'>
+            <a href='#' class='btn btn-primary btn-block py-2'>
+              <span class='font-weight-bold'>Create your account</span>
+            </a>
+          </div>
+
+          <!-- Divider Text -->
+          <div
+            class='form-group col-lg-12 mx-auto d-flex align-items-center my-4'
+          >
+            <div class='border-bottom w-100 ml-5'></div>
+            <span
+              class='px-2 small text-muted font-weight-bold text-muted'
+            >OR</span>
+            <div class='border-bottom w-100 mr-5'></div>
+          </div>
+
+          <!-- Already Registered -->
+          <div class='text-center w-100'>
+            <p class='text-muted font-weight-bold'>Already Registered?
+              <a href='/login' class='text-primary ml-2'>Login</a></p>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{#section 'stylesheets'}}
+  <link
+    rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css'
+    integrity='sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=='
+    crossorigin='anonymous'
+  />
+{{/section}}
+
+{{#section 'scripts'}}
+  <script
+    src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js'
+    integrity='sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=='
+    crossorigin='anonymous'
+  ></script>
+{{/section}}

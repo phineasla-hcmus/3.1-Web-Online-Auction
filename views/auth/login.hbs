@@ -1,68 +1,73 @@
-<section class="login">
-  <div class="row justify-content-center m-0">
-    <div class="col-md-7 col-lg-5">
-      <div class="login-wrap p-4 p-md-5">
-        <div class="d-flex">
-          <div class="w-100">
-            <h3 class="mb-4">Sign In</h3>
+<section class='login'>
+  <div class='row justify-content-center m-0'>
+    <div class='col-md-7 col-lg-5'>
+      <div class='login-wrap p-4 p-md-5'>
+        <div class='d-flex'>
+          <div class='w-100'>
+            <h3 class='mb-4'>Sign In</h3>
           </div>
-          <div class="w-100">
-            <p class="social-media d-flex justify-content-end">
+          <div class='w-100'>
+            <p class='social-media d-flex justify-content-end'>
               <a
-                href="/error"
-                class="social-icon d-flex align-items-center justify-content-center"
-              ><span class="fa fa-facebook"></span></a>
+                href='/error'
+                class='social-icon d-flex align-items-center justify-content-center'
+              ><span class='fa fa-facebook'></span></a>
               <a
-                href="/error"
-                class="social-icon d-flex align-items-center justify-content-center"
-              ><span class="fa fa-google"></span></a>
+                href='/error'
+                class='social-icon d-flex align-items-center justify-content-center'
+              ><span class='fa fa-google'></span></a>
             </p>
           </div>
         </div>
-        <form action="/login" method="POST">
-          <div class="form-group">
-            <div
-              class="icon d-flex align-items-center justify-content-center"
-            ><span class="fa fa-user"></span></div>
-            <input
-              type="text"
-              class="form-control rounded-left"
-              placeholder="Username"
-              name="username"
-              id="username"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <div
-              class="icon d-flex align-items-center justify-content-center"
-            ><span class="fa fa-lock"></span></div>
-            <input
-              type="password"
-              class="form-control rounded-left"
-              placeholder="Password"
-              name="password"
-              id="password"
-              required
-            />
-          </div>
-          <div class="form-group d-flex align-items-center">
-            <div class="w-100">
-              <input type="checkbox" id="rememberMe" />
-              <label for="rememberMe">Remember me</label>
+        <!-- Login Form -->
+        <form action='/login' method='POST'>
+
+          <!-- Email -->
+          <div class='input-group col-lg-12 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-envelope'></span>
             </div>
-            <div class="w-100 d-flex justify-content-end">
+            <input
+              id='email'
+              type='email'
+              name='email'
+              placeholder='Email'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Password -->
+          <div class='input-group col-lg-12 mb-4'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text icon fa fa-lock'></span>
+            </div>
+            <input
+              id='password'
+              type='password'
+              name='password'
+              placeholder='Password'
+              class='form-control border-left-0 border-md'
+            />
+          </div>
+
+          <!-- Remember me -->
+          <div class='form-group d-flex align-items-center'>
+            <div class='w-100'>
+              <input type='checkbox' id='rememberMe' />
+              <label for='rememberMe'>Remember me</label>
+            </div>
+            <div class='w-100 d-flex justify-content-end'>
               <button
-                type="submit"
-                class="btn btn-primary rounded submit"
+                type='submit'
+                class='btn btn-primary rounded submit'
               >Login</button>
             </div>
           </div>
-          <div class="form-group mt-4">
-            <div class="w-100 text-center">
-              <p class="mb-1">Don't have an account?
-                <a href="/signup">Sign Up</a></p>
-              <p><a href="/error">Forgot Password</a></p>
+          <div class='form-group mt-4'>
+            <div class='w-100 text-center'>
+              <p class='mb-1'>Don't have an account?
+                <a href='/signup'>Sign Up</a></p>
+              <p><a href='/error'>Forgot Password</a></p>
             </div>
           </div>
         </form>
