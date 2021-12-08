@@ -1,40 +1,94 @@
-<nav class="myContainer navbar navbar-expand-lg navbar-light px-0">
-  <a class="header__logo flex flex-jc-sb flex-ai-c" href="/">
-    <img class="img-fluid" src="public/images/logo-simple.svg" alt="logo" />
-    <p class="m-0">
+<nav class='myContainer navbar navbar-expand-lg navbar-light px-0'>
+  <a class='header__logo hide-for-mobile flex flex-ai-c' href='/'>
+    <img class='img-fluid' src='public/images/logo-simple.svg' alt='logo' />
+    <p class='m-0'>
       <span>E</span>xpress
       <span>A</span>uction
     </p>
   </a>
-  <div class="header__content">
+
+  <div class='header__content'>
     {{! <div id="searchdropdown" class="dropdown nav-item form-inline ml-auto show">
       
       <div id="resultbar" class="dropdown-menu-spec dropdown-with-icons"></div>
 
     </div> }}
+    <a style='width: 4rem' class='hide-for-desktop' href='/'>
+      <img
+        class='img-fluid'
+        src='public/images/logo-simple.svg'
+        alt='logo'
+      /></a>
     <form
-      style="margin-left: auto;"
-      id="search-area"
-      class="form-inline my-2 my-lg-0"
-      method="GET"
-      action="/product/search"
+      style='margin-left: auto;'
+      id='search-area'
+      class='form-inline my-2 my-lg-0'
+      method='GET'
+      action='/product/search'
     >
       <input
-        id="search-bar"
-        class="header__input form-control"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
+        id='search-bar'
+        class='header__input form-control'
+        type='search'
+        placeholder='Search'
+        aria-label='Search'
       />
-      <button class="btn header__btn header__search" type="submit">
-        <i class="fa fa-search" aria-hidden="true"></i>
+      <button class='btn header__btn header__search' type='submit'>
+        <i class='fa fa-search' aria-hidden='true'></i>
       </button>
     </form>
     <a
-      style="margin-left: auto;"
-      href="/login"
-      class="btn header__btn"
-      role="button"
+      style='margin-left: auto;'
+      href='/login'
+      class='btn header__btn signin my-2 my-lg-0 hide-for-mobile'
+      role='button'
     >Sign in</a>
+    <div class='overlay has-fade'></div>
+    <a id='btnHamburger' href='#' class='header__toggle hide-for-desktop'>
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+  <div class='header__menu has-fade'>
+    <ul>
+      <li class='header__menu--item'>
+        <a href='#'>Categories
+          <i class='fa fa-chevron-down' aria-hidden='true'></i></a>
+        <ul class='header__dropdown'>
+          {{#each parentCategories as |parent|}}
+            <li class='header__menu--item'>
+              <a href='#'>{{parent.catName}}
+                <i
+                  class='fa fa-chevron-down'
+                  aria-hidden='true'
+                ></i>
+              </a>
+              <ul style="padding: 0;" class="header__dropdown">
+                {{#each ../childCategories as |child|}}
+                  {{#if (isChildOf child.parentId parent.catId)}}
+                    <li><a href="#">{{child.catName}}</a></li>
+                  {{/if}}
+                {{/each}}
+              </ul>
+            </li>
+          {{/each}}
+
+          {{! <li><a href='#'>Pricing</a></li>
+          <li><a href='#'>Marketplace</a></li>
+          <li><a href='#'>Features</a></li>
+          <li><a href='#'>Integrations</a></li> }}
+        </ul>
+      </li>
+      <li class='header__menu--item'>
+        <a
+          style='margin-left: auto;'
+          href='/login'
+          class='btn header__btn my-2 my-lg-0'
+          role='button'
+        >Sign in</a>
+      </li>
+    </ul>
+
   </div>
 </nav>

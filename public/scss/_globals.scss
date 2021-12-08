@@ -12,7 +12,14 @@ html {
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  &.noscroll {
+    overflow: hidden;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 // Spacing
@@ -73,15 +80,15 @@ body {
 
 // Visibility
 .hide-for-mobile {
-  // hide for tablet and mobile
-  @include breakpoint-down(medium) {
+  // hide for mobile
+  @include breakpoint-down(small) {
     display: none;
   }
 }
 
 .hide-for-desktop {
   // hide for desktop viewport widths
-  @include breakpoint-up(large) {
+  @include breakpoint-up(medium) {
     display: none;
   }
 }

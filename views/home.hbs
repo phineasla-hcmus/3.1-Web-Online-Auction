@@ -1,6 +1,6 @@
 <section class="products">
   <div class="myContainer myContainer--py row">
-    <div class="col-sm-2 px-0">
+    <div class="col-sm-2 px-0 hide-for-mobile">
       <ul class="list-group list-group-flush header-second-level-menu">
           {{#each parentCategories as |parent|}}
           <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
@@ -18,7 +18,7 @@
           {{/each}}
         </ul>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-12 col-md-10">
       <div class="products__near--end">
         <h1 class="products__title">Top 5 products near the end</h1>
         <div class="products__content owl-carousel owl-theme">
