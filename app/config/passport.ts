@@ -24,7 +24,10 @@ passport.use(
         return done(undefined, false);
       }
       const isMatch = await compare(password, user.password);
-      return isMatch ? done(undefined, user) : done(undefined, false);
+      // Only save userId to client session
+      return isMatch
+        ? done(undefined, { userId: user.userId })
+        : done(undefined, false);
     }
   )
 );

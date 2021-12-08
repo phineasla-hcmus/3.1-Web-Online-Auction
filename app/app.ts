@@ -38,7 +38,11 @@ app.use(
     store: new knexSession({ knex: knex }),
   })
 );
-
+// Pass req.user to res.locals.user to use in handlebars
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
   if (

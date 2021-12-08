@@ -8,10 +8,9 @@ document.getElementsByTagName('form')[0].onsubmit = async function (e) {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
-  if (!res.ok) {
-    toastr.error('Invalid username or password');
-  } else {
-    const resJson = await res.json();
-    resJson.forEach((err) => toastr.error(err.msg));
+  if(res.ok) {
+    
   }
+  const resJson = await res.json();
+  resJson.forEach((err) => toastr.error(err.msg));
 };
