@@ -16,7 +16,6 @@ CREATE TABLE `roles` (
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL UNIQUE,
-  `username` varchar(30),
   `password` char(60) NOT NULL,
   `firstname` varchar(40) NOT NULL,
   `lastname` varchar(40) NOT NULL,
