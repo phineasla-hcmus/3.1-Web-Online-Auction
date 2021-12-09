@@ -16,11 +16,11 @@ CREATE TABLE `roles` (
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL UNIQUE,
-  `password` char(60) NOT NULL,
+  `password` char(60),
   `firstname` varchar(40) NOT NULL,
   `lastname` varchar(40) NOT NULL,
   `dob` date NOT NULL,
-  `address` varchar(100) NOT NULL,
+  `address` varchar(100),
   `roleId` tinyint unsigned DEFAULT 1,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
