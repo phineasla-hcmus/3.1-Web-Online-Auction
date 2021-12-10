@@ -11,6 +11,8 @@ import { SESSION_SECRET } from './config/secret';
 // Need import for passport to work
 import './config/passport';
 
+import categoryModel from './models/category.model';
+
 import signUpRouter from './routes/signup';
 import loginRouter from './routes/login';
 import homeRouter from './routes/home';
@@ -61,6 +63,12 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/public', express.static('public'));
+
+app.use(async function (req, res, next) {
+  res.locals.parentCategories = await categoryModel.findParentCategory();
+  res.locals.childCategories = await categoryModel.findChildCategory();
+  next();
+});
 
 app.use('/', homeRouter);
 app.use('/error', errorRouter);

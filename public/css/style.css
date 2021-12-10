@@ -95,12 +95,7 @@ ul {
   padding-left: 1.5rem;
 }
 .myContainer--pt {
-  padding-top: 4.375rem;
-}
-@media (min-width: 64em) {
-  .myContainer--pt {
-    padding-top: 6rem;
-  }
+  padding-top: 5.5rem;
 }
 .myContainer--pr {
   padding-right: 1.5rem;
@@ -517,6 +512,12 @@ ul {
 .products__item ul li:last-child a:hover {
   background: #662d91;
   color: #fff;
+}
+
+@media (min-width: 40em) {
+  .info__wrapper {
+    padding-top: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
