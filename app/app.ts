@@ -14,9 +14,8 @@ import './config/passport';
 import signUpRouter from './routes/signup';
 import loginRouter from './routes/login';
 import homeRouter from './routes/home';
-
-import categoryModel from './models/category.model';
 import errorRouter from './routes/error';
+import bidderRouter from './routes/bidder';
 
 const app = express();
 
@@ -67,5 +66,6 @@ app.use('/', homeRouter);
 app.use('/error', errorRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signUpRouter);
+app.use('/bidder', bidderRouter);
 
 export default app;
