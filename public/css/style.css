@@ -87,8 +87,8 @@ ul {
   }
 }
 .myContainer--py {
-  padding-top: 4.375rem;
-  padding-bottom: 4.375rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
 }
 .myContainer--px {
   padding-right: 1.5rem;
@@ -242,58 +242,6 @@ ul {
 .header__search {
   border-radius: 0 0.25rem 0.25rem 0;
 }
-.header-top-level-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.header-top-level-menu > li {
-  position: relative;
-  float: left;
-}
-.header-top-level-menu > li:hover > ul {
-  display: inline;
-}
-.header-second-level-menu > li {
-  position: initial;
-  background: white;
-  padding-left: 15px;
-}
-.header-second-level-menu > li > a {
-  color: black;
-  text-decoration: none;
-  transition: color 300ms ease-in-out;
-}
-.header-second-level-menu > li > a:hover {
-  color: #fdb03d;
-  text-decoration: none;
-}
-.header-second-level-menu > li:hover > ul {
-  display: inline;
-}
-.header-third-level-menu {
-  position: absolute;
-  top: 0;
-  right: -150px;
-  width: 150px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-.header-third-level-menu > li {
-  height: 30px;
-  background: white;
-}
-.header-third-level-menu > li > a {
-  color: black;
-  text-decoration: none;
-  transition: color 300ms ease-in-out;
-}
-.header-third-level-menu > li > a:hover {
-  color: #fdb03d;
-  text-decoration: none;
-}
 .header.open .header__toggle > span:first-child {
   transform: rotate(45deg);
 }
@@ -367,6 +315,50 @@ ul {
   font-size: 0.9375rem;
 }
 
+.products-parent-categories > li {
+  position: initial;
+  background: white;
+  padding-left: 15px;
+  transition: background-color 300ms ease-in-out;
+}
+.products-parent-categories > li:hover {
+  background-color: #fdb03d;
+  cursor: pointer;
+}
+.products-parent-categories > li:hover > a {
+  color: white;
+}
+.products-parent-categories > li > a {
+  color: black;
+  text-decoration: none;
+  transition: color 300ms ease-in-out;
+}
+.products-parent-categories > li:hover > ul {
+  display: inline;
+}
+.products-child-categories {
+  position: absolute;
+  top: 0;
+  right: -150px;
+  width: 150px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+.products-child-categories > li {
+  height: 30px;
+  background: white;
+}
+.products-child-categories > li > a {
+  color: black;
+  text-decoration: none;
+  transition: color 300ms ease-in-out;
+}
+.products-child-categories > li > a:hover {
+  color: #fdb03d;
+  text-decoration: none;
+}
 .products__title {
   font-size: 1.5rem;
   text-transform: capitalize;

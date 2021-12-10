@@ -63,13 +63,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/public', express.static('public'));
 
-// load categories in header
-app.use(async function (req, res, next) {
-  res.locals.parentCategories = await categoryModel.findParentCategory();
-  res.locals.childCategories = await categoryModel.findChildCategory();
-  next();
-});
-
 app.use('/', homeRouter);
 app.use('/error', errorRouter);
 app.use('/login', loginRouter);
