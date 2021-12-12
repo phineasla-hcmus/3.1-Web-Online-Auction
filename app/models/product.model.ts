@@ -10,6 +10,6 @@ export default {
     return db("products").orderBy("currentPrice", "desc").limit(5);
   },
   async findProductbyCategory(catid: string | number | Readonly<any> | null){
-    return db("products").join("categories AS cat1",{'products.catId':"cat1.catId"}).join("categories AS cat2",{"cat1.parentId":"cat2.catId"}).where("cat2.catId",catid);
+    return db("products").join("categories AS cat",{'products.catId':"cat.catId"}).where("cat.catId",catid);
   }
 };
