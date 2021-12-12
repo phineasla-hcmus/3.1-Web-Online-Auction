@@ -1,0 +1,39 @@
+<section class="products">
+    <div class="myContainer myContainer--py row">
+        <div class="col-sm-2 px-0 hide-for-mobile">
+            <ul class="dropdown list-group list-group-flush products-parent-categories">
+                {{#each parentCategories as |parent|}}
+                <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}" >
+                    <a href="/category?catId={{parent.catId}}">
+                        {{parent.catName}}
+                    </a>
+                
+                    <ul class="products-child-categories" >
+                        {{#each ../childCategories as |child|}}
+                        {{#if (isChildOf child.parentId parent.catId)}}
+                        <li><a href="#">{{child.catName}}</a></li>
+                        {{/if}}
+                        {{/each}}
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-10">
+            <div class="products__near--end">
+                {{#if this.empty}}  
+                <h1 style="text-align: center">Unavailable Items</h1>
+                {{else}}
+                    <h1 class="products__title">{{this.cateName}}</h1>
+                    <div class="products__content owl-carousel owl-theme">
+                    {{#each this.listProductByCategory}}
+                        {{>product product=this}}
+                    {{/each}}
+                </div>
+            </div>
+            {{/if}}
+
+
+        </div>
+    </div>
+</section>

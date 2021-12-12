@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { query, Router } from 'express';
 import productModel from '../models/product.model';
 import categoryModel from '../models/category.model';
 
@@ -15,4 +15,15 @@ homeRouter.get('/', async (req, res) => {
   });
 });
 
+homeRouter.get('/category', async (req,res)=>{
+  const catid = req.query.catId || 0;
+  const list = await productModel.findProductbyCategory(catid);
+  
+  res.render('category/viewCategory',{
+    cateName: list.length===0 ? 0 : list[0].catName,
+    listProductByCategory : list,
+    empty :list.length===0
+  });
+  
+});
 export default homeRouter;

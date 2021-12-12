@@ -4,7 +4,7 @@
       <ul class="list-group list-group-flush products-parent-categories">
           {{#each parentCategories as |parent|}}
           <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
-            <a  href="#">
+            <a  href="/category?catId={{parent.catId}}">
             {{parent.catName}}
             </a>
             <ul class="products-child-categories">
@@ -29,7 +29,7 @@
       </div>
       <div class="products__most--bids mt-5">
         <h1 class="products__title">Top 5 products with the most bids</h1>
-        <div class="products__content owl-carousel owl-theme">
+        <div class="products__content owl-carousel owl-theme" >
           {{#each this.mostBidsList}}
             {{>product product=this}}
           {{/each}}

@@ -2,8 +2,8 @@
   // categories
   &-parent-categories {
     & > li {
-      // position: relative;
-      position: initial;
+      position: relative;
+      // position: initial;
       // height: 30px;
       background: white;
       padding-left: 15px;
@@ -22,7 +22,8 @@
         transition: color 300ms ease-in-out;
       }
       &:hover > ul {
-        display: inline;
+        display:contents;
+
       }
     }
   }
@@ -30,9 +31,9 @@
     position: absolute;
     top: 0;
     right: -150px;
-    width: 150px;
+    width: 250px;
     list-style: none;
-    padding: 0;
+    padding: 100px;
     margin: 0;
     display: none;
     & > li {

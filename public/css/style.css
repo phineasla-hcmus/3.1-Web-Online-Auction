@@ -312,9 +312,11 @@ ul {
 }
 
 .products-parent-categories > li {
-  position: initial;
+  position: relative;
   background: white;
-  padding-left: 15px;
+  padding: 0px;
+  margin: 15px;
+  font-size: large;
   transition: background-color 300ms ease-in-out;
 }
 .products-parent-categories > li:hover {
@@ -330,20 +332,19 @@ ul {
   transition: color 300ms ease-in-out;
 }
 .products-parent-categories > li:hover > ul {
-  display: inline;
+  display: contents;
 }
 .products-child-categories {
-  position: absolute;
-  top: 0;
-  right: -150px;
-  width: 150px;
+  position:relative;
+  top:auto;
   list-style: none;
-  padding: 0;
-  margin: 0;
+  font-size: smaller;
   display: none;
+  font-style: italic;
 }
 .products-child-categories > li {
-  height: 30px;
+  padding-top: 10px;
+  height: 35px;
   background: white;
 }
 .products-child-categories > li > a {
