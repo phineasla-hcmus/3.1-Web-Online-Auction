@@ -20,7 +20,6 @@ const signUpValidator = [
     .isEmail()
     .custom(async (email) => {
       const user = await findUserByEmail(email);
-      logger.debug(JSON.stringify(user));
       if (user) {
         throw new Error('E-mail already in use');
       }

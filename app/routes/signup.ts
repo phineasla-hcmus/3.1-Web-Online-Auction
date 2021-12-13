@@ -29,20 +29,19 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
   // Insert user to DB
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const reqBody = req.body;
-  const result = await addUser({
+  const userId = await addUser({
     email: reqBody.email,
-    username: reqBody.username,
     password: hashedPassword,
-    firstname: reqBody.firstName,
-    lastname: reqBody.lastName,
+    firstName: reqBody.firstName,
+    lastName: reqBody.lastName,
     dob: new Date(reqBody.dob),
     address: reqBody.address,
   });
+  
+  logger.debug('Insert result: ' + userId);
 
-  logger.debug(JSON.stringify(reqBody));
-  logger.debug('Insert result: ' + result);
   // Send OTP to user
-  res.redirect('/verify');
+  res.redirect(`/verify/${userId}`);
 });
 
 export default signUpRouter;

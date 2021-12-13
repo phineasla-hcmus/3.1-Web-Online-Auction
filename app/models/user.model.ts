@@ -6,8 +6,8 @@ export interface User {
   userId: number;
   email: string;
   password: string;
-  username: string;
-  fullname: string;
+  firstName: string;
+  lastName: string;
   dob: Date;
   address: string;
   roleId: number;
@@ -31,10 +31,9 @@ export function findUserById(id: string) {
  */
 export function addUser(user: {
   email: string;
-  username: string;
   password: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   dob: Date;
   address: string;
 }) {
