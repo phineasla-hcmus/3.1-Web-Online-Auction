@@ -29,18 +29,12 @@ btnHamburger.addEventListener('click', function () {
 const menu_item = document.querySelectorAll('.header__menu--item > a');
 const menu_dropdown = document.querySelectorAll('.header__dropdown');
 menu_item.forEach(function (element, index) {
-  console.log(element.childNodes);
   element.addEventListener('click', function () {
-    console.log('item clicked');
     let item = menu_dropdown[index];
     if (item.classList.contains('open')) {
       item.classList.remove('open');
-      //   item.classList.remove("fade-in");
-      //   item.classList.add("fade-out");
     } else {
       item.classList.add('open');
-      //   item.classList.remove("fade-out");
-      //   item.classList.add("fade-in");
     }
   });
 });

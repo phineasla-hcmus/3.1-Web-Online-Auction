@@ -37,12 +37,29 @@
         <i class='fa fa-search' aria-hidden='true'></i>
       </button>
     </form>
-    <a
+        {{!-- tạm thời để ngược để test --}}
+
+    {{#if user}}
+      <a
       style='margin-left: auto;'
       href='/login'
       class='btn header__btn signin my-2 my-lg-0 hide-for-mobile'
       role='button'
-    >Sign in</a>
+      >Sign in</a>
+    {{else}}
+    <div class="dropdown hide-for-mobile">
+      <a style="background: none" class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+       <i class="fa fa-user" aria-hidden="true"></i> Tam Nguyen
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/bidder/favorite">Favorite list</a></li>
+        <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
+        <li><a class="dropdown-item" href="#">Log out</a></li>
+      </ul>
+    </div>
+      
+    {{/if}}
+    
     <div class='overlay has-fade'></div>
     <a id='btnHamburger' href='#' class='header__toggle hide-for-desktop'>
       <span></span>
@@ -76,12 +93,37 @@
         </ul>
       </li>
       <li class='header__menu--item'>
-        <a
+        {{!-- tạm thời để ngược để test --}}
+        {{#if user}}
+          <a
           style='margin-left: auto;'
           href='/login'
           class='btn header__btn my-2 my-lg-0'
           role='button'
-        >Sign in</a>
+           >Sign in</a>
+        {{else}}
+        <a href='#'>Tam Nguyen
+          <i class='fa fa-chevron-down' aria-hidden='true'></i></a>
+        <ul class='header__dropdown'>
+          <li class='header__menu--item'>
+            <a href="/bidder/favorite">Favorite list</a>
+          </li>
+          <li class='header__menu--item'>
+            <a href="/bidder/info">Edit info</a>
+          </li>
+          
+        </ul>
+           
+        {{/if}}
+       
+      </li>
+      <li class="header__menu--item">
+         <a
+          style='margin-left: auto;'
+          href='/'
+          class='btn header__btn my-2 my-lg-0'
+          role='button'
+           >Log out</a>
       </li>
     </ul>
 
