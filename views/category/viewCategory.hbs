@@ -1,25 +1,5 @@
-<section class="products">
-    <div class="myContainer myContainer--py row">
-        <div class="col-sm-2 px-0 hide-for-mobile">
-            <ul class="list-group list-group-flush products-parent-categories">
-                {{#each parentCategories as |parent|}}
-                <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
-                    <a href="#">
-                        {{parent.catName}}
-                    </a>
-
-                    <ul class="products-child-categories">
-                        {{#each ../childCategories as |child|}}
-                        {{#if (isChildOf child.parentId parent.catId)}}
-
-                        <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
-                        {{/if}}
-                        {{/each}}
-                    </ul>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
+<section class="products col-sm-10">
+    <div>
         <div class="col-sm-12 col-md-10">
             <div class="products__near--end">
                 {{#if this.empty}}
