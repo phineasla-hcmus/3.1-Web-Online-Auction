@@ -2,23 +2,20 @@ import compression from 'compression';
 import knexSessionStore from 'connect-session-knex';
 import express from 'express';
 import session from 'express-session';
-import path from 'path';
-import passport from 'passport';
 import morgan from 'morgan';
-
-import hbs from './utils/hbs';
+import passport from 'passport';
+import path from 'path';
 import knex from './config/database';
-import { SESSION_SECRET } from './config/secret';
 // Need import for passport to work
 import './config/passport';
-
+import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
-
-import signUpRouter from './routes/signup';
-import loginRouter from './routes/login';
-import homeRouter from './routes/home';
-import errorRouter from './routes/error';
 import bidderRouter from './routes/bidder';
+import errorRouter from './routes/error';
+import homeRouter from './routes/home';
+import loginRouter from './routes/login';
+import signUpRouter from './routes/signup';
+import hbs from './utils/hbs';
 
 const app = express();
 

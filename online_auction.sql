@@ -32,6 +32,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 CREATE TABLE `otp` (
   `userId` int unsigned NOT NULL,
+  `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `token` char(4) NOT NULL,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_otp_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE

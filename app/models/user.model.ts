@@ -52,6 +52,7 @@ export function addUserOtp(userId: any, forceInsert = false) {
     .insert({
       userId: userId,
       token: token,
+      dateCreated: Date.now(),
     })
     .onConflict('userId');
   return forceInsert ? isConflict.merge() : isConflict.ignore();
