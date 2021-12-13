@@ -1,5 +1,6 @@
 import compression from 'compression';
 import knexSessionStore from 'connect-session-knex';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import session from 'express-session';
 import morgan from 'morgan';
@@ -25,8 +26,11 @@ app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 
 app.use(compression());
+// Replacement of bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 const knexSession = knexSessionStore(session);

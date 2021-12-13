@@ -5,12 +5,12 @@ import { RoleType } from './role.model';
 export interface User {
   userId: number;
   email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dob: Date;
-  address: string;
-  roleId: number;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  dob?: Date;
+  address?: string;
+  roleId?: number;
 }
 
 export function findUserByEmail(email: string) {
@@ -29,7 +29,7 @@ export function findUserById(id: string) {
  * - `password` must be hashed
  * @param user
  * @returns userId
- */ 
+ */
 export function addUser(user: {
   email: string;
   password: string;
