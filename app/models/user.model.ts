@@ -22,13 +22,14 @@ export function findUserById(id: string) {
 }
 
 /**
- * Insert new user to the database
+ * Insert new user into `users` table
  * @note
- * - `roleId = 1` (Unverified user)
+ * - Default `roleId = 1` (Unverified user)
+ * - Set `roleId = 2` is if user registered with 3rd party authentication
  * - `password` must be hashed
  * @param user
  * @returns userId
- */
+ */ 
 export function addUser(user: {
   email: string;
   password: string;
@@ -36,6 +37,7 @@ export function addUser(user: {
   lastName: string;
   dob: Date;
   address: string;
+  roleId?: RoleType.Unverified | RoleType.Bidder;
 }) {
   return knex('users').insert(user);
 }

@@ -15,6 +15,7 @@ import errorRouter from './routes/error';
 import homeRouter from './routes/home';
 import loginRouter from './routes/login';
 import signUpRouter from './routes/signup';
+import verifyRouter from './routes/verify';
 import hbs from './utils/hbs';
 
 const app = express();
@@ -72,6 +73,7 @@ app.use('/', homeRouter);
 app.use('/error', errorRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signUpRouter);
+app.use('/verify', verifyRouter);
 app.use('/bidder', bidderRouter);
 
 export default app;
