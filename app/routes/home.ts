@@ -8,6 +8,7 @@ homeRouter.get('/', async (req, res) => {
   const nearEndList = await productModel.findNearEndProducts();
   const mostBidsList = await productModel.findMostBidsProducts();
   const highestPriceList = await productModel.findHighestPriceProducts();
+  console.log(req.user);
   res.render('home', {
     nearEndList,
     mostBidsList,

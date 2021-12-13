@@ -1,5 +1,6 @@
 import compression from 'compression';
 import knexSessionStore from 'connect-session-knex';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import session from 'express-session';
 import morgan from 'morgan';
@@ -15,6 +16,7 @@ import errorRouter from './routes/error';
 import homeRouter from './routes/home';
 import loginRouter from './routes/login';
 import signUpRouter from './routes/signup';
+import verifyRouter from './routes/verify';
 import hbs from './utils/hbs';
 
 const app = express();
@@ -24,8 +26,11 @@ app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 
 app.use(compression());
+// Replacement of bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 const knexSession = knexSessionStore(session);
@@ -72,6 +77,7 @@ app.use('/', homeRouter);
 app.use('/error', errorRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signUpRouter);
+app.use('/verify', verifyRouter);
 app.use('/bidder', bidderRouter);
 
 export default app;
