@@ -16,26 +16,28 @@ homeRouter.get('/', async (req, res) => {
 });
 
 homeRouter.get('/category', async (req, res) => {
-
   const catid = req.query.catId || 0;
 
   const amountPro: any = await productModel.countProductbyCategory(catid);
   const limitpage = 3;
- 
+
   let numPage = Math.floor(amountPro / limitpage);
   if (amountPro % 3 != 0) numPage++;
 
   const page: any = req.query.page || 1;
   const offset = (page - 1) * limitpage;
-  const list = await productModel.findProductbyCategoryPaging(catid, offset, limitpage);
-
+  const list = await productModel.findProductbyCategoryPaging(
+    catid,
+    offset,
+    limitpage
+  );
 
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
     listofPage.push({
       value: i,
       cateId: list.length === 0 ? 0 : list[0].catId,
-      isCurrent: +page === i
+      isCurrent: +page === i,
     });
   }
 
@@ -43,9 +45,7 @@ homeRouter.get('/category', async (req, res) => {
     pages: listofPage,
     cateName: list.length === 0 ? 0 : list[0].catName,
     listProductByCategory: list,
-    empty: list.length === 0
-    
+    empty: list.length === 0,
   });
-
 });
 export default homeRouter;
