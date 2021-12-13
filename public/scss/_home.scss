@@ -1,68 +1,92 @@
 .products {
+
   // categories
   &-parent-categories {
-    & > li {
+    &>li {
+      border-radius: 5px;
       position: relative;
-      // position: initial;
-      // height: 30px;
       background: white;
-      padding-left: 15px;
+      padding-left: 5px;
+      margin: 15px;
+      border-style: double;
+      border-color: #662d91;
+      font-size: large;
       transition: background-color 300ms ease-in-out;
 
       &:hover {
-        background-color: $darkYellow;
+        border-radius: 5px;
+        background-color: #fdb03d;
         cursor: pointer;
-        & > a {
+
+        &>a {
           color: white;
         }
       }
-      & > a {
+
+      &>a {
+        font-weight: bold;
         color: black;
+        font-size: larger;
         text-decoration: none;
         transition: color 300ms ease-in-out;
       }
-      &:hover > ul {
-        display:contents;
+
+      &:hover>ul {
+        display: contents;
 
       }
     }
   }
+
   &-child-categories {
-    position: absolute;
-    top: 0;
-    right: -150px;
-    width: 250px;
+    position: relative;
+    top: auto;
     list-style: none;
-    padding: 100px;
-    margin: 0;
+    font-weight: bold;
+    font-size: smaller;
     display: none;
-    & > li {
-      height: 30px;
+
+    &>li {
+      margin: -5px;
+      margin-right: -16px;
+      margin-bottom: -10px;
+      padding-left: 15px;
+      padding-top: 0px;
+      height: 35px;
+      border-radius: 5px;
+      border-style: double;
+      border-color: #fdb03d;
       background: white;
-      & > a {
+
+      &>a {
         color: black;
         text-decoration: none;
         transition: color 300ms ease-in-out;
+
         &:hover {
-          color: $darkYellow;
+          Right: 5px;
+          color: #fdb03d;
           text-decoration: none;
         }
       }
     }
   }
+
   &__title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-transform: capitalize;
     text-align: center;
     margin-bottom: 2rem;
   }
+
   &__content {
+    padding-left: 30px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.25rem;
-    // to display categories on top
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     z-index: 0;
   }
+
   &__item {
     &--content {
       background-color: #fff;
@@ -73,6 +97,7 @@
       -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
       box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
     }
+
     &--price {
       animation: color 0.3s ease-in-out;
       animation-delay: 1s;
@@ -100,11 +125,13 @@
       transform: translate(-50%, -50%);
       height: fit-content;
     }
+
     &--img {
       margin-bottom: 0;
       overflow: hidden;
       position: relative;
       text-align: center;
+
       &--preview {
         position: absolute;
         top: 50%;
@@ -122,6 +149,7 @@
         -webkit-transition: all 0.6s;
         transition: all 0.6s;
         z-index: 2;
+
         & a {
           background-color: #fcfcfc;
           background-color: rgba(255, 255, 255, 0.8);
@@ -136,6 +164,7 @@
           padding: 5px 10px;
         }
       }
+
       &:hover &--preview {
         opacity: 1;
         visibility: visible;
@@ -145,6 +174,7 @@
         -o-transform: translateY(0);
         transform: translateY(0);
       }
+
       & a {
         img {
           -webkit-transform: scale(1);
@@ -159,6 +189,7 @@
           transition: all 0.3s ease-in-out;
           backface-visibility: hidden;
         }
+
         &:hover {
           img {
             -webkit-transform: scale(1.1);
@@ -170,9 +201,11 @@
         }
       }
     }
+
     &--wrapper {
       // height: 100%;
       padding: 25px;
+
       & h3 {
         font-size: 20px;
         font-size: 1.25rem;
@@ -180,6 +213,7 @@
         min-height: 50px;
       }
     }
+
     & ul {
       display: flex;
       justify-content: space-between;
@@ -187,12 +221,15 @@
       padding: 10px 0px;
       border-top: 1px solid #ededed;
       margin: 0;
+
       & li {
         display: inline-block;
+
         // margin-right: 15px;
         &:last-child {
           margin-right: 0;
           float: right;
+
           & a {
             background: #fff;
             border: 2px solid #662d91;
@@ -209,6 +246,7 @@
             -moz-border-radius: 30px;
             -ms-border-radius: 30px;
             border-radius: 30px;
+
             &:hover {
               background: #662d91;
               color: #fff;
