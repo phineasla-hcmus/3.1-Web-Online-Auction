@@ -1,45 +1,45 @@
-<div class='products__item'>
-  <div class='products__item--content'>
-    <figure class='products__item--img'>
+<div class="products__item">
+  <div class="products__item--content">
+    <figure class="products__item--img">
       <a
-        href='#'
-        class='popover-test'
-        title='Popover title'
-        data-content='Popover body content is set in this attribute.'
-        data-trigger='hover'
-      ><img src={{this.proImg}} class='img-fluid' alt='' />
+        href="#"
+        class="popover-test"
+        title="Popover title"
+        data-content="Popover body content is set in this attribute."
+        data-trigger="hover"
+      ><img src={{this.proImg}} class="img-fluid" alt="" />
       </a>
-      <div class='products__item--price' style='margin-bottom: 10px;'>
-        <span><i class='fa fa-usd' aria-hidden='true'></i>
+      <div class="products__item--price" style="margin-bottom: 10px;">
+        <span><i class="fa fa-usd" aria-hidden="true"></i>
           {{this.currentPrice}}</span>
       </div>
 
-      <div class='products__item--img--preview'>
-        <a href='#'>Quick view</a>
+      <div class="products__item--img--preview">
+        <a href="#">Quick view</a>
       </div>
     </figure>
 
-    <div class='products__item--wrapper'>
+    <div class="products__item--wrapper">
       <div>
-        <h3 class='name'>
+        <h3 class="name">
           {{this.proName}}
         </h3>
-        <small><i class='fa fa-calendar' aria-hidden='true'></i>
+        <small><i class="fa fa-calendar" aria-hidden="true"></i>
           {{parseDate postDate}}</small>
-        <p class='text-danger'><i class='fa fa-clock-o' aria-hidden='true'></i>
+        <p class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i>
           {{getRemainingTime expiredDate}}
           days left</p>
         <p>
-          <i class='fa fa-trophy' aria-hidden='true'></i>
+          <i class="fa fa-trophy" aria-hidden="true"></i>
           {{this.bidderName}}
         </p>
       </div>
       <ul>
-        <li><i class='fa fa-gavel' aria-hidden='true'></i>
+        <li><i class="fa fa-gavel" aria-hidden="true"></i>
           {{this.numberOfBids}}
         </li>
-        {{#if auth}}
-          <li><a href='#'>Bid now</a></li>
+        {{#if user}}
+          <li><a href="#">Bid now</a></li>
         {{/if}}
       </ul>
     </div>
