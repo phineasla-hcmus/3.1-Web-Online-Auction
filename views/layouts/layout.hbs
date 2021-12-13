@@ -23,8 +23,28 @@
   <header class="header">
     {{>nav}}
   </header>
+  <div class="myContainer myContainer--py row">
+    <div class="col-sm-2 px-0 hide-for-mobile">
+      <ul class="list-group list-group-flush products-parent-categories">
+          {{#each parentCategories as |parent|}}
+          <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
+            <a href="/category?catId={{parent.catId}}">
+            {{parent.catName}}
+            </a>
+            <ul class="products-child-categories">
+              {{#each ../childCategories as |child|}}
+              {{#if (isChildOf child.parentId parent.catId)}}
+              <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
+              {{/if}}
+              {{/each}}
+            </ul>
+          </li>
+          {{/each}}
+        </ul>
+    </div>
+    {{{body}}}
 
-  {{{body}}}
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

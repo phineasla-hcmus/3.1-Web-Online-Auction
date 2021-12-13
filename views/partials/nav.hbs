@@ -58,7 +58,7 @@
         <ul class='header__dropdown'>
           {{#each parentCategories as |parent|}}
             <li class='header__menu--item'>
-              <a href='#'>{{parent.catName}}
+              <a href="/category?catId={{parent.catId}}">{{parent.catName}}
                 <i
                   class='fa fa-chevron-down'
                   aria-hidden='true'
@@ -67,16 +67,12 @@
               <ul style="padding: 0;" class="header__dropdown">
                 {{#each ../childCategories as |child|}}
                   {{#if (isChildOf child.parentId parent.catId)}}
-                    <li><a href="#">{{child.catName}}</a></li>
+                    <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
                   {{/if}}
                 {{/each}}
               </ul>
             </li>
           {{/each}} 
-          {{! <li><a href='#'>Pricing</a></li>
-          <li><a href='#'>Marketplace</a></li>
-          <li><a href='#'>Features</a></li>
-          <li><a href='#'>Integrations</a></li> }}
         </ul>
       </li>
       <li class='header__menu--item'>
