@@ -1,21 +1,17 @@
+import axios from 'axios';
 import { check } from 'express-validator';
+import { stringify } from 'querystring';
 
 import logger from '../utils/logger';
 import { findUserByEmail } from '../models/user.model';
+import { RECAPTCHA_SECRET } from '../config/secret';
 
 const passwordLength = {
   min: 5,
   max: 50,
 };
 
-const usernameLength = {
-  min: 3,
-  max: 30,
-};
-
-const nameLength = {
-  max: 40,
-};
+const nameLength = { max: 40 };
 
 const dobMin = new Date(1900, 0);
 
@@ -29,14 +25,17 @@ const signUpValidator = [
         throw new Error('E-mail already in use');
       }
     }),
-  check('username')
-    .isLength(usernameLength)
-    .withMessage('Username must be at least 3 characters long'),
+  check('firstName').isLength(nameLength).withMessage('First name too long'),
+  check('lastName').isLength(nameLength).withMessage('Last name too long'),
   check('password')
     .isLength(passwordLength)
     .withMessage('Password must be at least 5 characters long'),
-  check('firstName').isLength(nameLength).withMessage('First name too long'),
-  check('lastName').isLength(nameLength).withMessage('Last name too long'),
+  check('passwordConfirmation').custom((pwd, { req }) => {
+    if (pwd !== req.body.password) {
+      throw new Error('Password confirmation does not match password');
+    }
+    return true;
+  }),
   check('dob').custom((dob) => {
     const d = new Date(dob);
     const today = new Date();
@@ -49,6 +48,19 @@ const signUpValidator = [
           today.getFullYear() - d.getFullYear()
         } years old?`
       );
+    }
+    return true;
+  }),
+  check('g-recaptcha-response').custom(async (recaptcha) => {
+    if (!recaptcha) throw new Error('Please complete reCAPTCHA');
+    const query = stringify({
+      secret: RECAPTCHA_SECRET,
+      response: recaptcha,
+    });
+    const verifyUrl = `https://google.com/recaptcha/api/siteverify?${query}`;
+    const res = await axios.post(verifyUrl);
+    if (res.data['success'] !== undefined && !res.data['success']) {
+      throw new Error('Failed reCAPTCHA verification');
     }
     return true;
   }),

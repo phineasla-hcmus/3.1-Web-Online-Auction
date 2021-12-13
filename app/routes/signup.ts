@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import logger from '../utils/logger';
 import { addUser } from '../models/user.model';
 import signUpValidator from '../validators/signup.validator';
+import { RECAPTCHA_SITE } from '../config/secret';
 
 const signUpRouter = Router();
 
@@ -12,6 +13,7 @@ signUpRouter.get('/', (req, res) => {
   if (req.user) return res.redirect('/');
   res.render('auth/signup', {
     layout: 'auth',
+    recaptcha: RECAPTCHA_SITE,
   });
 });
 
