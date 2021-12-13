@@ -10,7 +10,7 @@
             <ul class="products-child-categories">
               {{#each ../childCategories as |child|}}
               {{#if (isChildOf child.parentId parent.catId)}}
-              <li><a href="#">{{child.catName}}</a></li>
+              <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
               {{/if}}
               {{/each}}
             </ul>
@@ -29,7 +29,7 @@
       </div>
       <div class="products__most--bids mt-5">
         <h1 class="products__title">Top 5 products with the most bids</h1>
-        <div class="products__content owl-carousel owl-theme">
+        <div class="products__content owl-carousel owl-theme" >
           {{#each this.mostBidsList}}
             {{>product product=this}}
           {{/each}}

@@ -27,4 +27,4 @@ export const DB_POOL = {
   max: Number(getEnv('DB_POOL_MAX')),
 };
 export const SESSION_SECRET = getEnv('SESSION_SECRET');
-export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
+// export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
