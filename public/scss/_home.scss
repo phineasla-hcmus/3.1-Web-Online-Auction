@@ -80,7 +80,7 @@
   }
 
   &__content {
-    padding-left: 30px;
+    padding-left: 50px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -256,4 +256,10 @@
       }
     }
   }
+
+  &__pagination{
+    padding-left:400px;
+    text-align: center;
+  }
+
 }

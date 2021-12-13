@@ -1,0 +1,129 @@
+<section class="products col-sm-10">
+    <link rel="stylesheet" href="public/css/detailProduct.css">
+    <body>
+        <div class="container">
+            <div class="card">
+                {{#each this.product}}
+                <div class="container-fluid">
+                    <div class="wrapper row">
+                        <div class="preview col-md-6">
+                            <div class="preview-pic tab-content">
+                                <div class="tab-pane active" id="pic-1">
+                                    <img src="{{proImg}}" />
+                                </div>
+                            </div>
+                            <ul class="preview-thumbnail nav nav-tabs">
+                                <li class="active">
+                                    <a data-target="#pic-1" data-toggle="tab">
+                                        <img src="{{proImg}}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-target="#pic-2" data-toggle="tab">
+                                        <img src="{{proImg}}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-target="#pic-3" data-toggle="tab">
+                                        <img src="{{proImg}}" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="details col-md-6">
+                            <h3 class="product-title">
+                                {{proName}}
+                            </h3>
+                            <table class="table table-sm table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="pl-0 w-50" scope="row">
+                                            <strong>
+                                                Current Price:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            {{currentPrice}}$
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0 w-50" scope="row">
+                                            <strong>
+                                                Seller:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            {{bidderName}} &nbsp; 4.9/5.0
+                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0 w-50" scope="row">
+                                            <strong>
+                                                Highest Bidder:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            {{bidderName}} &nbsp; 4.9/5.0
+                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0 w-50" scope="row">
+                                            <strong>
+                                                Post Date:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            {{parseDate postDate}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0 w-50" scope="row">
+                                            <strong>
+                                                Expired Date:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            {{getRemainingTime expiredDate}} days left
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="action" style="text-align: end;">
+                                <button class="bid btn btn-default" type="button">
+                                    Bid now
+                                </button>
+                                <button class="like btn btn-default" type="button">
+                                    <span class="fa fa-heart"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description-block headshot headshot-1 px-4 pt-1">
+                    <h1 class="products__title">
+                        Description
+                    </h1>
+                    <div class="description-content">
+                        {{fullDes}}
+                    </div>
+                </div>
+                {{/each}}
+                <div class="description-block headshot headshot-1 px-4 pt-1">
+                <div class="products__related mt-3">
+                    <h1 class="products__title">Related Product</h1>
+                    <div class="products__content owl-carousel owl-theme" style="padding-right: 30px;">
+                        {{#each this.listProduct}}
+                        {{>product product=this}}
+                        {{/each}}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</section>

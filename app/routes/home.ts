@@ -22,7 +22,7 @@ homeRouter.get('/category', async (req, res) => {
   const limitpage = 3;
 
   let numPage = Math.floor(amountPro / limitpage);
-  if (amountPro % 3 != 0) numPage++;
+  if (amountPro % limitpage != 0) numPage++;
 
   const page: any = req.query.page || 1;
   const offset = (page - 1) * limitpage;
@@ -48,4 +48,18 @@ homeRouter.get('/category', async (req, res) => {
     empty: list.length === 0,
   });
 });
+
+homeRouter.get('/product', async (req, res) => {
+  const productID = req.query.proId || 0;
+
+  const detailedProduct = await productModel.findProductbyID(productID);
+
+  const listRelatedProduct = await productModel.findRelatedProduct(productID);
+  
+  res.render('product/viewDetailProduct',{
+    product : detailedProduct,
+    listProduct: listRelatedProduct
+  });
+});
+
 export default homeRouter;

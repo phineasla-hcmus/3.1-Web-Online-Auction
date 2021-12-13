@@ -377,7 +377,7 @@ ul {
   margin-bottom: 2rem;
 }
 .products__content {
-  padding-left: 30px;
+  padding-left: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -528,6 +528,10 @@ ul {
 .products__item ul li:last-child a:hover {
   background: #662d91;
   color: #fff;
+}
+.products__pagination {
+  padding-left: 400px;
+  text-align: center;
 }
 
 @media (min-width: 40em) {

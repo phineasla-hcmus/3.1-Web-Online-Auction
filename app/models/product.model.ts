@@ -44,4 +44,10 @@ export default {
       .limit(limit)
       .offset(offset);
   },
+  async findProductbyID(proID: any) {
+    return db('products').where('proId', proID);
+  },
+  async findRelatedProduct(proID:any){
+    return db('products').join('products AS relatedProduct',{'products.catId' : 'relatedProduct.catId'}).where('relatedProduct.proId',"<>",proID).limit(5);
+  }
 };
