@@ -17,13 +17,24 @@ CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL UNIQUE,
   `password` char(60),
-  `firstname` varchar(40) NOT NULL,
-  `lastname` varchar(40) NOT NULL,
-  `dob` date NOT NULL,
+  `firstname` varchar(40),
+  `lastname` varchar(40),
+  `dob` date,
   `address` varchar(100),
   `roleId` tinyint unsigned DEFAULT 1,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Table structure for OTP
+-- Each user can only have one token
+-- ----------------------------
+CREATE TABLE `otp` (
+  `userId` int unsigned NOT NULL,
+  `token` char(4) NOT NULL,
+  PRIMARY KEY (`userId`),
+  CONSTRAINT `FK_otp_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

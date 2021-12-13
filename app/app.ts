@@ -5,6 +5,7 @@ import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 import morgan from 'morgan';
+
 import hbs from './utils/hbs';
 import knex from './config/database';
 import { SESSION_SECRET } from './config/secret';

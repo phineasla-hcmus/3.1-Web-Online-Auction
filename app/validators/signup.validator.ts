@@ -10,9 +10,7 @@ const passwordLength = {
   min: 5,
   max: 50,
 };
-
 const nameLength = { max: 40 };
-
 const dobMin = new Date(1900, 0);
 
 const signUpValidator = [
@@ -24,29 +22,12 @@ const signUpValidator = [
         throw new Error('E-mail already in use');
       }
     }),
-  check('firstName').isLength(nameLength).withMessage('First name too long'),
-  check('lastName').isLength(nameLength).withMessage('Last name too long'),
   check('password')
     .isLength(passwordLength)
     .withMessage('Password must be at least 5 characters long'),
   check('passwordConfirmation').custom((pwd, { req }) => {
     if (pwd !== req.body.password) {
       throw new Error('Password confirmation does not match password');
-    }
-    return true;
-  }),
-  check('dob').custom((dob) => {
-    const d = new Date(dob);
-    const today = new Date();
-    if (d >= today) {
-      throw new Error("Sorry, we don't allow time travelling");
-    }
-    if (d <= dobMin) {
-      throw new Error(
-        `Are you sure you are ${
-          today.getFullYear() - d.getFullYear()
-        } years old?`
-      );
     }
     return true;
   }),
@@ -60,6 +41,23 @@ const signUpValidator = [
     const res = await axios.post(verifyUrl);
     if (res.data['success'] !== undefined && !res.data['success']) {
       throw new Error('Failed reCAPTCHA verification');
+    }
+    return true;
+  }),
+  check('firstName').isLength(nameLength).withMessage('First name too long'),
+  check('lastName').isLength(nameLength).withMessage('Last name too long'),
+  check('dob').custom((dob) => {
+    const d = new Date(dob);
+    const today = new Date();
+    if (d >= today) {
+      throw new Error("Sorry, we don't allow time travelling");
+    }
+    if (d <= dobMin) {
+      throw new Error(
+        `Are you sure you are ${
+          today.getFullYear() - d.getFullYear()
+        } years old?`
+      );
     }
     return true;
   }),

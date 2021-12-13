@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 
 import logger from '../utils/logger';
-import { addUser } from '../models/user.model';
+import { addUser, addUserOtp } from '../models/user.model';
 import signUpValidator from '../validators/signup.validator';
 import { RECAPTCHA_SITE } from '../config/secret';
 
@@ -37,10 +37,11 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
     dob: new Date(reqBody.dob),
     address: reqBody.address,
   });
-  
+
   logger.debug('Insert result: ' + userId);
 
   // Send OTP to user
+  addUserOtp(userId).catch((e) => logger.error(e));
   res.redirect(`/verify/${userId}`);
 });
 
