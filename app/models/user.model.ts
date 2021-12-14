@@ -13,11 +13,40 @@ export interface User {
   roleId?: number;
 }
 
-export function findUserByEmail(email: string) {
-  return knex<User>('users').where('email', email).first();
+export enum UserField {
+  UserId = 'userId',
+  Email = 'email',
+  Password = 'password',
+  FirstName = 'firstName',
+  LastName = 'lastName',
+  Dob = 'dob',
+  Address = 'address',
+  RoleId = 'roleId',
 }
 
-export function findUserById(id: string) {
+export const userQueryHidePassword = [
+  UserField.UserId,
+  UserField.Email,
+  UserField.FirstName,
+  UserField.LastName,
+  UserField.Dob,
+  UserField.Address,
+  UserField.RoleId,
+];
+
+export const userQueryBasic = [
+  UserField.Email,
+  UserField.FirstName,
+  UserField.LastName,
+];
+
+// export function findUserByEmail(email: string): Promise<User>;
+export async function findUserByEmail(email: string, columns?: UserField[]) {
+  return knex<User>('users').where('email', email).first();
+  // return await knex.column(columns).from<User>('users').where('email', email).first();
+}
+
+export async function findUserById(id: string) {
   return knex<User>('users').where('userId', id).first();
 }
 
@@ -30,7 +59,7 @@ export function findUserById(id: string) {
  * @param user
  * @returns userId
  */
-export function addUser(user: {
+export async function addUser(user: {
   email: string;
   password: string;
   firstName: string;
