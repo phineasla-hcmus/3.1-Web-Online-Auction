@@ -2,7 +2,7 @@ import { compare } from 'bcrypt';
 import passport from 'passport';
 import passportFacebook from 'passport-facebook';
 import passportLocal from 'passport-local';
-import { findUserByEmail, findUserById, User } from '../models/user.model';
+import { findUserByEmail, User } from '../models/user.model';
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;

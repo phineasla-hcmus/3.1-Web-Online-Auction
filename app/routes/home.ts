@@ -53,7 +53,7 @@ homeRouter.get('/category', async (req, res) => {
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
 
-  const detailedProduct = await productModel.findProductbyID(productID);
+  const detailedProduct = await productModel.findProductbyId(productID);
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   
