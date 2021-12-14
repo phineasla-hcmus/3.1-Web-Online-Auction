@@ -1,6 +1,8 @@
+
 CREATE DATABASE IF NOT EXISTS `onlineauction`;
 USE `onlineauction`;
 
+SET NAMES utf8mb4;
 -- ----------------------------
 -- Table structure for roles
 -- ----------------------------
@@ -8,7 +10,7 @@ CREATE TABLE `roles` (
   `roleId` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `roleName` varchar(20) NOT NULL,
   PRIMARY KEY (`roleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for users
@@ -24,7 +26,7 @@ CREATE TABLE `users` (
   `roleId` tinyint unsigned DEFAULT 1,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for OTP
@@ -36,24 +38,24 @@ CREATE TABLE `otp` (
   `token` char(4) NOT NULL,
   PRIMARY KEY (`userId`),
   CONSTRAINT `FK_otp_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for categories
 -- ----------------------------
 CREATE TABLE `categories` (
   `catId` int unsigned NOT NULL AUTO_INCREMENT,
-  `catName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `catName` varchar(50) COLLATE utf8_general_ci NOT NULL,
   `parentId` int unsigned,
   PRIMARY KEY (`catId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for products
 -- ----------------------------
 CREATE TABLE `products` (
   `proId` int unsigned NOT NULL AUTO_INCREMENT,
-  `proName` varchar(50) NOT NULL,
+  `proName` varchar(50) COLLATE utf8_general_ci NOT NULL,
   `proImg` varchar(2083) NOT NULL,
   `catId` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
@@ -65,7 +67,7 @@ CREATE TABLE `products` (
   `bidderName` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`proId`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for watchlist
@@ -76,7 +78,7 @@ CREATE TABLE `watchlist` (
   PRIMARY KEY (`bidderId`, `proId`),
   CONSTRAINT `FK_watchlist_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_watchlist_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for auction history
@@ -89,7 +91,7 @@ CREATE TABLE `auctionHistory` (
   PRIMARY KEY (`proId`, `auctionTime`),
   CONSTRAINT `FK_auctionHistory_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auctionHistory_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for rating history
@@ -103,7 +105,7 @@ CREATE TABLE `ratingHistory` (
   PRIMARY KEY (`bidderId`, `assessorId`, `ratingTime`),
   CONSTRAINT `FK_ratingHistory_users_1` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_ratingHistory_users_2` FOREIGN KEY (`assessorId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for auction list
@@ -115,7 +117,7 @@ CREATE TABLE `auctionList` (
   PRIMARY KEY (`sellerId`, `proId`),
   CONSTRAINT `FK_auctionList_users` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_auctionList_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for upgrade list
@@ -125,4 +127,15 @@ CREATE TABLE `upgradeList` (
   `registerTime` datetime NOT NULL,
   PRIMARY KEY (`bidderId`),
   CONSTRAINT `FK_upgradeList_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+
+
+
+
+
+
+
+

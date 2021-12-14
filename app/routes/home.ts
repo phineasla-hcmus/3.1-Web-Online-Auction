@@ -62,4 +62,38 @@ homeRouter.get('/product', async (req, res) => {
   });
 });
 
+homeRouter.get('/search', async (req, res) => {
+  const keyword = req.query.keyword;
+  if (keyword) {
+    const amountPro: any = await productModel.countProductByKeyword(keyword);
+    const limitpage = 3;
+
+    let numPage = Math.floor(amountPro / limitpage);
+    if (amountPro % limitpage != 0) numPage++;
+
+    const page: any = req.query.page || 1;
+    const offset = (page - 1) * limitpage;
+    const listofPage = [];
+
+    const list = await productModel.findProductByKeyword(
+      keyword,
+      offset,
+      limitpage
+    );
+    for (let i = 1; i <= numPage; i++) {
+      listofPage.push({
+        value: i,
+        cateId: list.length === 0 ? 0 : list[0].catId,
+        isCurrent: +page === i,
+      });
+    }
+    res.render('category/viewCategory', {
+      pages: listofPage,
+      cateName: list.length === 0 ? 0 : list[0].catName,
+      listProductByCategory: list,
+      empty: list.length === 0,
+    });
+  }
+});
+
 export default homeRouter;

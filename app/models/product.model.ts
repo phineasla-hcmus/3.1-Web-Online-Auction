@@ -55,4 +55,22 @@ export default {
       .where('relatedProduct.proId', '<>', proID)
       .limit(5);
   },
+  // perform full-text search
+  async findProductByKeyword(
+    keyword: string | any,
+    offset: number,
+    limit: number
+  ) {
+    // still looking for match against in knex
+    const sql = `select * from products where match(proName) against('${keyword}') limit ${limit} offset ${offset}`;
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
+  async countProductByKeyword(keyword: string | any) {
+    // still looking for match against in knex
+    const sql = `select count(*) from products where match(proName) against('${keyword}')`;
+    console.log(sql);
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
 };

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import productModel from '../models/product.model';
+import bidderModel from '../models/bidder.model';
 
 const bidderRouter = Router();
 
@@ -8,9 +8,8 @@ bidderRouter.get('/info', function (req, res) {
 });
 
 bidderRouter.get('/favorite', async function (req, res) {
-  // render tạm thời
-  const favoriteList = await productModel.findNearEndProducts();
-
+  // 1 để render tạm thời, có login sửa sau
+  const favoriteList = await bidderModel.getFavoriteList(1);
   res.render('bidder/favorite', { favoriteList });
 });
 
