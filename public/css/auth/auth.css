@@ -93,7 +93,7 @@ input[type=checkbox] {
 }
 .btn.btn-primary:hover {
   border: 1px solid #292560;
-  background: transparent;
+  background: aliceblue;
   color: #292560;
 }
 .btn.btn-primary.btn-outline-primary {
@@ -104,6 +104,26 @@ input[type=checkbox] {
 .btn.btn-primary.btn-outline-primary:hover {
   border: 1px solid transparent;
   background: #292560;
+  color: white;
+}
+.btn.btn-secondary {
+  background: #fdb03d;
+  border: 1px solid #fdb03d;
+  color: white;
+}
+.btn.btn-secondary:hover {
+  border: 1px solid #fdb03d;
+  background: aliceblue;
+  color: #fdb03d;
+}
+.btn.btn-secondary.btn-outline-secondary {
+  border: 1px solid #fdb03d;
+  background: transparent;
+  color: #fdb03d;
+}
+.btn.btn-secondary.btn-outline-secondary:hover {
+  border: 1px solid transparent;
+  background: #fdb03d;
   color: white;
 }
 

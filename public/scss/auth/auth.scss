@@ -99,7 +99,7 @@ input[type='checkbox'] {
     color: white;
     &:hover {
       border: 1px solid $primary;
-      background: transparent;
+      background: aliceblue;
       color: $primary;
     }
     &.btn-outline-primary {
@@ -109,6 +109,26 @@ input[type='checkbox'] {
       &:hover {
         border: 1px solid transparent;
         background: $primary;
+        color: white;
+      }
+    }
+  }
+  &.btn-secondary {
+    background: $secondary;
+    border: 1px solid $secondary;
+    color: white;
+    &:hover {
+      border: 1px solid $secondary;
+      background: aliceblue;
+      color: $secondary;
+    }
+    &.btn-outline-secondary {
+      border: 1px solid $secondary;
+      background: transparent;
+      color: $secondary;
+      &:hover {
+        border: 1px solid transparent;
+        background: $secondary;
         color: white;
       }
     }

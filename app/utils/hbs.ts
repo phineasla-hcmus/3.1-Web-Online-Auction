@@ -30,16 +30,20 @@ function getRemainingTime(date: string) {
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
  * @example
- * "layout.hbs"
+ * **layout.hbs**
+ * ```
  * <body>
- *  {{{sections.script}}}
+ *    {{{sections.script}}}
  * </body>
+ * ```
  *
- * "login.hbs"
+ * **login.hbs**
+ * ```
  * <p>Custom script section</p>
  * {{#section "script"}}
- *  <script src="/public/js/login.js" />
+ *    <script src="/public/js/login.js" />
  * {{/section}}
+ * ```
  */
 function section(this: any, name: string, options: any) {
   if (!this.section) this.section = {};

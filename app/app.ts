@@ -94,8 +94,9 @@ app.use((req, res, next) => {
     req.user.roleId == RoleType.Unverified
   ) {
     res.redirect('/verify/' + req.user.userId);
+  } else {
+    next();
   }
-  next();
 });
 
 app.use('/', homeRouter);
