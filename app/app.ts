@@ -25,7 +25,7 @@ const knexSession = knexSessionStore(session);
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
-
+// NOTE: Express middleware order is important
 app.use(morgan('dev'));
 app.use(compression());
 // Replacement of bodyParser

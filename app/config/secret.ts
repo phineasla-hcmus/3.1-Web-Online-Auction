@@ -3,7 +3,7 @@ import logger from '../utils/logger';
 /**
  * @param key
  * @param defaultVal
- * @param isOptional
+ * @param isOptional default to `false`
  * @returns can return `undefined` if `isOption = true`
  */
 const getEnv = (key: string, defaultVal?: any, isOptional = false) => {
@@ -27,5 +27,5 @@ export const DB_POOL = {
   max: Number(getEnv('DB_POOL_MAX')),
 };
 export const SESSION_SECRET = getEnv('SESSION_SECRET');
-// export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
-// export const RECAPTCHA_SITE = getEnv('RECAPTCHA_SITE');
+export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
+export const RECAPTCHA_SITE = getEnv('RECAPTCHA_SITE');
