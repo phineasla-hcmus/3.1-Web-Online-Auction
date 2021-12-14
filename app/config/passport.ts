@@ -13,7 +13,6 @@ passport.serializeUser<any, any>((req, user, done) => {
 
 passport.deserializeUser(async (user: User, done) => {
   const res = await findUserByEmail(user.email);
-  delete res?.password;
   done(null, res);
 });
 
