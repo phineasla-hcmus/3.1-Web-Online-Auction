@@ -38,7 +38,7 @@ function getRemainingTime(date: string) {
  * "login.hbs"
  * <p>Custom script section</p>
  * {{#section "script"}}
- *  <script src="public/js/login.js" />
+ *  <script src="/public/js/login.js" />
  * {{/section}}
  */
 function section(this: any, name: string, options: any) {

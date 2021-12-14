@@ -3,9 +3,9 @@
  * to reference this file and not the node_modules package.
  */
 
-import { SessionData } from "express-session";
+import { SessionData } from 'express-session';
 
-declare module "express-session" {
+declare module 'express-session' {
   interface SessionData {
     returnTo: string;
   }

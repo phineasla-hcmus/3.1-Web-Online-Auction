@@ -1,53 +1,43 @@
-import { randomBytes } from 'crypto';
 import knex from '../config/database';
 import { RoleType } from './role.model';
 
-export interface User {
-  userId: number;
-  email: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  dob?: Date;
-  address?: string;
-  roleId?: number;
-}
-
-export enum UserField {
-  UserId = 'userId',
-  Email = 'email',
-  Password = 'password',
-  FirstName = 'firstName',
-  LastName = 'lastName',
-  Dob = 'dob',
-  Address = 'address',
-  RoleId = 'roleId',
-}
-
-export const userQueryHidePassword = [
-  UserField.UserId,
-  UserField.Email,
-  UserField.FirstName,
-  UserField.LastName,
-  UserField.Dob,
-  UserField.Address,
-  UserField.RoleId,
-];
-
 export const userQueryBasic = [
-  UserField.Email,
-  UserField.FirstName,
-  UserField.LastName,
+  'userId',
+  'email',
+  'firstName',
+  'lastName',
+  'roleId',
 ];
 
-// export function findUserByEmail(email: string): Promise<User>;
-export async function findUserByEmail(email: string, columns?: UserField[]) {
-  return knex<User>('users').where('email', email).first();
-  // return await knex.column(columns).from<User>('users').where('email', email).first();
+// Enable type hinting in req.user
+export type User = Express.User;
+
+/**
+ * @default ```SELECT * FROM users WHERE email=?```
+ * @param email
+ * @param columns specify which columns to SELECT, override default
+ * @returns
+ */
+export async function findUserByEmail(email: string, columns?: string[]) {
+  const query =
+    columns && columns.length
+      ? knex.column(columns).select().from<User>('users')
+      : knex<User>('users');
+  return query.where('email', email).first();
 }
 
-export async function findUserById(id: string) {
-  return knex<User>('users').where('userId', id).first();
+/**
+ * @default ```SELECT * FROM users WHERE userId=?```
+ * @param userId
+ * @param columns specify which columns to SELECT, override default
+ * @returns
+ */
+export async function findUserById(userId: number, columns?: string[]) {
+  const query =
+    columns && columns.length
+      ? knex.column(columns).select().from<User>('users')
+      : knex<User>('users');
+  return query.where('userId', userId).first();
 }
 
 /**
@@ -69,22 +59,4 @@ export async function addUser(user: {
   roleId?: RoleType.Unverified | RoleType.Bidder;
 }) {
   return knex('users').insert(user);
-}
-
-/**
- * Insert token into `otp` table
- * @param userId
- * @param forceInsert replace token if `userId` is already existed in `otp` table
- * @returns `[0]` if `merge()` or `ignore()` successfully, else use `catch()` to find out
- */
-export function addUserOtp(userId: any, forceInsert = false) {
-  const token = randomBytes(2).toString('hex');
-  const isConflict = knex('otp')
-    .insert({
-      userId: userId,
-      token: token,
-      dateCreated: Date.now(),
-    })
-    .onConflict('userId');
-  return forceInsert ? isConflict.merge() : isConflict.ignore();
 }

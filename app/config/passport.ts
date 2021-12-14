@@ -2,18 +2,24 @@ import { compare } from 'bcrypt';
 import passport from 'passport';
 import passportFacebook from 'passport-facebook';
 import passportLocal from 'passport-local';
-import { findUserByEmail, User } from '../models/user.model';
+import {
+  findUserByEmail,
+  findUserById,
+  User,
+  userQueryBasic,
+} from '../models/user.model';
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
 
 passport.serializeUser<any, any>((req, user, done) => {
-  done(undefined, user);
+  // Only save id to session
+  done(undefined, user.userId);
 });
 
-passport.deserializeUser(async (user: User, done) => {
-  const res = await findUserByEmail(user.email);
-  done(null, res);
+passport.deserializeUser(async (userId: number, done) => {
+  const userBasic = await findUserById(userId, userQueryBasic);
+  done(null, userBasic);
 });
 
 /**
@@ -21,8 +27,8 @@ passport.deserializeUser(async (user: User, done) => {
  */
 passport.use(
   new LocalStrategy(
-    { usernameField: 'email', passReqToCallback: true },
-    async (req, email, password, done) => {
+    { usernameField: 'email' },
+    async (email, password, done) => {
       const user = await findUserByEmail(email);
       if (!user) {
         return done(undefined, false, { message: 'User not found' });
@@ -34,11 +40,6 @@ passport.use(
         });
       }
       const isMatch = await compare(password, user.password);
-
-      delete user.password;
-      delete user.dob;
-      delete user.address;
-
       return isMatch
         ? done(undefined, user)
         : done(undefined, false, { message: 'Invalid password' });

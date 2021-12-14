@@ -2,10 +2,10 @@ import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import { RECAPTCHA_SITE } from '../config/secret';
-import { addUser, addUserOtp } from '../models/user.model';
+import { addOtp } from '../models/otp.model';
+import { addUser } from '../models/user.model';
 import logger from '../utils/logger';
 import signUpValidator from '../validators/signup.validator';
-
 
 const signUpRouter = Router();
 
@@ -41,8 +41,9 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
   logger.debug('Insert result: ' + userId);
 
   // Send OTP to user
-  addUserOtp(userId).catch((e) => logger.error(e));
-  res.redirect(`/verify/${userId}`);
+  addOtp(userId).catch((e) => logger.error(e));
+  // Just redirect to the previous page and let app.ts redirect verify
+  res.redirect(req.session.returnTo || '/');
 });
 
 export default signUpRouter;

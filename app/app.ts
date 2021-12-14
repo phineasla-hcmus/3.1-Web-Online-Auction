@@ -11,8 +11,8 @@ import knex from './config/database';
 import './config/passport';
 import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
+import { RoleType } from './models/role.model';
 import bidderRouter from './routes/bidder';
-import errorRouter from './routes/error';
 import homeRouter from './routes/home';
 import loginRouter from './routes/login';
 import signUpRouter from './routes/signup';
@@ -42,7 +42,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/public', express.static('public'));
+app.use('/public', express.static(path.join('public')));
 
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
@@ -50,8 +50,7 @@ app.use((req, res, next) => {
     !req.user &&
     req.path !== '/login' &&
     req.path !== '/signup' &&
-    !req.path.match(/^\/auth/) &&
-    !req.path.match(/\./)
+    !req.path.match(/^\/auth/)
   ) {
     req.session.returnTo = req.path;
   } else if (req.user && req.path == '/account') {
@@ -60,9 +59,24 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use((req, res, next) => {
+//   if (
+//     !req.user &&
+//     req.path !== '/login' &&
+//     req.path !== '/signup' &&
+//     !req.path.match(/^\/auth/) &&
+//     !req.path.match(/\./)
+//   ) {
+//     req.session.returnTo = req.path;
+//   } else if (req.user && req.path == '/account') {
+//     req.session.returnTo = req.path;
+//   }
+//   next();
+// });
+
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
-  res.locals['user'] = req.user;
+  res.locals.user = req.user;
   next();
 });
 
@@ -72,11 +86,27 @@ app.use(async function (req, res, next) {
   next();
 });
 
+// If user if not verified (i.e roleId == 1), force redirect to verify
+app.use((req, res, next) => {
+  if (
+    !req.path.match(/^\/verify/) &&
+    req.user &&
+    req.user.roleId == RoleType.Unverified
+  ) {
+    res.redirect('/verify/' + req.user.userId);
+  }
+  next();
+});
+
 app.use('/', homeRouter);
-app.use('/error', errorRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signUpRouter);
 app.use('/verify', verifyRouter);
 app.use('/bidder', bidderRouter);
+
+app.use((req, res, next) => {
+  res.sendFile('views/error.html', { root: '.' });
+  next;
+});
 
 export default app;
