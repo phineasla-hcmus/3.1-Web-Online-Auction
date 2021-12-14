@@ -87,10 +87,10 @@ homeRouter.get('/search', async (req, res) => {
         isCurrent: +page === i,
       });
     }
-    res.render('category/viewCategory', {
+    res.render('search', {
       pages: listofPage,
-      cateName: list.length === 0 ? 0 : list[0].catName,
-      listProductByCategory: list,
+      catName: list.length === 0 ? 0 : list[0].catName,
+      listProductByKeyword: list,
       empty: list.length === 0,
     });
   }
