@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
-import { RECAPTCHA_SITE } from '../config/secret';
-import { addOtp } from '../models/otp.model';
-import { addUser } from '../models/user.model';
-import logger from '../utils/logger';
-import signUpValidator from '../validators/signup.validator';
+import { RECAPTCHA_SITE } from '../../config/secret';
+import { addOtp } from '../../models/otp.model';
+import { addUser } from '../../models/user.model';
+import logger from '../../utils/logger';
+import signUpValidator from '../../validators/signup.validator';
 
 const signUpRouter = Router();
 

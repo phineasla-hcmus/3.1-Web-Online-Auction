@@ -12,11 +12,12 @@ import './config/passport';
 import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
 import { RoleType } from './models/role.model';
+import loginRouter from './routes/auth/login';
+import logoutRouter from './routes/auth/logout';
+import signUpRouter from './routes/auth/signup';
+import verifyRouter from './routes/auth/verify';
 import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
-import loginRouter from './routes/login';
-import signUpRouter from './routes/signup';
-import verifyRouter from './routes/verify';
 import hbs from './utils/hbs';
 
 const app = express();
@@ -87,6 +88,7 @@ app.use(async function (req, res, next) {
 });
 
 // If user if not verified (i.e roleId == 1), force redirect to verify
+// NOTE: comment this out if you want unverified user to access normally
 app.use((req, res, next) => {
   if (
     !req.path.match(/^\/verify/) &&
@@ -102,6 +104,7 @@ app.use((req, res, next) => {
 app.use('/', homeRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signUpRouter);
+app.use('/logout', logoutRouter);
 app.use('/verify', verifyRouter);
 app.use('/bidder', bidderRouter);
 
