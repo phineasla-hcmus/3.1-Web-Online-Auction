@@ -7,7 +7,7 @@ import knex from '../config/database';
  * @param forceInsert replace token if `userId` is already existed in `otp` table
  * @returns `[0]` if `merge()` or `ignore()` successfully, else use `catch()` to find out
  */
-export function addOtp(userId: any, forceInsert = false) {
+export async function addOtp(userId: any, forceInsert = false) {
   const token = randomBytes(16).toString('hex');
   const isConflict = knex('otp')
     .insert({

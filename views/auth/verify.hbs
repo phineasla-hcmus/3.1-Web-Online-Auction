@@ -13,10 +13,10 @@
           </div>
         </div>
         <!-- Verify Form -->
-        <form action="/verify" method="POST">
+        <form id="verifyForm" action="/verify/{{user.userId}}" method="POST">
           <div class="row">
             <!-- Verification Code -->
-            <div class="input-group col-lg-12 mb-4">
+            <div class="input-group col-lg-12">
               <div class="input-group-prepend">
                 <span class="input-group-text icon fa fa-check"></span>
               </div>
@@ -30,33 +30,37 @@
               />
             </div>
           </div>
-          <div class="row">
-            <!-- Submit Button -->
-            <div class="form-group col-lg-6 mx-auto">
-              <button
-                type="submit"
-                class="btn btn-primary btn-block py-2 submit"
-              >
-                Submit
-              </button>
-            </div>
-            <!-- Resend Email Button -->
-            <div class="form-group col-lg-6 mx-auto">
-              <button
-                type="button"
-                class="btn btn-secondary btn-block py-2 submit"
-              >
-                Resend email
-              </button>
-            </div>
-          </div>
-          <div class="form-group mt-4">
-            <div class="w-100 text-center">
-              {{! TODO: cannot POST }}
-              <p class="mb-1">Not you? <a href="/logout">Sign out</a></p>
-            </div>
-          </div>
         </form>
+        <div class="row">
+          <!-- Submit Button -->
+          <div class="col-lg-6 mx-auto">
+            <button
+              type="submit"
+              form="verifyForm"
+              class="btn btn-primary btn-block py-2 submit"
+            >
+              Submit
+            </button>
+          </div>
+          <!-- Resend Email Button -->
+          <form
+            class="col-lg-6 mx-auto"
+            action="/verify/resend/{{user.userId}}"
+            method="POST"
+          >
+            <button
+              type="button"
+              class="btn btn-secondary btn-block py-2 submit"
+            >
+              Resend email
+            </button>
+          </form>
+        </div>
+        <div class="mt-4">
+          <div class="w-100 text-center">
+            <p>Not you? <a href="/logout">Sign out</a></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
