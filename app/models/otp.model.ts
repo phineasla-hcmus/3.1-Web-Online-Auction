@@ -8,7 +8,7 @@ import knex from '../config/database';
  * @returns `[0]` if `merge()` or `ignore()` successfully, else use `catch()` to find out
  */
 export async function addOtp(userId: any, forceInsert = false) {
-  const token = randomBytes(16).toString('hex');
+  const token = randomBytes(2).toString('hex');
   const isConflict = knex('otp')
     .insert({
       userId: userId,

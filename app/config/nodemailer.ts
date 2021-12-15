@@ -9,6 +9,7 @@ import {
 } from './secret';
 
 // https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a
+// https://stackoverflow.com/questions/51933601/what-is-the-definitive-way-to-use-gmail-with-oauth-and-nodemailer
 // Using oauthplayground to generate ACCESS_TOKEN, not sure why the name "playground" though
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
