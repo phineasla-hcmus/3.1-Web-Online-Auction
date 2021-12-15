@@ -60,21 +60,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use((req, res, next) => {
-//   if (
-//     !req.user &&
-//     req.path !== '/login' &&
-//     req.path !== '/signup' &&
-//     !req.path.match(/^\/auth/) &&
-//     !req.path.match(/\./)
-//   ) {
-//     req.session.returnTo = req.path;
-//   } else if (req.user && req.path == '/account') {
-//     req.session.returnTo = req.path;
-//   }
-//   next();
-// });
-
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
   res.locals.user = req.user;
