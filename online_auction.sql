@@ -64,7 +64,7 @@ CREATE TABLE `products` (
   `postDate` datetime NOT NULL,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
-  `bidderName` varchar(30) DEFAULT NULL,
+  `bidderId` int DEFAULT NULL,
   PRIMARY KEY (`proId`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -128,14 +128,3 @@ CREATE TABLE `upgradeList` (
   PRIMARY KEY (`bidderId`),
   CONSTRAINT `FK_upgradeList_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-
-
-
-
-
-
-
-
-
-

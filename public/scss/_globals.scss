@@ -93,6 +93,10 @@ ul {
   }
 }
 
+.text-primary {
+  color: $darkYellow !important;
+}
+
 // customize owl carousel
 .owl-carousel .owl-nav button {
   &.owl-prev,
@@ -123,4 +127,7 @@ ul {
   &:focus {
     outline: none;
   }
+}
+.owl-carousel .owl-stage {
+  display: flex;
 }

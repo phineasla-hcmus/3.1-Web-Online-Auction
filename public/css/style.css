@@ -137,6 +137,10 @@ ul {
   }
 }
 
+.text-primary {
+  color: #fdb03d !important;
+}
+
 .owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next {
   font-size: 2rem;
 }
@@ -156,6 +160,10 @@ ul {
 }
 .owl-theme .owl-dots .owl-dot:focus {
   outline: none;
+}
+
+.owl-carousel .owl-stage {
+  display: flex;
 }
 
 .header {
@@ -366,7 +374,7 @@ ul {
   transition: color 300ms ease-in-out;
 }
 .products-child-categories > li > a:hover {
-  Right: 5px;
+  right: 5px;
   color: #fdb03d;
   text-decoration: none;
 }
@@ -382,6 +390,11 @@ ul {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   z-index: 0;
+}
+.products__item {
+  display: flex;
+  flex: 1 0 auto;
+  height: 100%;
 }
 .products__item--content {
   background-color: #fff;
@@ -419,6 +432,7 @@ ul {
   height: fit-content;
 }
 .products__item--img {
+  height: 18.75rem;
   margin-bottom: 0;
   overflow: hidden;
   position: relative;

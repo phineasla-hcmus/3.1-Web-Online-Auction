@@ -9,7 +9,10 @@
         data-trigger="hover"
       ><img src={{this.proImg}} class="img-fluid" alt="" />
       </a>
-      <div class="products__item--price" style="margin-bottom: 10px;">
+      <div
+        class="products__item--price text-primary"
+        style="margin-bottom: 10px;"
+      >
         <span><i class="fa fa-usd" aria-hidden="true"></i>
           {{this.currentPrice}}</span>
       </div>
@@ -31,7 +34,7 @@
           days left</p>
         <p>
           <i class="fa fa-trophy" aria-hidden="true"></i>
-          {{this.bidderName}}
+          {{!-- {{getCurrentBidder proId}} --}}
         </p>
       </div>
       <ul>
