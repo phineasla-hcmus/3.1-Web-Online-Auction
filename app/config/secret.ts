@@ -34,3 +34,8 @@ export const DB_POOL = {
 export const SESSION_SECRET = getEnv('SESSION_SECRET');
 export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
 export const RECAPTCHA_SITE = getEnv('RECAPTCHA_SITE');
+
+export const MAIL_SENDER = getEnv('MAIL_SENDER');
+export const MAIL_CLIENT_ID = getEnv('MAIL_CLIENT_ID');
+export const MAIL_CLIENT_SECRET = getEnv('MAIL_CLIENT_SECRET');
+export const MAIL_REFRESH_TOKEN = getEnv('MAIL_REFRESH_TOKEN');

@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
 import knex from './config/database';
-// Need import for passport to work
+import './config/nodemailer';
 import './config/passport';
 import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
