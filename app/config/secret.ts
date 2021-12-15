@@ -21,6 +21,7 @@ export const DB_CONFIG = {
   user: getEnv('DB_USER'),
   password: getEnv('DB_PASSWORD'),
   database: getEnv('DB_DATABASE'),
+  ssl: true,
 };
 export const DB_POOL = {
   min: Number(getEnv('DB_POOL_MIN')),
