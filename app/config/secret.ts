@@ -15,14 +15,17 @@ const getEnv = (key: string, defaultVal?: any, isOptional = false) => {
   return env;
 };
 
-export const DB_URL = getEnv('DB_URL');
 export const DB_CONFIG = {
   host: getEnv('DB_HOST'),
   port: getEnv('DB_PORT'),
   user: getEnv('DB_USER'),
   password: getEnv('DB_PASSWORD'),
   database: getEnv('DB_DATABASE'),
-  ssl: true,
+  ssl: {
+    // Force to connect to PlanetScale unsecured
+    // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
+    rejectUnauthorized: false,
+  },
 };
 export const DB_POOL = {
   min: Number(getEnv('DB_POOL_MIN')),
