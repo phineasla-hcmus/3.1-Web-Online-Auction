@@ -22,7 +22,7 @@ export const DB_CONFIG = {
   password: getEnv('DB_PASSWORD'),
   database: getEnv('DB_DATABASE'),
   ssl: {
-    // Force to connect to PlanetScale unsecured
+    // Force unsecured connection to PlanetScale
     // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
     rejectUnauthorized: false,
   },
