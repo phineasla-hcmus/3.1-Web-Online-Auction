@@ -15,6 +15,7 @@ const getEnv = (key: string, defaultVal?: any, isOptional = false) => {
   return env;
 };
 
+export const DB_URL = getEnv('DB_URL');
 export const DB_CONFIG = {
   host: getEnv('DB_HOST'),
   port: getEnv('DB_PORT'),
