@@ -2,32 +2,22 @@ import { randomBytes } from 'crypto';
 import knex from '../config/database';
 
 /**
- * Insert token into `otp` table
+ * Insert token into `otp` table, if `userId` is already existed, this will overwrite the old token
  * @param userId
- * @param forceInsert replace token if `userId` is already existed in `otp` table
- * @returns `[0]` if `merge()` or `ignore()` successfully, else use `catch()` to find out
+ * @returns the token generated
  */
-export async function addOtp(userId: any, forceInsert = false) {
+export async function addOtp(userId: any) {
   const token = randomBytes(2).toString('hex');
-  // const isConflict = knex('otp')
-  //   .insert({
-  //     userId: userId,
-  //     token: token,
-  //     dateCreated: Date.now(),
-  //   })
-  //   .onConflict('userId');
-  // return forceInsert ? isConflict.merge() : isConflict.ignore();
+  console.log('CREATED TOKEN: ' + token);
   return knex('otp')
-    .insert(
-      {
-        userId: userId,
-        token: token,
-        dateCreated: Date.now(),
-      },
-      'token'
-    )
+    .insert({
+      userId: userId,
+      token: token,
+      dateCreated: new Date(),
+    })
     .onConflict('userId')
-    .merge();
+    .merge()
+    .then((_) => token);
 }
 
 // export function validate
