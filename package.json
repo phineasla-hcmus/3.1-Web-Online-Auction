@@ -28,6 +28,8 @@
     "googleapis": "^92.0.0",
     "handlebars": "^4.7.7",
     "knex": "^0.95.14",
+    "moment": "^2.29.1",
+    "momentjs": "^2.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",

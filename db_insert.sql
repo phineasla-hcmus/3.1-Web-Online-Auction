@@ -40,3 +40,8 @@ insert into watchlist values(1, 2);
 insert into watchlist values(1, 3);
 insert into watchlist values(1, 4);
 insert into watchlist values(1, 5);
+
+insert into auctionhistory values(4, '2021-12-05 12:30:00', 1, 500);
+insert into auctionhistory values(4, '2021-12-05 13:00:00', 2, 520);
+insert into auctionhistory values(4, '2021-12-06 14:20:00', 1, 540);
+insert into auctionhistory values(4, '2021-12-06 18:00:00', 2, 560);

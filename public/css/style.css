@@ -199,11 +199,6 @@ ul {
   text-decoration: none;
   color: white;
 }
-.header__logo img {
-  width: 20%;
-  height: fit-content;
-  filter: brightness(150%);
-}
 .header__logo span {
   color: #fdb03d;
   font-size: 2rem;

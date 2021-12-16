@@ -130,3 +130,7 @@ CREATE TABLE `upgradeList` (
   `registerTime` datetime NOT NULL,
   PRIMARY KEY (`bidderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Full-text search
+ALTER TABLE products
+ADD FULLTEXT(proName)

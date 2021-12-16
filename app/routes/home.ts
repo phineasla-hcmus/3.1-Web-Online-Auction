@@ -56,9 +56,13 @@ homeRouter.get('/product', async (req, res) => {
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
 
+  const auctionHistory = await productModel.getAuctionHistory(productID);
+
   res.render('product/viewDetailProduct', {
     product: detailedProduct,
     listProduct: listRelatedProduct,
+    auctionHistory,
+    empty: auctionHistory.length === 0,
   });
 });
 
@@ -92,8 +96,44 @@ homeRouter.get('/search', async (req, res) => {
       catName: list.length === 0 ? 0 : list[0].catName,
       listProductByKeyword: list,
       empty: list.length === 0,
+      keyword: keyword,
     });
   }
 });
+
+// homeRouter.post('/search', async (req, res) => {
+//   const keyword = req.query.keyword;
+//   if (keyword) {
+//     const amountPro: any = await productModel.countProductByKeyword(keyword);
+//     const limitpage = 3;
+
+//     let numPage = Math.floor(amountPro / limitpage);
+//     if (amountPro % limitpage != 0) numPage++;
+
+//     const page: any = req.query.page || 1;
+//     const offset = (page - 1) * limitpage;
+//     const listofPage = [];
+
+//     const list = await productModel.findProductByKeyword(
+//       keyword,
+//       offset,
+//       limitpage
+//     );
+//     for (let i = 1; i <= numPage; i++) {
+//       listofPage.push({
+//         value: i,
+//         cateId: list.length === 0 ? 0 : list[0].catId,
+//         isCurrent: +page === i,
+//       });
+//     }
+//     res.render('search', {
+//       pages: listofPage,
+//       catName: list.length === 0 ? 0 : list[0].catName,
+//       listProductByKeyword: list,
+//       empty: list.length === 0,
+//       keyword: keyword,
+//     });
+//   }
+// });
 
 export default homeRouter;

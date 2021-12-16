@@ -1,7 +1,5 @@
-<section class="products col-sm-10">
-    <link rel="stylesheet" href="/public/css/detailProduct.css">
-    <body>
-        <div class="container">
+<section class="myContainer myContainer--py row">
+     <div class="col-sm-12">
             <div class="card">
                 {{#each this.product}}
                 <div class="container-fluid">
@@ -100,6 +98,29 @@
                                     <span class="fa fa-heart"></span>
                                 </button>
                             </div>
+                            {{#if ../empty}}
+                                <p class="text-danger fw-bold">No one has bid for this product yet!</p>
+                            {{else}}
+                                <table class="table table-info table-striped mt-3">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Bidder</th>
+                                    <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each ../auctionHistory as |history|}}
+                                        <tr>
+                                            <td>{{parseDate history.auctionTime}}</td>
+                                            <td>{{history.bidderId}}</td>
+                                            <td>{{history.auctionPrice}} USD</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                            {{/if}}
+                            
                         </div>
                     </div>
                 </div>
@@ -124,6 +145,7 @@
                 </div>
             </div>
         </div>
-
-    </body>
 </section>
+{{#section "stylesheets"}}
+    <link rel="stylesheet" href="/public/css/detailProduct.css">
+{{/section}}

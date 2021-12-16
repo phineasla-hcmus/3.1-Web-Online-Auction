@@ -1,25 +1,31 @@
 import db from '../config/database';
 export default {
-  async findNearEndProducts() {
+  findNearEndProducts() {
     let date = new Date();
     return db('products')
       .where('expiredDate', '>=', date)
       .orderBy('expiredDate', 'asc')
       .limit(5);
   },
-  async findMostBidsProducts() {
+  findMostBidsProducts() {
     let date = new Date();
     return db('products')
       .where('expiredDate', '>=', date)
       .orderBy('numberOfBids', 'desc')
       .limit(5);
   },
-  async findHighestPriceProducts() {
+  findHighestPriceProducts() {
     let date = new Date();
     return db('products')
       .where('expiredDate', '>=', date)
       .orderBy('currentPrice', 'desc')
       .limit(5);
+  },
+  getCurrentBidder(proId: number) {
+    return db('products')
+      .join('users', { 'products.bidderId': 'users.userId' })
+      .where('products.proId', proId)
+      .select('firstname');
   },
   async findProductbyCategory(catid: string | number | Readonly<any> | null) {
     return db('products')
@@ -72,5 +78,10 @@ export default {
     console.log(sql);
     const raw = await db.raw(sql);
     return raw[0];
+  },
+  async getAuctionHistory(proId: any) {
+    return db('auctionhistory')
+      .join('products AS pro', { 'auctionhistory.proId': 'pro.proId' })
+      .where('pro.proId', proId);
   },
 };

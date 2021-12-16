@@ -22,24 +22,24 @@
         <div class="products__near--end">
           <h1 class="products__title">Top 5 products near the end</h1>
           <div class="products__content owl-carousel owl-theme">
-            {{#each this.nearEndList}}
-              {{>product product=this}}
-            {{/each}}
+             {{#each nearEndList as |product|}}
+                  {{>product product=product user=../user}}      
+              {{/each}}
           </div>
         </div>
         <div class="products__most--bids mt-5">
           <h1 class="products__title">Top 5 products with the most bids</h1>
           <div class="products__content owl-carousel owl-theme" >
-            {{#each this.mostBidsList}}
-              {{>product product=this}}
+            {{#each mostBidsList as |product|}}
+              {{>product product=product user=../user}}
             {{/each}}
           </div>
         </div>
         <div class="products__highest--price mt-5">
           <h1 class="products__title">Top 5 products with the highest price</h1>
           <div class="products__content owl-carousel owl-theme">
-            {{#each this.highestPriceList}}
-              {{>product product=this}}
+            {{#each highestPriceList as |product|}}
+              {{>product product=product user=../user}}
             {{/each}}
           </div>
         </div>
