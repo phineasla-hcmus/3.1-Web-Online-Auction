@@ -9,14 +9,25 @@ import knex from '../config/database';
  */
 export async function addOtp(userId: any, forceInsert = false) {
   const token = randomBytes(2).toString('hex');
-  const isConflict = knex('otp')
-    .insert({
-      userId: userId,
-      token: token,
-      dateCreated: Date.now(),
-    })
-    .onConflict('userId');
-  return forceInsert ? isConflict.merge() : isConflict.ignore();
+  // const isConflict = knex('otp')
+  //   .insert({
+  //     userId: userId,
+  //     token: token,
+  //     dateCreated: Date.now(),
+  //   })
+  //   .onConflict('userId');
+  // return forceInsert ? isConflict.merge() : isConflict.ignore();
+  return knex('otp')
+    .insert(
+      {
+        userId: userId,
+        token: token,
+        dateCreated: Date.now(),
+      },
+      'token'
+    )
+    .onConflict('userId')
+    .merge();
 }
 
 // export function validate

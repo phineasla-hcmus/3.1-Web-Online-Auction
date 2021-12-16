@@ -1,10 +1,17 @@
-CREATE DATABASE IF NOT EXISTS `onlineauction`;
-USE `onlineauction`;
+-- COMMENT THIS LINE TO EXECUTE ON PLANET SCALE
+CREATE DATABASE IF NOT EXISTS `web-express-auction`;
 
+-- All table creation must comply these rules:
+-- 1. DROP TABLE IF EXISTS before CREATE TABLE
+-- 2. No FOREIGN KEY
+
+USE `web-express-auction`;
 SET NAMES utf8mb4;
+
 -- ----------------------------
 -- Table structure for roles
 -- ----------------------------
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `roleId` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `roleName` varchar(20) NOT NULL,
@@ -14,6 +21,7 @@ CREATE TABLE `roles` (
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL UNIQUE,
@@ -23,25 +31,25 @@ CREATE TABLE `users` (
   `dob` date,
   `address` varchar(100),
   `roleId` tinyint unsigned DEFAULT 1,
-  PRIMARY KEY (`userId`),
-  CONSTRAINT `FK_users_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for OTP
 -- Each user can only have one token
 -- ----------------------------
+DROP TABLE IF EXISTS `otp`;
 CREATE TABLE `otp` (
   `userId` int unsigned NOT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `token` char(4) NOT NULL,
-  PRIMARY KEY (`userId`),
-  CONSTRAINT `FK_otp_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for categories
 -- ----------------------------
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `catId` int unsigned NOT NULL AUTO_INCREMENT,
   `catName` varchar(50) COLLATE utf8_general_ci NOT NULL,
@@ -52,6 +60,7 @@ CREATE TABLE `categories` (
 -- ----------------------------
 -- Table structure for products
 -- ----------------------------
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `proId` int unsigned NOT NULL AUTO_INCREMENT,
   `proName` varchar(50) COLLATE utf8_general_ci NOT NULL,
@@ -64,66 +73,61 @@ CREATE TABLE `products` (
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
-  PRIMARY KEY (`proId`),
-  CONSTRAINT `FK_products_categories` FOREIGN KEY (`catId`) REFERENCES `categories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for watchlist
 -- ----------------------------
+DROP TABLE IF EXISTS `watchlist`;
 CREATE TABLE `watchlist` (
   `bidderId` int unsigned NOT NULL,
   `proId` int unsigned NOT NULL,
-  PRIMARY KEY (`bidderId`, `proId`),
-  CONSTRAINT `FK_watchlist_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_watchlist_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`bidderId`, `proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for auction history
 -- ----------------------------
+DROP TABLE IF EXISTS `auctionHistory`;
 CREATE TABLE `auctionHistory` (
   `proId` int unsigned NOT NULL,
   `auctionTime` datetime NOT NULL,
   `bidderId` int unsigned NOT NULL,
   `auctionPrice` int NOT NULL,
-  PRIMARY KEY (`proId`, `auctionTime`),
-  CONSTRAINT `FK_auctionHistory_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_auctionHistory_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`proId`, `auctionTime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for rating history
 -- ----------------------------
+DROP TABLE IF EXISTS `ratingHistory`;
 CREATE TABLE `ratingHistory` (
   `bidderId` int unsigned NOT NULL,
   `assessorId` int unsigned NOT NULL,
   `ratingTime` datetime NOT NULL,
   `ratingPoint` tinyint unsigned NOT NULL,
   `comment` varchar(100) NOT NULL,
-  PRIMARY KEY (`bidderId`, `assessorId`, `ratingTime`),
-  CONSTRAINT `FK_ratingHistory_users_1` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_ratingHistory_users_2` FOREIGN KEY (`assessorId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`bidderId`, `assessorId`, `ratingTime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for auction list
 -- ----------------------------
+DROP TABLE IF EXISTS `auctionList`;
 CREATE TABLE `auctionList` (
   `sellerId` int unsigned NOT NULL,
   `proId` int unsigned NOT NULL,
   `postDate` datetime NOT NULL,
-  PRIMARY KEY (`sellerId`, `proId`),
-  CONSTRAINT `FK_auctionList_users` FOREIGN KEY (`sellerId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_auctionList_products` FOREIGN KEY (`proId`) REFERENCES `products` (`proId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`sellerId`, `proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for upgrade list
 -- ----------------------------
+DROP TABLE IF EXISTS `upgradeList`;
 CREATE TABLE `upgradeList` (
   `bidderId` int unsigned NOT NULL,
   `registerTime` datetime NOT NULL,
-  PRIMARY KEY (`bidderId`),
-  CONSTRAINT `FK_upgradeList_users` FOREIGN KEY (`bidderId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`bidderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
