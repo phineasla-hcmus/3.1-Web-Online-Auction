@@ -15,16 +15,13 @@ export async function sendVerify(
   from: string = MAIL_SENDER
 ) {
   const raw = await fs.readFile('./emails/verify.html', 'utf-8');
+  // Can be improved with precompile handlebars template
   const template = compile(raw);
   const html = template({ email: to, otp: otp });
-  console.log('PRESENDING');
-
   const transporter = await createTransporter();
-  console.log('SENDING');
-
   return transporter.sendMail({
     subject: 'Verify your email',
-    from: MAIL_SENDER,
+    from,
     to,
     html,
   });

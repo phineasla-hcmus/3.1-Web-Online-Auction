@@ -1,4 +1,4 @@
-USE `onlineauction`;
+USE `web-express-auction`;
 
 insert into roles values(1, 'Unverified');
 insert into roles values(2, 'Bidder');
