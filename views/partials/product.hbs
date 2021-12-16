@@ -31,14 +31,14 @@
           {{parseDate postDate}}</small>
         <p class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i>
           {{getRemainingTime expiredDate}}
-          days left</p>
+          left</p>
         <p>
-          <i class="fa fa-trophy" aria-hidden="true"></i>
-          {{!-- {{getCurrentBidder proId}} --}}
+          <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+          {{bidderName}}
         </p>
       </div>
       <ul>
-        <li><i class="fa fa-gavel" aria-hidden="true"></i>
+        <li><i class="fa fa-gavel text-info" aria-hidden="true"></i>
           {{this.numberOfBids}}
         </li>
         {{#if user}}

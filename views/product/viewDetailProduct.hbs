@@ -113,7 +113,7 @@
                                     {{#each ../auctionHistory as |history|}}
                                         <tr>
                                             <td>{{parseDate history.auctionTime}}</td>
-                                            <td>{{history.bidderId}}</td>
+                                            <td>{{maskBidderName history.bidderName}}</td>
                                             <td>{{history.auctionPrice}} USD</td>
                                         </tr>
                                     {{/each}}

@@ -9,7 +9,7 @@ const hbs = create({
     isChildOf,
     parseDate,
     getRemainingTime,
-    // getCurrentBidder,
+    maskBidderName,
     section,
   },
 });
@@ -26,19 +26,25 @@ function parseDate(date: string) {
 }
 
 function getRemainingTime(date: string) {
-  let today = new Date();
-  let expiredDate = new Date(date);
-  return expiredDate.getDate() - today.getDate();
+  var expiredDate: any = new Date(date);
+  var dateNow: any = new Date();
+
+  var seconds = Math.floor((expiredDate - dateNow) / 1000);
+  var minutes = Math.floor(seconds / 60);
+  var hours = Math.floor(minutes / 60);
+  var days = Math.floor(hours / 24);
+
+  hours = hours - days * 24;
+  minutes = minutes - days * 24 * 60 - hours * 60;
+  seconds = seconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
+  return days + ' days ' + hours + ' hours ' + minutes + ' minutes ';
 }
 
-// function getCurrentBidder(proId: number) {
-//   // let result = await productModel.getCurrentBidder(proId);
-//   // return Promise.resolve(result[0].firstname);
-//   const firstname = productModel.getCurrentBidder(proId).then((firstname) => {
-//     return Promise.resolve(firstname);
-//   });
-//   return firstname;
-// }
+function maskBidderName(bidderName: string) {
+  const lastname = bidderName.substring(4);
+  const mask = '*'.repeat(4);
+  return mask + lastname;
+}
 
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)

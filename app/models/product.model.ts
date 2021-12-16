@@ -82,6 +82,7 @@ export default {
   async getAuctionHistory(proId: any) {
     return db('auctionhistory')
       .join('products AS pro', { 'auctionhistory.proId': 'pro.proId' })
-      .where('pro.proId', proId);
+      .where('pro.proId', proId)
+      .select('auctionhistory.*');
   },
 };
