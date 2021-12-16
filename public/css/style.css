@@ -549,4 +549,8 @@ ul {
   }
 }
 
+.rating__item {
+  width: 50%;
+}
+
 /*# sourceMappingURL=style.css.map */
