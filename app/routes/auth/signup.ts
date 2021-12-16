@@ -11,7 +11,6 @@ import signUpValidator from '../../validators/signup.validator';
 const signUpRouter = Router();
 
 signUpRouter.get('/', (req, res) => {
-  if (req.user) return res.redirect('/');
   res.render('auth/signup', {
     layout: 'auth',
     recaptcha: RECAPTCHA_SITE,

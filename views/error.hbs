@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,22 +10,28 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:100"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/public/css/error.css" />
   </head>
   <body>
     <!-- https://codepen.io/Navedkhan012/pen/vrWQMY -->
-    <section class="page_404">
+    <section class="error_page">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="col-sm-10 mx-auto text-center">
-              <div class="four_zero_four_bg">
-                <h1 class="text-center font-weight-bold">404</h1>
+              <div class="caveman_bg">
+                <h1 class="text-center font-weight-bold">{{code}}</h1>
               </div>
-              <div class="contant_box_404">
-                <h3 class="h2">Page not found!</h3>
-                <p>Look like one of the developers fell asleep</p>
-                <a href="/" class="link_404">Home</a>
+              <div class="content_box">
+                <h3 class="h2 font-weight-bold">Well this shouldn't happen</h3>
+                <p class="font-weight-bold">
+                  Have you tried turning it off and on again?
+                </p>
+                <a href="/" class="go_home">Go to Home</a>
               </div>
             </div>
           </div>
