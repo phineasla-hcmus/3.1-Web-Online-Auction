@@ -1,6 +1,5 @@
 import { create } from 'express-handlebars';
 import moment from 'moment';
-import productModel from '../models/product.model';
 
 const hbs = create({
   defaultLayout: 'layout.hbs',

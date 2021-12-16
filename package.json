@@ -1,5 +1,5 @@
 {
-  "name": "online-auction",
+  "name": "web-express-auction",
   "version": "0.1.0",
   "repository": "https://github.com/phineasla-hcmus/3.1-Web-Online-Auction",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "compression": "^1.7.4",
     "connect-session-knex": "^2.1.1",
     "cookie-parser": "^1.4.6",
+    "date-fns": "^2.27.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "express-handlebars": "^6.0.2",
