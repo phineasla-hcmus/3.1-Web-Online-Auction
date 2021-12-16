@@ -1,18 +1,9 @@
 <nav class='myContainer navbar navbar-expand-lg navbar-light px-0'>
   <a class='header__logo hide-for-mobile flex flex-ai-c' href='/'>
-    <img style="width: 50%;" class="img-fluid" src='/public/images/logo-white-512-95.svg' alt='logo' />
-    {{!-- <p class='m-0'>
-      <span>E</span>xpress
-      <span>A</span>uction
-    </p> --}}
+    <img style="width: 50%;" class='img-fluid' src='/public/images/logo-512-95.svg' alt='logo' />
   </a>
 
   <div class='header__content'>
-    {{! <div id="searchdropdown" class="dropdown nav-item form-inline ml-auto show">
-      
-      <div id="resultbar" class="dropdown-menu-spec dropdown-with-icons"></div>
-
-    </div> }}
     <a style='width: 4rem' class='hide-for-desktop' href='/'>
       <img
         class='img-fluid'
@@ -47,7 +38,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" href="/bidder/favorite">Favorite list</a></li>
         <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
-        <li><a class="dropdown-item" href="#">Log out</a></li>
+        <li><a style="padding: 0.5rem; display: block" class="btn header__btn mx-3" href="#" role="button">Log out</a></li>
       </ul>
     </div>
     {{else}}
