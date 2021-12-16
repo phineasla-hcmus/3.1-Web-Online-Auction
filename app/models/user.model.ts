@@ -60,3 +60,16 @@ export async function addUser(user: {
 }) {
   return knex('users').insert(user);
 }
+
+/**
+ * 
+ * @param userId 
+ * @param user one or multiple `users` columns, except `userId`
+ * @returns `1` if update successfully, else `0`
+ */
+export async function updateUser(
+  userId: any,
+  user: Partial<Omit<User, 'userId'>>
+) {
+  return knex('users').where({ userId }).update(user);
+}

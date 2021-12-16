@@ -11,7 +11,9 @@ import './config/nodemailer';
 import './config/passport';
 import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
+import { deleteOtp, findOtp } from './models/otp.model';
 import { RoleType } from './models/role.model';
+import { updateUser } from './models/user.model';
 import loginRouter from './routes/auth/login';
 import logoutRouter from './routes/auth/logout';
 import signUpRouter from './routes/auth/signup';
@@ -95,7 +97,12 @@ app.use('/bidder', bidderRouter);
 
 app.use((req, res, next) => {
   res.sendFile('views/error.html', { root: '.' });
-  next;
+  next();
 });
+
+async function test() {
+  // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
+}
+test();
 
 export default app;

@@ -4,6 +4,7 @@ import { validationResult } from 'express-validator';
 import { RECAPTCHA_SITE } from '../../config/secret';
 import { addOtp } from '../../models/otp.model';
 import { addUser } from '../../models/user.model';
+import { sendVerify } from '../../utils/email';
 import logger from '../../utils/logger';
 import signUpValidator from '../../validators/signup.validator';
 
@@ -27,21 +28,27 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
     return res.json(errors.array());
   }
   // Insert user to DB
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const reqBody = req.body;
+  const { email, password, firstName, lastName, dob, address } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
   const userId = await addUser({
-    email: reqBody.email,
+    email,
     password: hashedPassword,
-    firstName: reqBody.firstName,
-    lastName: reqBody.lastName,
-    dob: new Date(reqBody.dob),
-    address: reqBody.address,
+    firstName,
+    lastName,
+    dob: new Date(dob),
+    address,
   });
 
   logger.debug('Insert result: ' + userId);
 
-  // Send OTP to user
-  addOtp(userId).catch((e) => logger.error(e));
+  // Create token on database, if any knex error, deal with it later in the resend email
+  const token = await addOtp(userId).catch((e) => {
+    logger.error(e);
+    return undefined;
+  });
+  if (token) {
+    sendVerify(req.body.email, token);
+  }
   // Just redirect to the previous page and let app.ts redirect verify
   res.redirect(req.session.returnTo || '/');
 });
