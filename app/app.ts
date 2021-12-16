@@ -27,23 +27,25 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 // NOTE: Express middleware order is important
+app.use('/public', express.static(path.join('public')));
 app.use(morgan('dev'));
-app.use(compression());
-// Replacement of bodyParser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(
   session({
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     store: new knexSession({ knex: knex }),
+    // 1 day cookie
+    cookie: { secure: false, maxAge: 8.64e7 },
   })
 );
+app.use(compression());
+// Replacement of bodyParser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/public', express.static(path.join('public')));
 
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
@@ -51,9 +53,11 @@ app.use((req, res, next) => {
     !req.user &&
     req.path !== '/login' &&
     req.path !== '/signup' &&
+    req.path !== '/favicon.ico' &&
+    !req.path.match(/^\public/) &&
     !req.path.match(/^\/auth/)
   ) {
-    req.session.returnTo = req.path;
+    req.session.returnTo = req.originalUrl;
   } else if (req.user && req.path == '/account') {
     req.session.returnTo = req.path;
   }
