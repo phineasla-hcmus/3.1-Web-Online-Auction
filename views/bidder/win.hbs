@@ -1,0 +1,29 @@
+<div class="myContainer myContainer--py row">
+  <h1 class="h3 text-center">My Winning Products</h1>
+  <div class="winning__content row">
+    {{#each this.winningList as |winItem|}}
+      <div
+        style="width: fit-content;"
+        class="winnning__item border border-warning border-4 p-4 col-sm-3"
+      >
+        <div class="winning__item--content d-flex justify-content-between">
+          <img
+            style="max-height: 5rem;"
+            src="{{winItem.proImg}}"
+            alt="Winning Product"
+          />
+          <div class="ps-3">
+            <p class="m-0 fw-bold">{{winItem.proName}}</p>
+            <p class="m-0 text-danger"><i
+                class="fa fa-usd"
+              ></i>{{winItem.currentPrice}}
+            </p>
+            <p class="m-0"><i class="fa fa-user" aria-hidden="true"></i>
+              Tam Nguyen</p>
+          </div>
+        </div>
+        <button class="btn header__btn mt-2" type="button">Rate</button>
+      </div>
+    {{/each}}
+  </div>
+</div>

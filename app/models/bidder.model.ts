@@ -7,10 +7,9 @@ export default {
       .select('p.*');
   },
   async getWinningList(bidderId: number) {
-    return db('watchlist')
+    return db('products')
       .where('bidderId', bidderId)
-      .join('products as p', 'watchlist.proId', 'p.proId')
-      .select('p.*');
+      .andWhere('expiredDate', '<', new Date());
   },
   async getCurrentBids(bidderId: number) {
     return db('auctionhistory')

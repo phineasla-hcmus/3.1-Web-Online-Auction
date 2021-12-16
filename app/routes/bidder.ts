@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
+import productModel from '../models/product.model';
 
 const bidderRouter = Router();
 
@@ -23,6 +24,12 @@ bidderRouter.get('/currentbids', async function (req, res) {
 bidderRouter.get('/rating', async function (req, res) {
   // 1 để render tạm thời, có login sửa sau
   res.render('bidder/rating');
+});
+
+bidderRouter.get('/win', async function (req, res) {
+  // 1 để render tạm thời, có login sửa sau
+  const winningList = await bidderModel.getWinningList(1);
+  res.render('bidder/win', { winningList });
 });
 
 export default bidderRouter;
