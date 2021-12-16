@@ -6,7 +6,7 @@ import { updateUser } from '../../models/user.model';
 const verifyRouter = Router();
 
 verifyRouter.post('/resend/:userId', (req, res) => {
-  //TODO: find otp, (if not found, create otp), then resend email
+  //TODO: find otp, then resend email
 });
 
 verifyRouter.get('/:userId', (req, res) => {
