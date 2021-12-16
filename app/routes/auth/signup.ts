@@ -41,14 +41,8 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
 
   logger.debug('Insert result: ' + userId);
 
-  // Create token on database, if any knex error, deal with it later in the resend email
-  const token = await addOtp(userId).catch((e) => {
-    logger.error(e);
-    return undefined;
-  });
-  if (token) {
-    sendVerify(req.body.email, token);
-  }
+  // Create token on database, ignore any knex error
+  const token = await addOtp(userId);
   // Just redirect to the previous page and let app.ts redirect verify
   res.redirect(req.session.returnTo || '/');
 });
