@@ -1,5 +1,23 @@
 <section class="myContainer myContainer--py row">
-     <div class="col-sm-12">
+    <div class="col-sm-2 px-0 hide-for-mobile">
+            <ul class="list-group list-group-flush products-parent-categories">
+                {{#each parentCategories as |parent|}}
+                <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
+                    <a  href="#">
+                    {{parent.catName}}
+                    </a>
+                    <ul class="products-child-categories">
+                    {{#each ../childCategories as |child|}}
+                    {{#if (isChildOf child.parentId parent.catId)}}
+                    <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
+                    {{/if}}
+                    {{/each}}
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+     <div class="col-sm-1 col-md-10">
             <div class="card">
                 {{#each this.product}}
                 <div class="container-fluid">
@@ -136,7 +154,7 @@
                 <div class="description-block headshot headshot-1 px-4 pt-1">
                 <div class="products__related mt-3">
                     <h1 class="products__title">Related Product</h1>
-                    <div class="products__content owl-carousel owl-theme" style="padding-right: 30px;">
+                    <div class="products__content owl-carousel owl-theme">
                         {{#each this.listProduct}}
                         {{>product product=this}}
                         {{/each}}
