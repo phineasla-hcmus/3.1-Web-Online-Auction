@@ -1,11 +1,8 @@
 <h1 class="h3 text-center">My Winning Products</h1>
-<div class="winning__content row">
+<div class="winning__content p-5">
   {{#each this.winningList as |winItem|}}
-    <div
-      style="width: fit-content;"
-      class="winnning__item border border-warning border-4 p-4 col-sm-3"
-    >
-      <div class="winning__item--content d-flex justify-content-between">
+    <div class="winning__item border border-warning border-4 p-2">
+      <div class="winning__item--content d-flex">
         <img
           style="max-height: 5rem;"
           src="{{winItem.proImg}}"
@@ -21,7 +18,56 @@
             Tam Nguyen</p>
         </div>
       </div>
-      <button class="btn header__btn mt-2" type="button">Rate</button>
+      <button
+        class="btn header__btn mt-2"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#ratingModal"
+      >Rate</button>
     </div>
   {{/each}}
+  <div
+    style="margin-top: 5.5rem;"
+    class="modal fade"
+    id="ratingModal"
+    tabindex="-1"
+    aria-labelledby="ratingModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ratingModalLabel">Give us your thoughts</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="email" class="col-form-label">Comment</label>
+              {{! <input type="email" class="form-control" id="email" /> }}
+              <textarea
+                style="display: block; width: 100%"
+                name="commentBox"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >Close</button>
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

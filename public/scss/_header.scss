@@ -43,6 +43,10 @@
     padding-left: 1rem;
     padding-right: 1rem;
     @include breakpoint-up(medium) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    @include breakpoint-up(medium) {
       width: 65%;
     }
     @include breakpoint-up(large) {

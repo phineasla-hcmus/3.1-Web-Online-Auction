@@ -212,6 +212,12 @@ ul {
 }
 @media (min-width: 40em) {
   .header__content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (min-width: 40em) {
+  .header__content {
     width: 65%;
   }
 }
@@ -552,6 +558,18 @@ ul {
   .info__wrapper {
     padding-top: 0;
   }
+}
+
+.winning__content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.winning__item {
+  max-width: 25rem;
+}
+.winning__item--content {
+  min-height: 6rem;
 }
 
 /*# sourceMappingURL=style.css.map */

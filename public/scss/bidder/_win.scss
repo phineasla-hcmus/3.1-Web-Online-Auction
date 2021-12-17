@@ -1,0 +1,14 @@
+.winning {
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    // justify-content: space-evenly;
+  }
+  &__item {
+    max-width: 25rem;
+    &--content {
+      min-height: 6rem;
+    }
+  }
+}
