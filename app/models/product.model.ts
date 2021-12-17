@@ -56,7 +56,7 @@ export default {
   async findRelatedProduct(proID: any) {
     return db('products')
       .join('products AS relatedProduct', {
-        'products.catId': 'relatedProduct.catId',
+        'products.proId': 'relatedProduct.proId',
       })
       .where('relatedProduct.proId', '<>', proID)
       .limit(5);

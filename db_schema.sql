@@ -134,6 +134,30 @@ CREATE TABLE `upgradeList` (
   PRIMARY KEY (`bidderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- ----------------------------
+-- Table structure for denyBidder
+-- ----------------------------
+DROP TABLE IF EXISTS `deniedBidder`;
+CREATE TABLE `deniedBidder`(
+  `bidderId` int unsign NOT NULL,
+  `proId` int unsigned NOT NULL
+  PRIMARY KEY(`bidderId`,`proId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Table structure for aunctionAuto
+-- ----------------------------
+
+DROP TABLE IF EXISTS `aunctionAuto`;
+CREATE TABLE `aunctionAuto`(
+  `proId` int unsign NOT NULL,
+  `userId` int unsign NOT NULL,
+  `maxPrice` int unsign NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY(`proId`,`userId`,`maxPrice`) 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- Full-text search
 ALTER TABLE products
 ADD FULLTEXT(proName)
