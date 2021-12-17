@@ -1,189 +1,187 @@
-<div class="myContainer myContainer--pall">
-  <h1 class="h3 text-center">Edit personal information</h1>
-  <div class="row m-0 my-2 justify-content-center align-items-center">
-    <div class="col-sm-4 info__wrapper border border-4 border-info p-3 rounded">
-      <div class="d-flex align-items-center">
-        <p class="h5 me-2"><i
-            class="fa fa-envelope pe-2 text-warning"
-            aria-hidden="true"
-          ></i>
-          <span class="h6">tmnguyen@gmail.com</span>
-        </p>
+<h1 class="h3 text-center">Edit personal information</h1>
+<div class="row m-0 my-2 justify-content-center align-items-center">
+  <div class="col-sm-4 info__wrapper border border-4 border-info p-3 rounded">
+    <div class="d-flex align-items-center">
+      <p class="h5 me-2"><i
+          class="fa fa-envelope pe-2 text-warning"
+          aria-hidden="true"
+        ></i>
+        <span class="h6">tmnguyen@gmail.com</span>
+      </p>
 
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#emailModal"
-        ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-
-      </div>
-      <div class="d-flex align-items-center mt-2">
-        <p class="h5 me-2">
-          <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
-          <span class="h6">Tam Nguyen</span>
-        </p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#nameModal"
-        ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-      </div>
-      <div class="d-flex h4 mt-2">
-        <i class="fa fa-key pe-2 text-warning" aria-hidden="true"></i>
-        <div class="input-group">
-
-          <input
-            style="background: none;"
-            class="form-control"
-            value="123456"
-            type="password"
-            name="password"
-            id="password"
-            readonly
-          />
-          <button
-            class="btn btn-primary"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#passwordModal"
-          ><i class="fa fa-pencil" aria-hidden="true"></i></button>
-
-        </div>
-      </div>
       <button
-        style="margin: 0 auto;"
-        class="btn header__btn d-block mt-3"
-        type="submit"
-      >Upgrade to seller</button>
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#emailModal"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
     </div>
+    <div class="d-flex align-items-center mt-2">
+      <p class="h5 me-2">
+        <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
+        <span class="h6">Tam Nguyen</span>
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#nameModal"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    </div>
+    <div class="d-flex h4 mt-2">
+      <i class="fa fa-key pe-2 text-warning" aria-hidden="true"></i>
+      <div class="input-group">
+
+        <input
+          style="background: none;"
+          class="form-control"
+          value="123456"
+          type="password"
+          name="password"
+          id="password"
+          readonly
+        />
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#passwordModal"
+        ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+      </div>
+    </div>
+    <button
+      style="margin: 0 auto;"
+      class="btn header__btn d-block mt-3"
+      type="submit"
+    >Upgrade to seller</button>
   </div>
-  <div
-    style="margin-top: 5.5rem;"
-    class="modal fade"
-    id="emailModal"
-    tabindex="-1"
-    aria-labelledby="emailModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="emailModalLabel">Change email</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="email" class="col-form-label">New email</label>
-              <input type="email" class="form-control" id="email" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
-        </div>
+</div>
+<div
+  style="margin-top: 5.5rem;"
+  class="modal fade"
+  id="emailModal"
+  tabindex="-1"
+  aria-labelledby="emailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailModalLabel">Change email</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">New email</label>
+            <input type="email" class="form-control" id="email" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
-  <div
-    style="margin-top: 5.5rem;"
-    class="modal fade"
-    id="nameModal"
-    tabindex="-1"
-    aria-labelledby="nameModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="nameModalLabel">Change name</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="firstname" class="col-form-label">First Name</label>
-              <input type="text" class="form-control" id="firstname" />
-            </div>
-          </form>
-          <form>
-            <div class="mb-3">
-              <label for="lastname" class="col-form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastname" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
-        </div>
+</div>
+<div
+  style="margin-top: 5.5rem;"
+  class="modal fade"
+  id="nameModal"
+  tabindex="-1"
+  aria-labelledby="nameModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nameModalLabel">Change name</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="firstname" class="col-form-label">First Name</label>
+            <input type="text" class="form-control" id="firstname" />
+          </div>
+        </form>
+        <form>
+          <div class="mb-3">
+            <label for="lastname" class="col-form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastname" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
-  <div
-    style="margin-top: 5.5rem;"
-    class="modal fade"
-    id="passwordModal"
-    tabindex="-1"
-    aria-labelledby="passwordModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="passwordModalLabel">Change password</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="oldpassword" class="col-form-label">Enter your old
-                password</label>
-              <input type="password" class="form-control" id="oldpassword" />
-            </div>
-          </form>
-          <form>
-            <div class="mb-3">
-              <label for="newpassword" class="col-form-label">Enter your new
-                password</label>
-              <input type="password" class="form-control" id="newpassword" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
-        </div>
+</div>
+<div
+  style="margin-top: 5.5rem;"
+  class="modal fade"
+  id="passwordModal"
+  tabindex="-1"
+  aria-labelledby="passwordModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordModalLabel">Change password</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="oldpassword" class="col-form-label">Enter your old
+              password</label>
+            <input type="password" class="form-control" id="oldpassword" />
+          </div>
+        </form>
+        <form>
+          <div class="mb-3">
+            <label for="newpassword" class="col-form-label">Enter your new
+              password</label>
+            <input type="password" class="form-control" id="newpassword" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>

@@ -78,7 +78,10 @@
   }
 
   &__content {
-    padding-left: 50px;
+    padding-left: 0;
+    @include breakpoint-up(medium) {
+      padding-left: 50px;
+    }
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -190,6 +193,7 @@
           -ms-transition: all 0.3s ease-in-out;
           transition: all 0.3s ease-in-out;
           backface-visibility: hidden;
+          width: 23rem;
         }
 
         &:hover {
