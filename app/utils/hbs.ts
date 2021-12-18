@@ -9,7 +9,7 @@ const hbs = create({
     parseDate,
     getRemainingTime,
     maskBidderName,
-    section,
+    section
   },
 });
 
@@ -68,3 +68,4 @@ function section(this: any, name: string, options: any) {
   this.section[name] = options.fn(this);
   return null;
 }
+

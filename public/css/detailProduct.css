@@ -253,3 +253,14 @@ img {
 	border-radius: 0%;
 	background-image: var(--img-url), linear-gradient(#f9f047, #0fd850);
 }
+
+.preview > .products__content{
+    padding: 30px;
+
+}
+.subPic{
+    opacity: 0.5;
+}
+.subPic:hover{
+    opacity: 1;
+}

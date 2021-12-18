@@ -1,6 +1,8 @@
 import { query, Router } from 'express';
 import productModel from '../models/product.model';
 import categoryModel from '../models/category.model';
+import path from 'path';
+import fs from 'fs';
 
 const homeRouter = Router();
 
@@ -58,11 +60,28 @@ homeRouter.get('/product', async (req, res) => {
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
 
+  //get path to root
+  let rootProject = path.join(__dirname,'../../');
+  
+  //count number of file in folder 
+  const filelength = fs.readdirSync(rootProject+`/public/images/product/${productID}/`).length;
+  
+
+  //create a temp array to pass into hbs
+  const numberofPic=[];
+  for(let i=1;i<filelength+1;i++)
+  {
+    numberofPic.push({
+      value: i
+    });
+  }
+
   res.render('product/viewDetailProduct', {
     product: detailedProduct,
     listProduct: listRelatedProduct,
     auctionHistory,
     empty: auctionHistory.length === 0,
+    amountPic: numberofPic
   });
 });
 

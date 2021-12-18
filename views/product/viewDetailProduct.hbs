@@ -19,32 +19,22 @@
         </div>
      <div class="col-sm-1 col-md-10">
             <div class="card">
-                {{#each this.product}}
+                {{#each this.product as |pro|}}
                 <div class="container-fluid">
                     <div class="wrapper row">
                         <div class="preview col-md-6">
                             <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1">
-                                    <img src="/public/images/product/{{this.proId}}/main.jpg" />
+                                <div class="tab-pane active" >
+                                    <img src="/public/images/product/{{proId}}/1.jpg" id="mainPic"/>
                                 </div>
                             </div>
-                            <ul class="preview-thumbnail nav nav-tabs">
-                                <li class="active">
-                                    <a data-target="#pic-1" data-toggle="tab">
-                                        <img src="{{proImg}}" />
+                            <div class="products__content owl-carousel owl-theme">
+                                {{#each ../amountPic as |pics|}}
+                                    <a data-target="#pic-1" data-toggle="tab" >
+                                        <img src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg" id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')" class="subPic" />
                                     </a>
-                                </li>
-                                <li>
-                                    <a data-target="#pic-2" data-toggle="tab">
-                                        <img src="{{proImg}}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a data-target="#pic-3" data-toggle="tab">
-                                        <img src="{{proImg}}" />
-                                    </a>
-                                </li>
-                            </ul>
+                                {{/each}}
+                            </div>
                         </div>
                         <div class="details col-md-6">
                             <h3 class="product-title">
@@ -164,6 +154,17 @@
             </div>
         </div>
 </section>
+    <script>
+        function changeImg(pic) {
+            var mainPic = document.getElementById('mainPic');
+            var subPic = document.getElementById(`subPic${pic}`);
+            var tmp = subPic.src;
+
+            mainPic.src=subPic.src;
+            subPic.src=tmp;
+            
+        }
+    </script>
 {{#section "stylesheets"}}
     <link rel="stylesheet" href="/public/css/detailProduct.css">
 {{/section}}
