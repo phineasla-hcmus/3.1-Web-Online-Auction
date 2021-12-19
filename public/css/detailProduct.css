@@ -65,7 +65,7 @@ img {
 
 .card {
     margin-left: 2em;
-    background: #eee;
+    background: #ffffff;
     padding: 3em;
     line-height: 1.5em;
 }
@@ -158,9 +158,9 @@ img {
     transition: background .3s ease;
 }
 
-.like {
+/* .like {
     padding: 1.45em 1.75em;
-}
+} */
 
 .add-to-cart:hover,
 .like:hover {

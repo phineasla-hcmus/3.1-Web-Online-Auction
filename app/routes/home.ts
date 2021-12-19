@@ -21,7 +21,7 @@ homeRouter.get('/category', async (req, res) => {
   const catid = req.query.catId || 0;
 
   const amountPro: any = await productModel.countProductbyCategory(catid);
-  const limitpage = 3;
+  const limitpage = 5;
 
   let numPage = Math.floor(amountPro / limitpage);
   if (amountPro % limitpage != 0) numPage++;
@@ -89,7 +89,7 @@ homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
   if (keyword) {
     const amountPro: any = await productModel.countProductByKeyword(keyword);
-    const limitpage = 3;
+    const limitpage = 5;
 
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;
