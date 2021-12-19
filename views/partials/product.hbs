@@ -7,7 +7,11 @@
         title="Popover title"
         data-content="Popover body content is set in this attribute."
         data-trigger="hover"
-      ><img src="/public/images/product/{{this.proId}}/1.jpg" class="img-fluid" alt="" />
+      ><img
+          src="/public/images/product/{{this.proId}}/1.jpg"
+          class="img-fluid"
+          alt=""
+        />
       </a>
       <div
         class="products__item--price text-primary"
@@ -24,7 +28,7 @@
 
     <div class="products__item--wrapper">
       <div>
-        <h3 class="name">
+        <h3>
           {{this.proName}}
         </h3>
         <small><i class="fa fa-calendar" aria-hidden="true"></i>
@@ -38,7 +42,7 @@
         </p>
       </div>
       <ul>
-        <li><i class="fa fa-gavel text-info" aria-hidden="true"></i>
+        <li><i class="fa fa-gavel text-danger" aria-hidden="true"></i>
           {{this.numberOfBids}}
         </li>
         {{#if user}}

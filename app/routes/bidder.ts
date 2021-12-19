@@ -70,7 +70,6 @@ bidderRouter.get('/currentbids', async function (req, res) {
 
 bidderRouter.get('/rating', async function (req, res) {
   const ratingList = await bidderModel.getRatingList(res.locals.user.userId);
-  console.log(ratingList);
   res.render('bidder/rating', {
     layout: 'bidder',
     ratingList,

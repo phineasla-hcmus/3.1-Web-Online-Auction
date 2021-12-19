@@ -3,10 +3,10 @@
   &-parent-categories {
     & > li {
       border-radius: 5px;
-      position: relative;
+      // position: relative;
       background: white;
       padding-left: 5px;
-      margin: 15px;
+      margin-bottom: 15px;
       border-style: double;
       border-color: #662d91;
       font-size: large;
@@ -71,7 +71,7 @@
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: capitalize;
     text-align: center;
     margin-bottom: 2rem;
@@ -83,9 +83,8 @@
       padding-left: 50px;
     }
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    z-index: 0;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
   }
 
   &__item {
@@ -131,7 +130,7 @@
     }
 
     &--img {
-      height: 18.75rem;
+      // height: 18.75rem;
       margin-bottom: 0;
       overflow: hidden;
       position: relative;
@@ -210,13 +209,21 @@
 
     &--wrapper {
       // height: 100%;
-      padding: 25px;
+      padding: 0.625rem;
+      font-size: 1rem;
+      @include breakpoint-up(medium) {
+        font-size: 0.75rem;
+      }
 
       & h3 {
-        font-size: 20px;
-        font-size: 1.25rem;
+        // font-size: 20px;
+        // font-size: 1.25rem;
+        font-size: 1rem;
+        @include breakpoint-up(medium) {
+          font-size: 0.75rem;
+        }
         margin-top: 0;
-        min-height: 50px;
+        // min-height: 50px;
       }
     }
 

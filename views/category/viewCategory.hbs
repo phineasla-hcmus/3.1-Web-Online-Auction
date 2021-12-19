@@ -24,7 +24,7 @@
             <h1 style="text-align: center">Unavailable Items</h1>
             {{else}}
             <h1 class="products__title">{{this.cateName}} </h1>
-            <div class="products__content owl-theme">
+            <div class="products__content">
                 {{#each this.listProductByCategory}}
                     {{>product product=this}}
                 {{/each}}

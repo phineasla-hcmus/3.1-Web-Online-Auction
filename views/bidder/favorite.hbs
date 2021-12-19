@@ -1,10 +1,8 @@
-<div>
-    <h1 class='h3 text-center'>My Favorite List</h1>
-    <div class="row">
-        {{#each this.favoriteList}}
-            <div class="col-sm-4">
-                {{>product product=this user=../user}}
-            </div>
-        {{/each}}
-    </div>    
-</div>
+<h1 class='h3 text-center'>My Favorite List</h1>
+<div class="products__content">
+    {{#each this.favoriteList}}
+        {{!-- <div class="col-sm-4"> --}}
+            {{>product product=this user=../user}}
+        {{!-- </div> --}}
+    {{/each}}
+</div> 

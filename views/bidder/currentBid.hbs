@@ -1,10 +1,8 @@
-<div>
-    <h1 class='h3 text-center'>My Current Bidding List</h1>
-    <div class="row">
-        {{#each this.currentBidsList}}
-            <div class="col-sm-4">
-                {{>product product=this user=../user}}
-            </div>
-        {{/each}}
-    </div>    
-</div>
+ <h1 class='h3 text-center'>My Current Bidding List</h1>
+<div class="products__content">
+    {{#each this.currentBidsList}}
+        {{!-- <div class="col-sm-4"> --}}
+            {{>product product=this user=../user}}
+        {{!-- </div> --}}
+    {{/each}}
+</div>    
