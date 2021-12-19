@@ -1,12 +1,12 @@
 <h1 class="h3 text-center">Edit personal information</h1>
-<div class="row m-0 my-2 justify-content-center align-items-center">
-  <div class="col-sm-4 info__wrapper border border-4 border-info p-3 rounded">
+<div class="row m-0 my-2">
+  <div class="col-sm-5 info__wrapper p-3">
     <div class="d-flex align-items-center">
       <p class="h5 me-2"><i
           class="fa fa-envelope pe-2 text-warning"
           aria-hidden="true"
         ></i>
-        <span class="h6">tmnguyen@gmail.com</span>
+        <span class="h6">{{user.email}}</span>
       </p>
 
       <button
@@ -20,7 +20,7 @@
     <div class="d-flex align-items-center mt-2">
       <p class="h5 me-2">
         <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
-        <span class="h6">Tam Nguyen</span>
+        <span class="h6">{{user.firstName}} {{user.lastName}}</span>
       </p>
       <button
         type="button"
@@ -51,11 +51,21 @@
 
       </div>
     </div>
-    <button
-      style="margin: 0 auto;"
-      class="btn header__btn d-block mt-3"
-      type="submit"
-    >Upgrade to seller</button>
+    {{#if registered}}
+      <p class="alert alert-info">Your request for upgrading to seller is
+        pending!</p>
+    {{else}}
+      <form id="frmUpgrade" action="/bidder/upgrade" method="post">
+        <input type="hidden" name="userId" value="{{user.userId}}" />
+        <button
+          id="btnUpgrade"
+          style="margin: 0 auto;"
+          class="btn header__btn d-block mt-3"
+          type="submit"
+        >Upgrade to seller</button>
+      </form>
+    {{/if}}
+
   </div>
 </div>
 <div
@@ -78,21 +88,21 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="frmChangeEmail" method="post">
           <div class="mb-3">
             <label for="email" class="col-form-label">New email</label>
-            <input type="email" class="form-control" id="email" />
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="email"
+              required
+            />
           </div>
+          <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -116,26 +126,29 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="frmChangeName" method="post">
           <div class="mb-3">
             <label for="firstname" class="col-form-label">First Name</label>
-            <input type="text" class="form-control" id="firstname" />
+            <input
+              name="firstname"
+              type="text"
+              class="form-control"
+              id="firstname"
+              required
+            />
           </div>
-        </form>
-        <form>
           <div class="mb-3">
             <label for="lastname" class="col-form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" />
+            <input
+              name="lastname"
+              type="text"
+              class="form-control"
+              id="lastname"
+              required
+            />
           </div>
+          <button type="submit" class="btn btn-primary">Save</button>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
@@ -160,29 +173,46 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="frmChangePassword" method="post">
           <div class="mb-3">
             <label for="oldpassword" class="col-form-label">Enter your old
               password</label>
-            <input type="password" class="form-control" id="oldpassword" />
+            <input
+              name="oldpass"
+              type="password"
+              class="form-control"
+              id="oldpass"
+              required
+            />
           </div>
-        </form>
-        <form>
           <div class="mb-3">
             <label for="newpassword" class="col-form-label">Enter your new
               password</label>
-            <input type="password" class="form-control" id="newpassword" />
+            <input
+              name="newpass"
+              type="password"
+              class="form-control"
+              id="newpass"
+              required
+            />
           </div>
+          <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
+
     </div>
   </div>
 </div>
+{{#section "scripts"}}
+  <script>
+    $('#frmChangeEmail').on('submit', function (e) { e.preventDefault(); const
+    email = $('#email').val(); $('#frmChangeEmail').off('submit').submit();})
+    $('#frmChangeName').on('submit', function (e) { e.preventDefault(); const
+    firstname = $('#firstname').val(); const lastname = $('#lastname');
+    $('#frmChangeName').off('submit').submit();})
+    $('#frmChangePassword').on('submit', function (e) { e.preventDefault();
+    const oldpass = $('#oldpass').val(); const newpass = $('#newpass');
+    $('#frmChangePassword').off('submit').submit();})
+    $('#btnUpgrade').on('click', function(e) { $('#frmUpgrade').submit(); })
+  </script>
+{{/section}}

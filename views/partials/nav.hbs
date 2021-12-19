@@ -46,7 +46,7 @@
           aria-expanded="false"
         >
           <i class="fa fa-user" aria-hidden="true"></i>
-          Tam Nguyen
+          {{user.firstName}} {{user.lastName}}
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="/bidder/info">Dashboard</a></li>
@@ -98,7 +98,7 @@
       </li>
       <li class="header__menu--item">
         {{#if user}}
-          <a href="#">Tam Nguyen
+          <a href="#">{{user.firstName}} {{user.lastName}}
             <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
           <ul class="header__dropdown">
             <li class="header__menu--item">

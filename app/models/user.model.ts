@@ -62,8 +62,8 @@ export async function addUser(user: {
 }
 
 /**
- * 
- * @param userId 
+ *
+ * @param userId
  * @param user one or multiple `users` columns, except `userId`
  * @returns `1` if update successfully, else `0`
  */
@@ -72,4 +72,27 @@ export async function updateUser(
   user: Partial<Omit<User, 'userId'>>
 ) {
   return knex('users').where({ userId }).update(user);
+}
+
+export async function updateUserEmail(userId: any, email: string) {
+  return knex('users').where({ userId }).update({
+    email: email,
+  });
+}
+
+export async function updateUserName(
+  userId: any,
+  firstname: string,
+  lastname: string
+) {
+  return knex('users').where({ userId }).update({
+    firstname: firstname,
+    lastname: lastname,
+  });
+}
+
+export async function updateUserPassword(userId: any, password: string) {
+  return knex('users').where({ userId }).update({
+    password: password,
+  });
 }

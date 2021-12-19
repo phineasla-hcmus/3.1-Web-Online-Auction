@@ -18,8 +18,8 @@ insert into categories values(10, 'Coffee press', 3);
 insert into categories values(11, 'Chopping board', 3);
 insert into categories values(12, 'Baking dish', 3);
 
-insert into users values(1, "tmnguyen@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 1);
-insert into users values(2, "a@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Hong", "Du Shik", "1995-10-12", "somewhere", 1);
+insert into users values(1, "tmnguyen@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 2);
+insert into users values(2, "a@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Hong", "Du Shik", "1995-10-12", "somewhere", null, 1);
 
 insert into products values(1, 'Laptop Lenovo Ideapad 3', "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/l/a/laptop-ksp-v2-004.jpg", 4, "500", "450", "abc", "2021-11-30 08:20:30", "2021-12-25 09:30:00", 4, 1, 'Tam Nguyen');
 insert into products values(2, 'Laptop HP', "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/9df78eab33525d08d6e5fb8d27136e95/5/c/5cb9252e618c4537be38b0b8ea227d29-2.jpg", 4, "550", "500", "abc", "2021-11-30 08:20:30", "2021-12-25 09:30:00", 10, 1, 'Tam Nguyen');
@@ -45,3 +45,5 @@ insert into auctionhistory values(4, '2021-12-05 12:30:00', 1, 'Tam Nguyen', 500
 insert into auctionhistory values(4, '2021-12-05 13:00:00', 2, 'Hong Du Shik', 520);
 insert into auctionhistory values(4, '2021-12-06 14:20:00', 1, 'Tam Nguyen', 540);
 insert into auctionhistory values(4, '2021-12-06 18:00:00', 2, 'Hong Du Shik', 560);
+
+insert into upgradelist values(1, '2021-12-19 11:34:34', -1);

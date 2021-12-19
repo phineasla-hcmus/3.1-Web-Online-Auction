@@ -1,23 +1,20 @@
 import db from '../config/database';
 export default {
   findNearEndProducts() {
-    let date = new Date();
     return db('products')
-      .where('expiredDate', '>=', date)
+      .where('expiredDate', '>=', new Date())
       .orderBy('expiredDate', 'asc')
       .limit(5);
   },
   findMostBidsProducts() {
-    let date = new Date();
     return db('products')
-      .where('expiredDate', '>=', date)
+      .where('expiredDate', '>=', new Date())
       .orderBy('numberOfBids', 'desc')
       .limit(5);
   },
   findHighestPriceProducts() {
-    let date = new Date();
     return db('products')
-      .where('expiredDate', '>=', date)
+      .where('expiredDate', '>=', new Date())
       .orderBy('currentPrice', 'desc')
       .limit(5);
   },
@@ -30,12 +27,14 @@ export default {
   async findProductbyCategory(catid: string | number | Readonly<any> | null) {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .where('cat.catId', catid);
+      .where('cat.catId', catid)
+      .andWhere('products.expiredDate', '>=', new Date());
   },
   async countProductbyCategory(catid: string | number | Readonly<any> | null) {
     const list = await db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.catId', catid)
+      .andWhere('products.expiredDate', '>=', new Date())
       .count({ amount: 'proId' });
     return list[0].amount;
   },
@@ -47,6 +46,7 @@ export default {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.catId', catid)
+      .andWhere('products.expiredDate', '>=', new Date())
       .limit(limit)
       .offset(offset);
   },
@@ -55,11 +55,12 @@ export default {
   },
   async findRelatedProduct(proID: any) {
     return db('products')
-      .where('products.proid',"=",proID)
+      .where('products.proid', proID)
       .join('products AS relatedProduct', {
         'products.catId': 'relatedProduct.catId',
       })
       .where('relatedProduct.proId', '<>', proID)
+      .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .limit(5);
   },
   // perform full-text search
