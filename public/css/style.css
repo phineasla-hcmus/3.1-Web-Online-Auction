@@ -141,6 +141,10 @@ ul {
   color: #fdb03d !important;
 }
 
+.bg-primary {
+  background-color: #fdb03d !important;
+}
+
 .owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next {
   font-size: 2rem;
 }

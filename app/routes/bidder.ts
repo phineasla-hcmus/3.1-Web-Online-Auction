@@ -13,6 +13,7 @@ bidderRouter.get('/info', async function (req, res) {
   res.render('bidder/info', {
     layout: 'bidder',
     registered,
+    info: true,
   });
 });
 
@@ -34,6 +35,7 @@ bidderRouter.post('/info', async function (req, res) {
   }
   res.render('bidder/info', {
     layout: 'bidder',
+    info: true,
   });
 });
 
@@ -42,35 +44,43 @@ bidderRouter.post('/upgrade', async function (req, res) {
   await bidderModel.upgradeToSeller(userId);
   const url = req.headers.referer || '/';
   res.redirect(url);
-  // res.render('bidder/info', {
-  //   layout: 'bidder',
-  // });
 });
 
 bidderRouter.get('/favorite', async function (req, res) {
-  // 1 để render tạm thời, có login sửa sau
-  const favoriteList = await bidderModel.getFavoriteList(1);
-  res.render('bidder/favorite', { layout: 'bidder', favoriteList });
+  const favoriteList = await bidderModel.getFavoriteList(
+    res.locals.user.userId
+  );
+  res.render('bidder/favorite', {
+    layout: 'bidder',
+    favoriteList,
+    favorite: true,
+  });
 });
 
 bidderRouter.get('/currentbids', async function (req, res) {
-  // 1 để render tạm thời, có login sửa sau
-  const currentBidsList = await bidderModel.getCurrentBids(1);
-  console.log(currentBidsList);
-  res.render('bidder/currentBid', { layout: 'bidder', currentBidsList });
+  const currentBidsList = await bidderModel.getCurrentBids(
+    res.locals.user.userId
+  );
+  res.render('bidder/currentBid', {
+    layout: 'bidder',
+    currentBidsList,
+    currentBids: true,
+  });
 });
 
 bidderRouter.get('/rating', async function (req, res) {
-  // 1 để render tạm thời, có login sửa sau
+  const ratingList = await bidderModel.getRatingList(res.locals.user.userId);
+  console.log(ratingList);
   res.render('bidder/rating', {
     layout: 'bidder',
+    ratingList,
+    rating: true,
   });
 });
 
 bidderRouter.get('/win', async function (req, res) {
-  // 1 để render tạm thời, có login sửa sau
-  const winningList = await bidderModel.getWinningList(1);
-  res.render('bidder/win', { layout: 'bidder', winningList });
+  const winningList = await bidderModel.getWinningList(res.locals.user.userId);
+  res.render('bidder/win', { layout: 'bidder', winningList, win: true });
 });
 
 export default bidderRouter;

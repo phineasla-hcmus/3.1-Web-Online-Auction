@@ -47,3 +47,6 @@ insert into auctionhistory values(4, '2021-12-06 14:20:00', 1, 'Tam Nguyen', 540
 insert into auctionhistory values(4, '2021-12-06 18:00:00', 2, 'Hong Du Shik', 560);
 
 insert into upgradelist values(1, '2021-12-19 11:34:34', -1);
+
+insert into ratingHistory values (1, 2, 'Hong Du Shik', '2021-12-19 15:07', true , 'Fast transaction!');
+insert into ratingHistory values (1, 2, 2, 'Hong Du Shik', '2021-12-19 15:07', false , 'Angry!');

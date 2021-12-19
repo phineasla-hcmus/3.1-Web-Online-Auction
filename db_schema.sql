@@ -107,10 +107,12 @@ DROP TABLE IF EXISTS `ratingHistory`;
 CREATE TABLE `ratingHistory` (
   `bidderId` int unsigned NOT NULL,
   `assessorId` int unsigned NOT NULL,
+  `proId` int unsigned NOT NULL,
+  `assessorName` varchar(80) NULL,
   `ratingTime` datetime NOT NULL,
-  `ratingPoint` tinyint unsigned NOT NULL,
-  `comment` varchar(100) NOT NULL,
-  PRIMARY KEY (`bidderId`, `assessorId`, `ratingTime`)
+  `satisfied` boolean NOT NULL,
+  `comment` varchar(100),
+  PRIMARY KEY (`bidderId`, `assessorId`, `proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

@@ -2,6 +2,12 @@ import db from '../config/database';
 import moment from 'moment';
 
 export default {
+  async getRatingList(bidderId: number) {
+    return db('ratingHistory')
+      .join('products as p', { 'ratingHistory.proId': 'p.proId' })
+      .where('ratingHistory.bidderId', bidderId)
+      .select('ratingHistory.*', 'p.proName');
+  },
   async getFavoriteList(bidderId: number) {
     return db('watchlist')
       .join('products as p', { 'watchlist.proId': 'p.proId' })
