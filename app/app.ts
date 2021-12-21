@@ -1,7 +1,7 @@
 import compression from 'compression';
 import knexSessionStore from 'connect-session-knex';
 import cookieParser from 'cookie-parser';
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
@@ -27,8 +27,8 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 // NOTE: Express middleware order is important
+app.use('/public', express.static(path.join('public')));
 app.use(morgan('dev'));
-app.use('/public', express.static('/public'));
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -53,16 +53,14 @@ app.use((req, res, next) => {
     !req.user &&
     req.path !== '/login' &&
     req.path !== '/signup' &&
-    // req.path !== '/favicon.ico' &&
-    // !req.path.match(/^\public/) &&P
+    req.path !== '/favicon.ico' &&
+    !req.path.match(/^\public/) &&
     !req.path.match(/^\/auth/)
   ) {
     req.session.returnTo = req.originalUrl;
+  } else if (req.user && req.path == '/account') {
+    req.session.returnTo = req.path;
   }
-  // Don't know what the purpose of this
-  // else if (req.user && req.path == '/account') {
-  //   req.session.returnTo = req.path;
-  // }
   next();
 });
 
@@ -91,15 +89,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.user) return res.redirect('/login');
-};
-
-const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user) {
-  }
-};
 
 app.use('/', homeRouter);
 app.use('/login', loginRouter);
