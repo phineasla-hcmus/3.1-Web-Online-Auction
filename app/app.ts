@@ -93,19 +93,24 @@ app.use((req, res, next) => {
 });
 
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
+  // TODO: test req.isAuthenticated()
   if (!req.user) return res.redirect('/login');
+  next();
 };
 
 const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user) {
-  }
+  // TODO: test req.isAuthenticated()
+  if (req.user) return res.redirect(req.session.returnTo || '/');
+  next();
 };
 
 app.use('/', homeRouter);
-app.use('/auth/login', loginRouter);
-app.use('/auth/signup', signUpRouter);
+
+app.use('/auth/login', mustLoggedOut, loginRouter);
+app.use('/auth/signup', mustLoggedOut, signUpRouter);
+app.use('/auth/verify', mustLoggedOut, verifyRouter);
 app.use('/auth/logout', logoutRouter);
-app.use('/auth/verify', verifyRouter);
+
 app.use('/bidder', bidderRouter);
 
 async function test() {

@@ -26,4 +26,10 @@ const server = app.listen(port, () => {
     console.log('App is running at http://localhost:%d', port);
 });
 
+process.on('SIGTERM', () => {
+  server.close(() => {
+    logger.info('Server closed');
+  });
+});
+
 export default server;
