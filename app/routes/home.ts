@@ -51,6 +51,8 @@ homeRouter.get('/category', async (req, res) => {
   });
 });
 
+
+
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
 
@@ -59,6 +61,17 @@ homeRouter.get('/product', async (req, res) => {
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
+
+  const listFavorite = await productModel.checkIfLike_or_Unlike(res.locals.user.userId,productID);
+
+  //get favorite list
+  const FavoriteProduct=[];
+  for(let i =0;i<listFavorite.length;i++)
+  {
+    FavoriteProduct.push({
+      proId : listFavorite[i].proId
+    });
+  }
 
   //get path to root
   let rootProject = path.join(__dirname,'../../');
@@ -81,8 +94,25 @@ homeRouter.get('/product', async (req, res) => {
     listProduct: listRelatedProduct,
     auctionHistory,
     empty: auctionHistory.length === 0,
-    amountPic: numberofPic
+    amountPic: numberofPic,
+    FavoriteProduct: FavoriteProduct
   });
+});
+
+homeRouter.post('/product', async (req, res) => {
+  const userId = res.locals.user.userId;
+  const content = req.body.content;
+  console.log(content);
+  if (userId != null) {
+    if (content === "like") {
+      productModel.addFavoriteList(userId,req.body.proId);
+    }
+    if(content ===  "unlike")
+    {
+      productModel.removeFavoriteList(userId,req.body.proId);
+    }
+  }
+
 });
 
 homeRouter.get('/search', async (req, res) => {

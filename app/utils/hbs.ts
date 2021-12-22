@@ -9,7 +9,8 @@ const hbs = create({
     parseDate,
     getRemainingTime,
     maskBidderName,
-    section
+    section,
+    isFavorite
   },
 });
 
@@ -45,6 +46,12 @@ function maskBidderName(bidderName: string) {
   return mask + lastname;
 }
 
+function isFavorite(proId: any,listFavorite: any){
+  return listFavorite.some(function (e1:any){
+    return e1.proId===proId;
+  });
+
+}
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
  * @example

@@ -1,3 +1,4 @@
+
 <section class="myContainer myContainer--py row">
     <div class="col-sm-2 px-0 hide-for-mobile">
             <ul class="list-group list-group-flush products-parent-categories">
@@ -53,7 +54,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="pl-0 w-50" scope="row">
+                                        <th class="pl-0 w-50" scope="row" >
                                             <strong>
                                                 Seller:
                                             </strong>
@@ -98,14 +99,44 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            
                             <div class="action" style="text-align: end;">
                                 <button class="bid btn btn-default" type="button">
                                     Bid now
                                 </button>
-                                <button class="like btn btn-default" type="button">
-                                    <span class="fa fa-heart"></span>
+                                <form method="post">
+                                {{#if (isFavorite proId ../FavoriteProduct)}}
+                                <button class="like btn btn-default" type="submit" id="unlikeButton" onclick="buttonLike2()" style="color: red">
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="unlike" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
+                                </form>
+                                <form method="post">
+                                <button class="like btn btn-default" type="submit" id="likeButton" onclick="buttonLike2()" style="color: white" hidden>
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="like" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                </button>
+                                </form>
+                                {{else}}
+                                <form method="post">
+                                <button class="like btn btn-default" type="submit" id="likeButton" onclick="buttonLike1()" style="color: white">
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="like" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                </button>
+                                </form>
+                                <form method="post">
+                                <button class="like btn btn-default" type="submit" id="unlikeButton" onclick="buttonLike1()" style="color: red"  hidden>
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="unlike" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                </button>
+                                </form>
+                                {{/if}}
                             </div>
+
                             {{#if ../empty}}
                                 <p class="text-danger fw-bold">No one has bid for this product yet!</p>
                             {{else}}
@@ -155,6 +186,46 @@
         </div>
 </section>
     <script>
+        function changeColor(id,color) {
+            document.getElementById(id).style.color=color;
+        }
+
+        function buttonLike1(){
+            let likeButton = document.getElementById("likeButton");
+            let unlikeButton= document.getElementById("unlikeButton");
+
+            if(likeButton.getAttribute("hidden"))
+            {
+                likeButton.removeAttribute("hidden");
+                unlikeButton.setAttribute("hidden","hidden");
+            }
+            else{
+                unlikeButton.removeAttribute("hidden");
+                likeButton.setAttribute("hidden","hidden");
+            }
+        }
+
+        function buttonLike2(){
+            let likeButton = document.getElementById("likeButton");
+            let unlikeButton= document.getElementById("unlikeButton");
+
+            if(unlikeButton.getAttribute("hidden"))
+            {
+                unlikeButton.removeAttribute("hidden");
+                likeButton.setAttribute("hidden","hidden");
+            }
+            else{
+                likeButton.removeAttribute("hidden");
+                unlikeButton.setAttribute("hidden","hidden");
+            }
+        }
+
+        function buttonUnlike(){
+            if(document.getElementById("like").style.color=="white")
+                changeColor("like","red");
+            else
+                changeColor("like","white")
+        }
         function changeImg(pic) {
             var mainPic = document.getElementById('mainPic');
             var subPic = document.getElementById(`subPic${pic}`);
@@ -165,6 +236,7 @@
             
         }
     </script>
+    
 {{#section "stylesheets"}}
     <link rel="stylesheet" href="/public/css/detailProduct.css">
 {{/section}}

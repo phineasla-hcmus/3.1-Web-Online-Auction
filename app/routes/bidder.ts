@@ -46,6 +46,7 @@ bidderRouter.post('/upgrade', async function (req, res) {
   res.redirect(url);
 });
 
+
 bidderRouter.get('/favorite', async function (req, res) {
   const favoriteList = await bidderModel.getFavoriteList(
     res.locals.user.userId

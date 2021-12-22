@@ -87,4 +87,17 @@ export default {
       .where('pro.proId', proId)
       .select('auctionhistory.*');
   },
+  async checkIfLike_or_Unlike(bidderId:number,proId:any){
+    return db('watchlist')
+    .where('bidderId',bidderId).where('proId',proId);
+  },
+  async addFavoriteList(bidder: number, pro: number)
+  {
+    return db('watchlist').insert({bidderId: `${bidder}` ,proId: `${pro}`});
+
+  },
+  async removeFavoriteList(bidder: number, pro: number)
+  {
+    return db('watchlist').where("bidderId",bidder).where("proId",pro).del();
+  }
 };
