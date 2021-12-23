@@ -70,14 +70,35 @@ export default {
     limit: number
   ) {
     // still looking for match against in knex
-    const sql = `select * from products where match(proName) against('${keyword}') limit ${limit} offset ${offset}`;
+    const sql = `select p.* from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
+  // perform full-text search
+  async findProductByExpiredDate(
+    keyword: string | any,
+    offset: number,
+    limit: number
+  ) {
+    // still looking for match against in knex
+    const sql = `select p.* from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by expiredDate DESC limit ${limit} offset ${offset}`;
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
+  // perform full-text search
+  async findProductByPrice(
+    keyword: string | any,
+    offset: number,
+    limit: number
+  ) {
+    // still looking for match against in knex
+    const sql = `select p.* from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by currentPrice ASC limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },
   async countProductByKeyword(keyword: string | any) {
     // still looking for match against in knex
     const sql = `select count(*) from products where match(proName) against('${keyword}')`;
-    console.log(sql);
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -87,17 +108,13 @@ export default {
       .where('pro.proId', proId)
       .select('auctionhistory.*');
   },
-  async checkIfLike_or_Unlike(bidderId:number,proId:any){
-    return db('watchlist')
-    .where('bidderId',bidderId).where('proId',proId);
+  async checkIfLike_or_Unlike(bidderId: number, proId: any) {
+    return db('watchlist').where('bidderId', bidderId).where('proId', proId);
   },
-  async addFavoriteList(bidder: number, pro: number)
-  {
-    return db('watchlist').insert({bidderId: `${bidder}` ,proId: `${pro}`});
-
+  async addFavoriteList(bidder: number, pro: number) {
+    return db('watchlist').insert({ bidderId: `${bidder}`, proId: `${pro}` });
   },
-  async removeFavoriteList(bidder: number, pro: number)
-  {
-    return db('watchlist').where("bidderId",bidder).where("proId",pro).del();
-  }
+  async removeFavoriteList(bidder: number, pro: number) {
+    return db('watchlist').where('bidderId', bidder).where('proId', pro).del();
+  },
 };
