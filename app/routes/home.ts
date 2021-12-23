@@ -53,6 +53,7 @@ homeRouter.get('/category', async (req, res) => {
 
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
+  const userId =  res.locals.user ? res.locals.user.userId : 0 ;
 
   const detailedProduct = await productModel.findProductbyId(productID);
 
@@ -61,7 +62,7 @@ homeRouter.get('/product', async (req, res) => {
   const auctionHistory = await productModel.getAuctionHistory(productID);
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
-    res.locals.user.userId,
+    userId,
     productID
   );
 
@@ -100,9 +101,12 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-  const userId = res.locals.user.userId;
+  const userId =  res.locals.user ? res.locals.user.userId : 0 ;
+  if(userId ==0)
+  {
+    res.render('auth/requireLogin');
+  }
   const content = req.body.content;
-  console.log(content);
   if (userId != null) {
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
