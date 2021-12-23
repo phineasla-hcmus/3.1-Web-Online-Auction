@@ -1,10 +1,11 @@
 /*======================
-    404 page
+    Generic error page
 =======================*/
 .error_page {
   padding: 40px 0;
   background: #fff;
   font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
 }
 
 .error_page img {

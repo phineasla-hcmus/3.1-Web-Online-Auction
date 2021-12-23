@@ -109,7 +109,7 @@ app.use('/', homeRouter);
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/auth/verify', mustLoggedOut, verifyRouter);
-app.use('/auth/logout', logoutRouter);
+app.use('/logout', logoutRouter);
 
 app.use('/bidder', bidderRouter);
 
