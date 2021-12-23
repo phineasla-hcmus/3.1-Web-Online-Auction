@@ -1,6 +1,11 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
-import { updateUserEmail, updateUserName } from '../models/user.model';
+import {
+  updateUserEmail,
+  updateUserName,
+  findUserByEmail,
+} from '../models/user.model';
+import { check } from 'express-validator';
 
 const bidderRouter = Router();
 
@@ -20,22 +25,37 @@ bidderRouter.get('/info', async function (req, res) {
 bidderRouter.post('/info', async function (req, res) {
   const userId = res.locals.user.userId;
   const newEmail = req.body.email;
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const newName = firstname + ' ' + lastname;
-  const oldpass = req.body.oldpass;
-  const newpass = req.body.newpass;
+  // const firstname = req.body.firstname;
+  // const lastname = req.body.lastname;
+  // const newName = firstname + ' ' + lastname;
+  // const oldpass = req.body.oldpass;
+  // const newpass = req.body.newpass;
   if (newEmail) {
+    check(newEmail, 'Email is not valid')
+      .isEmail()
+      .custom(async (email) => {
+        const user = await findUserByEmail(email);
+        if (user) {
+          throw new Error('E-mail already in use');
+        }
+      });
     res.locals.user.email = newEmail;
     await updateUserEmail(userId, newEmail);
-  } else if (newName) {
-    res.locals.user.firstName = firstname;
-    res.locals.user.lastName = lastname;
-    await updateUserName(userId, firstname, lastname);
+  }
+  // else if (newName) {
+  //   res.locals.user.firstName = firstname;
+  //   res.locals.user.lastName = lastname;
+  //   await updateUserName(userId, firstname, lastname);
+  // }
+  const status = await bidderModel.getBidderStatus(res.locals.user.userId);
+  let registered = false;
+  if (status[0].status != null) {
+    registered = true;
   }
   res.render('bidder/info', {
     layout: 'bidder',
     info: true,
+    registered,
   });
 });
 
@@ -45,7 +65,6 @@ bidderRouter.post('/upgrade', async function (req, res) {
   const url = req.headers.referer || '/';
   res.redirect(url);
 });
-
 
 bidderRouter.get('/favorite', async function (req, res) {
   const favoriteList = await bidderModel.getFavoriteList(

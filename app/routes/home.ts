@@ -136,17 +136,15 @@ homeRouter.get('/search', async (req, res) => {
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
-        cateId: list.length === 0 ? 0 : list[0].catId,
         isCurrent: +page === i,
       });
     }
     res.render('search', {
       pages: listofPage,
-      catName: list.length === 0 ? 0 : list[0].catName,
       listProductByKeyword: list,
       empty: list.length === 0,
       keyword: keyword,
-      numberOfProducts: list.length,
+      numberOfProducts: amountPro,
     });
   }
 });
@@ -171,7 +169,6 @@ homeRouter.get(
         offset,
         limitpage
       );
-      // console.log('list', list);
       for (let i = 1; i <= numPage; i++) {
         listofPage.push({
           value: i,
@@ -202,7 +199,6 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
-        cateId: list.length === 0 ? 0 : list[0].catId,
         isCurrent: +page === i,
       });
     }
