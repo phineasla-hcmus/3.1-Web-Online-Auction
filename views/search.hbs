@@ -1,41 +1,6 @@
 <section class="products">
     <div class="myContainer myContainer--py row">
-        <div class="col-sm-2 px-0 hide-for-mobile">
-            <ul class="list-group list-group-flush products-parent-categories">
-                {{#each parentCategories as |parent|}}
-                <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
-                    <a  href="#">
-                    {{parent.catName}}
-                    </a>
-                    <ul class="products-child-categories">
-                    {{#each ../childCategories as |child|}}
-                    {{#if (isChildOf child.parentId parent.catId)}}
-                    <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
-                    {{/if}}
-                    {{/each}}
-                    </ul>
-                </li>
-                {{/each}}
-            </ul>
-            {{!-- <i class="fa fa-sort" aria-hidden="true"></i>
-            Sort
-            <form id="frmSort" action="/search" method="get"> --}}
-                {{!-- <input name="keyword" type="hidden" value="{{this.keyword}}"> --}}
-                {{!-- <div class="form-check">
-                    <input name="sortBy" class="form-check-input" type="radio" value="expiredDate" id="expiredDate">
-                    <label class="form-check-label" for="expiredDate">
-                        Descending expired date
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input name="sortBy" class="form-check-input" type="radio" value="price" id="price">
-                    <label class="form-check-label" for="price">
-                        Ascending price
-                    </label>
-                </div> --}}
-                {{!-- <button class="btn header__btn" type="submit">Apply</button> --}}
-            {{!-- </form> --}}
-        </div>
+        {{>category}}
         <div class="col-sm-10">
             <div style="padding-left: 50px;">
                 <p>
