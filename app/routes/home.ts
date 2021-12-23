@@ -1,6 +1,5 @@
-import { query, Router } from 'express';
+import { Router } from 'express';
 import productModel from '../models/product.model';
-import categoryModel from '../models/category.model';
 import path from 'path';
 import fs from 'fs';
 
@@ -53,6 +52,7 @@ homeRouter.get('/category', async (req, res) => {
 
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
+  const userId = res.locals.user ? res.locals.user.userId : 0;
 
   const detailedProduct = await productModel.findProductbyId(productID);
 
@@ -61,7 +61,7 @@ homeRouter.get('/product', async (req, res) => {
   const auctionHistory = await productModel.getAuctionHistory(productID);
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
-    res.locals.user.userId,
+    userId,
     productID
   );
 
@@ -100,9 +100,11 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-  const userId = res.locals.user.userId;
+  const userId = res.locals.user ? res.locals.user.userId : 0;
+  if (userId == 0) {
+    res.render('auth/requireLogin');
+  }
   const content = req.body.content;
-  console.log(content);
   if (userId != null) {
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
@@ -134,17 +136,15 @@ homeRouter.get('/search', async (req, res) => {
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
-        cateId: list.length === 0 ? 0 : list[0].catId,
         isCurrent: +page === i,
       });
     }
     res.render('search', {
       pages: listofPage,
-      catName: list.length === 0 ? 0 : list[0].catName,
       listProductByKeyword: list,
       empty: list.length === 0,
       keyword: keyword,
-      numberOfProducts: list.length,
+      numberOfProducts: amountPro,
     });
   }
 });
@@ -169,7 +169,6 @@ homeRouter.get(
         offset,
         limitpage
       );
-      // console.log('list', list);
       for (let i = 1; i <= numPage; i++) {
         listofPage.push({
           value: i,
@@ -200,7 +199,6 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
-        cateId: list.length === 0 ? 0 : list[0].catId,
         isCurrent: +page === i,
       });
     }

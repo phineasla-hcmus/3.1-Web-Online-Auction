@@ -98,9 +98,9 @@ export default {
   },
   async countProductByKeyword(keyword: string | any) {
     // still looking for match against in knex
-    const sql = `select count(*) from products where match(proName) against('${keyword}')`;
+    const sql = `select count(*) as amount from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}'))`;
     const raw = await db.raw(sql);
-    return raw[0];
+    return raw[0][0].amount;
   },
   async getAuctionHistory(proId: any) {
     return db('auctionhistory')

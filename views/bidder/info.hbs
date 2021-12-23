@@ -1,7 +1,7 @@
 <h1 class="h3 text-center">Edit personal information</h1>
 <div class="row ms-3 my-2">
-  <div class="col-sm-5 info__wrapper p-3">
-    <div class="d-flex align-items-center">
+  <div class="info__wrapper p-3">
+    <div class="d-flex align-items-center justify-content-between">
       <p class="h5 me-2"><i
           class="fa fa-envelope pe-2 text-warning"
           aria-hidden="true"
@@ -35,7 +35,7 @@
         >Close</button>
       </form>
     </div>
-    <div class="d-flex align-items-center mt-2">
+    <div class="d-flex align-items-center mt-2 justify-content-between">
       <p class="h5 me-2">
         <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
         <span class="h6">{{user.firstName}} {{user.lastName}}</span>
@@ -76,12 +76,11 @@
 
       </form>
     </div>
-    <div class="d-flex h4 mt-2">
-      <i class="fa fa-key pe-2 text-warning" aria-hidden="true"></i>
-      <div class="input-group">
-
+    <div class="d-flex h4 mt-2 justify-content-between">
+      <div>
+        <i class="fa fa-key pe-2 text-warning" aria-hidden="true"></i>
         <input
-          style="background: none;"
+          style="background: none; display: inline-block; width: fit-content"
           class="form-control"
           value="123456"
           type="password"
@@ -89,12 +88,11 @@
           id="password"
           readonly
         />
-        <button id="btnEditPass" class="btn btn-primary" type="button"><i
-            class="fa fa-pencil"
-            aria-hidden="true"
-          ></i></button>
-
       </div>
+      <button id="btnEditPass" class="btn btn-primary" type="button"><i
+          class="fa fa-pencil"
+          aria-hidden="true"
+        ></i></button>
     </div>
     <div style="display: none;" id="passFormWrapper">
       <form id="frmChangePassword" method="post">
@@ -117,6 +115,17 @@
             type="password"
             class="form-control"
             id="newpass"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="confirmpassword" class="col-form-label">Confirm your new
+            password</label>
+          <input
+            name="confirmpassword"
+            type="password"
+            class="form-control"
+            id="confirmpass"
             required
           />
         </div>

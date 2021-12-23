@@ -24,6 +24,9 @@
       <div class="products__item--img--preview">
         <a href="/product?proId={{this.proId}}">Quick view</a>
       </div>
+      {{#if (isRecentlyUploaded this)}}
+        <span class="products__item--new">New</span>
+      {{/if}}
     </figure>
 
     <div class="products__item--wrapper">

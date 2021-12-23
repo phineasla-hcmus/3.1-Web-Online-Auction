@@ -1,41 +1,6 @@
 <section class="products">
     <div class="myContainer myContainer--py row">
-        <div class="col-sm-2 px-0 hide-for-mobile">
-            <ul class="list-group list-group-flush products-parent-categories">
-                {{#each parentCategories as |parent|}}
-                <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
-                    <a  href="#">
-                    {{parent.catName}}
-                    </a>
-                    <ul class="products-child-categories">
-                    {{#each ../childCategories as |child|}}
-                    {{#if (isChildOf child.parentId parent.catId)}}
-                    <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
-                    {{/if}}
-                    {{/each}}
-                    </ul>
-                </li>
-                {{/each}}
-            </ul>
-            {{!-- <i class="fa fa-sort" aria-hidden="true"></i>
-            Sort
-            <form id="frmSort" action="/search" method="get"> --}}
-                {{!-- <input name="keyword" type="hidden" value="{{this.keyword}}"> --}}
-                {{!-- <div class="form-check">
-                    <input name="sortBy" class="form-check-input" type="radio" value="expiredDate" id="expiredDate">
-                    <label class="form-check-label" for="expiredDate">
-                        Descending expired date
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input name="sortBy" class="form-check-input" type="radio" value="price" id="price">
-                    <label class="form-check-label" for="price">
-                        Ascending price
-                    </label>
-                </div> --}}
-                {{!-- <button class="btn header__btn" type="submit">Apply</button> --}}
-            {{!-- </form> --}}
-        </div>
+        {{>category}}
         <div class="col-sm-10">
             <div style="padding-left: 50px;">
                 <p>
@@ -57,8 +22,8 @@
 
                 {{!-- <h1 class="products__title">{{this.catName}} </h1> --}}
                 <div id="products-search-result" class="products__content owl-theme">
-                    {{#each this.listProductByKeyword}}
-                        {{>product product=this}}
+                    {{#each this.listProductByKeyword as |product|}}
+                        {{>product product=product user=../user}}
                     {{/each}}
                 </div>
             </div>
@@ -72,7 +37,7 @@
                             <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
                         {{else}}
                             <li class="page-item"><a class="page-link"
-                                 href="/category?catId={{cateId}}&page={{value}}">{{value}}</a></li>
+                                 href="/search?keyword={{../keyword}}&page={{value}}">{{value}}</a></li>
                         {{/if}}
                     {{/each}}
                     <li class="page-item">
@@ -81,12 +46,9 @@
                 </ul>
             </nav>
             {{/if}}
-
-
         </div>
     </div>
 </section>
-
 
 {{#section 'scripts'}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
