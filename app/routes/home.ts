@@ -1,6 +1,5 @@
-import { query, Router } from 'express';
+import { Router } from 'express';
 import productModel from '../models/product.model';
-import categoryModel from '../models/category.model';
 import path from 'path';
 import fs from 'fs';
 
@@ -53,7 +52,7 @@ homeRouter.get('/category', async (req, res) => {
 
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
-  const userId =  res.locals.user ? res.locals.user.userId : 0 ;
+  const userId = res.locals.user ? res.locals.user.userId : 0;
 
   const detailedProduct = await productModel.findProductbyId(productID);
 
@@ -101,9 +100,8 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-  const userId =  res.locals.user ? res.locals.user.userId : 0 ;
-  if(userId ==0)
-  {
+  const userId = res.locals.user ? res.locals.user.userId : 0;
+  if (userId == 0) {
     res.render('auth/requireLogin');
   }
   const content = req.body.content;

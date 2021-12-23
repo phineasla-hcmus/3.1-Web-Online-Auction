@@ -403,6 +403,21 @@ ul {
   flex: 1 0 auto;
   height: 100%;
 }
+.products__item--new {
+  background: #fdb03d;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 3px;
+  font-size: 12px;
+  text-align: center;
+  padding: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 600;
+}
 .products__item--content {
   background-color: #fff;
   display: block;

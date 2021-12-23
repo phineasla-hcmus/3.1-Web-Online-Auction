@@ -14,6 +14,7 @@ const hbs = create({
     isBidder,
     isSeller,
     isAdmin,
+    isRecentlyUploaded,
   },
 });
 
@@ -24,18 +25,18 @@ function isChildOf(parentId: string, catId: string) {
 }
 
 function parseDate(date: string) {
-  var d = new Date(date);
+  let d = new Date(date);
   return moment(d).format('DD/MM/YYYY HH:mm:ss');
 }
 
 function getRemainingTime(date: string) {
-  var expiredDate: any = new Date(date);
-  var dateNow: any = new Date();
+  let expiredDate: any = new Date(date);
+  let dateNow: any = new Date();
 
-  var seconds = Math.floor((expiredDate - dateNow) / 1000);
-  var minutes = Math.floor(seconds / 60);
-  var hours = Math.floor(minutes / 60);
-  var days = Math.floor(hours / 24);
+  let seconds = Math.floor((expiredDate - dateNow) / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
 
   hours = hours - days * 24;
   minutes = minutes - days * 24 * 60 - hours * 60;
@@ -65,6 +66,17 @@ function isSeller(roleId: number) {
 
 function isAdmin(roleId: number) {
   return roleId === 4;
+}
+
+function isRecentlyUploaded(product: any) {
+  let uploadTime: any = new Date(product.postDate);
+  let currentTime: any = new Date();
+  let seconds = Math.floor((currentTime - uploadTime) / 1000);
+  let minutes = Math.floor(seconds / 60);
+  if (minutes <= 30) {
+    return true;
+  }
+  return false;
 }
 
 /**
