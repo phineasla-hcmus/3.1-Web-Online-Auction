@@ -26,11 +26,6 @@
       text-decoration: none;
       color: white;
     }
-    & img {
-      // width: 20%;
-      // height: fit-content;
-      // filter: brightness(150%);
-    }
     & span {
       color: $darkYellow;
       font-size: 2rem;
@@ -145,7 +140,7 @@
   }
   &__dropdown {
     display: none;
-    background: lightgray;
+    background: #eee;
     border-radius: 0.3125rem;
     padding: 1.25rem 0;
 

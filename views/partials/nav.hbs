@@ -48,19 +48,32 @@
           <i class="fa fa-user" aria-hidden="true"></i>
           {{user.firstName}} {{user.lastName}}
         </a>
+        
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
-          <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
-          <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
-          <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
-          <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+          {{#if (isBidder user.roleId)}}
+            <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
+            <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
+            <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
+            <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
+            <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+          {{/if}}
+          {{#if (isSeller user.roleId)}}
+            <li><a class="dropdown-item" href="/">Upload product</a></li>
+            <li><a class="dropdown-item" href="/">Bidding List</a></li>
+            <li><a class="dropdown-item" href="/">Winning List</a></li>
+          {{/if}}
+          {{#if (isAdmin user.roleId)}}
+            <li><a class="dropdown-item" href="/">Manage categories</a></li>
+            <li><a class="dropdown-item" href="/">Manage products</a></li>
+            <li><a class="dropdown-item" href="/">Winning users</a></li>
+          {{/if}}
           <li><a
               style="padding: 0.5rem; display: block"
               class="btn header__btn mx-3"
               href="#"
               role="button"
             >Log out</a></li>
-        </ul>
+         </ul>
       </div>
     {{else}}
       <a
@@ -105,10 +118,33 @@
           <a href="#">{{user.firstName}} {{user.lastName}}
             <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
           <ul class="header__dropdown">
-            <li class="header__menu--item">
-              <a href="/bidder/info">Dashboard</a>
-            </li>
-            
+            {{#if (isBidder user.roleId)}}
+              <li class="header__menu--item">
+                <a href="/bidder/info">Edit info</a>
+              </li>
+              <li class="header__menu--item">
+                <a href="/bidder/rating">Rating</a>
+              </li>
+              <li class="header__menu--item">
+                <a href="/bidder/favorite">Favorites</a>
+              </li>
+              <li class="header__menu--item">
+                <a href="/bidder/currentbids">Bidding List</a>
+              </li>
+              <li class="header__menu--item">
+                <a href="/bidder/win">Winning Products</a>
+              </li>
+            {{/if}}
+            {{#if (isSeller user.roleId)}}
+              <li class="header__menu--item"><a href="/">Upload product</a></li>
+              <li class="header__menu--item"><a href="/">Bidding List</a></li>
+              <li class="header__menu--item"><a href="/">Winning List</a></li>
+            {{/if}}
+            {{#if (isAdmin user.roleId)}}
+              <li class="header__menu--item"><a href="/">Manage categories</a></li>
+              <li class="header__menu--item"><a href="/">Manage products</a></li>
+              <li class="header__menu--item"><a href="/">Winning users</a></li>
+            {{/if}}
           </ul>
 
         {{else}}

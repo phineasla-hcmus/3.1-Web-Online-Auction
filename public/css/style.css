@@ -309,7 +309,7 @@ ul {
 }
 .header__dropdown {
   display: none;
-  background: lightgray;
+  background: #eee;
   border-radius: 0.3125rem;
   padding: 1.25rem 0;
 }

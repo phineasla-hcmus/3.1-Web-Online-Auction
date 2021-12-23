@@ -10,7 +10,10 @@ const hbs = create({
     getRemainingTime,
     maskBidderName,
     section,
-    isFavorite
+    isFavorite,
+    isBidder,
+    isSeller,
+    isAdmin,
   },
 });
 
@@ -46,12 +49,24 @@ function maskBidderName(bidderName: string) {
   return mask + lastname;
 }
 
-function isFavorite(proId: any,listFavorite: any){
-  return listFavorite.some(function (e1:any){
-    return e1.proId===proId;
+function isFavorite(proId: any, listFavorite: any) {
+  return listFavorite.some(function (e1: any) {
+    return e1.proId === proId;
   });
-
 }
+
+function isBidder(roleId: number) {
+  return roleId === 2;
+}
+
+function isSeller(roleId: number) {
+  return roleId === 3;
+}
+
+function isAdmin(roleId: number) {
+  return roleId === 4;
+}
+
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
  * @example
@@ -75,4 +90,3 @@ function section(this: any, name: string, options: any) {
   this.section[name] = options.fn(this);
   return null;
 }
-
