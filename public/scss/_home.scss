@@ -82,9 +82,11 @@
     @include breakpoint-up(medium) {
       padding-left: 50px;
     }
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
+    @include breakpoint-up(large) {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
   }
 
   &__item {
@@ -286,7 +288,15 @@
   }
 
   &__pagination {
-    padding-left: 400px;
+    width: fit-content;
+    margin: 0 auto;
     text-align: center;
+  }
+
+  &__sort {
+    padding: 1rem;
+    @include breakpoint-up(medium) {
+      padding-left: 50px;
+    }
   }
 }

@@ -2,7 +2,7 @@
     <div class="myContainer myContainer--py row">
         {{>category}}
         <div class="col-sm-10">
-            <div style="padding-left: 50px;">
+            <div class="products__sort">
                 <p>
                     <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                     {{numberOfProducts}} products found for the keyword '<span class="text-danger">{{keyword}}</span>'</p>
@@ -22,7 +22,7 @@
                 {{else}}
 
                 {{!-- <h1 class="products__title">{{this.catName}} </h1> --}}
-                <div id="products-search-result" class="products__content owl-theme">
+                <div id="products-search-result" class="products__content">
                     {{#each this.listProductByKeyword as |product|}}
                         {{>product product=product user=../user}}
                     {{/each}}
