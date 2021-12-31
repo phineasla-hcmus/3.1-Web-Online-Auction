@@ -63,9 +63,9 @@
             <li><a class="dropdown-item" href="/">Winning List</a></li>
           {{/if}}
           {{#if (isAdmin user.roleId)}}
-            <li><a class="dropdown-item" href="/">Manage categories</a></li>
-            <li><a class="dropdown-item" href="/">Manage products</a></li>
-            <li><a class="dropdown-item" href="/">Winning users</a></li>
+            <li><a class="dropdown-item" href="/admin/manage/categories">Manage categories</a></li>
+            <li><a class="dropdown-item" href="/admin/manage/products">Manage products</a></li>
+            <li><a class="dropdown-item" href="/admin/manage/users">Manage users</a></li>
           {{/if}}
           <li><a
               style="padding: 0.5rem; display: block"
@@ -99,7 +99,7 @@
         <ul class="header__dropdown">
           {{#each parentCategories as |parent|}}
             <li class="header__menu--item">
-              <a href="/category?catId={{parent.catId}}">{{parent.catName}}
+              <a href="#">{{parent.catName}}
                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
               </a>
               <ul style="padding: 0;" class="header__dropdown">

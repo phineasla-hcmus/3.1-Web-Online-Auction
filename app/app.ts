@@ -12,6 +12,7 @@ import './config/passport';
 import { SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
 import { RoleType } from './models/role.model';
+import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import logoutRouter from './routes/auth/logout';
 import signUpRouter from './routes/auth/signup';
@@ -112,6 +113,7 @@ app.use('/auth/verify', verifyRouter);
 app.use('/logout', logoutRouter);
 
 app.use('/bidder', bidderRouter);
+app.use('/admin', adminRouter);
 
 async function test() {
   // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
