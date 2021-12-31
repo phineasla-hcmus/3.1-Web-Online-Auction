@@ -169,14 +169,20 @@ homeRouter.get(
         offset,
         limitpage
       );
+
       for (let i = 1; i <= numPage; i++) {
         listofPage.push({
           value: i,
-          cateId: list.length === 0 ? 0 : list[0].catId,
           isCurrent: +page === i,
         });
       }
-      res.json(list);
+
+      const data = {
+        list,
+        user: res.locals.user,
+        pages: listofPage,
+      };
+      res.json(data);
     }
   }
 );
@@ -196,13 +202,18 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
       offset,
       limitpage
     );
+
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
         isCurrent: +page === i,
       });
     }
-    res.json(list);
+    const data = {
+      list,
+      user: res.locals.user,
+    };
+    res.json(data);
   }
 });
 export default homeRouter;
