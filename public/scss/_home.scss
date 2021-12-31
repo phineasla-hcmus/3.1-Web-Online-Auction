@@ -293,10 +293,11 @@
     text-align: center;
   }
 
-  &__sort {
-    padding: 1rem;
-    @include breakpoint-up(medium) {
-      padding-left: 50px;
+  &__search {
+    @include breakpoint-up(large) {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
     }
   }
 }

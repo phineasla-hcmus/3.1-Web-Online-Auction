@@ -587,12 +587,11 @@ ul {
   margin: 0 auto;
   text-align: center;
 }
-.products__sort {
-  padding: 1rem;
-}
-@media (min-width: 40em) {
-  .products__sort {
-    padding-left: 50px;
+@media (min-width: 64em) {
+  .products__search {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
   }
 }
 
