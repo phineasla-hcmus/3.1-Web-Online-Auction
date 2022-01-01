@@ -53,7 +53,7 @@ homeRouter.get('/category', async (req, res) => {
 homeRouter.get('/product', async (req, res) => {
   const productID = req.query.proId || 0;
   const userId = res.locals.user ? res.locals.user.userId : 0;
-
+  const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
@@ -96,6 +96,7 @@ homeRouter.get('/product', async (req, res) => {
     empty: auctionHistory.length === 0,
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
+    isUserId: isUserId
   });
 });
 
