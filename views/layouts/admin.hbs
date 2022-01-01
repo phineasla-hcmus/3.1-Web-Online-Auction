@@ -17,7 +17,11 @@
       integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/public/css/style.css" />
-    {{!-- <link rel="stylesheet" href="/public/css/bidder/index.css"> --}}
+    <style>
+      .nav-active {
+        background-color: #372dc8;
+      }
+    </style>
     {{{section.stylesheets}}}
   </head>
   <body>
@@ -32,14 +36,14 @@
               class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
               id="menu"
               >
-                <li class="w-100 rounded ps-2 {{#if info}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2 {{#if category}}nav-active{{/if}}">
                     <a href="/admin/manage/categories" class="nav-link align-middle px-0 text-white fw-bold">
                     
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Manage categories</span>
                     </a>
                 </li>
-                <li class="w-100 rounded ps-2 {{#if rating}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2 {{#if product}}nav-active{{/if}}">
                     <a
                     href="/admin/manage/products"
                     class="nav-link px-0 align-middle text-white fw-bold"
@@ -48,7 +52,7 @@
                     <span class="ms-1 d-none d-sm-inline">Manage products</span>
                     </a>
                 </li>
-                <li class="w-100 rounded ps-2 {{#if favorite}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2 {{#if users}}nav-active{{/if}}">
                     <a href="/admin/manage/users" class="nav-link px-0 align-middle text-white fw-bold">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
