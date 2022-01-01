@@ -17,14 +17,18 @@
       integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/public/css/style.css" />
-    <link rel="stylesheet" href="/public/css/bidder/index.css">
+    <style>
+      .nav-active {
+        background-color: #372dc8;
+      }
+    </style>
     {{{section.stylesheets}}}
   </head>
   <body>
     <header class="header">{{>nav}}</header>
     <div class="myContainer myContainer--py">
       <div class="row flex-nowrap m-0">
-          <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 rounded bg-dark bg-gradient">
+          <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 rounded bg-primary bg-gradient">
           <div
               class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100"
           >
@@ -32,38 +36,38 @@
               class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
               id="menu"
               >
-                <li class="w-100 rounded px-3 {{#if info}}nav-active{{/if}}">
-                    <a href="/bidder/info" class="nav-link align-middle px-0 text-white">
+                <li class="w-100 rounded ps-2  {{#if info}}nav-active{{/if}}">
+                    <a href="/bidder/info" class="nav-link align-middle px-0 text-white fw-bold">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Edit info</span>
                     </a>
                 </li>
-                <li class="w-100 rounded px-3 {{#if rating}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2  {{#if rating}}nav-active{{/if}}">
                     <a
                     href="/bidder/rating"
-                    class="nav-link px-0 align-middle text-white"
+                    class="nav-link px-0 align-middle text-white fw-bold"
                     >
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Rating</span>
                     </a>
                 </li>
-                <li class="w-100 rounded px-3 {{#if favorite}}nav-active{{/if}}">
-                    <a href="/bidder/favorite" class="nav-link px-0 align-middle text-white">
+                <li class="w-100 rounded ps-2  {{#if favorite}}nav-active{{/if}}">
+                    <a href="/bidder/favorite" class="nav-link px-0 align-middle text-white fw-bold">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Favorites</span></a>
                 </li>
-                <li class="w-100 rounded px-3 {{#if currentBids}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2  {{#if currentBids}}nav-active{{/if}}">
                     <a
                     href="/bidder/currentbids"
-                    class="nav-link px-0 align-middle text-white"
+                    class="nav-link px-0 align-middle text-white fw-bold"
                     >
                     <i class="fa fa-gavel" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Bidding List</span></a>
                 </li>
-                <li class="w-100 rounded px-3 {{#if win}}nav-active{{/if}}">
+                <li class="w-100 rounded ps-2  {{#if win}}nav-active{{/if}}">
                     <a
                     href="/bidder/win"
-                    class="nav-link px-0 align-middle text-white"
+                    class="nav-link px-0 align-middle text-white fw-bold"
                     >
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Winning Products</span>
