@@ -1,7 +1,8 @@
 import knex from '../config/database';
 import { RoleType } from './role.model';
 
-export const userQueryBasic = [
+/** Shortcut to use in `columns` parameter in `findUserByEmail()` and `findUserById()` */
+export const USER_BASIC: UserColumn[] = [
   'userId',
   'email',
   'firstName',
@@ -9,7 +10,18 @@ export const userQueryBasic = [
   'roleId',
 ];
 
-// Enable type hinting in req.user
+export type UserColumn =
+  | 'userId'
+  | 'email'
+  | 'password'
+  | 'firstName'
+  | 'lastName'
+  | 'dob'
+  | 'address'
+  | 'rating'
+  | 'roleId';
+
+/** Type hinting for req.user */
 export type User = Express.User;
 
 /**
@@ -18,7 +30,7 @@ export type User = Express.User;
  * @param columns specify which columns to SELECT, override default
  * @returns
  */
-export async function findUserByEmail(email: string, columns?: string[]) {
+export async function findUserByEmail(email: string, columns?: UserColumn[]) {
   const query =
     columns && columns.length
       ? knex.column(columns).select().from<User>('users')
@@ -32,7 +44,7 @@ export async function findUserByEmail(email: string, columns?: string[]) {
  * @param columns specify which columns to SELECT, override default
  * @returns
  */
-export async function findUserById(userId: number, columns?: string[]) {
+export async function findUserById(userId: number, columns?: UserColumn[]) {
   const query =
     columns && columns.length
       ? knex.column(columns).select().from<User>('users')

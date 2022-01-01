@@ -1,10 +1,6 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
-import {
-  updateUserEmail,
-  updateUserName,
-  findUserByEmail,
-} from '../models/user.model';
+import { findUserByEmail, updateUser } from '../models/user.model';
 import { check } from 'express-validator';
 
 const bidderRouter = Router();
@@ -40,7 +36,7 @@ bidderRouter.post('/info', async function (req, res) {
         }
       });
     res.locals.user.email = newEmail;
-    await updateUserEmail(userId, newEmail);
+    await updateUser(userId, { email: newEmail });
   }
   // else if (newName) {
   //   res.locals.user.firstName = firstname;

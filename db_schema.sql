@@ -163,7 +163,7 @@ CREATE TABLE `aunctionAuto`(
 
 -- Full-text search
 ALTER TABLE products
-ADD FULLTEXT(proName)
+ADD FULLTEXT(proName);
 
 ALTER TABLE categories
-ADD FULLTEXT(catName)
+ADD FULLTEXT(catName);

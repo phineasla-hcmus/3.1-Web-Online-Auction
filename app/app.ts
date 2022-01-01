@@ -83,11 +83,11 @@ app.use(async function (req, res, next) {
 // NOTE: comment this out if you want unverified user to access normally
 app.use((req, res, next) => {
   if (
-    !req.path.match(/^\/auth\/verify/) &&
+    !req.path.match(/^\/verify/) &&
     req.user &&
     req.user.roleId == RoleType.Unverified
   ) {
-    res.redirect('/auth/verify/' + req.user.userId);
+    res.redirect('/verify/' + req.user.userId);
   } else {
     next();
   }
@@ -95,7 +95,7 @@ app.use((req, res, next) => {
 
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   // TODO: test req.isAuthenticated()
-  if (!req.user) return res.redirect('/login');
+  if (!req.user) return res.redirect('/auth/login');
   next();
 };
 
@@ -109,8 +109,8 @@ app.use('/', homeRouter);
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
-app.use('/auth/verify', verifyRouter);
-app.use('/logout', logoutRouter);
+app.use('/verify', mustLoggedIn, verifyRouter);
+app.use('/logout', mustLoggedIn, logoutRouter);
 
 app.use('/bidder', bidderRouter);
 app.use('/admin', adminRouter);
