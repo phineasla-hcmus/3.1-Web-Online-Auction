@@ -47,6 +47,13 @@ CREATE TABLE `otp` (
   PRIMARY KEY (`userId`, `otpType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `recovery`;
+CREATE TABLE `recovery` (
+	`userId` int unsigned NOT NULL,
+    `token` char(32),
+    PRIMARY KEY (`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- ----------------------------
 -- Table structure for categories
 -- ----------------------------

@@ -102,6 +102,7 @@ homeRouter.get('/product', async (req, res) => {
 
 homeRouter.post('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
+  // TODO@leesuby: what is this, force redirect to login
   if (userId == 0) {
     res.render('auth/requireLogin');
   }

@@ -1,14 +1,37 @@
 import { randomBytes } from 'crypto';
 import knex from '../config/database';
 
-export interface Otp {
-  userId: number;
-  token: string;
-}
-
 export enum OtpType {
   Verify = 1,
   Recovery = 2,
+}
+
+export interface Otp {
+  userId: number;
+  otpType: OtpType;
+  dateCreated: Date;
+  token: string;
+}
+
+export async function getOtp(userId: any, otpType: OtpType) {
+  return knex<Otp>('otp')
+    .where('userId', userId)
+    .andWhere('otpType', otpType)
+    .first();
+}
+
+/**
+ *
+ * @param userId
+ * @returns a token string if found, else `undefined`
+ */
+ export async function findOtp(userId: any): Promise<string | undefined> {
+  //TODO@phineasla: merge getOtp and findOtp
+  return knex('otp')
+    .where({ userId })
+    .select('token')
+    .first()
+    .then((v) => v?.token);
 }
 
 /**
@@ -29,19 +52,6 @@ export async function addOtp(userId: any, otpType: OtpType) {
     .onConflict(['userId', 'otpType'])
     .merge()
     .then((_) => token);
-}
-
-/**
- *
- * @param userId
- * @returns a token string if found, else `undefined`
- */
-export async function findOtp(userId: any): Promise<string | undefined> {
-  return knex('otp')
-    .where({ userId })
-    .select('token')
-    .first()
-    .then((v) => v?.token);
 }
 
 /**

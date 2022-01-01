@@ -15,8 +15,8 @@ import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import logoutRouter from './routes/auth/logout';
+import { verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
-import verifyRouter from './routes/auth/verify';
 import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
 import hbs from './utils/hbs';
@@ -79,25 +79,26 @@ app.use(async function (req, res, next) {
   next();
 });
 
-// If user if not verified (i.e roleId == 1), force redirect to verify
+// If user if not verified (roleId == 1), force redirect to verify
 // NOTE: comment this out if you want unverified user to access normally
 app.use((req, res, next) => {
-  if (!req.path.match(/^\/verify/) && req.user?.roleId == RoleType.Unverified) {
-    res.redirect('/verify/' + req.user?.userId);
+  if (
+    req.user?.roleId === RoleType.Unverified &&
+    !req.path.match(/^\/verify/)
+  ) {
+    res.redirect('/verify');
   } else {
     next();
   }
 });
 
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  // TODO: test req.isAuthenticated()
-  if (!req.user) return res.redirect('/auth/login');
+  if (req.isUnauthenticated()) return res.redirect('/auth/login');
   next();
 };
 
 const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
-  // TODO: test req.isAuthenticated()
-  if (req.user) return res.redirect(req.session.returnTo || '/');
+  if (req.isAuthenticated()) return res.redirect(req.session.returnTo || '/');
   next();
 };
 
@@ -105,6 +106,7 @@ app.use('/', homeRouter);
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
+
 app.use('/verify', mustLoggedIn, verifyRouter);
 app.use('/logout', mustLoggedIn, logoutRouter);
 
