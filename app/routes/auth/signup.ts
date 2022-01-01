@@ -2,7 +2,8 @@ import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import { RECAPTCHA_SITE } from '../../config/secret';
-import { addOtp } from '../../models/otp.model';
+import { addOtp, OtpType } from '../../models/otp.model';
+import { RoleType } from '../../models/role.model';
 import { addUser } from '../../models/user.model';
 import { sendVerify } from '../../utils/email';
 import logger from '../../utils/logger';
@@ -21,7 +22,7 @@ signUpRouter.get('/', (req, res) => {
  * Create a new local account.
  * @route POST /signup
  */
-signUpRouter.post('/', ...signUpValidator, async (req, res) => {
+signUpRouter.post('/', ...signUpValidator, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json(errors.array());
@@ -41,10 +42,15 @@ signUpRouter.post('/', ...signUpValidator, async (req, res) => {
   logger.debug('Insert result: ' + userId);
 
   // Create token on database, ignore any knex error
-  const token = await addOtp(userId);
+  const token = await addOtp(userId, OtpType.Verify);
   sendVerify(req.body.email, token);
-  // Just redirect to the previous page and let app.ts redirect verify
-  res.redirect(req.session.returnTo || '/');
+  req.login(
+    { userId, email, firstName, lastName, roleId: RoleType.Unverified },
+    (err: any) => {
+      if (err) return next(err);
+      return res.redirect('/verify');
+    }
+  );
 });
 
 export default signUpRouter;

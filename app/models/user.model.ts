@@ -71,7 +71,9 @@ export async function addUser(
     roleId: RoleType.Unverified | RoleType.Bidder;
   }>
 ) {
-  return knex('users').insert(user);
+  return knex('users')
+    .insert(user)
+    .then((value) => value[0]);
 }
 
 /**

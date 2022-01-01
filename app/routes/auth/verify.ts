@@ -10,9 +10,11 @@ verifyRouter.post('/resend/:userId', (req, res) => {
 });
 
 verifyRouter.get('/:userId', (req, res) => {
-  if (req.user?.roleId == RoleType.Unverified)
+  if (req.user?.roleId !== RoleType.Unverified) {
+    res.redirect(req.session.returnTo || '/');
+  } else {
     res.render('auth/verify', { layout: 'auth' });
-  else res.redirect(req.session.returnTo || '/');
+  }
 });
 
 verifyRouter.post('/:userId', async (req, res) => {

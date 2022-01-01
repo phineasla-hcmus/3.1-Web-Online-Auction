@@ -41,9 +41,10 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `otp`;
 CREATE TABLE `otp` (
   `userId` int unsigned NOT NULL,
+  `otpType` tinyint NOT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
-  `token` char(4) NOT NULL,
-  PRIMARY KEY (`userId`)
+  `token` char(6) NOT NULL,
+  PRIMARY KEY (`userId`, `otpType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

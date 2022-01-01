@@ -6,20 +6,27 @@ export interface Otp {
   token: string;
 }
 
+export enum OtpType {
+  Verify = 1,
+  Recovery = 2,
+}
+
 /**
- * Insert token into `otp` table, if `userId` is already existed, this will overwrite the old token
+ * Insert token into `otp` table, if `userId` is already existed, overwrite the old token
  * @param userId
  * @returns the token generated, haven't test if knex throws any error though
  */
-export async function addOtp(userId: any) {
-  const token = randomBytes(2).toString('hex');
+export async function addOtp(userId: any, otpType: OtpType) {
+  // Generate char(6) token (Yes, randomBytes(3) is correct)
+  const token = randomBytes(3).toString('hex');
   return knex('otp')
     .insert({
-      userId: userId,
-      token: token,
+      userId,
+      otpType,
+      token,
       dateCreated: new Date(),
     })
-    .onConflict('userId')
+    .onConflict(['userId', 'otpType'])
     .merge()
     .then((_) => token);
 }
