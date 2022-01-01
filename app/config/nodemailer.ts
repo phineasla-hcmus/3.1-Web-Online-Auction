@@ -1,6 +1,5 @@
 import { google } from 'googleapis';
 import { createTransport } from 'nodemailer';
-import logger from '../utils/logger';
 import {
   MAIL_CLIENT_ID,
   MAIL_CLIENT_SECRET,
@@ -8,9 +7,17 @@ import {
   MAIL_SENDER,
 } from './secret';
 
-// https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a
-// https://stackoverflow.com/questions/51933601/what-is-the-definitive-way-to-use-gmail-with-oauth-and-nodemailer
-// Using oauthplayground to generate ACCESS_TOKEN, not sure why the name "playground" though
+/**
+ * Use [oauthplayground](https://developers.google.com/oauthplayground)
+ * to generate MAIL_REFRESH_TOKEN, not sure why the name "playground" though.
+ * 
+ * @note Refresh token will be expired in 7 days.
+ * Details at: [Using OAuth 2.0](https://developers.google.com/identity/protocols/oauth2#expiration).
+ * To avoid this, you can [verify you app](https://support.google.com/cloud/answer/7454865?hl=en).
+ * 
+ * @see [Tutorial #1](https://stackoverflow.com/a/51933602/12405558)
+ * @see [Tutorial #2](https://dev.to/chandrapantachhetri/sending-emails-securely-using-node-js-nodemailer-smtp-gmail-and-oauth2-g3a)
+ */
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
   MAIL_CLIENT_ID,
@@ -34,19 +41,25 @@ oauth2Client.setCredentials({ refresh_token: MAIL_REFRESH_TOKEN });
  * ```
  */
 export async function createTransporter() {
-  const accessToken = (await oauth2Client.getAccessToken()).token;
-  if (!accessToken) {
-    return Promise.reject('Failed to create access token for nodemailer');
+  // https://googleapis.dev/nodejs/google-auth-library/5.5.0/classes/OAuth2Client.html#getAccessToken
+  // `getAccessToken()` could throw `invalid_grant` --> Refresh token expired
+  try {
+    const res = await oauth2Client.getAccessToken();
+    const accessToken = res.token!;
+    return createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: MAIL_SENDER,
+        clientId: MAIL_CLIENT_ID,
+        clientSecret: MAIL_CLIENT_SECRET,
+        accessToken,
+        refreshToken: MAIL_REFRESH_TOKEN,
+      },
+    });
+  } catch (error) {
+    throw new Error(
+      'Refresh token expired. Get new token at https://developers.google.com/oauthplayground'
+    );
   }
-  return createTransport({
-    service: 'gmail',
-    auth: {
-      type: 'OAuth2',
-      user: MAIL_SENDER,
-      clientId: MAIL_CLIENT_ID,
-      clientSecret: MAIL_CLIENT_SECRET,
-      accessToken,
-      refreshToken: MAIL_REFRESH_TOKEN,
-    },
-  });
 }

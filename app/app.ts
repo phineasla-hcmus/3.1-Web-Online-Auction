@@ -82,12 +82,8 @@ app.use(async function (req, res, next) {
 // If user if not verified (i.e roleId == 1), force redirect to verify
 // NOTE: comment this out if you want unverified user to access normally
 app.use((req, res, next) => {
-  if (
-    !req.path.match(/^\/verify/) &&
-    req.user &&
-    req.user.roleId == RoleType.Unverified
-  ) {
-    res.redirect('/verify/' + req.user.userId);
+  if (!req.path.match(/^\/verify/) && req.user?.roleId == RoleType.Unverified) {
+    res.redirect('/verify/' + req.user?.userId);
   } else {
     next();
   }

@@ -56,20 +56,21 @@ export async function findUserById(userId: number, columns?: UserColumn[]) {
  * Insert new user into `users` table
  * @note
  * - Default `roleId = 1` (Unverified user)
- * - Set `roleId = 2` is if user registered with 3rd party authentication
- * - `password` must be hashed
+ * - Password must be hashed
  * @param user
- * @returns userId
+ * @returns `userId`
  */
-export async function addUser(user: {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dob: Date;
-  address: string;
-  roleId?: RoleType.Unverified | RoleType.Bidder;
-}) {
+export async function addUser(
+  user: Partial<{
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    dob: Date;
+    address: string;
+    roleId: RoleType.Unverified | RoleType.Bidder;
+  }>
+) {
   return knex('users').insert(user);
 }
 

@@ -5,8 +5,7 @@ import passportLocal from 'passport-local';
 import {
   findUserByEmail,
   findUserById,
-  User,
-  USER_BASIC,
+  USER_BASIC
 } from '../models/user.model';
 
 const LocalStrategy = passportLocal.Strategy;
