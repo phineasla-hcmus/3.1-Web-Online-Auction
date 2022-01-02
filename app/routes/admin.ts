@@ -16,7 +16,7 @@ adminRouter.get('/manage/products', async function (req, res) {
 adminRouter.get('/manage/users', async function (req, res) {
   const list = await adminModel.getListUsers();
   console.log(list);
-  res.render('admin/manageUser', { layout: 'admin', users: true });
+  res.render('admin/manageUser', { layout: 'admin', users: true, list });
 });
 
 export default adminRouter;

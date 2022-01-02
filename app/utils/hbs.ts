@@ -7,6 +7,7 @@ const hbs = create({
   helpers: {
     isChildOf,
     parseDate,
+    parseDob,
     getRemainingTime,
     maskBidderName,
     section,
@@ -27,6 +28,11 @@ function isChildOf(parentId: string, catId: string) {
 function parseDate(date: string) {
   let d = new Date(date);
   return moment(d).format('DD/MM/YYYY HH:mm:ss');
+}
+
+function parseDob(date: string) {
+  let d = new Date(date);
+  return moment(d).format('DD/MM/YYYY');
 }
 
 function getRemainingTime(date: string) {
