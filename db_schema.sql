@@ -74,14 +74,12 @@ CREATE TABLE `products` (
   `proName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `catId` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
-  `stepPrice` int unsigned DEFAULT NULL,
-  `postDate` datetime NOT NULL,
+  `stepPrice` int unsigned,
+  `postDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
-  `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
-  `sellerName` varchar(80) DEFAULT NULL
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

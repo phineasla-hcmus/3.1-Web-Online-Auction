@@ -6,11 +6,15 @@ import { sendVerify } from '../../utils/email';
 
 /**
  * Reset password can both be used in authenticated and unauthenticated user
- * Route:
+ * @route
  * 1. Forgot password
- *    - If authenticated, continue to step 2, else ask for email.  
- * 1.2. asdf  
- * 2. asdf
+ *    - If authenticated, continue to step 2, else ask for email
+ *    - AJAX to validate email (`POST /recovery/identify`)
+ * 2. Send code to email
+ * 3. Validate code (`POST /recovery?id=`)
+ *    - If code is valid, generate unique token then redirect to
+ * `/recovery/password?id=&token=`
+ * 4. Reset password (`POST /recovery/password?id=&token=`)
  */
 export const recoveryRouter = Router();
 
@@ -19,11 +23,11 @@ export const recoveryRouter = Router();
  */
 export const verifyRouter = Router();
 
-recoveryRouter.get('/email', (req, res) => {
+recoveryRouter.get('/identify', (req, res) => {
   res.render('recovery/requestEmail', { layout: 'auth' });
 });
 
-recoveryRouter.post('/email', (req, res) => {
+recoveryRouter.post('/identify', (req, res) => {
   //TODO@phineasla: AJAX to check for email, if found then send email
   const userId = 0;
   // Reset password can both be used in authenticated and unauthenticated user
@@ -42,6 +46,12 @@ recoveryRouter.post('/', (req, res) => {
   const { id } = req.query;
   const { token } = req.body;
 });
+
+recoveryRouter.get('/password', (req, res) => {
+  res.render('recovery/resetPassword', { layout: 'auth' });
+});
+
+recoveryRouter.post('/password', (req, res) => {});
 
 verifyRouter.post('/resend', async (req, res) => {
   const { userId, email } = req.user!;
