@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'development') {
     res.render('error', { layout: false, code: 404 });
   });
   app.use(((err, req, res, next) => {
-    logger.error(err);
+    logger.error('Internal error', err);
     res.render('error', { layout: false, code: 500 });
   }) as ErrorRequestHandler);
 }

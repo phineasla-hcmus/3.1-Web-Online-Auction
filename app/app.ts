@@ -15,7 +15,7 @@ import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import logoutRouter from './routes/auth/logout';
-import { verifyRouter } from './routes/auth/otp';
+import { recoveryRouter, verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
 import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
@@ -106,6 +106,8 @@ app.use('/', homeRouter);
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
+
+app.use('/recovery', recoveryRouter);
 
 app.use('/verify', mustLoggedIn, verifyRouter);
 app.use('/logout', mustLoggedIn, logoutRouter);

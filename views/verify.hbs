@@ -7,13 +7,17 @@
             <h3>Verify its you</h3>
             <p class="mb-4">
               We've send a verification code to
-              <b>{{user.email}}</b>
-              to verify your email address and activate your account
+              {{#if users}}
+                <b>{{user.email}}</b>
+              {{else}}
+                your email address
+              {{/if}}
+              to verify that it is you
             </p>
           </div>
         </div>
         <!-- Verify Form -->
-        <form id="verifyForm" action="/verify" method="POST">
+        <form id="verifyForm" action={{submitAction}} method="POST">
           <div class="row">
             <!-- Verification Code -->
             <div class="input-group col-lg-12">
@@ -43,11 +47,7 @@
             </button>
           </div>
           <!-- Resend Email Button -->
-          <form
-            class="col-lg-6 mx-auto"
-            action="/verify/resend"
-            method="POST"
-          >
+          <form class="col-lg-6 mx-auto" action={{resendAction}} method="POST">
             <button
               type="button"
               class="btn btn-secondary btn-block py-2 submit"
@@ -56,11 +56,13 @@
             </button>
           </form>
         </div>
-        <div class="mt-4">
-          <div class="w-100 text-center">
-            <p>Not you? <a href="/logout">Sign out</a></p>
+        {{#if user}}
+          <div class="mt-4">
+            <div class="w-100 text-center">
+              <p>Not you? <a href="/logout">Sign out</a></p>
+            </div>
           </div>
-        </div>
+        {{/if}}
       </div>
     </div>
   </div>
