@@ -80,6 +80,8 @@ CREATE TABLE `products` (
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
   `bidderName` varchar(80) DEFAULT NULL,
+  `sellerId` int unsigned NOT NULL,
+  `sellerName` varchar(80) DEFAULT NULL
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

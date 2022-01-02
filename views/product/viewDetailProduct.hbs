@@ -86,17 +86,17 @@
                         {{#if ../isUserId}}
                         <div class="action" style="text-align: end;">
 
-                            <form id="bidAction" action="action_page.php" hidden>
+                            <form id="bidAction" method="post" hidden>
 
                                 <label for="fname">Minimum Bid Price: </label>
-                                <input type="text" name="firstname">
+                                <span>{{minimumBidPrice}}$</span>
                                 <div></div>
                                 <label for="lname">Your Price: </label>
-                                <input type="text" id="number" pattern="[0-9]*" />
+                                <input type="number" name="price"  />
                                 <br />
-                                <input type="number" id="display" disabled/>
+                               
                                 <div></div>
-                                <input type="submit" value="Submit">
+                                <input type="submit" class="bid btn btn-default" value="Submit" name="content">
 
                             </form>
 
