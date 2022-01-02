@@ -74,19 +74,21 @@ CREATE TABLE `products` (
   `proName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `catId` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
-  `stepPrice` int unsigned,
+  `stepPrice` int unsigned DEFAULT NULL,
   `postDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
+  `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
+  `sellerName` varchar(80) DEFAULT NULL
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `productDescription`;
 CREATE TABLE `productDescription` (
 	`proId` int unsigned NOT NULL,
-    `dateCreated` datetime NOT NULL,
+    `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
     `text` varchar(1000),
     PRIMARY KEY (`proId`, `dateCreated`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
