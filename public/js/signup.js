@@ -12,6 +12,7 @@ document.getElementsByTagName('form')[0].onsubmit = async function (e) {
   if (res.redirected) {
     window.location.href = res.url;
   } else {
+    grecaptcha.reset();
     const resJson = await res.json();
     resJson.forEach((err) => toastr.error(err.msg));
   }
