@@ -22,7 +22,8 @@ adminRouter.get('/manage/users', async function (req, res) {
     users: true,
     list,
     requests,
-    empty: requests.length === 0,
+    emptyRequest: requests.length === 0,
+    emptyList: list.length === 0,
   });
 });
 
@@ -34,6 +35,10 @@ adminRouter.post('/approveRequest', async function (req, res) {
 
 adminRouter.post('/declineRequest', async function (req, res) {
   adminModel.declineRequest(req.body.declineid);
+  res.redirect('/admin/manage/users');
+});
+adminRouter.post('/downgradeSeller', async function (req, res) {
+  adminModel.downgradeSeller(req.body.downid);
   res.redirect('/admin/manage/users');
 });
 

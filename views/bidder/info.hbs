@@ -138,22 +138,23 @@
       </form>
     </div>
 
-    {{#if (isPendingRequest request)}}
-      <p class="alert alert-info">Your request for upgrading to seller is
-        pending!
-      </p>
+    {{#if (isBidder user.roleId)}}
+      {{#if (isPendingRequest request)}}
+        <p class="alert alert-info">Your request for upgrading to seller is
+          pending!
+        </p>
+      {{else}}
+        <form id="frmUpgrade" action="/bidder/upgrade" method="post">
+          <input type="hidden" name="userId" value="{{user.userId}}" />
+          <button
+            id="btnUpgrade"
+            style="margin: 0 auto;"
+            class="btn header__btn d-block mt-3"
+            type="submit"
+          >Upgrade to seller</button>
+        </form>
+      {{/if}}
     {{/if}}
-    {{#unless registered}}
-      <form id="frmUpgrade" action="/bidder/upgrade" method="post">
-        <input type="hidden" name="userId" value="{{user.userId}}" />
-        <button
-          id="btnUpgrade"
-          style="margin: 0 auto;"
-          class="btn header__btn d-block mt-3"
-          type="submit"
-        >Upgrade to seller</button>
-      </form>
-    {{/unless}}
   </div>
 </div>
 {{#section "scripts"}}
