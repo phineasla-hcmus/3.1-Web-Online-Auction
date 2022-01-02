@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import productModel from '../models/product.model';
+import aunctionModel from '../models/aunction.model';
 import path from 'path';
 import fs from 'fs';
 
