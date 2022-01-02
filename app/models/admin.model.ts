@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default {
   async getListUsers() {
-    return db('users');
+    return db('users').whereNot('roleId', 4);
   },
   async getUpgradeRequests() {
     return db('upgradelist')
@@ -12,6 +12,7 @@ export default {
       .select(
         'u.userId',
         'u.email',
+        'u.roleId',
         'u.firstname',
         'u.lastname',
         'u.rating',
@@ -34,5 +35,10 @@ export default {
       .update({
         status: 0,
       });
+  },
+  async downgradeSeller(sellerId: number) {
+    return db('users').where('userId', sellerId).update({
+      roleId: 2,
+    });
   },
 };
