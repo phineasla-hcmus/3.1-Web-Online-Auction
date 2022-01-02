@@ -3,20 +3,26 @@ export default {
   findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
+      .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('expiredDate', 'asc')
-      .limit(5);
+      .limit(5)
+      .select('products.*', 'users.firstname', 'users.lastname');
   },
   findMostBidsProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
+      .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('numberOfBids', 'desc')
-      .limit(5);
+      .limit(5)
+      .select('products.*', 'users.firstname', 'users.lastname');
   },
   findHighestPriceProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
+      .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('currentPrice', 'desc')
-      .limit(5);
+      .limit(5)
+      .select('products.*', 'users.firstname', 'users.lastname');
   },
   getCurrentBidder(proId: number) {
     return db('products')
@@ -51,7 +57,10 @@ export default {
       .offset(offset);
   },
   async findProductbyId(proId: any) {
-    return db('products').where('proId', proId);
+    return db('products')
+      .join('users', { 'products.bidderId': 'users.userId' })
+      .where('proId', proId)
+      .select('products.*', 'users.firstname', 'users.lastname');
   },
   async findRelatedProduct(proID: any) {
     return db('products')
@@ -61,7 +70,9 @@ export default {
       })
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
-      .limit(5);
+      .join('users', { 'relatedProduct.bidderId': 'users.userId' })
+      .limit(5)
+      .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
   // perform full-text search
   async findProductByKeyword(
@@ -70,7 +81,7 @@ export default {
     limit: number
   ) {
     // still looking for match against in knex
-    const sql = `select p.* from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
+    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -105,8 +116,9 @@ export default {
   async getAuctionHistory(proId: any) {
     return db('auctionhistory')
       .join('products AS pro', { 'auctionhistory.proId': 'pro.proId' })
+      .join('users as u', { 'pro.bidderId': 'u.userId' })
       .where('pro.proId', proId)
-      .select('auctionhistory.*');
+      .select('auctionhistory.*', 'u.firstname', 'u.lastname');
   },
   async checkIfLike_or_Unlike(bidderId: number, proId: any) {
     return db('watchlist').where('bidderId', bidderId).where('proId', proId);

@@ -52,9 +52,12 @@ function getRemainingTime(date: string) {
 }
 
 function maskBidderName(bidderName: string) {
-  const lastname = bidderName.substring(4);
-  const mask = '*'.repeat(4);
-  return mask + lastname;
+  if (bidderName != undefined) {
+    const lastname = bidderName.substring(4);
+    const mask = '*'.repeat(4);
+    return mask + lastname;
+  }
+  return '';
 }
 
 function isFavorite(proId: any, listFavorite: any) {
