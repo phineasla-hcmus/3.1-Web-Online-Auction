@@ -1,82 +1,87 @@
 <div>
     <h3 class="text-center">Manage users</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-heading bg-secondary">
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                            <a href="#" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus-circle"></i> Add New</a>
-                            <form class="form-horizontal pull-right">
-                                <div class="form-group">
-                                    <label>Show : </label>
-                                    <select class="form-control">
-                                        <option>5</option>
-                                        <option>10</option>
-                                        <option>15</option>
-                                        <option>20</option>
-                                    </select>
-                                </div>
-                            </form>
+    <div class="list-of-users">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading bg-secondary">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                {{!-- <a href="#" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus-circle"></i> Add New</a> --}}
+                                <form class="form-horizontal pull-right">
+                                    <div class="form-group">
+                                        <label>Show : </label>
+                                        <select class="form-control">
+                                            <option>5</option>
+                                            <option>10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel-body table-responsive">
-                    <table class="table mb-0">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Dob</th>
-                                <th>Address</th>
-                                <th>View</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each list as |item|}}
+                    <div class="panel-body table-responsive">
+                        <table class="table mb-0">
+                            <thead>
                                 <tr>
-                                    <td>{{item.userId}}</td>
-                                    <td style="max-width: 200px" class="hide-overflow">{{item.email}}</td>
-                                    <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
-                                    <td>{{item.lastname}}</td>
-                                    <td>{{parseDob item.dob}}</td>
-                                    <td class="hide-overflow" style="min-width: 250px;">{{item.address}}</td>
-                                    <td><a href="#" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
-                                    <td style="min-width: 100px;">
-                                        <ul class="action-list">
-                                            <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-                                            <li><a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a></li>
-                                        </ul>
-                                    </td>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Dob</th>
+                                    <th>Address</th>
+                                    {{!-- <th>View</th>
+                                    <th>Action</th> --}}
                                 </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="panel-footer bg-secondary">
-                    {{!-- <div class="row">
-                        <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
-                        <div class="col-sm-6 col-xs-6">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#">«</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#">«</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
-                        </div>
-                    </div> --}}
+                            </thead>
+                            <tbody>
+                                {{#each list as |item|}}
+                                    <tr>
+                                        <td>{{item.userId}}</td>
+                                        <td style="max-width: 300px" class="hide-overflow">{{item.email}}</td>
+                                        <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
+                                        <td>{{item.lastname}}</td>
+                                        <td>{{parseDob item.dob}}</td>
+                                        <td class="hide-overflow" style="min-width: 250px;">{{item.address}}</td>
+                                        {{!-- <td><a href="#" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
+                                        <td style="min-width: 100px;">
+                                            <ul class="action-list">
+                                                <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                <li><a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a></li>
+                                            </ul>
+                                        </td> --}}
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer bg-secondary">
+                        {{!-- <div class="row">
+                            <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
+                            <div class="col-sm-6 col-xs-6">
+                                <ul class="pagination hidden-xs pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                                <ul class="pagination visible-xs pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="list-upgrade-requests mt-3">
+        <h4>Upgrade requests</h4>
     </div>
 </div
