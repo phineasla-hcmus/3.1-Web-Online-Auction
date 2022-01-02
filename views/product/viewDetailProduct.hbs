@@ -1,161 +1,181 @@
-
 <section class="myContainer myContainer--py row">
     {{>category}}
-     <div class="col-sm-1 col-md-10">
-            <div class="card">
-                {{#each this.product as |pro|}}
-                <div class="container-fluid">
-                    <div class="wrapper row">
-                        <div class="preview col-md-6">
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" >
-                                    <img src="/public/images/product/{{proId}}/1.jpg" id="mainPic"/>
-                                </div>
-                            </div>
-                            <div class="products__content owl-carousel owl-theme">
-                                {{#each ../amountPic as |pics|}}
-                                    <a data-target="#pic-1" data-toggle="tab" >
-                                        <img src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg" id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')" class="subPic" />
-                                    </a>
-                                {{/each}}
+    <div class="col-sm-1 col-md-10">
+        <div class="card">
+            {{#each this.product as |pro|}}
+            <div class="container-fluid">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active">
+                                <img src="/public/images/product/{{proId}}/1.jpg" id="mainPic" />
                             </div>
                         </div>
-                        <div class="details col-md-6">
-                            <h3 class="product-title">
-                                {{proName}}
-                            </h3>
-                            <table class="table table-sm table-borderless mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th class="pl-0 w-50" scope="row">
-                                            <strong>
-                                                Current Price:
-                                            </strong>
-                                        </th>
-                                        <td>
-                                            {{currentPrice}}$
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="pl-0 w-50" scope="row" >
-                                            <strong>
-                                                Seller:
-                                            </strong>
-                                        </th>
-                                        <td>
-                                            {{bidderName}} &nbsp; 4.9/5.0
-                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+                        <div class="products__content owl-carousel owl-theme">
+                            {{#each ../amountPic as |pics|}}
+                            <a data-target="#pic-1" data-toggle="tab">
+                                <img src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
+                                    id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')"
+                                    class="subPic" />
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title">
+                            {{proName}}
+                        </h3>
+                        <table class="table table-sm table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
+                                            Current Price:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{currentPrice}}$
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
+                                            Seller:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{bidderName}} &nbsp; 4.9/5.0
+                                        <i class="fa fa-star checked" aria-hidden="true"></i>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="pl-0 w-50" scope="row">
-                                            <strong>
-                                                Highest Bidder:
-                                            </strong>
-                                        </th>
-                                        <td>
-                                            {{bidderName}} &nbsp; 4.9/5.0
-                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
+                                            Highest Bidder:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{bidderName}} &nbsp; 4.9/5.0
+                                        <i class="fa fa-star checked" aria-hidden="true"></i>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="pl-0 w-50" scope="row">
-                                            <strong>
-                                                Post Date:
-                                            </strong>
-                                        </th>
-                                        <td>
-                                            {{parseDate postDate}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="pl-0 w-50" scope="row">
-                                            <strong>
-                                                Expired Date:
-                                            </strong>
-                                        </th>
-                                        <td>
-                                            {{getRemainingTime expiredDate}} days left
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            {{#if ../isUserId}}
-                            <div class="action" style="text-align: end;">
-                                <button class="bid btn btn-default" type="button">
-                                    Bid now
-                                </button>
-                                <form method="post">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
+                                            Post Date:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{parseDate postDate}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
+                                            Expired Date:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{getRemainingTime expiredDate}} days left
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{#if ../isUserId}}
+                        <div class="action" style="text-align: end;">
+
+                            <form id="bidAction" action="action_page.php" hidden>
+
+                                <label for="fname">Minimum Bid Price: </label>
+                                <input type="text" name="firstname">
+                                <div></div>
+                                <label for="lname">Your Price: </label>
+                                <input type="text" id="number" pattern="[0-9]*" />
+                                <br />
+                                <input type="number" id="display" disabled/>
+                                <div></div>
+                                <input type="submit" value="Submit">
+
+                            </form>
+
+                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
+                                Bid now
+                            </button>
+                            <form method="post">
                                 {{#if (isFavorite proId ../FavoriteProduct)}}
-                                <button class="like btn btn-default" type="submit" id="unlikeButton" onclick="buttonLike2()" style="color: red">
+                                <button class="like btn btn-default" type="submit" id="unlikeButton"
+                                    onclick="buttonLike2()" style="color: red">
                                     <span class="fa fa-heart" id="like"></span>
                                     <input type="hidden" id="like" value="unlike" name="content">
                                     <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
-                                </form>
-                                <form method="post">
-                                <button class="like btn btn-default" type="submit" id="likeButton" onclick="buttonLike2()" style="color: white" hidden>
+                            </form>
+                            <form method="post">
+                                <button class="like btn btn-default" type="submit" id="likeButton"
+                                    onclick="buttonLike2()" style="color: white" hidden>
                                     <span class="fa fa-heart" id="like"></span>
                                     <input type="hidden" id="like" value="like" name="content">
                                     <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
-                                </form>
-                                {{else}}
-                                <form method="post">
-                                <button class="like btn btn-default" type="submit" id="likeButton" onclick="buttonLike1()" style="color: white">
-                                    <span class="fa fa-heart" id="like"></span>
-                                    <input type="hidden" id="like" value="like" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
-                                </button>
-                                </form>
-                                <form method="post">
-                                <button class="like btn btn-default" type="submit" id="unlikeButton" onclick="buttonLike1()" style="color: red"  hidden>
-                                    <span class="fa fa-heart" id="like"></span>
-                                    <input type="hidden" id="like" value="unlike" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
-                                </button>
-                                </form>
-                                {{/if}}
-                            </div>
-                            {{/if}}
-                            {{#if ../empty}}
-                                <p class="text-danger fw-bold">No one has bid for this product yet!</p>
+                            </form>
                             {{else}}
-                                <table class="table table-info table-striped mt-3">
-                                <thead>
-                                    <tr>
+                            <form method="post">
+                                <button class="like btn btn-default" type="submit" id="likeButton"
+                                    onclick="buttonLike1()" style="color: white">
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="like" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                </button>
+                            </form>
+                            <form method="post">
+                                <button class="like btn btn-default" type="submit" id="unlikeButton"
+                                    onclick="buttonLike1()" style="color: red" hidden>
+                                    <span class="fa fa-heart" id="like"></span>
+                                    <input type="hidden" id="like" value="unlike" name="content">
+                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                </button>
+                            </form>
+                            {{/if}}
+                        </div>
+                        {{/if}}
+                        {{#if ../empty}}
+                        <p class="text-danger fw-bold">No one has bid for this product yet!</p>
+                        {{else}}
+                        <table class="table table-info table-striped mt-3">
+                            <thead>
+                                <tr>
                                     <th scope="col">Time</th>
                                     <th scope="col">Bidder</th>
                                     <th scope="col">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each ../auctionHistory as |history|}}
-                                        <tr>
-                                            <td>{{parseDate history.auctionTime}}</td>
-                                            <td>{{maskBidderName history.bidderName}}</td>
-                                            <td>{{history.auctionPrice}} USD</td>
-                                        </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                            {{/if}}
-                            
-                        </div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each ../auctionHistory as |history|}}
+                                <tr>
+                                    <td>{{parseDate history.auctionTime}}</td>
+                                    <td>{{maskBidderName history.bidderName}}</td>
+                                    <td>{{history.auctionPrice}} USD</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        {{/if}}
+
                     </div>
                 </div>
-                <div class="description-block headshot headshot-1 px-4 pt-1">
-                    <h1 class="products__title">
-                        Description
-                    </h1>
-                    <div class="description-content">
-                        {{fullDes}}
-                    </div>
+            </div>
+            <div class="description-block headshot headshot-1 px-4 pt-1">
+                <h1 class="products__title">
+                    Description
+                </h1>
+                <div class="description-content">
+                    {{fullDes}}
                 </div>
-                {{/each}}
-                <div class="description-block headshot headshot-1 px-4 pt-1">
+            </div>
+            {{/each}}
+            <div class="description-block headshot headshot-1 px-4 pt-1">
                 <div class="products__related mt-3">
                     <h1 class="products__title">Related Product</h1>
                     <div class="products__content owl-carousel owl-theme">
@@ -164,62 +184,77 @@
                         {{/each}}
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
 </section>
-    <script>
-        function changeColor(id,color) {
-            document.getElementById(id).style.color=color;
+<script>
+    // Jquery Dependency
+    document.getElementById("number").onblur = function () {
+        this.value = parseFloat(this.value.replace(/,/g, ""))
+            .toFixed(2)
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        document.getElementById("display").value = this.value.replace(/,/g, "")
+
+    }
+
+    function showbid() {
+        let bidLog = document.getElementById("bidAction");
+        let bidButton = document.getElementById("bidButton");
+        bidLog.removeAttribute("hidden");
+        bidButton.setAttribute("hidden", "hidden");
+    }
+    function changeColor(id, color) {
+        document.getElementById(id).style.color = color;
+    }
+
+    function buttonLike1() {
+        let likeButton = document.getElementById("likeButton");
+        let unlikeButton = document.getElementById("unlikeButton");
+
+        if (likeButton.getAttribute("hidden")) {
+            likeButton.removeAttribute("hidden");
+            unlikeButton.setAttribute("hidden", "hidden");
         }
-
-        function buttonLike1(){
-            let likeButton = document.getElementById("likeButton");
-            let unlikeButton= document.getElementById("unlikeButton");
-
-            if(likeButton.getAttribute("hidden"))
-            {
-                likeButton.removeAttribute("hidden");
-                unlikeButton.setAttribute("hidden","hidden");
-            }
-            else{
-                unlikeButton.removeAttribute("hidden");
-                likeButton.setAttribute("hidden","hidden");
-            }
+        else {
+            unlikeButton.removeAttribute("hidden");
+            likeButton.setAttribute("hidden", "hidden");
         }
+    }
 
-        function buttonLike2(){
-            let likeButton = document.getElementById("likeButton");
-            let unlikeButton= document.getElementById("unlikeButton");
+    function buttonLike2() {
+        let likeButton = document.getElementById("likeButton");
+        let unlikeButton = document.getElementById("unlikeButton");
 
-            if(unlikeButton.getAttribute("hidden"))
-            {
-                unlikeButton.removeAttribute("hidden");
-                likeButton.setAttribute("hidden","hidden");
-            }
-            else{
-                likeButton.removeAttribute("hidden");
-                unlikeButton.setAttribute("hidden","hidden");
-            }
+        if (unlikeButton.getAttribute("hidden")) {
+            unlikeButton.removeAttribute("hidden");
+            likeButton.setAttribute("hidden", "hidden");
         }
-
-        function buttonUnlike(){
-            if(document.getElementById("like").style.color=="white")
-                changeColor("like","red");
-            else
-                changeColor("like","white")
+        else {
+            likeButton.removeAttribute("hidden");
+            unlikeButton.setAttribute("hidden", "hidden");
         }
-        function changeImg(pic) {
-            var mainPic = document.getElementById('mainPic');
-            var subPic = document.getElementById(`subPic${pic}`);
-            var tmp = subPic.src;
+    }
 
-            mainPic.src=subPic.src;
-            subPic.src=tmp;
-            
-        }
-    </script>
-    
+    function buttonUnlike() {
+        if (document.getElementById("like").style.color == "white")
+            changeColor("like", "red");
+        else
+            changeColor("like", "white")
+    }
+    function changeImg(pic) {
+        var mainPic = document.getElementById('mainPic');
+        var subPic = document.getElementById(`subPic${pic}`);
+        var tmp = subPic.src;
+
+        mainPic.src = subPic.src;
+        subPic.src = tmp;
+
+    }
+</script>
+
 {{#section "stylesheets"}}
-    <link rel="stylesheet" href="/public/css/detailProduct.css">
+<link rel="stylesheet" href="/public/css/detailProduct.css">
 {{/section}}

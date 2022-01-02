@@ -72,11 +72,9 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `proId` int unsigned NOT NULL AUTO_INCREMENT,
   `proName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `proImg` varchar(2083) NOT NULL,
   `catId` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
-  `buyNowPrice` int unsigned DEFAULT NULL,
-  `fullDes` varchar(200) NOT NULL,
+  `stepPrice` int unsigned DEFAULT NULL,
   `postDate` datetime NOT NULL,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,

@@ -13,7 +13,7 @@
           </div>
         </div>
         <!-- Verify Form -->
-        <form id="verifyForm" action="/verify/{{user.userId}}" method="POST">
+        <form id="verifyForm" action="/verify" method="POST">
           <div class="row">
             <!-- Verification Code -->
             <div class="input-group col-lg-12">
@@ -45,7 +45,7 @@
           <!-- Resend Email Button -->
           <form
             class="col-lg-6 mx-auto"
-            action="/verify/resend/{{user.userId}}"
+            action="/verify/resend"
             method="POST"
           >
             <button
