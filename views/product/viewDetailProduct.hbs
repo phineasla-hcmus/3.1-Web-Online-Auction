@@ -84,9 +84,9 @@
                             </tbody>
                         </table>
                         {{#if ../isUserId}}
-                        <div class="action" style="text-align: end;">
+                        <div class="action1" style="text-align: end;">
 
-                            <form id="bidAction" method="post" hidden>
+                            <form id="bidAction" method="post" action="/product" hidden>
 
                                 <label for="fname">Minimum Bid Price: </label>
                                 <span>{{minimumBidPrice}}$</span>
@@ -94,7 +94,8 @@
                                 <label for="lname">Your Price: </label>
                                 <input type="number" name="price"  />
                                 <br />
-                               
+                                <input type ="hidden" name="minimumPrice" value={{minimumBidPrice}} />
+                                <input type ="hidden" name="content" value="Submit" />
                                 <div></div>
                                 <input type="submit" class="bid btn btn-default" value="Submit" name="content">
 
@@ -188,72 +189,10 @@
         </div>
     </div>
 </section>
-<script>
-    // Jquery Dependency
-    document.getElementById("number").onblur = function () {
-        this.value = parseFloat(this.value.replace(/,/g, ""))
-            .toFixed(2)
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        document.getElementById("display").value = this.value.replace(/,/g, "")
-
-    }
-
-    function showbid() {
-        let bidLog = document.getElementById("bidAction");
-        let bidButton = document.getElementById("bidButton");
-        bidLog.removeAttribute("hidden");
-        bidButton.setAttribute("hidden", "hidden");
-    }
-    function changeColor(id, color) {
-        document.getElementById(id).style.color = color;
-    }
-
-    function buttonLike1() {
-        let likeButton = document.getElementById("likeButton");
-        let unlikeButton = document.getElementById("unlikeButton");
-
-        if (likeButton.getAttribute("hidden")) {
-            likeButton.removeAttribute("hidden");
-            unlikeButton.setAttribute("hidden", "hidden");
-        }
-        else {
-            unlikeButton.removeAttribute("hidden");
-            likeButton.setAttribute("hidden", "hidden");
-        }
-    }
-
-    function buttonLike2() {
-        let likeButton = document.getElementById("likeButton");
-        let unlikeButton = document.getElementById("unlikeButton");
-
-        if (unlikeButton.getAttribute("hidden")) {
-            unlikeButton.removeAttribute("hidden");
-            likeButton.setAttribute("hidden", "hidden");
-        }
-        else {
-            likeButton.removeAttribute("hidden");
-            unlikeButton.setAttribute("hidden", "hidden");
-        }
-    }
-
-    function buttonUnlike() {
-        if (document.getElementById("like").style.color == "white")
-            changeColor("like", "red");
-        else
-            changeColor("like", "white")
-    }
-    function changeImg(pic) {
-        var mainPic = document.getElementById('mainPic');
-        var subPic = document.getElementById(`subPic${pic}`);
-        var tmp = subPic.src;
-
-        mainPic.src = subPic.src;
-        subPic.src = tmp;
-
-    }
-</script>
+{{#section "scripts"}}
+<script src="/public/js/viewDetailProduct.js"></script>
+{{/section}}
 
 {{#section "stylesheets"}}
 <link rel="stylesheet" href="/public/css/detailProduct.css">
