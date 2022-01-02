@@ -108,7 +108,14 @@ homeRouter.post('/product', async (req, res) => {
   const content = req.body.content;
   if (userId != null) {
     if(content ==='Submit'){
-      console.log(req.body);
+      let price = req.body.price;
+      let minimumPrice = req.body.minimumPrice;
+      if(price < minimumPrice){
+        return res.json({
+          status: "error",
+          msg: "Not enough money"
+        })
+      } 
     }
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
