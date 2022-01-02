@@ -1,38 +1,33 @@
-// document.getElementById("bidAction").onsubmit = async function (e) {
-//     console.log("ENTERING");
-//     e.preventDefault();
-//     const formData = new FormData(e.target);
-//     console.log(e.target.getAttribute('action'));
-//     console.log(e.target.getAttribute('method'));
-//     const res = await fetch(e.target.getAttribute('action'), {
-//         method: e.target.getAttribute('method'),
-//         redirect: 'follow',
-//         headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//         },
-//         body: new URLSearchParams(formData),
-//     });
-//     console.log("DONE");
-//     const resJson = await res.json();
-//     console.log(resJson);
-//     if(resJson.status === "error")
-//         toastr.error(resJson.msg);
-// };
+document.getElementById("bidAction").onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+        method: e.target.getAttribute('method'),
+        redirect: 'follow',
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if(resJson.status === "error")
+        toastr.error(resJson.msg);
+};
 
-$('#bidAction').submit(function (e) {
-  e.preventDefault(); // avoid to execute the actual submit of the form.
-  console.log('ENTERING');
-  var form = $(this);
-  var url = form.attr('action');
-  $.ajax({
-    type: 'POST',
-    url: url,
-    data: form.serialize(), // serializes the form's elements.
-    success: function (data) {
-      alert(data); // show response from the php script.
-    },
-  });
-});
+// $('#bidAction').submit(function (e) {
+//   e.preventDefault(); // avoid to execute the actual submit of the form.
+//   console.log('ENTERING');
+//   var form = $(this);
+//   var url = form.attr('action');
+//   $.ajax({
+//     type: 'POST',
+//     url: url,
+//     data: form.serialize(), // serializes the form's elements.
+//     success: function (data) {
+//       alert(data); // show response from the php script.
+//     },
+//   });
+// });
 
 // Jquery Dependency
 // document.getElementById("number").onblur = function () {

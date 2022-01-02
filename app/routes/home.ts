@@ -104,16 +104,16 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-  console.log(req.body);
+
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const content = req.body.content;
+
   if (userId != null) {
     if (content === 'Submit') {
-      console.log('FOUND SUBMIT');
+   
       let price = parseInt(req.body.price);
       let minimumPrice = parseInt(req.body.minimumPrice);
       if (price < minimumPrice) {
-        console.log('ERROR NOT ENOUGH');
         return res.json({
           status: 'error',
           msg: 'Not enough money',
