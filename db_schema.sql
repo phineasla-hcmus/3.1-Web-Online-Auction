@@ -80,6 +80,8 @@ CREATE TABLE `products` (
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
   `bidderName` varchar(80) DEFAULT NULL,
+  `sellerId` int unsigned NOT NULL,
+  `sellerName` varchar(80) DEFAULT NULL
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -148,7 +150,8 @@ CREATE TABLE `upgradeList` (
   `bidderId` int unsigned NOT NULL,
   `registerTime` datetime NOT NULL,
   `status` tinyint NOT NULL, -- -1: pending, 0: denied, 1: accepted
-  PRIMARY KEY (`bidderId`)
+  `expiredDate` datetime,
+  PRIMARY KEY (`bidderId`, `registerTime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

@@ -65,6 +65,9 @@ homeRouter.get('/product', async (req, res) => {
     productID
   );
 
+  detailedProduct[0].minimumBidPrice= detailedProduct[0].currentPrice + detailedProduct[0].stepPrice ;
+
+  
   //get favorite list
   const FavoriteProduct = [];
   for (let i = 0; i < listFavorite.length; i++) {
@@ -104,6 +107,9 @@ homeRouter.post('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const content = req.body.content;
   if (userId != null) {
+    if(content ==='Submit'){
+      console.log(req.body);
+    }
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
     }

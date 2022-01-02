@@ -6,15 +6,24 @@ import { check } from 'express-validator';
 const bidderRouter = Router();
 
 bidderRouter.get('/info', async function (req, res) {
-  const status = await bidderModel.getBidderStatus(res.locals.user.userId);
+  let status = await bidderModel.getBidderStatus(res.locals.user.userId);
   let registered = false;
-  if (status[0].status != null) {
-    registered = true;
+
+  let request = -2;
+  if (status.length !== 0) {
+    request = status[0].status;
+    if (request === 0) {
+      registered = false;
+    } else {
+      registered = true;
+    }
   }
+
   res.render('bidder/info', {
     layout: 'bidder',
-    registered,
     info: true,
+    registered,
+    request,
   });
 });
 

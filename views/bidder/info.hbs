@@ -137,10 +137,13 @@
         >Close</button>
       </form>
     </div>
-    {{#if registered}}
+
+    {{#if (isPendingRequest request)}}
       <p class="alert alert-info">Your request for upgrading to seller is
-        pending!</p>
-    {{else}}
+        pending!
+      </p>
+    {{/if}}
+    {{#unless registered}}
       <form id="frmUpgrade" action="/bidder/upgrade" method="post">
         <input type="hidden" name="userId" value="{{user.userId}}" />
         <button
@@ -150,8 +153,7 @@
           type="submit"
         >Upgrade to seller</button>
       </form>
-    {{/if}}
-
+    {{/unless}}
   </div>
 </div>
 {{#section "scripts"}}
