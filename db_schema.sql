@@ -85,6 +85,14 @@ CREATE TABLE `products` (
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `productDescription`;
+CREATE TABLE `productDescription` (
+	`proId` int unsigned NOT NULL,
+    `dateCreated` datetime NOT NULL,
+    `text` varchar(1000),
+    PRIMARY KEY (`proId`, `dateCreated`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- ----------------------------
 -- Table structure for watchlist
 -- ----------------------------
