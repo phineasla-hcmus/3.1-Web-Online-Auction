@@ -8,8 +8,17 @@ const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
   const nearEndList = await productModel.findNearEndProducts();
+  nearEndList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
   const mostBidsList = await productModel.findMostBidsProducts();
+  mostBidsList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
   const highestPriceList = await productModel.findHighestPriceProducts();
+  highestPriceList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
   res.render('home', {
     nearEndList,
     mostBidsList,
@@ -56,10 +65,19 @@ homeRouter.get('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
+  detailedProduct.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
+  listRelatedProduct.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
+  auctionHistory.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
     userId,
@@ -174,6 +192,10 @@ homeRouter.get('/search', async (req, res) => {
       offset,
       limitpage
     );
+    list.forEach((element: any) => {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    });
+    console.log(list);
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,

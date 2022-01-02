@@ -44,7 +44,7 @@
                                         </strong>
                                     </th>
                                     <td>
-                                        {{bidderName}} &nbsp; 4.9/5.0
+                                        {{sellerName}} &nbsp; 4.9/5.0
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
@@ -55,11 +55,12 @@
                                             Highest Bidder:
                                         </strong>
                                     </th>
-                                    <td>
-                                        {{bidderName}} &nbsp; 4.9/5.0
-                                        <i class="fa fa-star checked" aria-hidden="true"></i>
-
-                                    </td>
+                                    {{#unless ../empty}}
+                                        <td>
+                                            {{maskBidderName bidderName}} &nbsp; 4.9/5.0
+                                            <i class="fa fa-star checked" aria-hidden="true"></i>
+                                        </td>
+                                    {{/unless}}
                                 </tr>
                                 <tr>
                                     <th class="pl-0 w-50" scope="row">
