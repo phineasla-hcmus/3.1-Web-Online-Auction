@@ -12,6 +12,8 @@ document.getElementById("bidAction").onsubmit = async function (e) {
     const resJson = await res.json();
     if(resJson.status === "error")
         toastr.error(resJson.msg);
+    if(resJson.status==="success")
+        toastr.success(resJson.msg);
 };
 
 // $('#bidAction').submit(function (e) {

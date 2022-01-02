@@ -105,20 +105,46 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const content = req.body.content;
 
   if (userId != null) {
     if (content === 'Submit') {
-   
-      let price = parseInt(req.body.price);
-      let minimumPrice = parseInt(req.body.minimumPrice);
+      const proId = req.body.proId;
+      const price = parseInt(req.body.price);
+      const minimumPrice = parseInt(req.body.minimumPrice);
+      const stepPrice = parseInt(req.body.stepPrice);
+      
+      // if (price % stepPrice != 0) {
+      //   return res.json({
+      //     status: 'error',
+      //     msg: 'Your input price is not in ratio with step price',
+      //   });
+      // }
       if (price < minimumPrice) {
         return res.json({
           status: 'error',
           msg: 'Not enough money',
         });
+      } else {
+        const maxPrice = await aunctionModel.findMaxPrice(proId);
+        if (maxPrice.length === 0) {
+        
+          if (aunctionModel.bidProduct(proId, userId, price, minimumPrice)===true)
+            //TODO need to reload page
+            return res.json({
+              status: 'success',
+              msg: 'Bid Successfully!!!',
+            });
+          else {
+            return res.json({
+              status: 'error',
+              msg: 'Error!!!',
+            });
+          }
+        } else {
+          console.log(maxPrice);
+        }
       }
     }
     if (content === 'like') {
