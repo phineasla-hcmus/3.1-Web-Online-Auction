@@ -32,14 +32,16 @@ export default {
       bidderId: bidderId,
       registerTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       status: -1,
+      expiredDate: null,
     };
     return db('upgradeList').insert(upgradeRequest);
   },
   async getBidderStatus(bidderId: number) {
-    const result =
-      db('upgradeList')
-        .where('bidderId', bidderId)
-        .select('upgradeList.status') || null;
+    const result = db('upgradeList')
+      .where('bidderId', bidderId)
+      .orderBy('registerTime', 'desc')
+      .limit(1)
+      .select('upgradeList.status');
     return result;
   },
 };

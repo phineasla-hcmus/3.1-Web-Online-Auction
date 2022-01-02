@@ -111,3 +111,9 @@ export async function updateUserPassword(userId: any, password: string) {
     password: password,
   });
 }
+
+export async function updateBidderToSeller(userId: any) {
+  return knex('users').where({ userId }).update({
+    roleId: 3,
+  });
+}

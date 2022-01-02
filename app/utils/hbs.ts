@@ -16,6 +16,7 @@ const hbs = create({
     isSeller,
     isAdmin,
     isRecentlyUploaded,
+    isPendingRequest,
   },
 });
 
@@ -83,6 +84,10 @@ function isRecentlyUploaded(product: any) {
     return true;
   }
   return false;
+}
+
+function isPendingRequest(status: number) {
+  return status === -1;
 }
 
 /**

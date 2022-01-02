@@ -150,7 +150,8 @@ CREATE TABLE `upgradeList` (
   `bidderId` int unsigned NOT NULL,
   `registerTime` datetime NOT NULL,
   `status` tinyint NOT NULL, -- -1: pending, 0: denied, 1: accepted
-  PRIMARY KEY (`bidderId`)
+  `expiredDate` datetime,
+  PRIMARY KEY (`bidderId`, `registerTime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

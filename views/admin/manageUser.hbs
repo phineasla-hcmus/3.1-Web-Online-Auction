@@ -1,3 +1,11 @@
+{{#section "scripts"}}
+    <script>
+        $('.approveRequest').on('click', function(e) { const id = $(this).data('id');
+        $('#txtUserApprove').val(id); $('#frmApprove').submit(); });
+        $('.declineRequest').on('click', function(e) { const id = $(this).data('id');
+        $('#txtUserDecline').val(id); $('#frmDecline').submit(); });
+    </script>
+{{/section}}
 <div>
     <h3 class="text-center">Manage users</h3>
     <div class="list-of-users">
@@ -83,5 +91,91 @@
     </div>
     <div class="list-upgrade-requests mt-3">
         <h4>Upgrade requests</h4>
+        {{#if empty}}
+            <div class="alert alert-info">There are not any requests</div>
+        {{else}}
+            <form action="/admin/approveRequest" method="post" id="frmApprove">
+                <input type="hidden" id="txtUserApprove" name="approveid" />
+            </form>
+             <form action="/admin/declineRequest" method="post" id="frmDecline">
+                <input type="hidden" id="txtUserDecline" name="declineid" />
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading bg-secondary">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <form class="form-horizontal pull-right">
+                                        <div class="form-group">
+                                            <label>Show : </label>
+                                            <select class="form-control">
+                                                <option>5</option>
+                                                <option>10</option>
+                                                <option>15</option>
+                                                <option>20</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Register time</th>
+                                        <th>Rating</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each requests as |item|}}
+                                        <tr>
+                                            <td>{{item.userId}}</td>
+                                            <td style="max-width: 250px" class="hide-overflow">{{item.email}}</td>
+                                            <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
+                                            <td>{{item.lastname}}</td>
+                                            <td style="min-width: 200px;">{{parseDate item.registerTime}}</td>
+                                            <td class="hide-overflow">{{item.rating}}</td>
+                                            <td style="min-width: 100px;">
+                                                <ul class="action-list">
+                                                    <li><a data-id="{{item.userId}}" href="#" class="btn btn-success approveRequest"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+                                                    <li><a data-id="{{item.userId}}" href="#" class="btn btn-danger declineRequest"><i class="fa fa-times"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer bg-secondary">
+                            {{!-- <div class="row">
+                                <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
+                                <div class="col-sm-6 col-xs-6">
+                                    <ul class="pagination hidden-xs pull-right">
+                                        <li><a href="#">«</a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">»</a></li>
+                                    </ul>
+                                    <ul class="pagination visible-xs pull-right">
+                                        <li><a href="#">«</a></li>
+                                        <li><a href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
     </div>
 </div
