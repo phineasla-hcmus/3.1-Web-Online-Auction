@@ -1,3 +1,17 @@
+{{! 
+  Require fields:
+  {
+    user (optional): {
+      email 
+    }
+    submitAction
+    resendAction
+    alert (optional): {
+      type
+      message
+    }
+  }
+}}
 <section class="verify">
   <div class="row justify-content-center m-0">
     <div class="col-md-7 col-lg-5">
@@ -7,61 +21,56 @@
             <h3>Verify its you</h3>
             <p class="mb-4">
               We've send a verification code to
-              {{#if users}}
-                <b>{{user.email}}</b>
+              {{#if user}}
+              <b>{{user.email}}</b>
               {{else}}
-                your email address
+              your email address
               {{/if}}
               to verify that it is you
             </p>
           </div>
         </div>
         <!-- Verify Form -->
-        <form id="verifyForm" action={{submitAction}} method="POST">
+        <form id="verifyForm" action={{submitAction}} method="post">
           <div class="row">
             <!-- Verification Code -->
             <div class="input-group col-lg-12">
               <div class="input-group-prepend">
                 <span class="input-group-text icon fa fa-check"></span>
               </div>
-              <input
-                id="token"
-                type="text"
-                name="token"
-                placeholder="Enter verification code"
-                class="form-control border-left-0 border-md"
-                required
-              />
+              <input id="token" type="text" name="token" placeholder="Enter verification code"
+                class="form-control border-left-0 border-md" required />
             </div>
           </div>
         </form>
+        {{#with alert}}
+        <div class="alert alert-{{type}}" role="alert">
+          {{message}}
+        </div>
+        {{/with}}
         <div class="row">
           <!-- Submit Button -->
           <div class="col-lg-6 mx-auto">
-            <button
-              type="submit"
-              form="verifyForm"
-              class="btn btn-primary btn-block py-2 submit"
-            >
+            <button type="submit" form="verifyForm" class="btn btn-primary btn-block py-2 submit">
               Submit
             </button>
           </div>
           <!-- Resend Email Button -->
           <form class="col-lg-6 mx-auto" action={{resendAction}} method="POST">
-            <button
-              type="button"
-              class="btn btn-secondary btn-block py-2 submit"
-            >
+            <button type="submit" class="btn btn-secondary btn-block py-2 submit">
               Resend email
             </button>
           </form>
         </div>
         {{#if user}}
-          <div class="mt-4">
-            <div class="w-100 text-center">
-              <p>Not you? <a href="/logout">Sign out</a></p>
-            </div>
+        <div class="mt-4">
+          <div class="w-100 text-center">
+            <form class="my-0 py-0" action="/logout" method="post">
+              Not you?
+              <button type="submit" class="btn btn-link px-0">Sign out</button>
+            </form>
           </div>
+        </div>
         {{/if}}
       </div>
     </div>

@@ -14,7 +14,6 @@ import categoryModel from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
-import logoutRouter from './routes/auth/logout';
 import { recoveryRouter, verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
 import bidderRouter from './routes/bidder';
@@ -28,7 +27,11 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 // NOTE: Express middleware order is important
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    morgan('dev', { skip: (req, res) => req.originalUrl.startsWith('/public') })
+  );
+}
 app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use(
   session({
@@ -48,28 +51,27 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.post('/logout', (req, res) => {
+  req.logout();
+  // `req.logout()` is unreliable, https://stackoverflow.com/a/19132999/12405558
+  req.session.destroy((err) => {
+    console.log('REF: ', req.headers.referer);
+    res.redirect(req.headers.referer || '/');
+  });
+});
+
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
-  if (
-    !req.user &&
-    // req.path !== '/login' &&
-    // req.path !== '/signup' &&
-    // req.path !== '/favicon.ico' &&
-    // !req.path.match(/^\public/) &&P
-    !req.path.match(/^\/auth/)
-  ) {
+  if (!req.user && !req.path.match(/^\/auth/) && !req.path.match(/^\/verify/)) {
     req.session.returnTo = req.originalUrl;
   }
-  // Don't know what the purpose of this
-  // else if (req.user && req.path == '/account') {
-  //   req.session.returnTo = req.path;
-  // }
   next();
 });
 
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
   res.locals.user = req.user;
+  console.log(res.locals.user?.email);
   next();
 });
 
@@ -86,6 +88,7 @@ app.use((req, res, next) => {
     req.user?.roleId === RoleType.Unverified &&
     !req.path.match(/^\/verify/)
   ) {
+    console.log('MUST VERIFY');
     res.redirect('/verify');
   } else {
     next();
@@ -110,7 +113,6 @@ app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/recovery', recoveryRouter);
 
 app.use('/verify', mustLoggedIn, verifyRouter);
-app.use('/logout', mustLoggedIn, logoutRouter);
 
 app.use('/bidder', bidderRouter);
 app.use('/admin', adminRouter);

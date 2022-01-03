@@ -67,12 +67,11 @@
             <li><a class="dropdown-item" href="/admin/manage/products">Manage products</a></li>
             <li><a class="dropdown-item" href="/admin/manage/users">Manage users</a></li>
           {{/if}}
-          <li><a
-              style="padding: 0.5rem; display: block"
-              class="btn header__btn mx-3"
-              href="#"
-              role="button"
-            >Log out</a></li>
+          <li>
+            <form action="/logout" method="post">
+              <button style="padding: 0.5rem; display: block" class="btn header__btn mx-3" type="submit" role="button">Log out</a>
+            </form>
+          </li>
          </ul>
       </div>
     {{else}}

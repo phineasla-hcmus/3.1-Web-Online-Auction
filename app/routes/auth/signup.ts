@@ -39,7 +39,7 @@ signUpRouter.post('/', ...signUpValidator, async (req, res, next) => {
     address,
   });
 
-  logger.debug('Insert result: ' + userId);
+  logger.debug('New user added: ' + userId);
 
   // Create token on database, ignore any knex error
   const token = await addOtp(userId, OtpType.Verify);
