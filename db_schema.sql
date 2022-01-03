@@ -79,6 +79,7 @@ CREATE TABLE `products` (
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
+  `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
   `sellerName` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`proId`)

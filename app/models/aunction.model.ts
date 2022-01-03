@@ -1,5 +1,6 @@
 import moment from 'moment';
 import db from '../config/database';
+
 export default {
   async findMaxPrice(proId: any) {
     return db('aunctionauto')
@@ -26,20 +27,26 @@ export default {
     db('aunctionauto')
       .insert(insertAunctionAuto)
       .then(function (result) {
-        console.log("insertAunctionAuto");
         db('auctionhistory')
           .insert(insertAunctionHistory)
           .then(function (result) {
-            console.log("insertAunctionHistory");
             db('products')
               .where({ proId: productId })
               .update({ currentPrice: cPrice })
               .then(function (result) {
-                console.log("update");
-                
               });
           });
       });
       return true;
   },
+  bidProductWithPriceSmaller(productId: any, uID: any, mPrice: any, cPrice: any){
+    const insertAunctionAuto = {
+      proId: productId,
+      userId: uID,
+      maxPrice: mPrice,
+      time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+    };
+
+    
+  }
 };

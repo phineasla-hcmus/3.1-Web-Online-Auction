@@ -132,23 +132,26 @@ homeRouter.post('/product', async (req, res) => {
       const price = parseInt(req.body.price);
       const minimumPrice = parseInt(req.body.minimumPrice);
       const stepPrice = parseInt(req.body.stepPrice);
-      
+      // check ratio ( does it necessary ?)
       // if (price % stepPrice != 0) {
       //   return res.json({
       //     status: 'error',
       //     msg: 'Your input price is not in ratio with step price',
       //   });
       // }
+
       if (price < minimumPrice) {
         return res.json({
           status: 'error',
           msg: 'Not enough money',
         });
       } else {
-        const maxPrice = await aunctionModel.findMaxPrice(proId);
-        if (maxPrice.length === 0) {
-        
-          if (aunctionModel.bidProduct(proId, userId, price, minimumPrice)===true)
+        const UsermaxPrice = await aunctionModel.findMaxPrice(proId);
+        const maxPrice: number = UsermaxPrice[0].maxPrice;
+        if (UsermaxPrice.length === 0) {
+          if (
+            aunctionModel.bidProduct(proId, userId, price, minimumPrice) ===true
+          )
             //TODO need to reload page
             return res.json({
               status: 'success',
@@ -161,7 +164,26 @@ homeRouter.post('/product', async (req, res) => {
             });
           }
         } else {
-          console.log(maxPrice);
+          console.log(UsermaxPrice);
+          if (maxPrice < price) {
+            const newPrice = maxPrice + stepPrice;
+            if (
+              aunctionModel.bidProduct(proId, userId, price, newPrice) === true
+            )
+              //TODO need to reload page
+              return res.json({
+                status: 'success',
+                msg: 'Bid Successfully!!!',
+              });
+            else {
+              return res.json({
+                status: 'error',
+                msg: 'Error!!!',
+              });
+            }
+          } else {
+
+          }
         }
       }
     }
