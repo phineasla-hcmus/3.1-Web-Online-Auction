@@ -18,8 +18,6 @@ passport.serializeUser<any, any>((req, user, done) => {
 
 passport.deserializeUser(async (userId: number, done) => {
   const userBasic = await findUserById(userId, USER_BASIC);
-  console.log('deserializeUser ', userBasic?.firstName);
-
   done(null, userBasic);
 });
 

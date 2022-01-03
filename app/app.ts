@@ -1,5 +1,4 @@
 import compression from 'compression';
-import knexSessionStore from 'connect-session-knex';
 import cookieParser from 'cookie-parser';
 import express, { NextFunction, Request, Response } from 'express';
 import mySqlSessionStore from 'express-mysql-session';
@@ -7,7 +6,6 @@ import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
-import knex from './config/database';
 import './config/nodemailer';
 import './config/passport';
 import { DB_CONFIG, SESSION_SECRET } from './config/secret';
@@ -22,7 +20,6 @@ import homeRouter from './routes/home';
 import hbs from './utils/hbs';
 
 const app = express();
-const KnexSession = knexSessionStore(session);
 const MySqlSession = mySqlSessionStore(session as any);
 
 app.engine('hbs', hbs.engine);
@@ -42,8 +39,7 @@ app.use(
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    store: new KnexSession({ knex: knex }),
-    // store: new MySqlSession(DB_CONFIG),
+    store: new MySqlSession(DB_CONFIG),
     // 1 day cookie
     cookie: { secure: false, maxAge: 8.64e7 },
   })
@@ -57,7 +53,6 @@ app.use(passport.session());
 
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
-  console.log('RETURN PATH');
   if (!req.user && !req.path.match(/^\/auth/) && !req.path.match(/^\/verify/)) {
     req.session.returnTo = req.originalUrl;
   }
@@ -67,8 +62,6 @@ app.use((req, res, next) => {
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log('SESSION', req.session);
-  console.log('LOCAL:', res.locals.user?.email);
   next();
 });
 
@@ -83,9 +76,9 @@ app.use(async function (req, res, next) {
 app.use((req, res, next) => {
   if (
     req.user?.roleId === RoleType.Unverified &&
-    !req.path.match(/^\/verify/)
+    !req.path.match(/^\/verify/) &&
+    req.path !== '/logout'
   ) {
-    console.log('MUST VERIFY');
     res.redirect('/verify');
   } else {
     next();
