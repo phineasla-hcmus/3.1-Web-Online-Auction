@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import productModel from '../models/product.model';
 import aunctionModel from '../models/aunction.model';
-import {getRatingUser} from '../models/user.model';
+import { getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
 
@@ -11,9 +11,9 @@ homeRouter.get('/', async (req, res) => {
   const nearEndList = await productModel.findNearEndProducts();
 
   const mostBidsList = await productModel.findMostBidsProducts();
-  
+
   const highestPriceList = await productModel.findHighestPriceProducts();
-  
+
   res.render('home', {
     nearEndList,
     mostBidsList,
@@ -62,7 +62,7 @@ homeRouter.get('/product', async (req, res) => {
   const detailedProduct = await productModel.findProductbyId(productID);
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
-  
+
   const auctionHistory = await productModel.getAuctionHistory(productID);
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
@@ -76,9 +76,22 @@ homeRouter.get('/product', async (req, res) => {
   const bidderRating = await getRatingUser(detailedProduct[0].bidderId);
   const sellerRating = await getRatingUser(detailedProduct[0].sellerId);
 
-  detailedProduct[0].bidderRating = bidderRating[0].rating? bidderRating[0].rating: "x";
-  detailedProduct[0].sellerRating = sellerRating[0].rating? bidderRating[0].rating: "x";
-
+  detailedProduct[0].bidderRating = bidderRating[0].rating
+    ? bidderRating[0].rating
+    : 'x';
+  detailedProduct[0].sellerRating = sellerRating[0].rating
+    ? bidderRating[0].rating
+    : 'x';
+  if (userId != 0) {
+    const userRating = await getRatingUser(userId);
+    if (userRating[0].rating === null) {
+      if (detailedProduct[0].isAllowRating == '1')
+        detailedProduct[0].userRating = 1;
+      else detailedProduct[0].userRating = 3;
+    } else {
+      detailedProduct[0].userRating = userRating[0].rating >= 8 ? 1 : 2;
+    }
+  }
   //get favorite list
   const FavoriteProduct = [];
   for (let i = 0; i < listFavorite.length; i++) {
@@ -110,7 +123,7 @@ homeRouter.get('/product', async (req, res) => {
     empty: auctionHistory.length === 0,
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
-    isUserId: isUserId
+    isUserId: isUserId,
   });
 });
 

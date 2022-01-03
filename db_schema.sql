@@ -82,6 +82,7 @@ CREATE TABLE `products` (
   `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
   `sellerName` varchar(80) DEFAULT NULL,
+  `isAllowRating` int NOT NULL,  -- 1 is allow , 0 is not allow
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -177,6 +178,20 @@ CREATE TABLE `aunctionAuto`(
   `time` datetime NOT NULL,
   PRIMARY KEY(`proId`,`userId`,`maxPrice`) 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Table structure for waitingList ( list of bidder which doesn't have rating score , waiting for seller allow)
+-- ----------------------------
+-- DROP TABLE IF EXISTS `waitingList`;
+-- CREATE TABLE `waitingList`(
+--   `sellerId` int unsigned NOT NULL,
+--   `proId` int unsigned NOT NULL,
+--   `userId` int unsigned NOT NULL,
+--   PRIMARY KEY(`sellerId`,`proId`,`userId`) 
+-- ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
 
 -- Full-text search
 ALTER TABLE products

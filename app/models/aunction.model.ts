@@ -32,7 +32,7 @@ export default {
           .then(function (result) {
             db('products')
               .where({ proId: productId })
-              .update({ currentPrice: cPrice ,bidderName: uName })
+              .update({ currentPrice: cPrice ,bidderId: uID,bidderName: uName })
               .then(function (result) {
               });
           });

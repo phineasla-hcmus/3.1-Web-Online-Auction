@@ -125,6 +125,7 @@
                             {{/if}}
 
                             <form id="bidAction" method="post" action="/product" hidden>
+                            {{#if (getRatingType userRating 1)}}
                                 <p class="d-flex justify-content-center">
                                 <strong>Minimum Bid Price: </strong>
                                 <span>{{minimumBidPrice}}$</span>
@@ -141,6 +142,17 @@
                                 <div></div>
                                 <input type="submit" class="bid btn btn-default" value="Submit" name="content">
                                 </p>
+                            {{/if}}
+
+                            {{#if (getRatingType userRating 2)}}
+                            <br>
+                            <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!</h5>
+                            {{/if}}
+
+                            {{#if (getRatingType userRating 3)}}
+                            <br>
+                            <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!</h5>
+                            {{/if}}
                             </form>
 
                             <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">

@@ -19,6 +19,7 @@ const hbs = create({
     isPendingRequest,
     isFullStar,
     isEmptyStar,
+    getRatingType
   },
 });
 
@@ -101,6 +102,10 @@ function isFullStar(star: string) {
 
 function isEmptyStar(star: string) {
   return star === 'empty';
+}
+
+function getRatingType(rating: string, type : string){
+  return rating === type;
 }
 
 /**
