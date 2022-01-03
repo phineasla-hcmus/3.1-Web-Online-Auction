@@ -2,6 +2,7 @@ import compression from 'compression';
 import knexSessionStore from 'connect-session-knex';
 import cookieParser from 'cookie-parser';
 import express, { NextFunction, Request, Response } from 'express';
+import mySqlSessionStore from 'express-mysql-session';
 import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
@@ -9,7 +10,7 @@ import path from 'path';
 import knex from './config/database';
 import './config/nodemailer';
 import './config/passport';
-import { SESSION_SECRET } from './config/secret';
+import { DB_CONFIG, SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
@@ -21,9 +22,11 @@ import homeRouter from './routes/home';
 import hbs from './utils/hbs';
 
 const app = express();
-const knexSession = knexSessionStore(session);
+const KnexSession = knexSessionStore(session);
+const MySqlSession = mySqlSessionStore(session as any);
 
 app.engine('hbs', hbs.engine);
+app.set('trust proxy', 1);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 // NOTE: Express middleware order is important
@@ -33,17 +36,18 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(compression());
 app.use(
   session({
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    store: new knexSession({ knex: knex }),
+    store: new KnexSession({ knex: knex }),
+    // store: new MySqlSession(DB_CONFIG),
     // 1 day cookie
     cookie: { secure: false, maxAge: 8.64e7 },
   })
 );
-app.use(compression());
 // Replacement of bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -51,17 +55,9 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/logout', (req, res) => {
-  req.logout();
-  // `req.logout()` is unreliable, https://stackoverflow.com/a/19132999/12405558
-  req.session.destroy((err) => {
-    console.log('REF: ', req.headers.referer);
-    res.redirect(req.headers.referer || '/');
-  });
-});
-
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
+  console.log('RETURN PATH');
   if (!req.user && !req.path.match(/^\/auth/) && !req.path.match(/^\/verify/)) {
     req.session.returnTo = req.originalUrl;
   }
@@ -71,7 +67,8 @@ app.use((req, res, next) => {
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log(res.locals.user?.email);
+  console.log('SESSION', req.session);
+  console.log('LOCAL:', res.locals.user?.email);
   next();
 });
 
@@ -106,6 +103,11 @@ const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
 };
 
 app.use('/', homeRouter);
+
+app.post('/logout', (req, res) => {
+  req.logout();
+  res.redirect(req.headers.referer || '/');
+});
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);

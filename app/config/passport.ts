@@ -5,7 +5,7 @@ import passportLocal from 'passport-local';
 import {
   findUserByEmail,
   findUserById,
-  USER_BASIC
+  USER_BASIC,
 } from '../models/user.model';
 
 const LocalStrategy = passportLocal.Strategy;
@@ -18,6 +18,8 @@ passport.serializeUser<any, any>((req, user, done) => {
 
 passport.deserializeUser(async (userId: number, done) => {
   const userBasic = await findUserById(userId, USER_BASIC);
+  console.log('deserializeUser ', userBasic?.firstName);
+
   done(null, userBasic);
 });
 
