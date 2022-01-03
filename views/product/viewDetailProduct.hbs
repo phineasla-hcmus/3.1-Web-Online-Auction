@@ -10,8 +10,7 @@
                             <div class="tab-pane active">
                                 <img src="/public/images/product/{{proId}}/1.jpg" id="mainPic" />
                             </div>
-                        </div>
-                        <div class="products__content owl-carousel owl-theme">
+                            <div class="products__content owl-carousel owl-theme" style="padding-right:3em;">
                             {{#each ../amountPic as |pics|}}
                             <a data-target="#pic-1" data-toggle="tab">
                                 <img src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
@@ -20,6 +19,8 @@
                             </a>
                             {{/each}}
                         </div>
+                        </div>
+                        
                     </div>
                     <div class="details col-md-6">
                         <h3 class="product-title">
@@ -85,56 +86,36 @@
                             </tbody>
                         </table>
                         {{#if ../isUserId}}
-                        <div class="action1" style="text-align: end;">
-
-                            <form id="bidAction" method="post" action="/product" hidden>
-
-                                <label for="fname">Minimum Bid Price: </label>
-                                <span>{{minimumBidPrice}}$</span>
-                                <div></div>
-                                <label for="lname">Your Price: </label>
-                                <input type="number" name="price"  />
-                                <br />
-                                <input type ="hidden" name="minimumPrice" value={{minimumBidPrice}} />
-                                <input type ="hidden" name="content" value="Submit" />
-                                <input type ="hidden" name="proId" value={{proId}} />
-                                <input type ="hidden" name="stepPrice" value={{stepPrice}} />
-                                <div></div>
-                                <input type="submit" class="bid btn btn-default" value="Submit" name="content">
-
-                            </form>
-
-                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
-                                Bid now
-                            </button>
-                            <form method="post">
+                        <div></div>
+                        <div class="action1" style="text-align: center;">
+                            <form method="post" style="text-align: end;">
                                 {{#if (isFavorite proId ../FavoriteProduct)}}
-                                <button class="like btn btn-default" type="submit" id="unlikeButton"
+                                <button class="likebtn" type="submit" id="unlikeButton"
                                     onclick="buttonLike2()" style="color: red">
                                     <span class="fa fa-heart" id="like"></span>
                                     <input type="hidden" id="like" value="unlike" name="content">
                                     <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
-                            </form>
-                            <form method="post">
-                                <button class="like btn btn-default" type="submit" id="likeButton"
-                                    onclick="buttonLike2()" style="color: white" hidden>
-                                    <span class="fa fa-heart" id="like"></span>
+                            </form> 
+                            <form method="post" style="text-align: end;" >
+                                <button class="likebtn" type="submit" id="likeButton"
+                                    onclick="buttonLike2()" style="color: black" hidden>
+                                    <span class="fa fa-heart-o" id="like"></span>
                                     <input type="hidden" id="like" value="like" name="content">
                                     <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
                             </form>
                             {{else}}
-                            <form method="post">
-                                <button class="like btn btn-default" type="submit" id="likeButton"
-                                    onclick="buttonLike1()" style="color: white">
-                                    <span class="fa fa-heart" id="like"></span>
+                            <form method="post" style="text-align: end;">
+                                <button class="likebtn" type="submit" id="likeButton"
+                                    onclick="buttonLike1()" style="color: black">
+                                    <span class="fa fa-heart-o" id="like"></span>
                                     <input type="hidden" id="like" value="like" name="content">
                                     <input type="hidden" id="like" value="{{proId}}" name="proId">
                                 </button>
                             </form>
-                            <form method="post">
-                                <button class="like btn btn-default" type="submit" id="unlikeButton"
+                            <form method="post" style="text-align: end;">
+                                <button class="likebtn" type="submit" id="unlikeButton"
                                     onclick="buttonLike1()" style="color: red" hidden>
                                     <span class="fa fa-heart" id="like"></span>
                                     <input type="hidden" id="like" value="unlike" name="content">
@@ -142,6 +123,30 @@
                                 </button>
                             </form>
                             {{/if}}
+
+                            <form id="bidAction" method="post" action="/product" hidden>
+                                <p class="d-flex justify-content-center">
+                                <strong>Minimum Bid Price: </strong>
+                                <span>{{minimumBidPrice}}$</span>
+                                <div></div>
+                                <strong>Your Price: </strong>
+                                <input type="number" name="price"  />
+                                
+                                <div style="font-size: smaller;">This is using Auto Bid. You just need to enter your max price(Largest price you can pay for this product). The system will calculate and auto bid to give you a best price</div>
+                                {{!--  this field is used to pass value into javascript --}}
+                                <input type ="hidden" name="minimumPrice" value={{minimumBidPrice}} />
+                                <input type ="hidden" name="content" value="Submit" />
+                                <input type ="hidden" name="proId" value={{proId}} />
+                                <input type ="hidden" name="stepPrice" value={{stepPrice}} />
+                                <div></div>
+                                <input type="submit" class="bid btn btn-default" value="Submit" name="content">
+                                </p>
+                            </form>
+
+                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
+                                Bid now
+                            </button>
+                            
                         </div>
                         {{/if}}
                         {{#if ../empty}}

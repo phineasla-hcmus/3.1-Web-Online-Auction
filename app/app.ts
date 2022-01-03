@@ -71,7 +71,6 @@ app.use((req, res, next) => {
 // Pass req.user to res.locals.user to use in handlebars
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log(res.locals.user?.email);
   next();
 });
 
