@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import productModel from '../models/product.model';
 import aunctionModel from '../models/aunction.model';
+import {getRatingUser} from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
 
@@ -72,6 +73,12 @@ homeRouter.get('/product', async (req, res) => {
   detailedProduct[0].minimumBidPrice =
     detailedProduct[0].currentPrice + detailedProduct[0].stepPrice;
 
+  const bidderRating = await getRatingUser(detailedProduct[0].bidderId);
+  const sellerRating = await getRatingUser(detailedProduct[0].sellerId);
+
+  detailedProduct[0].bidderRating = bidderRating[0].rating? bidderRating[0].rating: "x";
+  detailedProduct[0].sellerRating = sellerRating[0].rating? bidderRating[0].rating: "x";
+
   //get favorite list
   const FavoriteProduct = [];
   for (let i = 0; i < listFavorite.length; i++) {
@@ -103,7 +110,7 @@ homeRouter.get('/product', async (req, res) => {
     empty: auctionHistory.length === 0,
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
-    isUserId: isUserId,
+    isUserId: isUserId
   });
 });
 
