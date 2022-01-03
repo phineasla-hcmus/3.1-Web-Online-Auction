@@ -46,8 +46,8 @@
                                         <th>Email</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
-                                        <th>Dob</th>
-                                        <th>Address</th>
+                                        {{!-- <th>Dob</th>
+                                        <th>Address</th> --}}
                                         <th>Rating</th>
                                         <th>Action</th>
                                     </tr>
@@ -59,10 +59,10 @@
                                             <td style="max-width: 250px" class="hide-overflow">{{item.email}}</td>
                                             <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
                                             <td>{{item.lastname}}</td>
-                                            <td>{{parseDob item.dob}}</td>
-                                            <td class="hide-overflow" style="min-width: 250px;">{{item.address}}</td>
+                                            {{!-- <td></td> --}}
+                                            {{!-- <td class="hide-overflow" style="min-width: 250px;"></td> --}}
                                             <td>{{item.rating}}</td>
-                                            {{!-- <td><a href="#" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td> --}}
+                                            <td><a href="/admin/manage/users/{{item.userId}}" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
                                             {{#if (isSeller item.roleId)}}
                                                 <td style="min-width: 100px;">
                                                     <a data-id="{{item.userId}}" href="#" class="btn btn-danger downgrade">Downgrade</a>
