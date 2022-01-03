@@ -49,7 +49,7 @@
           {{user.firstName}} {{user.lastName}}
         </a>
         
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul style="min-width: 100%;" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           {{#if (isBidder user.roleId)}}
             <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
             <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>

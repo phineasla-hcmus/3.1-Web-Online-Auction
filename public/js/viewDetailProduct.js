@@ -14,6 +14,8 @@ document.getElementById("bidAction").onsubmit = async function (e) {
         toastr.error(resJson.msg);
     if(resJson.status==="success")
         toastr.success(resJson.msg);
+    if(resJson.status==="info")
+        toastr.info(resJson.msg);
 };
 
 // $('#bidAction').submit(function (e) {

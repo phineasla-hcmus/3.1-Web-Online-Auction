@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import productModel from '../models/product.model';
 import aunctionModel from '../models/aunction.model';
+import {getRatingUser} from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
 
@@ -8,17 +9,11 @@ const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
   const nearEndList = await productModel.findNearEndProducts();
-  nearEndList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
+
   const mostBidsList = await productModel.findMostBidsProducts();
-  mostBidsList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
+  
   const highestPriceList = await productModel.findHighestPriceProducts();
-  highestPriceList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
+  
   res.render('home', {
     nearEndList,
     mostBidsList,
@@ -65,19 +60,10 @@ homeRouter.get('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
-  detailedProduct.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
-  listRelatedProduct.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
-
+  
   const auctionHistory = await productModel.getAuctionHistory(productID);
-  auctionHistory.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
-  });
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
     userId,
@@ -86,6 +72,12 @@ homeRouter.get('/product', async (req, res) => {
 
   detailedProduct[0].minimumBidPrice =
     detailedProduct[0].currentPrice + detailedProduct[0].stepPrice;
+
+  const bidderRating = await getRatingUser(detailedProduct[0].bidderId);
+  const sellerRating = await getRatingUser(detailedProduct[0].sellerId);
+
+  detailedProduct[0].bidderRating = bidderRating[0].rating? bidderRating[0].rating: "x";
+  detailedProduct[0].sellerRating = sellerRating[0].rating? bidderRating[0].rating: "x";
 
   //get favorite list
   const FavoriteProduct = [];
@@ -118,37 +110,49 @@ homeRouter.get('/product', async (req, res) => {
     empty: auctionHistory.length === 0,
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
-    isUserId: isUserId,
+    isUserId: isUserId
   });
 });
 
 homeRouter.post('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
+
   const content = req.body.content;
 
   if (userId != null) {
+    const biddername =
+      res.locals.user.firstName + ' ' + res.locals.user.lastName;
     if (content === 'Submit') {
       const proId = req.body.proId;
       const price = parseInt(req.body.price);
       const minimumPrice = parseInt(req.body.minimumPrice);
       const stepPrice = parseInt(req.body.stepPrice);
-      
-      // if (price % stepPrice != 0) {
-      //   return res.json({
-      //     status: 'error',
-      //     msg: 'Your input price is not in ratio with step price',
-      //   });
-      // }
+
+      // check ratio ( does it necessary ?)
+      if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
+        return res.json({
+          status: 'error',
+          msg: 'Your input price is not in ratio with step price',
+        });
+      }
+
       if (price < minimumPrice) {
         return res.json({
           status: 'error',
           msg: 'Not enough money',
         });
       } else {
-        const maxPrice = await aunctionModel.findMaxPrice(proId);
-        if (maxPrice.length === 0) {
-        
-          if (aunctionModel.bidProduct(proId, userId, price, minimumPrice)===true)
+        const UsermaxPrice = await aunctionModel.findMaxPrice(proId);
+        if (UsermaxPrice.length === 0) {
+          if (
+            aunctionModel.bidProductwithPriceLarger(
+              proId,
+              userId,
+              biddername,
+              price,
+              minimumPrice
+            ) === true
+          )
             //TODO need to reload page
             return res.json({
               status: 'success',
@@ -161,7 +165,51 @@ homeRouter.post('/product', async (req, res) => {
             });
           }
         } else {
-          console.log(maxPrice);
+          const maxPrice: number = UsermaxPrice[0].maxPrice;
+          if (maxPrice < price) {
+            const newPrice = maxPrice + stepPrice;
+            if (
+              aunctionModel.bidProductwithPriceLarger(
+                proId,
+                userId,
+                biddername,
+                price,
+                newPrice
+              ) === true
+            )
+              //TODO need to reload page
+              return res.json({
+                status: 'success',
+                msg: 'Bid Successfully!!!',
+              });
+            else {
+              return res.json({
+                status: 'error',
+                msg: 'Error!!!',
+              });
+            }
+          } else {
+            if (
+              aunctionModel.bidProductWithPriceSmaller(
+                proId,
+                userId,
+                biddername,
+                price,
+                price
+              ) === true
+            )
+              //TODO need to reload page
+              return res.json({
+                status: 'info',
+                msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
+              });
+            else {
+              return res.json({
+                status: 'error',
+                msg: 'Error!!!',
+              });
+            }
+          }
         }
       }
     }

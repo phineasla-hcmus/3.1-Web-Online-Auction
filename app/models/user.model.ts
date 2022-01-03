@@ -117,3 +117,7 @@ export async function updateBidderToSeller(userId: any) {
     roleId: 3,
   });
 }
+
+export async function getRatingUser(userId: any){
+  return knex('users').where({userId});
+}

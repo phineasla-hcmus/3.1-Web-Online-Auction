@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default {
   async getListUsers() {
-    return db('users').whereNot('roleId', 4);
+    return db('users').where('roleId', 2).orWhere('roleId', 3);
   },
   async getUpgradeRequests() {
     return db('upgradelist')

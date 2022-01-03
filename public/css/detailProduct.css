@@ -158,6 +158,16 @@ img {
     transition: background .3s ease;
 }
 
+.likebtn{
+    font-size:x-large;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
 /* .like {
     padding: 1.45em 1.75em;
 } */

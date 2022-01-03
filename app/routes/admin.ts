@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import adminModel from '../models/admin.model';
-import { updateBidderToSeller } from '../models/user.model';
+import { updateBidderToSeller, findUserById } from '../models/user.model';
 
 const adminRouter = Router();
 
@@ -25,6 +25,30 @@ adminRouter.get('/manage/users', async function (req, res) {
     emptyRequest: requests.length === 0,
     emptyList: list.length === 0,
   });
+});
+
+adminRouter.get('/manage/users/:id', async function (req, res) {
+  const id = +req.params.id;
+  const user = await findUserById(id, [
+    'userId',
+    'roleId',
+    'firstName',
+    'lastName',
+    'email',
+    'dob',
+    'address',
+    'rating',
+  ]);
+  const stars = (user.rating / 10) * 5;
+  const rate = [];
+  for (let i = 1; i <= 5; i++) {
+    if (stars >= i) {
+      rate.push('full');
+    } else {
+      rate.push('empty');
+    }
+  }
+  res.render('admin/userDetail', { layout: 'admin', user, rate });
 });
 
 adminRouter.post('/approveRequest', async function (req, res) {

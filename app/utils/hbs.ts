@@ -17,6 +17,8 @@ const hbs = create({
     isAdmin,
     isRecentlyUploaded,
     isPendingRequest,
+    isFullStar,
+    isEmptyStar,
   },
 });
 
@@ -91,6 +93,14 @@ function isRecentlyUploaded(product: any) {
 
 function isPendingRequest(status: number) {
   return status === -1;
+}
+
+function isFullStar(star: string) {
+  return star === 'full';
+}
+
+function isEmptyStar(star: string) {
+  return star === 'empty';
 }
 
 /**

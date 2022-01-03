@@ -79,6 +79,7 @@ CREATE TABLE `products` (
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
+  `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
   `sellerName` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`proId`)
@@ -112,7 +113,7 @@ CREATE TABLE `auctionHistory` (
   `bidderId` int unsigned NOT NULL,
   `bidderName` varchar(80) NOT NULL,
   `auctionPrice` int NOT NULL,
-  PRIMARY KEY (`proId`, `auctionTime`)
+  PRIMARY KEY (`proId`, `auctionTime`,`bidderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
