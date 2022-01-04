@@ -2,11 +2,12 @@ import db from '../config/database';
 import moment from 'moment';
 
 export default {
-  async getRatingList(bidderId: number) {
+  async getRatingList(userId: number) {
     return db('ratingHistory')
       .join('products as p', { 'ratingHistory.proId': 'p.proId' })
-      .where('ratingHistory.bidderId', bidderId)
-      .select('ratingHistory.*', 'p.proName');
+      .join('users as u', { 'ratingHistory.rateId': 'u.userId' })
+      .where('ratingHistory.userId', userId)
+      .select('ratingHistory.*', 'p.proName', 'u.firstname', 'u.lastname');
   },
   async getFavoriteList(bidderId: number) {
     return db('watchlist')
@@ -19,7 +20,13 @@ export default {
   async getWinningList(bidderId: number) {
     return db('products')
       .where('bidderId', bidderId)
-      .andWhere('expiredDate', '<', new Date());
+      .andWhere('expiredDate', '<', new Date())
+      .join('users as u', { 'products.sellerId': 'u.userId' });
+  },
+  async isAlreadyRated(proId: number) {
+    const ratingList = await db('ratingHistory').where('proId', proId);
+    if (ratingList.length === 0) return false;
+    return true;
   },
   async getCurrentBids(bidderId: number) {
     return db('auctionhistory')
@@ -44,5 +51,8 @@ export default {
       .limit(1)
       .select('upgradeList.status');
     return result;
+  },
+  async rate(entity: any) {
+    return db('ratingHistory').insert(entity);
   },
 };

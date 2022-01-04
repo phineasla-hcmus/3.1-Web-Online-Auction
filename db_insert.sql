@@ -20,8 +20,8 @@ insert into categories values(12, 'Baking dish', 3);
 
 insert into users values(1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 2);
 insert into users values(2, 'a@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', null, 1);
-insert into users values(3, 'leesuby@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 3);
-insert into users values(4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 4);
+insert into users values(3, 'leesuby@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Phuc', '2001-10-12', 'somewhere in the universe', 7, 3);
+insert into users values(4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', 8, 4);
 -- sample data used for [admin] manage users
 insert into users values(5, 'hoho1@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
 insert into users values(6, 'hoho2@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
@@ -70,5 +70,5 @@ insert into upgradelist values(8, '2022-01-04 10:15:37', -1, null);
 insert into upgradelist values(9, '2022-01-04 10:15:37', -1, null);
 insert into upgradelist values(10, '2022-01-04 10:15:37', -1, null);
 
-insert into ratingHistory values (1, 2,1, 'Hong Du Shik', '2021-12-19 15:07', true , 'Fast transaction!');
-insert into ratingHistory values (1, 2, 2, 'Hong Du Shik', '2021-12-19 15:07', false , 'Angry!');
+insert into ratingHistory values (1, 2, 1, '2021-12-19 15:07', true , 'Fast transaction!');
+insert into ratingHistory values (1, 2, 2, '2021-12-19 15:07', false , 'Angry!');
