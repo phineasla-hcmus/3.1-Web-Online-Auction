@@ -427,11 +427,6 @@ ul.nav-pills li:hover {
     gap: 1rem;
   }
 }
-.products__item {
-  display: flex;
-  flex: 1 0 auto;
-  height: 100%;
-}
 .products__item--new {
   background: #fdb03d;
   color: white;
@@ -541,7 +536,11 @@ ul.nav-pills li:hover {
   transition: all 0.3s ease-in-out;
   backface-visibility: hidden;
   width: 23rem;
-  height: 10.8125rem;
+}
+@media (min-width: 40em) {
+  .products__item--img a img {
+    height: 10.8125rem;
+  }
 }
 .products__item--img a:hover img {
   -webkit-transform: scale(1.1);

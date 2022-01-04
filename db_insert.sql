@@ -70,5 +70,5 @@ insert into upgradelist values(8, '2022-01-04 10:15:37', -1, null);
 insert into upgradelist values(9, '2022-01-04 10:15:37', -1, null);
 insert into upgradelist values(10, '2022-01-04 10:15:37', -1, null);
 
-insert into ratingHistory values (1, 2,1, 'Hong Du Shik', '2021-12-19 15:07', true , 'Fast transaction!');
-insert into ratingHistory values (1, 2, 2, 'Hong Du Shik', '2021-12-19 15:07', false , 'Angry!');
+insert into ratingHistory values (1, 2, 1, '2021-12-19 15:07', true , 'Fast transaction!');
+insert into ratingHistory values (1, 2, 2, '2021-12-19 15:07', false , 'Angry!');

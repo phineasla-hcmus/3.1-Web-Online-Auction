@@ -124,6 +124,9 @@ bidderRouter.get('/currentbids', async function (req, res) {
 
 bidderRouter.get('/rating', async function (req, res) {
   const ratingList = await bidderModel.getRatingList(res.locals.user.userId);
+  ratingList.forEach((element) => {
+    element.rateName = element.firstname + ' ' + element.lastname;
+  });
   res.render('bidder/rating', {
     layout: 'bidder',
     ratingList,
@@ -133,7 +136,38 @@ bidderRouter.get('/rating', async function (req, res) {
 
 bidderRouter.get('/win', async function (req, res) {
   const winningList = await bidderModel.getWinningList(res.locals.user.userId);
+  winningList.forEach(async function (element) {
+    const rated = await bidderModel.isAlreadyRated(element.proId);
+    if (rated) {
+      element.rated = true;
+    } else element.rated = false;
+    element.sellerName = element.firstname + ' ' + element.lastname;
+  });
   res.render('bidder/win', { layout: 'bidder', winningList, win: true });
+});
+
+bidderRouter.post('/rateSeller', async function (req, res) {
+  const opinion = req.body.opinion;
+  let satisfied = false;
+  if (opinion === 'satisfied') {
+    satisfied = true;
+  }
+  const comment = req.body.commentBox;
+  const seller = +req.body.sellerid;
+  const product = +req.body.proid;
+
+  const rating = {
+    userId: res.locals.user.userId,
+    rateId: seller,
+    proId: product,
+    ratingTime: new Date(),
+    satisfied,
+    comment,
+  };
+
+  await bidderModel.rate(rating);
+  const url = req.headers.referer || '/';
+  res.redirect(url);
 });
 
 export default bidderRouter;
