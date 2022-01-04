@@ -20,6 +20,8 @@ insert into categories values(12, 'Baking dish', 3);
 
 insert into users values(1, "tmnguyen@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 2);
 insert into users values(2, "a@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Hong", "Du Shik", "1995-10-12", "somewhere", null, 1);
+insert into users values(3, "leesuby@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 3);
+insert into users values(3, "admin@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 4);
 
 insert into products values(1, 'Laptop Lenovo Ideapad 3', 4, "500", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 4, 1,'Tam Nguyen', 2,'Hong Du Shik',0);
 insert into products values(2, 'Laptop HP', 4, "550", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 10, 1,'Tam Nguyen', 2,'Hong Du Shik',0);

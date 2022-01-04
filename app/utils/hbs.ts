@@ -1,5 +1,6 @@
 import { create } from 'express-handlebars';
 import moment from 'moment';
+import productModel from '../models/product.model';
 
 const hbs = create({
   defaultLayout: 'layout.hbs',
@@ -19,7 +20,8 @@ const hbs = create({
     isPendingRequest,
     isFullStar,
     isEmptyStar,
-    getRatingType
+    getRatingType,
+    checkFavoriteProduct
   },
 });
 
@@ -64,6 +66,7 @@ function maskBidderName(bidderName: string) {
 }
 
 function isFavorite(proId: any, listFavorite: any) {
+
   return listFavorite.some(function (e1: any) {
     return e1.proId === proId;
   });
@@ -131,3 +134,9 @@ function section(this: any, name: string, options: any) {
   this.section[name] = options.fn(this);
   return null;
 }
+
+async function checkFavoriteProduct(userId: any, proId: number) {
+  const check = await productModel.checkIfLike_or_Unlike(userId.userId, proId);
+  return true;
+}
+

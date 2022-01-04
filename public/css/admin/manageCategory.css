@@ -1,0 +1,10 @@
+
+
+.products-child{
+    position: relative;
+    top: auto;
+    list-style: none;
+    font-weight: bold;
+    font-size: smaller;
+
+  }

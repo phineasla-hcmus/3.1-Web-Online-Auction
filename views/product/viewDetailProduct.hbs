@@ -41,6 +41,16 @@
                                 <tr>
                                     <th class="pl-0 w-50" scope="row">
                                         <strong>
+                                            Step Price:
+                                        </strong>
+                                    </th>
+                                    <td>
+                                        {{stepPrice}}$
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-50" scope="row">
+                                        <strong>
                                             Seller:
                                         </strong>
                                     </th>
@@ -88,8 +98,9 @@
                         {{#if ../isUserId}}
                         <div></div>
                         <div class="action1" style="text-align: center;">
-                            <form method="post" style="text-align: end;">
+                           
                                 {{#if (isFavorite proId ../FavoriteProduct)}}
+                            <form method="post" style="text-align: end;">
                                 <button class="likebtn" type="submit" id="unlikeButton"
                                     onclick="buttonLike2()" style="color: red">
                                     <span class="fa fa-heart" id="like"></span>
@@ -127,7 +138,7 @@
                             <form id="bidAction" method="post" action="/product" hidden>
                             {{#if (getRatingType userRating 1)}}
                                 <p class="d-flex justify-content-center">
-                                <strong>Minimum Bid Price: </strong>
+                                <strong>Minimum Bid Price:&nbsp </strong>
                                 <span>{{minimumBidPrice}}$</span>
                                 <div></div>
                                 <strong>Your Price: </strong>

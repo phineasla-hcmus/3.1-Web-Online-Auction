@@ -4,15 +4,35 @@ import aunctionModel from '../models/aunction.model';
 import { getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
+import { userInfo } from 'os';
 
 const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
+  const userId = res.locals.user ? res.locals.user.userId : 0;
   const nearEndList = await productModel.findNearEndProducts();
 
   const mostBidsList = await productModel.findMostBidsProducts();
 
   const highestPriceList = await productModel.findHighestPriceProducts();
+
+  //get favorite Product
+  if (userId != 0) {
+    const listFavorite = await productModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+    }
+
+    for (let i = 0; i < nearEndList.length; i++) {
+      nearEndList[i].FavoriteProduct = FavoriteProduct;
+      mostBidsList[i].FavoriteProduct = FavoriteProduct;
+      highestPriceList[i].FavoriteProduct = FavoriteProduct;
+    }
+  }
 
   res.render('home', {
     nearEndList,
@@ -22,6 +42,7 @@ homeRouter.get('/', async (req, res) => {
 });
 
 homeRouter.get('/category', async (req, res) => {
+  const userId = res.locals.user ? 1 : 0;
   const catid = req.query.catId || 0;
 
   const amountPro: any = await productModel.countProductbyCategory(catid);
@@ -47,6 +68,26 @@ homeRouter.get('/category', async (req, res) => {
     });
   }
 
+  for (let i = 0; i < list.length; i++) {
+    list[i].user = res.locals.user;
+  }
+
+  //get favorite Product
+  if (userId != 0) {
+    const listFavorite = await productModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+    }
+
+    for (let i = 0; i < list.length; i++) {
+      list[i].FavoriteProduct = FavoriteProduct;
+    }
+  }
+
   res.render('category/viewCategory', {
     pages: listofPage,
     cateName: list.length === 0 ? 0 : list[0].catName,
@@ -70,6 +111,24 @@ homeRouter.get('/product', async (req, res) => {
     productID
   );
 
+  if (userId != 0) {
+    for (let i = 0; i < listRelatedProduct.length; i++) {
+      listRelatedProduct[i].user = res.locals.user;
+    }
+
+    const listFavorite = await productModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+    }
+
+    for (let i = 0; i < listRelatedProduct.length; i++) {
+      listRelatedProduct[i].FavoriteProduct = FavoriteProduct;
+    }
+  }
   detailedProduct[0].minimumBidPrice =
     detailedProduct[0].currentPrice + detailedProduct[0].stepPrice;
 
