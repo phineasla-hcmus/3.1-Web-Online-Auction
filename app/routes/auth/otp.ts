@@ -1,7 +1,11 @@
 import { Response, Router } from 'express';
 import { deleteOtp, findOtp, getOtp, OtpType } from '../../models/otp.model';
 import { RoleType } from '../../models/role.model';
-import { updateUser } from '../../models/user.model';
+import {
+  findUserByEmail,
+  updateUser,
+  USER_BASIC,
+} from '../../models/user.model';
 import { sendVerify } from '../../utils/email';
 
 /**
@@ -32,17 +36,27 @@ const alert = {
     type: 'info',
     message: 'Please check your email',
   },
+  emailNotFound: {
+    type: 'info',
+    message: "Oof! Can't find your email",
+  },
 };
 
-recoveryRouter.get('/identify', (req, res) => {
+recoveryRouter.get('/request-email', (req, res) => {
   res.render('recovery/requestEmail', { layout: 'auth' });
 });
 
-recoveryRouter.post('/identify', (req, res) => {
-  //TODO@phineasla: AJAX to check for email, if found then send email
-  const userId = 0;
-  // Reset password can both be used in authenticated and unauthenticated user
-  res.redirect('/recovery?id=' + userId);
+recoveryRouter.post('/request-email', async (req, res) => {
+  const userId = await findUserByEmail(req.body.email, ['userId']);
+  if (userId) {
+    // Reset password can both be used in authenticated and unauthenticated user
+    res.redirect('/recovery?id=' + userId);
+  } else {
+    res.render('recovery/requestEmail', {
+      layout: 'auth',
+      alert: alert.emailNotFound,
+    });
+  }
 });
 
 recoveryRouter.get('/', (req, res) => {
@@ -54,7 +68,7 @@ recoveryRouter.get('/', (req, res) => {
 });
 
 recoveryRouter.post('/', (req, res) => {
-  const id = req.user?.userId || req.query.id;
+  const userId = req.user?.userId || req.query.id;
   const { token } = req.body;
 });
 
@@ -84,11 +98,11 @@ verifyRouter.get('/', (req, res) => {
   } else {
     res.render('verify', {
       layout: 'auth',
-      submitAction: '/verify',    
+      submitAction: '/verify',
       resendAction: '/verify/resend',
     });
   }
-});   
+});
 
 verifyRouter.post('/', async (req, res) => {
   const { userId } = req.user!;

@@ -49,18 +49,18 @@
         </div>
         {{/with}}
         <div class="row">
-          <!-- Submit Button -->
-          <div class="col-lg-6 mx-auto">
-            <button type="submit" form="verifyForm" class="btn btn-primary btn-block py-2 submit">
-              Submit
-            </button>
-          </div>
           <!-- Resend Email Button -->
           <form class="col-lg-6 mx-auto" action={{resendAction}} method="POST">
             <button type="submit" class="btn btn-secondary btn-block py-2 submit">
               Resend email
             </button>
           </form>
+          <!-- Submit Button -->
+          <div class="col-lg-6 mx-auto">
+            <button type="submit" form="verifyForm" class="btn btn-primary btn-block py-2 submit">
+              Submit
+            </button>
+          </div>
         </div>
         {{#if user}}
         <div class="mt-4">
