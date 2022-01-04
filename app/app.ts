@@ -68,9 +68,8 @@ app.use(async function (req, res, next) {
 });
 
 app.post('/logout', (req, res) => {
-  req.logout();
-  res.clearCookie('connect.sid', { path: '/' });
-  res.redirect(req.headers.referer || '/');
+  // Use `req.session.destroy` instead of `req.logout` to use remember me
+  req.session.destroy((err) => res.redirect(req.headers.referer || '/'));
 });
 
 // If user if not verified (roleId == 1), force redirect to verify
