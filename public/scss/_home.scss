@@ -90,9 +90,9 @@
   }
 
   &__item {
-    display: flex;
-    flex: 1 0 auto;
-    height: 100%;
+    // display: flex;
+    // flex: 1 0 auto;
+    // height: 100%;
     &--new {
       background: $darkYellow;
       color: white;
@@ -211,7 +211,9 @@
           backface-visibility: hidden;
           width: 23rem;
           // min-height: 10.8125rem;
-          height: 10.8125rem;
+          @include breakpoint-up(medium) {
+            height: 10.8125rem;
+          }
         }
 
         &:hover {

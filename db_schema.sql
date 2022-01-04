@@ -122,14 +122,13 @@ CREATE TABLE `auctionHistory` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ratingHistory`;
 CREATE TABLE `ratingHistory` (
-  `bidderId` int unsigned NOT NULL,
-  `assessorId` int unsigned NOT NULL,
+  `userId` int unsigned NOT NULL,
+  `rateId` int unsigned NOT NULL,
   `proId` int unsigned NOT NULL,
-  `assessorName` varchar(80) NULL,
   `ratingTime` datetime NOT NULL,
   `satisfied` boolean NOT NULL,
   `comment` varchar(100),
-  PRIMARY KEY (`bidderId`, `assessorId`, `proId`)
+  PRIMARY KEY (`userId`, `rateId`, `proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

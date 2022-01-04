@@ -15,15 +15,19 @@
             ></i>{{winItem.currentPrice}}
           </p>
           <p class="m-0"><i class="fa fa-user" aria-hidden="true"></i>
-            Tam Nguyen</p>
+            {{winItem.sellerName}}</p>
         </div>
       </div>
-      <button
-        class="btn header__btn mt-2"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#ratingModal"
-      >Rate</button>
+      {{#unless winItem.rated}}
+        <button
+          class="btn header__btn mt-2 btn__rate"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#ratingModal"
+          data-id="{{winItem.sellerId}} {{winItem.proId}}"
+        >Rate</button>
+      {{/unless}}
+
     </div>
   {{/each}}
   <div
@@ -46,8 +50,36 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="/bidder/rateSeller" id="frmComment" method="post">
             <div class="mb-3">
+              <input id="txtSeller" type="hidden" name="sellerid" />
+              <input id="txtProduct" type="hidden" name="proid" />
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="opinion"
+                  id="satisfied"
+                  value="satisfied"
+                />
+                <label class="form-check-label" for="satisfied">
+                  Satisfied
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="opinion"
+                  id="dissatisfied"
+                  value="dissatisfied"
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Dissatisfied
+                  <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </label>
+              </div>
               <label for="email" class="col-form-label">Comment</label>
               {{! <input type="email" class="form-control" id="email" /> }}
               <textarea
@@ -57,17 +89,24 @@
                 rows="10"
               ></textarea>
             </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
-        <div class="modal-footer">
+        {{! <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >Close</button>
-          <button type="button" class="btn btn-primary">Submit</button>
-        </div>
+        </div> }}
       </div>
     </div>
   </div>
 </div>
+{{#section "scripts"}}
+  <script>
+    $('.btn__rate').on('click', function() { const id = $(this).data('id');
+    const parts = id.split(' '); $('#txtSeller').val(parts[0]);
+    $('#txtProduct').val(parts[1])})
+  </script>
+{{/section}}
