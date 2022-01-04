@@ -81,9 +81,7 @@ CREATE TABLE `products` (
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
-  `bidderName` varchar(80) DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
-  `sellerName` varchar(80) DEFAULT NULL,
   `isAllowRating` int NOT NULL,  -- 1 is allow , 0 is not allow
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
