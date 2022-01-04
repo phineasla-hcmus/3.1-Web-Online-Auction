@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Router } from 'express';
+import { Response, Router } from 'express';
 import { addOtp, deleteOtp, findOtp, OtpType } from '../../models/otp.model';
 import { RoleType } from '../../models/role.model';
 import { findUserByEmail, updateUser } from '../../models/user.model';
@@ -25,11 +25,11 @@ export const recoveryRouter = Router();
 export const verifyRouter = Router();
 
 const alert = {
-  invalid: {
+  invalidCode: {
     type: 'info',
     message: 'Oops! Invalid verification code',
   },
-  resend: {
+  resendEmail: {
     type: 'info',
     message: 'Please check your email',
   },
@@ -38,6 +38,20 @@ const alert = {
     message: "Oof! Can't find your email",
   },
 };
+
+// const alertMessage = new Map();
+// alertMessage.set('invalid', {
+//   type: 'info',
+//   message: 'Oops! Invalid verification code',
+// });
+// alertMessage.set('resend', {
+//   type: 'info',
+//   message: 'Please check your email',
+// });
+// alertMessage.set('not-found', {
+//   type: 'info',
+//   message: "Oof! Can't find your email",
+// });
 
 recoveryRouter.get('/request-email', (req, res) => {
   res.render('recovery/requestEmail', { layout: 'auth' });
@@ -57,7 +71,6 @@ recoveryRouter.post('/request-email', async (req, res) => {
   } else {
     res.render('recovery/requestEmail', {
       layout: 'auth',
-      alert: alert.emailNotFound,
     });
   }
 });
@@ -82,7 +95,7 @@ recoveryRouter.post('/', async (req, res) => {
     console.log(token);
     console.log(recoveryToken);
 
-    res.redirect(`/recovery/password?id=${userId}&token=${recoveryToken}`);
+    res.redirect(`/auth/recovery/password?id=${userId}&token=${recoveryToken}`);
   }
 });
 
@@ -92,29 +105,23 @@ recoveryRouter.get('/password', (req, res) => {
 
 recoveryRouter.post('/password', (req, res) => {});
 
-verifyRouter.post('/resend', async (req, res) => {
-  const { userId, email } = req.user!;
-  const otp = await findOtp(userId, OtpType.Verify);
-  if (otp) {
-    sendVerify(email, otp.token);
-  }
-  res.render('verify', {
+function renderVerify(
+  res: Response,
+  alert?: { type: string; message: string }
+) {
+  res.render('auth/verify', {
     layout: 'auth',
-    submitAction: '/verify',
-    resendAction: '/verify/resend',
-    alert: alert.resend,
+    submitAction: '/auth/verify',
+    resendAction: '/auth/verify/resend',
+    alert,
   });
-});
+}
 
 verifyRouter.get('/', (req, res) => {
   if (req.user?.roleId !== RoleType.Unverified) {
     res.redirect(req.session.returnTo || '/');
   } else {
-    res.render('verify', {
-      layout: 'auth',
-      submitAction: '/verify',
-      resendAction: '/verify/resend',
-    });
+    renderVerify(res);
   }
 });
 
@@ -128,11 +135,15 @@ verifyRouter.post('/', async (req, res) => {
     deleteOtp(userId);
     res.redirect(req.session.returnTo || '/');
   } else {
-    res.render('verify', {
-      layout: 'auth',
-      submitAction: '/verify',
-      resendAction: '/verify/resend',
-      alert: alert.invalid,
-    });
+    renderVerify(res, alert.invalidCode);
   }
+});
+
+verifyRouter.post('/resend', async (req, res) => {
+  const { userId, email } = req.user!;
+  const otp = await findOtp(userId, OtpType.Verify);
+  if (otp) {
+    sendVerify(email, otp.token);
+  }
+  renderVerify(res, alert.resendEmail);
 });
