@@ -1,0 +1,43 @@
+{{#section "stylesheets"}}
+<link rel="stylesheet" href="/public/css/admin/manageCategory.css">
+{{/section}}
+
+<h1 class='h3 text-center'>Disable Product List</h1>
+<div class="products__disable">
+    {{#each this.listDisable}}
+    {{>product product=this user=../user}}
+    {{/each}}
+</div>
+<div class="d-flex justify-content-center">
+    <form method="post" action="/admin/deleteProduct">
+        {{#each this.listDisable as |list|}}
+        <input type="hidden" value="{{list.proId}}" name="productList">
+        {{/each}}
+
+        <input type="hidden" value="delete" name="content">
+        <button class="deleteRootButton-pushable" role="button">
+            <span class="deleteRootButton-shadow"></span>
+            <span class="deleteRootButton-edge"></span>
+            <span class="deleteRootButton-front text">
+                <i class="fa fa-trash-o" aria-hidden="true"> DELETE</i>
+            </span>
+        </button>
+    </form>
+    <span>&nbsp; &nbsp;</span>
+
+    <form method="post" action="/admin/deleteProduct">
+        {{#each this.listDisable as |list|}}
+        <input type="hidden" value="{{list.proId}}" name="productList">
+        {{/each}}
+
+        <input type="hidden" value="recovery" name="content">
+        <button type="submit" class="addChildButton-pushable" role="button" style="font-size: small;">
+            <span class="addChildButton-shadow"></span>
+            <span class="addChildButton-edge"></span>
+            <span class="addChildButton-front text">
+                <i class="fa fa-undo" aria-hidden="true"> RECOVERY</i>
+
+            </span>
+        </button>
+    </form>
+</div>

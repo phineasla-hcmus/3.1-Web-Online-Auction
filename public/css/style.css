@@ -609,7 +609,7 @@ ul.nav-pills li:hover {
   text-align: center;
 }
 @media (min-width: 64em) {
-  .products__search, .products__favorite, .products__bidding {
+  .products__search, .products__favorite, .products__bidding,.products__disable {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;

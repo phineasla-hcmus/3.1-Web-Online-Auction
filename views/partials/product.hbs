@@ -1,3 +1,4 @@
+{{#if (isDisableProduct this.isDisable)}}
 <div class="products__item">
   <div class="products__item--content">
     <figure class="products__item--img">
@@ -84,7 +85,9 @@
         {{/if}}
 
         {{#if (isAdmin user.roleId)}}
-        <form>
+        <form method="post" action="/admin/deleteProduct">
+          <input type="hidden" value="disableProduct" name="content">
+          <input type="hidden" value={{this.proId}} name="proId">
           <button type="submit" class="btn btn-danger" style="font-size: 15px;"> <i class="fa fa-trash-o"
                                         aria-hidden="true"></i></button>
         </form>
@@ -118,3 +121,4 @@
     }
   </script>
 </div>
+{{/if}}

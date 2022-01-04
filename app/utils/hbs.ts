@@ -23,7 +23,8 @@ const hbs = create({
     isEmptyStar,
     getRatingType,
     checkFavoriteProduct,
-    parseRating
+    parseRating,
+    isDisableProduct
   },
 });
 
@@ -118,6 +119,10 @@ function parseRating(rating: number) {
 
 function getRatingType(rating: string, type: string) {
   return rating === type;
+}
+
+function isDisableProduct(isDisable: number){
+  return isDisable ===1;
 }
 
 /**

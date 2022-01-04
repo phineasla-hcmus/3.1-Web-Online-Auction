@@ -83,6 +83,7 @@ CREATE TABLE `products` (
   `bidderId` int DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
   `isAllowRating` int NOT NULL,  -- 1 is allow , 0 is not allow
+  `isDisable` int NOT NULL,  -- 1 is active , 0 is disable  // for admin add to deleting product
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

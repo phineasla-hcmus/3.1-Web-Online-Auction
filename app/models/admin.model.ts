@@ -81,5 +81,17 @@ export default {
   },
   async checkCategoryHaveProduct(cateId: any){
     return db('categories').join('products',{"categories.catId":"products.catId"}).where("categories.catId",cateId);
+  },
+  async disableProduct(proId: any){
+    return db('products').where("proId",proId).update({isDisable: 0});
+  },
+  async getDisableProduct(){
+    return db('products').where("isDisable",0);
+  },
+  async recoveryProduct(proId: any){
+    return db('products').where("proId",proId).update({isDisable: 1});
+  },
+  async deleteProduct(proId: any){
+    return db('products').where("proId",proId).del(); 
   }
 };

@@ -6,7 +6,7 @@ export default {
       .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname');
+      .select('products.*', 'users.firstname', 'users.lastname').where("isDisable",1);
   },
   findMostBidsProducts() {
     return db('products')
@@ -14,7 +14,7 @@ export default {
       .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname');
+      .select('products.*', 'users.firstname', 'users.lastname').where("isDisable",1);
   },
   findHighestPriceProducts() {
     return db('products')
@@ -22,7 +22,7 @@ export default {
       .join('users', { 'products.bidderId': 'users.userId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname');
+      .select('products.*', 'users.firstname', 'users.lastname').where("isDisable",1);
   },
   getCurrentBidder(proId: number) {
     return db('products')
@@ -72,7 +72,7 @@ export default {
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .join('users', { 'relatedProduct.bidderId': 'users.userId' })
       .limit(5)
-      .select('relatedProduct.*', 'users.firstname', 'users.lastname');
+      .select('relatedProduct.*', 'users.firstname', 'users.lastname').where("isDisable",1);
   },
   // perform full-text search
   async findProductByKeyword(

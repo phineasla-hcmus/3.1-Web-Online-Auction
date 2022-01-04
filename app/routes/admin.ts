@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import e, { Router } from 'express';
 import { admin } from 'googleapis/build/src/apis/admin';
 import adminModel from '../models/admin.model';
 import { updateBidderToSeller, findUserById } from '../models/user.model';
@@ -9,79 +9,127 @@ adminRouter.get('/manage/categories', async function (req, res) {
   res.render('admin/manageCategory', { layout: 'admin', category: true });
 });
 
-adminRouter.post('/manage/categories',async function(req,res){
+adminRouter.post('/manage/categories', async function (req, res) {
   const content = req.body.content; // type of action
   console.log(req.body);
-  switch(content){
-    case "addRootCate":{
+  switch (content) {
+    case 'addRootCate': {
       adminModel.addRootCategory(req.body.rootCateName);
       res.redirect('/admin/manage/categories');
       break;
     }
-    case "deleteRootCate":{
-      const listChild = await adminModel.checkRootCategoryHaveChildren(req.body.rootCateId);
-      if(listChild.length ==0){
+    case 'deleteRootCate': {
+      const listChild = await adminModel.checkRootCategoryHaveChildren(
+        req.body.rootCateId
+      );
+      if (listChild.length == 0) {
         adminModel.deleteCategory(req.body.rootCateId);
         res.redirect('/admin/manage/categories');
-      }
-      else{
+      } else {
         //TODO: ALERT THAT THIS ROOT HAVE CHILD
         res.redirect('/admin/manage/categories');
       }
       break;
     }
-    case "addChildCate":{
-      adminModel.addChildCategory(req.body.childName,req.body.parentId);
+    case 'addChildCate': {
+      adminModel.addChildCategory(req.body.childName, req.body.parentId);
       res.redirect('/admin/manage/categories');
       break;
     }
-    case "editCate":{
-      adminModel.editCategory(req.body.newName,req.body.catId);
+    case 'editCate': {
+      adminModel.editCategory(req.body.newName, req.body.catId);
       res.redirect('/admin/manage/categories');
       break;
     }
-    case "deleteChildCate":{
-      const listProduct= await adminModel.checkCategoryHaveProduct(req.body.childCateId);
+    case 'deleteChildCate': {
+      const listProduct = await adminModel.checkCategoryHaveProduct(
+        req.body.childCateId
+      );
       console.log(listProduct.length);
-      if(listProduct.length ==0){
+      if (listProduct.length == 0) {
         adminModel.deleteCategory(req.body.childCateId);
         res.redirect('/admin/manage/categories');
-      }
-      else{
+      } else {
         //TODO: ALERT THAT THIS CATE HAVE PRODUCT
         res.redirect('/admin/manage/categories');
       }
       break;
-      
     }
- }
-  
+  }
 });
 
-adminRouter.get('/manage/categories/addChildCat',async function(req,res) {
+adminRouter.get('/manage/categories/addChildCat', async function (req, res) {
   const parentID = req.query.catId;
   const parentName = req.query.catName;
-  const parentCategory={
+  const parentCategory = {
     parentID: parentID,
-    parentName: parentName
-  }
-  res.render('admin/ManageCategory/addChildCategory', { layout: 'admin', product: true, parentCategory });
+    parentName: parentName,
+  };
+  res.render('admin/ManageCategory/addChildCategory', {
+    layout: 'admin',
+    product: true,
+    parentCategory,
+  });
 });
 
-adminRouter.get('/manage/categories/editCat',async function(req,res) {
+adminRouter.get('/manage/categories/editCat', async function (req, res) {
   const catID = req.query.catId;
   const catName = req.query.catName;
-  const Category={
+  const Category = {
     catID: catID,
-    catName: catName
-  }
-  res.render('admin/ManageCategory/editCategory', { layout: 'admin', product: true, Category });
+    catName: catName,
+  };
+  res.render('admin/ManageCategory/editCategory', {
+    layout: 'admin',
+    product: true,
+    Category,
+  });
 });
-
 
 // TODO
 adminRouter.get('/manage/products', async function (req, res) {
-  res.render('admin/manageProduct', { layout: 'admin', product: true });
+  const listDisable = await adminModel.getDisableProduct();
+
+  for (let i = 0; i < listDisable.length; i++) {
+    listDisable[i].isDisable = 1;
+  }
+
+  res.render('admin/manageProduct', {
+    layout: 'admin',
+    product: true,
+    listDisable,
+  });
+});
+
+adminRouter.post('/deleteProduct', async function (req, res) {
+  const content = req.body.content;
+
+  if (content == 'disableProduct') {
+    const proId = req.body.proId;
+    adminModel.disableProduct(proId);
+    const url = req.headers.referer || '/';
+    res.redirect(url);
+  } else {
+    if (content == 'recovery') {
+      const productList = req.body.productList;
+      for (let i = 0; i < productList.length; i++) {
+        adminModel.recoveryProduct(productList[i]);
+      }
+
+      const url = req.headers.referer || '/';
+      res.redirect(url);
+    } else {
+      if (content == 'delete') {
+        const productList = req.body.productList;
+        for (let i = 0; i < productList.length; i++) {
+          adminModel.deleteProduct(productList[i]);
+        }
+
+        const url = req.headers.referer || '/';
+        res.redirect(url);
+      }
+    }
+  }
 });
 
 adminRouter.get('/manage/users', async function (req, res) {
