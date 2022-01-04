@@ -297,9 +297,14 @@ homeRouter.post('/product', async (req, res) => {
     }
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
+
+      const url = req.headers.referer || '/';
+      res.redirect(url);
     }
     if (content === 'unlike') {
       productModel.removeFavoriteList(userId, req.body.proId);
+      const url = req.headers.referer || '/';
+      res.redirect(url);
     }
   }
 });
