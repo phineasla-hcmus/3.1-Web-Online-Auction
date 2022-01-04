@@ -141,19 +141,18 @@ function parseHTML(element, user) {
   }
 }
 
-function parsePaginator(keyword, page, nPages) {
+function parsePaginator(page, nPages, option) {
   page = +page;
   nPages = +nPages;
   var fullhtml = '';
-  var html = '<ul class="pagination">';
+  var html = `<ul id="paginatorSort${option}" class="pagination">`;
   fullhtml += html;
   if (page === 1) {
     fullhtml +=
-      '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
+      '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
   } else {
     fullhtml +=
-      '<li class="page-item"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
-    // fullhtml += html.replace('pageindex', page - 1);
+      '<li class="page-item"><a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
   }
   var start = page - 1;
   var end = page + 1;
@@ -169,19 +168,56 @@ function parsePaginator(keyword, page, nPages) {
     if (i === page) {
       fullhtml += `<li class="page-item active"><a class="page-link" href="javascript:;">${i}</a></li>`;
     } else {
-      fullhtml += `<li class="page-item"><a class="page-link" href="/search?keyword=${keyword}&page=${i}">${i}</a></li>`;
+      fullhtml += `<li class="page-item"><a class="page-link" href="javascript:;">${i}</a></li>`;
     }
   }
   if (page === nPages) {
     fullhtml +=
-      '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li></ul></nav>';
+      '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li></ul></nav>';
   } else {
     fullhtml +=
-      '<li class="page-item"><a class="page-link" href="#">Next</a></li></ul></nav>';
-    // fullhtml += html.replace('pageindex', page + 1);
+      '<li class="page-item"><a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li></ul></nav>';
   }
   return fullhtml;
 }
+
+$(document).on('click', '#paginatorSortPrice a', function () {
+  var page = $(this).text();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const keyword = urlParams.get('keyword');
+  $.getJSON(
+    `/search/get-list-products-by-price?keyword=${keyword}&page=${page}`,
+    function (data) {
+      if (data.list.length != 0) {
+        $('#products-search-result').text('');
+        data.list.forEach((element) => {
+          var fullhtml = parseHTML(element, data.user);
+          $('#products-search-result').append(fullhtml);
+        });
+      }
+    }
+  );
+});
+
+$(document).on('click', '#paginatorSortDate a', function () {
+  var page = $(this).text();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const keyword = urlParams.get('keyword');
+  $.getJSON(
+    `/search/get-list-products-by-expired-date?keyword=${keyword}&page=${page}`,
+    function (data) {
+      if (data.list.length != 0) {
+        $('#products-search-result').text('');
+        data.list.forEach((element) => {
+          var fullhtml = parseHTML(element, data.user);
+          $('#products-search-result').append(fullhtml);
+        });
+      }
+    }
+  );
+});
 
 $(document).on('change', '#sort-option', function () {
   var value = $(this).val();
@@ -203,6 +239,12 @@ $(document).on('change', '#sort-option', function () {
       }
     );
   }
-  var paginator = parsePaginator(keyword, 1, nPages);
+  var option = '';
+  if (value === 'by-price') {
+    option = 'Price';
+  } else {
+    option = 'Date';
+  }
+  var paginator = parsePaginator(1, nPages, option);
   $('#paginator').html(paginator);
 });

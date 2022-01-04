@@ -303,9 +303,14 @@ homeRouter.post('/product', async (req, res) => {
     }
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
+
+      const url = req.headers.referer || '/';
+      res.redirect(url);
     }
     if (content === 'unlike') {
       productModel.removeFavoriteList(userId, req.body.proId);
+      const url = req.headers.referer || '/';
+      res.redirect(url);
     }
   }
 });
@@ -368,7 +373,7 @@ homeRouter.get(
     const keyword = req.query.keyword;
     if (keyword) {
       const amountPro: any = await productModel.countProductByKeyword(keyword);
-      const limitpage = 5;
+      const limitpage = 6;
 
       let numPage = Math.floor(amountPro / limitpage);
       if (amountPro % limitpage != 0) numPage++;
@@ -382,6 +387,25 @@ homeRouter.get(
         offset,
         limitpage
       );
+
+      const userId = res.locals.user ? res.locals.user.userId : 0;
+      if (userId != 0) {
+        const listFavorite = await bidderModel.getFavoriteList(userId);
+
+        const FavoriteProduct = [];
+        for (let i = 0; i < listFavorite.length; i++) {
+          FavoriteProduct.push({
+            proId: listFavorite[i].proId,
+          });
+        }
+
+        for (let i = 0; i < list.length; i++) {
+          list[i].FavoriteProduct = FavoriteProduct;
+        }
+      }
+      list.forEach((element: any) => {
+        element.bidderName = element.firstname + ' ' + element.lastname;
+      });
 
       for (let i = 1; i <= numPage; i++) {
         listofPage.push({
@@ -404,7 +428,7 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
   const keyword = req.query.keyword;
   if (keyword) {
     const amountPro: any = await productModel.countProductByKeyword(keyword);
-    const limitpage = 5;
+    const limitpage = 6;
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;
     const page: any = req.query.page || 1;
@@ -415,7 +439,24 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
       offset,
       limitpage
     );
+    const userId = res.locals.user ? res.locals.user.userId : 0;
+    if (userId != 0) {
+      const listFavorite = await bidderModel.getFavoriteList(userId);
 
+      const FavoriteProduct = [];
+      for (let i = 0; i < listFavorite.length; i++) {
+        FavoriteProduct.push({
+          proId: listFavorite[i].proId,
+        });
+      }
+
+      for (let i = 0; i < list.length; i++) {
+        list[i].FavoriteProduct = FavoriteProduct;
+      }
+    }
+    list.forEach((element: any) => {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    });
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,
