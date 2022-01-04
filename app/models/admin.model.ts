@@ -70,7 +70,7 @@ export default {
   async checkRootCategoryHaveChildren(cateId: any){
     return db('categories').where('parentId',cateId);
   },
-  async deleteRootCategory(cateId: any){
+  async deleteCategory(cateId: any){
     return db('categories').where("catId",cateId).del();
   },
   async addChildCategory(cateName: any, parentCatId: any){
@@ -78,5 +78,8 @@ export default {
   },
   async editCategory(cateName: any, cateId: any){
     return db('categories').where("catId",cateId).update({catName: cateName}).then();
+  },
+  async checkCategoryHaveProduct(cateId: any){
+    return db('categories').join('products',{"categories.catId":"products.catId"}).where("categories.catId",cateId);
   }
 };

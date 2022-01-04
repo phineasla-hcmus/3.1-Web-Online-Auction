@@ -5,7 +5,6 @@ import { updateBidderToSeller, findUserById } from '../models/user.model';
 
 const adminRouter = Router();
 
-// TODO
 adminRouter.get('/manage/categories', async function (req, res) {
   res.render('admin/manageCategory', { layout: 'admin', category: true });
 });
@@ -22,10 +21,11 @@ adminRouter.post('/manage/categories',async function(req,res){
     case "deleteRootCate":{
       const listChild = await adminModel.checkRootCategoryHaveChildren(req.body.rootCateId);
       if(listChild.length ==0){
-        adminModel.deleteRootCategory(req.body.rootCateId);
+        adminModel.deleteCategory(req.body.rootCateId);
         res.redirect('/admin/manage/categories');
       }
       else{
+        //TODO: ALERT THAT THIS ROOT HAVE CHILD
         res.redirect('/admin/manage/categories');
       }
       break;
@@ -39,6 +39,20 @@ adminRouter.post('/manage/categories',async function(req,res){
       adminModel.editCategory(req.body.newName,req.body.catId);
       res.redirect('/admin/manage/categories');
       break;
+    }
+    case "deleteChildCate":{
+      const listProduct= await adminModel.checkCategoryHaveProduct(req.body.childCateId);
+      console.log(listProduct.length);
+      if(listProduct.length ==0){
+        adminModel.deleteCategory(req.body.childCateId);
+        res.redirect('/admin/manage/categories');
+      }
+      else{
+        //TODO: ALERT THAT THIS CATE HAVE PRODUCT
+        res.redirect('/admin/manage/categories');
+      }
+      break;
+      
     }
  }
   

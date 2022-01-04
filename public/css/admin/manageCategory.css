@@ -36,18 +36,21 @@ form {
   display: none;
 }
 .products-child > li {
+  padding-bottom: 50px;
+  padding-right: 10px;
   margin: -5px;
   margin-right: -16px;
   margin-bottom: -10px;
   padding-left: 15px;
-  padding-top: 0px;
+  padding-top: 10px;
   height: 35px;
   border-radius: 5px;
   border-style:groove;
   border-color:#6964e2 ;
   background: white;
 }
-.products-child> li > a {
+
+.products-child> li > div > a {
   color: black;
   text-decoration: none;
   transition: color 300ms ease-in-out;
