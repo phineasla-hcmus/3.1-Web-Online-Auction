@@ -65,9 +65,25 @@ bidderRouter.post('/upgrade', async function (req, res) {
 });
 
 bidderRouter.get('/favorite', async function (req, res) {
+  const userId= res.locals.user? res.locals.user.userId:0;
   const favoriteList = await bidderModel.getFavoriteList(
     res.locals.user.userId
   );
+
+  if (userId != 0) {
+    const listFavorite = await bidderModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+
+      for (let i = 0; i < favoriteList.length; i++) {
+        favoriteList[i].FavoriteProduct = FavoriteProduct;
+      }
+    }
+  }
   res.render('bidder/favorite', {
     layout: 'bidder',
     favoriteList,
@@ -76,9 +92,26 @@ bidderRouter.get('/favorite', async function (req, res) {
 });
 
 bidderRouter.get('/currentbids', async function (req, res) {
+  
   const currentBidsList = await bidderModel.getCurrentBids(
     res.locals.user.userId
   );
+
+  const userId = res.locals.user ? res.locals.user.userId : 0;
+  if (userId != 0) {
+    const listFavorite = await bidderModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+    }
+
+    for (let i = 0; i < currentBidsList.length; i++) {
+      currentBidsList[i].FavoriteProduct = FavoriteProduct;
+    }
+  }
   res.render('bidder/currentBid', {
     layout: 'bidder',
     currentBidsList,
@@ -97,6 +130,22 @@ bidderRouter.get('/rating', async function (req, res) {
 
 bidderRouter.get('/win', async function (req, res) {
   const winningList = await bidderModel.getWinningList(res.locals.user.userId);
+
+  const userId = res.locals.user ? res.locals.user.userId : 0;
+  if (userId != 0) {
+    const listFavorite = await bidderModel.getFavoriteList(userId);
+
+    const FavoriteProduct = [];
+    for (let i = 0; i < listFavorite.length; i++) {
+      FavoriteProduct.push({
+        proId: listFavorite[i].proId,
+      });
+    }
+
+    for (let i = 0; i < winningList.length; i++) {
+      winningList[i].FavoriteProduct = FavoriteProduct;
+    }
+  }
   res.render('bidder/win', { layout: 'bidder', winningList, win: true });
 });
 

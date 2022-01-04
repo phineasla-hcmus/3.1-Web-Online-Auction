@@ -82,8 +82,9 @@ homeRouter.get('/category', async (req, res) => {
   }
 
   //get favorite Product
+  const userIdAfter = res.locals.user ? res.locals.user.userId : 0;
   if (userId != 0) {
-    const listFavorite = await productModel.getFavoriteList(userId);
+    const listFavorite = await productModel.getFavoriteList(userIdAfter);
 
     const FavoriteProduct = [];
     for (let i = 0; i < listFavorite.length; i++) {
