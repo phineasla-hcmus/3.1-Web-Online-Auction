@@ -48,7 +48,7 @@ signUpRouter.post('/', ...signUpValidator, async (req, res, next) => {
     { userId, email, firstName, lastName, roleId: RoleType.Unverified },
     (err: any) => {
       if (err) return next(err);
-      return res.redirect('/verify');
+      return res.redirect('/auth/verify');
     }
   );
 });

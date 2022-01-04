@@ -18,15 +18,15 @@
       <div class="auth-wrap p-4 p-md-5">
         <div class="d-flex">
           <div class="w-100">
-            <h3>Verify its you</h3>
+            <h3>Verify it's you</h3>
             <p class="mb-4">
               We've send a verification code to
               {{#if user}}
-              <b>{{user.email}}</b>
+                <b>{{user.email}}</b>
               {{else}}
-              your email address
+                your email address
               {{/if}}
-              to verify that it is you
+              to make sure it's really you.
             </p>
           </div>
         </div>
@@ -38,39 +38,52 @@
               <div class="input-group-prepend">
                 <span class="input-group-text icon fa fa-check"></span>
               </div>
-              <input id="token" type="text" name="token" placeholder="Enter verification code"
-                class="form-control border-left-0 border-md" required />
+              <input
+                id="token"
+                type="text"
+                name="token"
+                placeholder="Enter verification code"
+                class="form-control border-left-0 border-md"
+                required
+              />
             </div>
           </div>
         </form>
         {{#with alert}}
-        <div class="alert alert-{{type}}" role="alert">
-          {{message}}
-        </div>
+          <div class="alert alert-{{type}}" role="alert">
+            {{message}}
+          </div>
         {{/with}}
         <div class="row">
           <!-- Resend Email Button -->
           <form class="col-lg-6 mx-auto" action={{resendAction}} method="POST">
-            <button type="submit" class="btn btn-secondary btn-block py-2 submit">
+            <button
+              type="submit"
+              class="btn btn-secondary btn-block py-2 submit"
+            >
               Resend email
             </button>
           </form>
           <!-- Submit Button -->
           <div class="col-lg-6 mx-auto">
-            <button type="submit" form="verifyForm" class="btn btn-primary btn-block py-2 submit">
+            <button
+              type="submit"
+              form="verifyForm"
+              class="btn btn-primary btn-block py-2 submit"
+            >
               Submit
             </button>
           </div>
         </div>
         {{#if user}}
-        <div class="mt-4">
-          <div class="w-100 text-center">
-            <form class="my-0 py-0" action="/logout" method="post">
-              Not you?
-              <button type="submit" class="btn btn-link px-0">Sign out</button>
-            </form>
+          <div class="mt-4">
+            <div class="w-100 text-center">
+              <form class="my-0 py-0" action="/logout" method="post">
+                Not you?
+                <button type="submit" class="btn btn-link px-0">Sign out</button>
+              </form>
+            </div>
           </div>
-        </div>
         {{/if}}
       </div>
     </div>

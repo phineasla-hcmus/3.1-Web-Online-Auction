@@ -49,7 +49,7 @@ app.use(passport.session());
 
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
-  if (!req.user && !req.path.match(/^\/auth/) && !req.path.match(/^\/verify/)) {
+  if (!req.user && !req.path.match(/^\/auth/)) {
     req.session.returnTo = req.originalUrl;
   }
   next();
@@ -73,9 +73,9 @@ app.post('/logout', (req, res) => {
 app.use((req, res, next) => {
   if (
     req.user?.roleId === RoleType.Unverified &&
-    !req.path.match(/^\/verify/)
+    !req.path.match(/^\/auth\/verify/)
   ) {
-    res.redirect('/verify');
+    res.redirect('/auth/verify');
   } else {
     next();
   }
@@ -101,10 +101,8 @@ app.use('/', homeRouter);
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
-
+app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
-
-app.use('/verify', mustLoggedIn, verifyRouter);
 
 app.use('/bidder', bidderRouter);
 app.use('/admin', adminRouter);
