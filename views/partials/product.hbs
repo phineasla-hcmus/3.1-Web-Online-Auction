@@ -30,7 +30,7 @@
           left</p>
         <p class="d-flex justify-content-between">
           <i class="fa fa-trophy text-warning" aria-hidden="true">{{maskBidderName bidderName}}</i>
-          {{#if user}}
+          {{#if (isBidderOrSeller user.roleId)}}
           {{#if (isFavorite proId FavoriteProduct)}}
         <form method="post" style="text-align: end;" action="/product">
           <button class="likebtn" type="submit" id="unlikeButton{{proId}}" onclick="buttonLikeV2({{proId}})" style="color: red; background-color: transparent;
@@ -72,14 +72,23 @@
         </form>
         {{/if}}
         {{/if}}
+
         </p>
       </div>
       <ul>
         <li><i class="fa fa-gavel text-danger" aria-hidden="true"></i>
           {{this.numberOfBids}}
         </li>
-        {{#if user}}
+        {{#if (isBidderOrSeller user.roleId)}}
         <li><a href="#" style="font-size:xx-small;">Bid now</a></li>
+        {{/if}}
+
+        {{#if (isAdmin user.roleId)}}
+        <form>
+          <button type="submit" class="btn btn-danger" style="font-size: 15px;"> <i class="fa fa-trash-o"
+                                        aria-hidden="true"></i></button>
+        </form>
+        
         {{/if}}
       </ul>
     </div>

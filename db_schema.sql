@@ -189,6 +189,16 @@ CREATE TABLE `aunctionAuto`(
 --   PRIMARY KEY(`sellerId`,`proId`,`userId`) 
 -- ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- ----------------------------
+-- Table structure for deletingProduct ( table for admin delete product) 
+-- ----------------------------
+
+DROP TABLE IF EXISTS `deletingProduct`;
+CREATE TABLE `deletingProduct`(
+  `proId` int unsigned NOT NULL,
+  `userId` int unsigned NOT NULL,
+  PRIMARY KEY(`proId`,`userId`) 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Full-text search
 ALTER TABLE products
