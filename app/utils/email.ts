@@ -9,19 +9,48 @@ import { MAIL_SENDER } from '../config/secret';
  * @param otp Verification code
  * @param from default to `process.env.MAIL_SENDER`
  */
-export async function sendVerify(
+// export async function sendVerify(to: string, otp: string) {
+//   const raw = await fs.readFile('./emails/verify.html', 'utf-8');
+//   // Can be improved with precompile handlebars template
+//   const template = compile(raw);
+//   const html = template({ email: to, otp });
+//   const transporter = await createTransporter();
+//   return transporter.sendMail({
+//     subject: 'Verify your email',
+//     from: MAIL_SENDER,
+//     to,
+//     html,
+//   });
+// }
+
+export async function sendVerify(to: string, otp: string) {
+  return sendTemplate('./emails/verify.html', to, 'Verify your email', {
+    email: to,
+    otp,
+  });
+}
+
+export async function sendRecovery(to: string, otp: string) {
+  return sendTemplate('./emails/recovery.html', to, 'Reset your password', {
+    email: to,
+    otp,
+  });
+}
+
+async function sendTemplate(
+  filepath: string,
   to: string,
-  otp: string,
-  from: string = MAIL_SENDER
+  subject: string,
+  context: any
 ) {
-  const raw = await fs.readFile('./emails/verify.html', 'utf-8');
-  // Can be improved with precompile handlebars template
+  const raw = await fs.readFile(filepath, 'utf-8');
+  // Can be improved using precompiled handlebars template
   const template = compile(raw);
-  const html = template({ email: to, otp: otp });
+  const html = template(context);
   const transporter = await createTransporter();
   return transporter.sendMail({
-    subject: 'Verify your email',
-    from,
+    subject,
+    from: MAIL_SENDER,
     to,
     html,
   });

@@ -6,17 +6,14 @@ export enum OtpType {
   Recovery = 2,
 }
 
-export interface Otp {
-  userId: number;
-  otpType: OtpType;
-  dateCreated: Date;
-  token: string;
-}
-
-export async function getOtp(userId: any, otpType: OtpType) {
-  return knex<Otp>('otp')
+export async function findOtp(
+  userId: any,
+  otpType: OtpType
+): Promise<{ token: string; dateCreated: Date } | undefined> {
+  return knex('otp')
     .where('userId', userId)
     .andWhere('otpType', otpType)
+    .select(['token', 'dateCreated'])
     .first();
 }
 
@@ -25,14 +22,14 @@ export async function getOtp(userId: any, otpType: OtpType) {
  * @param userId
  * @returns a token string if found, else `undefined`
  */
- export async function findOtp(userId: any): Promise<string | undefined> {
-  //TODO@phineasla: merge getOtp and findOtp
-  return knex('otp')
-    .where({ userId })
-    .select('token')
-    .first()
-    .then((v) => v?.token);
-}
+// export async function findOtp(userId: any): Promise<string | undefined> {
+//   //TODO@phineasla: merge getOtp and findOtp
+//   return knex('otp')
+//     .where({ userId })
+//     .select('token')
+//     .first()
+//     .then((v) => v?.token);
+// }
 
 /**
  * Insert token into `otp` table, if `userId` is already existed, overwrite the old token

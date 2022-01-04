@@ -102,7 +102,7 @@ app.use('/', homeRouter);
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
 
-app.use('/recovery', recoveryRouter);
+app.use('/auth/recovery', recoveryRouter);
 
 app.use('/verify', mustLoggedIn, verifyRouter);
 
