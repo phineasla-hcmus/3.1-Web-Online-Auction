@@ -373,7 +373,7 @@ homeRouter.get(
     const keyword = req.query.keyword;
     if (keyword) {
       const amountPro: any = await productModel.countProductByKeyword(keyword);
-      const limitpage = 5;
+      const limitpage = 6;
 
       let numPage = Math.floor(amountPro / limitpage);
       if (amountPro % limitpage != 0) numPage++;
@@ -428,7 +428,7 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
   const keyword = req.query.keyword;
   if (keyword) {
     const amountPro: any = await productModel.countProductByKeyword(keyword);
-    const limitpage = 5;
+    const limitpage = 6;
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;
     const page: any = req.query.page || 1;

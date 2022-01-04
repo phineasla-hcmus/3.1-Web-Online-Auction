@@ -210,7 +210,8 @@
           transition: all 0.3s ease-in-out;
           backface-visibility: hidden;
           width: 23rem;
-          min-height: 10.8125rem;
+          // min-height: 10.8125rem;
+          height: 10.8125rem;
         }
 
         &:hover {
