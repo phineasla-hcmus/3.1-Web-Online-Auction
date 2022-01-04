@@ -145,13 +145,6 @@
     min-width: 200px;
   }
 }
-.admin-navigation {
-  background-color: black;
-  margin: 0;
-  @include breakpoint-down(small) {
-    margin: 0 1rem;
-  }
-}
 
 .list-of-users,
 .list-upgrade-requests {

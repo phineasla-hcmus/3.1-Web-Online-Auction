@@ -139,3 +139,12 @@ ul {
 .owl-carousel .owl-stage {
   display: flex;
 }
+
+.admin-navigation,
+.bidder-navigation {
+  background-color: black;
+  margin: 0;
+  @include breakpoint-down(small) {
+    margin: 0 1rem;
+  }
+}
