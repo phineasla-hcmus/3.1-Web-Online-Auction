@@ -656,8 +656,8 @@ ul {
 }
 
 .panel .panel-body .table thead tr th {
-  color: black;
-  background: white;
+  color: white;
+  background: #292560;
   font-size: 17px;
   font-weight: 700;
   padding: 12px;

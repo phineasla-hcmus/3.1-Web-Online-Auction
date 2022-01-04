@@ -1,12 +1,5 @@
 {{#section "scripts"}}
-    <script>
-        $('.approveRequest').on('click', function(e) { const id = $(this).data('id');
-        $('#txtUserApprove').val(id); $('#frmApprove').submit(); });
-        $('.declineRequest').on('click', function(e) { const id = $(this).data('id');
-        $('#txtUserDecline').val(id); $('#frmDecline').submit(); });
-        $('.downgrade').on('click', function(e) { const id = $(this).data('id');
-        $('#txtUserDowngrade').val(id); $('#frmDowngrade').submit(); });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/public/js/admin/manageUser.js"></script>
 {{/section}}
 <div>
@@ -21,24 +14,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
-                        <div class="panel-heading bg-secondary">
-                            {{!-- <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <a href="#" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus-circle"></i> Add New</a>
-                                    <form class="form-horizontal pull-right">
-                                        <div class="form-group">
-                                            <label>Show : </label>
-                                            <select class="form-control">
-                                                <option>5</option>
-                                                <option>10</option>
-                                                <option>15</option>
-                                                <option>20</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> --}}
-                        </div>
+                        {{!-- <div class="panel-heading bg-secondary">
+                        </div> --}}
                         <div class="panel-body table-responsive">
                             <table class="table mb-0">
                                 <thead>
@@ -50,7 +27,7 @@
                                         {{!-- <th>Dob</th>
                                         <th>Address</th> --}}
                                         <th>Rating</th>
-                                        <th>Action</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="list-user">
@@ -62,11 +39,11 @@
                                             <td>{{item.lastname}}</td>
                                             {{!-- <td></td> --}}
                                             {{!-- <td class="hide-overflow" style="min-width: 250px;"></td> --}}
-                                            <td>{{item.rating}}</td>
+                                            <td>{{parseRating item.rating}}</td>
                                             <td><a href="/admin/manage/users/{{item.userId}}" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
                                             {{#if (isSeller item.roleId)}}
                                                 <td style="min-width: 100px;">
-                                                    <a data-id="{{item.userId}}" href="#" class="btn btn-danger downgrade">Downgrade</a>
+                                                    <a data-id="{{item.userId}}" href="javascript:;" class="btn btn-danger downgrade">Downgrade</a>
                                                 </td>
                                             {{/if}}
                                         </tr>
@@ -75,13 +52,12 @@
                             </table>
                         </div>
                         <div class="panel-footer bg-secondary">
-                            <input id="nPages" type="hidden" value={{pages.length}}>
-                             <nav id="paginator" class="products__pagination" aria-label="...">
+                            <nav id="paginatorUser" class="products__pagination" aria-label="...">
                                 <ul class="pagination">
                                     <li class="page-item">
                                         <a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                                     </li>
-                                    {{#each pages}}
+                                    {{#each pagesUser}}
                                         <li class="page-item"><a role="button" class="page-link"
                                                     href="javascript:;">{{value}}</a></li>
                                     {{/each}}
@@ -90,24 +66,6 @@
                                     </li>
                                 </ul>
                             </nav>
-                            {{!-- <div class="row">
-                                <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <ul class="pagination hidden-xs pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                    <ul class="pagination visible-xs pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -128,23 +86,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
-                        <div class="panel-heading bg-secondary">
-                            {{!-- <div class="row">
-                                <div class="col-sm-12 col-xs-12">
-                                    <form class="form-horizontal pull-right">
-                                        <div class="form-group">
-                                            <label>Show : </label>
-                                            <select class="form-control">
-                                                <option>5</option>
-                                                <option>10</option>
-                                                <option>15</option>
-                                                <option>20</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> --}}
-                        </div>
                         <div class="panel-body table-responsive">
                             <table class="table mb-0">
                                 <thead>
@@ -158,8 +99,8 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {{#each requests as |item|}}
+                                <tbody id="list-request">
+                                    {{#each pagingRequestList as |item|}}
                                         <tr>
                                             <td>{{item.userId}}</td>
                                             <td style="max-width: 250px" class="hide-overflow">{{item.email}}</td>
@@ -179,24 +120,20 @@
                             </table>
                         </div>
                         <div class="panel-footer bg-secondary">
-                            {{!-- <div class="row">
-                                <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <ul class="pagination hidden-xs pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                    <ul class="pagination visible-xs pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                </div>
-                            </div> --}}
+                           <nav id="paginatorRequest" class="products__pagination" aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                                    </li>
+                                    {{#each pagesRequest}}
+                                        <li class="page-item"><a role="button" class="page-link"
+                                                    href="javascript:;">{{value}}</a></li>
+                                    {{/each}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

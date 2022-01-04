@@ -26,6 +26,22 @@ export default {
         'upgradelist.registerTime'
       );
   },
+  async getUpgradeRequestsByPaging(offset: number, limit: number) {
+    return db('upgradelist')
+      .join('users as u', { 'upgradelist.bidderId': 'u.userId' })
+      .where('status', -1)
+      .select(
+        'u.userId',
+        'u.email',
+        'u.roleId',
+        'u.firstname',
+        'u.lastname',
+        'u.rating',
+        'upgradelist.registerTime'
+      )
+      .limit(limit)
+      .offset(offset);
+  },
   async approveRequest(bidderId: number) {
     return db('upgradelist')
       .where('bidderId', bidderId)
