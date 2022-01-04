@@ -153,7 +153,6 @@ function parsePaginator(keyword, page, nPages) {
   } else {
     fullhtml +=
       '<li class="page-item"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
-    // fullhtml += html.replace('pageindex', page - 1);
   }
   var start = page - 1;
   var end = page + 1;
@@ -178,7 +177,6 @@ function parsePaginator(keyword, page, nPages) {
   } else {
     fullhtml +=
       '<li class="page-item"><a class="page-link" href="#">Next</a></li></ul></nav>';
-    // fullhtml += html.replace('pageindex', page + 1);
   }
   return fullhtml;
 }

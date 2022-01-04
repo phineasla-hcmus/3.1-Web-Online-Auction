@@ -7,6 +7,8 @@ CREATE DATABASE IF NOT EXISTS `web-express-auction`;
 
 USE `web-express-auction`;
 
+DROP TABLE IF EXISTS `sessions`;
+
 -- ----------------------------
 -- Table structure for roles
 -- ----------------------------
@@ -189,8 +191,6 @@ CREATE TABLE `aunctionAuto`(
 --   `userId` int unsigned NOT NULL,
 --   PRIMARY KEY(`sellerId`,`proId`,`userId`) 
 -- ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
 
 
 -- Full-text search

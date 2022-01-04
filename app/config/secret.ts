@@ -39,3 +39,9 @@ export const MAIL_SENDER = getEnv('MAIL_SENDER');
 export const MAIL_CLIENT_ID = getEnv('MAIL_CLIENT_ID');
 export const MAIL_CLIENT_SECRET = getEnv('MAIL_CLIENT_SECRET');
 export const MAIL_REFRESH_TOKEN = getEnv('MAIL_REFRESH_TOKEN');
+
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+
+export const COOKIE_MAX_AGE = 2 * DAY;

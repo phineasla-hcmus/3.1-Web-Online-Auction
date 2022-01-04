@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import productModel from '../models/product.model';
 import aunctionModel from '../models/aunction.model';
+import bidderModel from '../models/bidder.model';
 import { getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
-import { userInfo } from 'os';
 
 const homeRouter = Router();
 
@@ -111,8 +111,14 @@ homeRouter.get('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
+  detailedProduct.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
+  listRelatedProduct.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
 
@@ -327,6 +333,21 @@ homeRouter.get('/search', async (req, res) => {
       offset,
       limitpage
     );
+    const userId = res.locals.user ? res.locals.user.userId : 0;
+    if (userId != 0) {
+      const listFavorite = await bidderModel.getFavoriteList(userId);
+
+      const FavoriteProduct = [];
+      for (let i = 0; i < listFavorite.length; i++) {
+        FavoriteProduct.push({
+          proId: listFavorite[i].proId,
+        });
+      }
+
+      for (let i = 0; i < list.length; i++) {
+        list[i].FavoriteProduct = FavoriteProduct;
+      }
+    }
     list.forEach((element: any) => {
       element.bidderName = element.firstname + ' ' + element.lastname;
     });
@@ -367,6 +388,25 @@ homeRouter.get(
         limitpage
       );
 
+      const userId = res.locals.user ? res.locals.user.userId : 0;
+      if (userId != 0) {
+        const listFavorite = await bidderModel.getFavoriteList(userId);
+
+        const FavoriteProduct = [];
+        for (let i = 0; i < listFavorite.length; i++) {
+          FavoriteProduct.push({
+            proId: listFavorite[i].proId,
+          });
+        }
+
+        for (let i = 0; i < list.length; i++) {
+          list[i].FavoriteProduct = FavoriteProduct;
+        }
+      }
+      list.forEach((element: any) => {
+        element.bidderName = element.firstname + ' ' + element.lastname;
+      });
+
       for (let i = 1; i <= numPage; i++) {
         listofPage.push({
           value: i,
@@ -399,7 +439,24 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
       offset,
       limitpage
     );
+    const userId = res.locals.user ? res.locals.user.userId : 0;
+    if (userId != 0) {
+      const listFavorite = await bidderModel.getFavoriteList(userId);
 
+      const FavoriteProduct = [];
+      for (let i = 0; i < listFavorite.length; i++) {
+        FavoriteProduct.push({
+          proId: listFavorite[i].proId,
+        });
+      }
+
+      for (let i = 0; i < list.length; i++) {
+        list[i].FavoriteProduct = FavoriteProduct;
+      }
+    }
+    list.forEach((element: any) => {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    });
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,

@@ -1,77 +1,3 @@
-{{! <section class="signup">
-  <div class="row justify-content-center m-0">
-    <div class="col-md-7 col-lg-5">
-      <div class="auth-wrap p-4 p-md-5">
-        <div class="d-flex">
-          <div class="w-100">
-            <h3 class="mb-4">Sign Up</h3>
-          </div>
-        </div>
-        <form action="/auth/signup" method="POST">
-          <div class="form-group">
-            <div
-              class="icon d-flex align-items-center justify-content-center"
-            ><span class="fa fa-envelope"></span>
-            </div>
-            <input
-              type="email"
-              class="form-control rounded-left"
-              placeholder="Email"
-              name="email"
-              id="email"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <div
-              class="icon d-flex align-items-center justify-content-center"
-            ><span class="fa fa-user"></span></div>
-            <input
-              type="text"
-              class="form-control rounded-left"
-              placeholder="Username"
-              name="username"
-              id="username"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <div class="icon d-flex align-items-center justify-content-center">
-              <span class="fa fa-lock"></span>
-            </div>
-            <input
-              type="password"
-              class="form-control rounded-left"
-              placeholder="Password"
-              name="password"
-              id="password"
-              required
-            />
-          </div>
-          <div class="w-100">
-            <input type="checkbox" id="term" required />
-            <label for="term">I agree to the
-              <a href="#">Term & Conditions</a></label>
-          </div>
-          <div class="form-group d-flex align-items-center">
-            <div class="w-100 d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary rounded submit">
-                Sign Up
-              </button>
-            </div>
-          </div>
-          <div class="form-group mt-4">
-            <div class="w-100 text-center">
-              <p>Already have account?
-                <a href="/auth/login">Login</a></p>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section> }}
-
 <div class="container">
   <div class="row mt-4 align-items-center">
     <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
@@ -280,3 +206,77 @@
   ></script>
   <script src="/public/js/signup.js"></script>
 {{/section}}
+
+{{! <section class="signup">
+  <div class="row justify-content-center m-0">
+    <div class="col-md-7 col-lg-5">
+      <div class="auth-wrap p-4 p-md-5">
+        <div class="d-flex">
+          <div class="w-100">
+            <h3 class="mb-4">Sign Up</h3>
+          </div>
+        </div>
+        <form action="/auth/signup" method="POST">
+          <div class="form-group">
+            <div
+              class="icon d-flex align-items-center justify-content-center"
+            ><span class="fa fa-envelope"></span>
+            </div>
+            <input
+              type="email"
+              class="form-control rounded-left"
+              placeholder="Email"
+              name="email"
+              id="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <div
+              class="icon d-flex align-items-center justify-content-center"
+            ><span class="fa fa-user"></span></div>
+            <input
+              type="text"
+              class="form-control rounded-left"
+              placeholder="Username"
+              name="username"
+              id="username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-lock"></span>
+            </div>
+            <input
+              type="password"
+              class="form-control rounded-left"
+              placeholder="Password"
+              name="password"
+              id="password"
+              required
+            />
+          </div>
+          <div class="w-100">
+            <input type="checkbox" id="term" required />
+            <label for="term">I agree to the
+              <a href="#">Term & Conditions</a></label>
+          </div>
+          <div class="form-group d-flex align-items-center">
+            <div class="w-100 d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary rounded submit">
+                Sign Up
+              </button>
+            </div>
+          </div>
+          <div class="form-group mt-4">
+            <div class="w-100 text-center">
+              <p>Already have account?
+                <a href="/auth/login">Login</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> }}

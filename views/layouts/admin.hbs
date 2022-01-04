@@ -17,15 +17,8 @@
       integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/public/css/style.css" />
-    <style>
-      .nav-active {
-        background-color: #372dc8;
-      }
-      ul.nav-pills li:hover {
-        transition: background-color 200ms ease-in-out;
-        background-color: #372dc8;
-      }
-    </style>
+    <link rel="stylesheet" href="/public/css/admin/index.css">
+
     {{{section.stylesheets}}}
   </head>
   <body>
@@ -33,39 +26,39 @@
     <div class="myContainer myContainer--py">
       <div>
           <div class="admin-navigation row rounded">
-          <div
-              class="d-flex align-items-center align-items-sm-start text-white"
-          >
-              <ul
-              style="margin: 0 auto"
-              class="nav nav-pills mb-sm-auto mb-0 align-items-center align-items-sm-start"
-              id="menu"
-              >
-                <li class="rounded mx-2 py-1 px-2 {{#if category}}nav-active{{/if}}">
-                    <a href="/admin/manage/categories" class="nav-link align-middle px-0 text-white fw-bold">
-                    
-                    <i style="font-size: 1.375rem;" class="fa fa-list-alt" aria-hidden="true"></i>
-                    <span class="ms-1 d-none d-sm-inline">Manage categories</span>
-                    </a>
-                </li>
-                <li class="rounded mx-2 py-1 px-2 {{#if product}}nav-active{{/if}}">
-                    <a
-                    href="/admin/manage/products"
-                    class="nav-link px-0 align-middle text-white fw-bold"
-                    >
-                    <i style="font-size: 1.375rem;" class="fa fa-archive" aria-hidden="true"></i>
-                    <span class="ms-1 d-none d-sm-inline">Manage products</span>
-                    </a>
-                </li>
-                <li class="rounded mx-2 py-1 px-2 {{#if users}}nav-active{{/if}}">
-                    <a href="/admin/manage/users" class="nav-link px-0 align-middle text-white fw-bold">
-                    <i style="font-size: 1.375rem;" class="fa fa-user" aria-hidden="true"></i>
-                    <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
-                </li>
-              </ul>
+            <div
+                class="d-flex align-items-center align-items-sm-start text-white"
+            >
+                <ul
+                style="margin: 0 auto"
+                class="nav nav-pills mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                id="menu"
+                >
+                  <li class="rounded mx-2 py-1 px-2 {{#if category}}nav-active{{/if}}">
+                      <a href="/admin/manage/categories" class="nav-link align-middle px-0 text-white fw-bold">
+                      
+                      <i style="font-size: 1.375rem;" class="fa fa-list-alt" aria-hidden="true"></i>
+                      <span class="ms-1 d-none d-sm-inline">Manage categories</span>
+                      </a>
+                  </li>
+                  <li class="rounded mx-2 py-1 px-2 {{#if product}}nav-active{{/if}}">
+                      <a
+                      href="/admin/manage/products"
+                      class="nav-link px-0 align-middle text-white fw-bold"
+                      >
+                      <i style="font-size: 1.375rem;" class="fa fa-archive" aria-hidden="true"></i>
+                      <span class="ms-1 d-none d-sm-inline">Manage products</span>
+                      </a>
+                  </li>
+                  <li class="rounded mx-2 py-1 px-2 {{#if users}}nav-active{{/if}}">
+                      <a href="/admin/manage/users" class="nav-link px-0 align-middle text-white fw-bold">
+                      <i style="font-size: 1.375rem;" class="fa fa-user" aria-hidden="true"></i>
+                      <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
+                  </li>
+                </ul>
+            </div>
           </div>
-          </div>
-          <div class="col pt-0 pe-0">
+          <div class="col pt-0 pe-0 mt-3">
               {{{body}}}  
           </div>
       </div>

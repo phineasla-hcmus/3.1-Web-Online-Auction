@@ -293,7 +293,9 @@
     text-align: center;
   }
 
-  &__search {
+  &__search,
+  &__favorite,
+  &__bidding {
     @include breakpoint-up(large) {
       display: grid;
       grid-template-columns: repeat(6, 1fr);

@@ -122,15 +122,15 @@ function getRatingType(rating: string, type: string) {
  * **layout.hbs**
  * ```
  * <body>
- *    {{{sections.script}}}
+ *    {{{section.scripts}}}
  * </body>
  * ```
  *
  * **login.hbs**
  * ```
  * <p>Custom script section</p>
- * {{#section "script"}}
- *    <script src="/public/js/login.js" />
+ * {{#section "scripts"}}
+ *    <script src="/public/js/login.js"></script>
  * {{/section}}
  * ```
  */

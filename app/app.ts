@@ -1,5 +1,4 @@
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
 import express, { NextFunction, Request, Response } from 'express';
 import mySqlSessionStore from 'express-mysql-session';
 import session from 'express-session';
@@ -8,7 +7,7 @@ import passport from 'passport';
 import path from 'path';
 import './config/nodemailer';
 import './config/passport';
-import { DB_CONFIG, SESSION_SECRET } from './config/secret';
+import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
 import categoryModel from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
@@ -23,8 +22,8 @@ const app = express();
 const MySqlSession = mySqlSessionStore(session as any);
 
 app.engine('hbs', hbs.engine);
-app.set('trust proxy', 1);
 app.set('view engine', 'hbs');
+app.set('trust proxy', 1);
 app.set('views', path.resolve(__dirname, '../views'));
 // NOTE: Express middleware order is important
 if (process.env.NODE_ENV !== 'production') {
@@ -39,15 +38,12 @@ app.use(
     secret: SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    store: new MySqlSession(DB_CONFIG),
-    // 1 day cookie
-    cookie: { secure: false, maxAge: 8.64e7 },
+    store: new MySqlSession({ ...DB_CONFIG, expiration: COOKIE_MAX_AGE }),
   })
 );
-// Replacement of bodyParser
+// Replace bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -65,10 +61,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(async function (req, res, next) {
-  res.locals.parentCategories = await categoryModel.findParentCategory();
-  res.locals.childCategories = await categoryModel.findChildCategory();
-  next();
+app.post('/logout', (req, res) => {
+  // Use `req.session.destroy` instead of `req.logout` to use remember me
+  // `req.logout` only clears Passport property inside session object
+  // While `req.session.destroy` delete the whole session on the database
+  req.session.destroy((err) => res.redirect(req.headers.referer || '/'));
 });
 
 // If user if not verified (roleId == 1), force redirect to verify
@@ -76,13 +73,18 @@ app.use(async function (req, res, next) {
 app.use((req, res, next) => {
   if (
     req.user?.roleId === RoleType.Unverified &&
-    !req.path.match(/^\/verify/) &&
-    req.path !== '/logout'
+    !req.path.match(/^\/verify/)
   ) {
     res.redirect('/verify');
   } else {
     next();
   }
+});
+
+app.use(async function (req, res, next) {
+  res.locals.parentCategories = await categoryModel.findParentCategory();
+  res.locals.childCategories = await categoryModel.findChildCategory();
+  next();
 });
 
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
@@ -96,11 +98,6 @@ const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
 };
 
 app.use('/', homeRouter);
-
-app.post('/logout', (req, res) => {
-  req.logout();
-  res.redirect(req.headers.referer || '/');
-});
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);

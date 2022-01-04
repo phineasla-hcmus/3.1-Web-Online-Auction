@@ -18,10 +18,17 @@ insert into categories values(10, 'Coffee press', 3);
 insert into categories values(11, 'Chopping board', 3);
 insert into categories values(12, 'Baking dish', 3);
 
-insert into users values(1, "tmnguyen@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 2);
-insert into users values(2, "a@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Hong", "Du Shik", "1995-10-12", "somewhere", null, 1);
-insert into users values(3, "leesuby@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 3);
-insert into users values(3, "admin@gmail.com", "$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G", "Tam", "Nguyen", "2001-10-12", "somewhere in the universe", 8, 4);
+insert into users values(1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 2);
+insert into users values(2, 'a@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', null, 1);
+insert into users values(3, 'leesuby@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 3);
+insert into users values(4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 4);
+-- sample data used for [admin] manage users
+insert into users values(5, 'hoho1@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
+insert into users values(6, 'hoho2@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
+insert into users values(7, 'hoho3@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
+insert into users values(8, 'hoho4@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
+insert into users values(9, 'hoho5@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
+insert into users values(10, 'hoho6@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
 
 insert into products values(1, 'Laptop Lenovo Ideapad 3', 4, "500", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 4, 1,'Tam Nguyen', 2,'Hong Du Shik',0);
 insert into products values(2, 'Laptop HP', 4, "550", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 10, 1,'Tam Nguyen', 2,'Hong Du Shik',0);
@@ -49,6 +56,12 @@ insert into auctionhistory values(4, '2021-12-06 14:20:00', 1, 'Tam Nguyen', 540
 insert into auctionhistory values(4, '2021-12-06 18:00:00', 2, 'Hong Du Shik', 560);
 
 insert into upgradelist values(1, '2021-12-19 11:34:34', -1, '2021-12-21 11:34:34');
+insert into upgradelist values(5, '2022-01-04 10:15:37', -1, null);
+insert into upgradelist values(6, '2022-01-04 10:15:37', -1, null);
+insert into upgradelist values(7, '2022-01-04 10:15:37', -1, null);
+insert into upgradelist values(8, '2022-01-04 10:15:37', -1, null);
+insert into upgradelist values(9, '2022-01-04 10:15:37', -1, null);
+insert into upgradelist values(10, '2022-01-04 10:15:37', -1, null);
 
 insert into ratingHistory values (1, 2,1, 'Hong Du Shik', '2021-12-19 15:07', true , 'Fast transaction!');
 insert into ratingHistory values (1, 2, 2, 'Hong Du Shik', '2021-12-19 15:07', false , 'Angry!');
