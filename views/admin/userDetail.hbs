@@ -1,32 +1,10 @@
 <div>
   <h3 class="text-center">User information</h3>
-  {{!-- <div style="max-width: 37.5rem; margin: 0 auto" class="row border rounded">
-    <div style="text-align: right;" class="col-6">
-      <p>Fullname</p>
-      <p>Email</p>
-      <p>Date of birth</p>
-      <p>Address</p>
-      <p>Rating</p>
-    </div>
-    <div class="col-6">
-      <p>{{user.firstName}} {{user.lastName}}</p>
-      <p>{{user.email}}</p>
-      <p>{{parseDob user.dob}}</p>
-      <p>{{user.address}}</p>
-      <p>{{user.rating}}</p>
-    </div>
-  </div> --}}
-
   <div class="container mt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-12">
         <div class="card p-3 py-4">
           <div class="text-center">
-            {{! <img
-              src="https://i.imgur.com/bDLhJiP.jpg"
-              width="100"
-              class="rounded-circle"
-            /> }}
             <i
               style="font-size: 3rem;"
               class="fa fa-user-circle"
@@ -71,9 +49,19 @@
               {{/each}}
             </ul>
             {{#if (isSeller user.roleId)}}
-              <div class="buttons">
-                <button class="btn btn-outline-primary px-4">Downgrade</button>
-                {{! <button class="btn btn-primary px-4 ms-3">Contact</button> }}
+              <div>
+                <form
+                  method="post"
+                  class="buttons"
+                  action="/admin/downgradeSeller"
+                >
+                  <input value="{{user.userId}}" type="hidden" name="downid" />
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary px-4"
+                  >Downgrade</button>
+                </form>
+
               </div>
             {{/if}}
 

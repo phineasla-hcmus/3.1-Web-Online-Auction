@@ -9,10 +9,19 @@ const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
   const nearEndList = await productModel.findNearEndProducts();
+  nearEndList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const mostBidsList = await productModel.findMostBidsProducts();
+  mostBidsList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const highestPriceList = await productModel.findHighestPriceProducts();
+  highestPriceList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   res.render('home', {
     nearEndList,
@@ -256,7 +265,6 @@ homeRouter.get('/search', async (req, res) => {
     list.forEach((element: any) => {
       element.bidderName = element.firstname + ' ' + element.lastname;
     });
-    console.log(list);
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
         value: i,

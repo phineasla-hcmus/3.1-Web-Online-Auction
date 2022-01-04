@@ -5,6 +5,13 @@ export default {
   async getListUsers() {
     return db('users').where('roleId', 2).orWhere('roleId', 3);
   },
+  async getListUsersByPaging(offset: number, limit: number) {
+    return db('users')
+      .where('roleId', 2)
+      .orWhere('roleId', 3)
+      .limit(limit)
+      .offset(offset);
+  },
   async getUpgradeRequests() {
     return db('upgradelist')
       .join('users as u', { 'upgradelist.bidderId': 'u.userId' })

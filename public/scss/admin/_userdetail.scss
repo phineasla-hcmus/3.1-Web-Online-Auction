@@ -56,13 +56,13 @@
   font-size: 19px;
 }
 
-.buttons button:nth-child(1) {
+.buttons button {
   border: 1px solid $darkYellow !important;
   color: $darkYellow;
   height: 40px;
 }
 
-.buttons button:nth-child(1):hover {
+.buttons button:hover {
   border: 1px solid $darkYellow !important;
   color: #fff;
   height: 40px;
