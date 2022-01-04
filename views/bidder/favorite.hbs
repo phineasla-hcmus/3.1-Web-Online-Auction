@@ -1,8 +1,6 @@
 <h1 class='h3 text-center'>My Favorite List</h1>
-<div class="products__content">
+<div class="products__favorite">
     {{#each this.favoriteList}}
-        {{!-- <div class="col-sm-4"> --}}
-            {{>product product=this user=../user}}
-        {{!-- </div> --}}
+        {{>product product=this user=../user}}
     {{/each}}
 </div> 

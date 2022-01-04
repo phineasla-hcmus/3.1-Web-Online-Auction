@@ -65,10 +65,14 @@ bidderRouter.post('/upgrade', async function (req, res) {
 });
 
 bidderRouter.get('/favorite', async function (req, res) {
-  const userId= res.locals.user? res.locals.user.userId:0;
+  const userId = res.locals.user ? res.locals.user.userId : 0;
   const favoriteList = await bidderModel.getFavoriteList(
     res.locals.user.userId
   );
+
+  favoriteList.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   if (userId != 0) {
     const listFavorite = await bidderModel.getFavoriteList(userId);
@@ -92,7 +96,6 @@ bidderRouter.get('/favorite', async function (req, res) {
 });
 
 bidderRouter.get('/currentbids', async function (req, res) {
-  
   const currentBidsList = await bidderModel.getCurrentBids(
     res.locals.user.userId
   );
@@ -130,22 +133,6 @@ bidderRouter.get('/rating', async function (req, res) {
 
 bidderRouter.get('/win', async function (req, res) {
   const winningList = await bidderModel.getWinningList(res.locals.user.userId);
-
-  const userId = res.locals.user ? res.locals.user.userId : 0;
-  if (userId != 0) {
-    const listFavorite = await bidderModel.getFavoriteList(userId);
-
-    const FavoriteProduct = [];
-    for (let i = 0; i < listFavorite.length; i++) {
-      FavoriteProduct.push({
-        proId: listFavorite[i].proId,
-      });
-    }
-
-    for (let i = 0; i < winningList.length; i++) {
-      winningList[i].FavoriteProduct = FavoriteProduct;
-    }
-  }
   res.render('bidder/win', { layout: 'bidder', winningList, win: true });
 });
 
