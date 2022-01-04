@@ -61,14 +61,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(async function (req, res, next) {
-  res.locals.parentCategories = await categoryModel.findParentCategory();
-  res.locals.childCategories = await categoryModel.findChildCategory();
-  next();
-});
-
 app.post('/logout', (req, res) => {
   // Use `req.session.destroy` instead of `req.logout` to use remember me
+  // `req.logout` only clears Passport property inside session object
+  // While `req.session.destroy` delete the whole session on the database
   req.session.destroy((err) => res.redirect(req.headers.referer || '/'));
 });
 
@@ -83,6 +79,12 @@ app.use((req, res, next) => {
   } else {
     next();
   }
+});
+
+app.use(async function (req, res, next) {
+  res.locals.parentCategories = await categoryModel.findParentCategory();
+  res.locals.childCategories = await categoryModel.findChildCategory();
+  next();
 });
 
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
