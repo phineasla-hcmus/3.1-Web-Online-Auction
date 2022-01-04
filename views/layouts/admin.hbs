@@ -31,40 +31,41 @@
   <body>
     <header class="header">{{>nav}}</header>
     <div class="myContainer myContainer--py">
-      <div class="row flex-nowrap m-0">
-          <div style="background-color: black;" class="col-auto col-md-3 col-xl-2 px-0 rounded">
+      <div>
+          <div class="admin-navigation row rounded">
           <div
-              class="d-flex flex-column align-items-center align-items-sm-start text-white min-vh-100"
+              class="d-flex align-items-center align-items-sm-start text-white"
           >
               <ul
-              class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
+              style="margin: 0 auto"
+              class="nav nav-pills mb-sm-auto mb-0 align-items-center align-items-sm-start"
               id="menu"
               >
-                <li class="w-100 rounded ps-2 {{#if category}}nav-active{{/if}}">
+                <li class="rounded mx-2 py-1 px-2 {{#if category}}nav-active{{/if}}">
                     <a href="/admin/manage/categories" class="nav-link align-middle px-0 text-white fw-bold">
                     
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    <i style="font-size: 1.375rem;" class="fa fa-list-alt" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Manage categories</span>
                     </a>
                 </li>
-                <li class="w-100 rounded ps-2 {{#if product}}nav-active{{/if}}">
+                <li class="rounded mx-2 py-1 px-2 {{#if product}}nav-active{{/if}}">
                     <a
                     href="/admin/manage/products"
                     class="nav-link px-0 align-middle text-white fw-bold"
                     >
-                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <i style="font-size: 1.375rem;" class="fa fa-archive" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Manage products</span>
                     </a>
                 </li>
-                <li class="w-100 rounded ps-2 {{#if users}}nav-active{{/if}}">
+                <li class="rounded mx-2 py-1 px-2 {{#if users}}nav-active{{/if}}">
                     <a href="/admin/manage/users" class="nav-link px-0 align-middle text-white fw-bold">
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i style="font-size: 1.375rem;" class="fa fa-user" aria-hidden="true"></i>
                     <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
                 </li>
               </ul>
           </div>
           </div>
-          <div class="col pt-0 ps-3 pe-0">
+          <div class="col pt-0 pe-0">
               {{{body}}}  
           </div>
       </div>

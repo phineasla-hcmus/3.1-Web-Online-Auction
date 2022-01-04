@@ -15,73 +15,84 @@ adminRouter.get('/manage/products', async function (req, res) {
 });
 
 adminRouter.get('/manage/users', async function (req, res) {
-  const list = await adminModel.getListUsers();
-  const amountPro = list.length;
-  const limitpage = 6;
-
-  let numPage = Math.floor(amountPro / limitpage);
-  if (amountPro % limitpage != 0) numPage++;
-
-  const page: any = req.query.page || 1;
+  const limitpage = 5;
+  const page = 1;
   const offset = (page - 1) * limitpage;
-  const listofPage = [];
+
+  // for list users
+  const listUser = await adminModel.getListUsers();
+  const amountUser = listUser.length;
+
+  let numPageUser = Math.floor(amountUser / limitpage);
+  if (amountUser % limitpage != 0) numPageUser++;
+
+  const listofPageUser = [];
 
   const pagingUserList = await adminModel.getListUsersByPaging(
     offset,
     limitpage
   );
 
-  for (let i = 1; i <= numPage; i++) {
-    listofPage.push({
+  for (let i = 1; i <= numPageUser; i++) {
+    listofPageUser.push({
       value: i,
       isCurrent: +page === i,
     });
   }
-  const requests = await adminModel.getUpgradeRequests();
+
+  // for list requests
+  const listRequest = await adminModel.getUpgradeRequests();
+  const amountRequest = listRequest.length;
+
+  let numPageRequest = Math.floor(amountRequest / limitpage);
+  if (amountRequest % limitpage != 0) numPageRequest++;
+
+  const listofPageRequest = [];
+
+  const pagingRequestList = await adminModel.getUpgradeRequestsByPaging(
+    offset,
+    limitpage
+  );
+
+  for (let i = 1; i <= numPageRequest; i++) {
+    listofPageRequest.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+
   res.render('admin/manageUser', {
     layout: 'admin',
     users: true,
     pagingUserList,
-    requests,
-    emptyRequest: requests.length === 0,
+    pagingRequestList,
+    emptyRequest: pagingRequestList.length === 0,
     emptyList: pagingUserList.length === 0,
-    pages: listofPage,
+    pagesUser: listofPageUser,
+    pagesRequest: listofPageRequest,
   });
 });
 
 adminRouter.get('/manage/usersByPaging', async function (req, res) {
-  const list = await adminModel.getListUsers();
-  const amountPro = list.length;
-  const limitpage = 6;
-
-  let numPage = Math.floor(amountPro / limitpage);
-  if (amountPro % limitpage != 0) numPage++;
-
+  const limitpage = 5;
   const page: any = req.query.page || 1;
   const offset = (page - 1) * limitpage;
-  const listofPage = [];
-
   const pagingUserList = await adminModel.getListUsersByPaging(
     offset,
     limitpage
   );
-
-  for (let i = 1; i <= numPage; i++) {
-    listofPage.push({
-      value: i,
-      isCurrent: +page === i,
-    });
-  }
-
   res.json(pagingUserList);
+});
 
-  // res.render('admin/manageUser', {
-  //   layout: 'admin',
-  //   users: true,
-  //   pagingUserList,
-  //   emptyList: pagingUserList.length === 0,
-  //   pages: listofPage,
-  // });
+adminRouter.get('/manage/requestsByPaging', async function (req, res) {
+  const limitpage = 5;
+  const page: any = req.query.page || 1;
+  const offset = (page - 1) * limitpage;
+  const pagingRequestList = await adminModel.getUpgradeRequestsByPaging(
+    offset,
+    limitpage
+  );
+  res.json(pagingRequestList);
 });
 
 adminRouter.get('/manage/users/:id', async function (req, res) {

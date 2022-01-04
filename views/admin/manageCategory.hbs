@@ -1,0 +1,29 @@
+{{#section "stylesheets"}}
+<link rel="stylesheet" href="/public/css/admin/manageCategory.css">
+{{/section}}
+
+<div>
+    <h3 class="text-center">Manage Categories</h3>
+    <ul class="list-group list-group-flush products-root ">
+        {{#each parentCategories as |parent|}}
+        <li class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
+            <a  href="#">
+            {{parent.catName}}
+            </a>
+            <ul class="products-child" id="child{{child.catId}}">
+            {{#each ../childCategories as |child|}}
+            {{#if (isChildOf child.parentId parent.catId)}}
+            <li><a href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
+            {{/if}}
+            {{/each}}
+            </ul>
+        </li>
+        {{/each}}
+    </ul>
+
+</div>
+<script>
+    function onClick(id){
+        document.getElementById("child").style.display="contents";
+    }
+</script>

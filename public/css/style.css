@@ -656,8 +656,8 @@ ul {
 }
 
 .panel .panel-body .table thead tr th {
-  color: black;
-  background: white;
+  color: white;
+  background: #292560;
   font-size: 17px;
   font-weight: 700;
   padding: 12px;
@@ -748,6 +748,40 @@ ul {
   overflow: hidden;
 }
 
+@media (max-width: 39.9375em) {
+  .email-title,
+.email-content,
+.rating-title,
+.rating-content,
+.time-title,
+.time-content {
+    display: none;
+  }
+}
+
+@media (min-width: 40em) {
+  .time-content {
+    min-width: 200px;
+  }
+}
+
+.admin-navigation {
+  background-color: black;
+  margin: 0;
+}
+@media (max-width: 39.9375em) {
+  .admin-navigation {
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 39.9375em) {
+  .list-of-users,
+.list-upgrade-requests {
+    padding: 0 1rem;
+  }
+}
+
 .card {
   border: none;
   position: relative;
@@ -816,4 +850,6 @@ ul {
   background-color: #fdb03d;
 }
 
+.likebtn{
+  font-size:large;
 /*# sourceMappingURL=style.css.map */
