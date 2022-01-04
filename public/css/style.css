@@ -607,9 +607,16 @@ ul {
   }
 }
 
+.nav-active {
+  background-color: #372dc8;
+}
+
+.bidder__wrapper {
+  padding: 0 1rem;
+}
 @media (min-width: 40em) {
-  .info__wrapper {
-    padding-top: 0;
+  .bidder__wrapper {
+    padding: 0;
   }
 }
 

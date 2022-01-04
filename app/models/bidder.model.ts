@@ -11,9 +11,10 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist')
       .join('products as p', { 'watchlist.proId': 'p.proId' })
+      .join('users', { 'p.bidderId': 'users.userId' })
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
-      .select('p.*');
+      .select('p.*', 'users.firstname', 'users.lastname');
   },
   async getWinningList(bidderId: number) {
     return db('products')
