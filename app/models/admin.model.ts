@@ -64,4 +64,19 @@ export default {
       roleId: 2,
     });
   },
+  async addRootCategory(cateName: any){
+    return db('categories').insert({catName: cateName,parentId: null}).then();
+  },
+  async checkRootCategoryHaveChildren(cateId: any){
+    return db('categories').where('parentId',cateId);
+  },
+  async deleteRootCategory(cateId: any){
+    return db('categories').where("catId",cateId).del();
+  },
+  async addChildCategory(cateName: any, parentCatId: any){
+    return db('categories').insert({catName: cateName,parentId: parentCatId}).then();
+  },
+  async editCategory(cateName: any, cateId: any){
+    return db('categories').where("catId",cateId).update({catName: cateName}).then();
+  }
 };
