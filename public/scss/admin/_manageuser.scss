@@ -126,3 +126,36 @@
   white-space: nowrap;
   overflow: hidden;
 }
+.email-title,
+.email-content,
+.rating-title,
+.rating-content,
+.time-title,
+.time-content {
+  @include breakpoint-down(small) {
+    display: none;
+  }
+  // @include breakpoint-up(medium) {
+  //   display: block;
+  // }
+}
+
+.time-content {
+  @include breakpoint-up(medium) {
+    min-width: 200px;
+  }
+}
+.admin-navigation {
+  background-color: black;
+  margin: 0;
+  @include breakpoint-down(small) {
+    margin: 0 1rem;
+  }
+}
+
+.list-of-users,
+.list-upgrade-requests {
+  @include breakpoint-down(small) {
+    padding: 0 1rem;
+  }
+}

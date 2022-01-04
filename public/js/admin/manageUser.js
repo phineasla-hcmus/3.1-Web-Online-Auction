@@ -11,16 +11,14 @@ function parseUserHTML(element) {
   if (element.roleId === 3) {
     return ` <tr>
         <td>${element.userId}</td>
-        <td style="max-width: 250px" class="hide-overflow">${element.email}</td>
-        <td style="max-width: 200px;" class="hide-overflow">${
-          element.firstname
-        }</td>
+        <td class="hide-overflow email-content">${element.email}</td>
+        <td class="hide-overflow">${element.firstname}</td>
         <td>${element.lastname}</td>
-        <td>${parseRating(element.rating)}</td>
+        <td class="rating-content">${parseRating(element.rating)}</td>
         <td><a href="/admin/manage/users/${
           element.userId
         }" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
-            <td style="min-width: 100px;">
+            <td>
                 <a data-id="${
                   element.userId
                 }" href="#" class="btn btn-danger downgrade">Downgrade</a>
@@ -29,12 +27,10 @@ function parseUserHTML(element) {
   } else {
     return ` <tr>
     <td>${element.userId}</td>
-    <td style="max-width: 250px" class="hide-overflow">${element.email}</td>
-    <td style="max-width: 200px;" class="hide-overflow">${
-      element.firstname
-    }</td>
+    <td class="hide-overflow email-content">${element.email}</td>
+    <td class="hide-overflow">${element.firstname}</td>
     <td>${element.lastname}</td>
-    <td>${parseRating(element.rating)}</td>
+    <td class="rating-content">${parseRating(element.rating)}</td>
     <td><a href="/admin/manage/users/${
       element.userId
     }" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
@@ -45,10 +41,10 @@ function parseUserHTML(element) {
 function parseRequestHTML(element) {
   return `<tr>
   <td>${element.userId}</td>
-  <td style="max-width: 250px" class="hide-overflow">${element.email}</td>
-  <td style="max-width: 200px;" class="hide-overflow">${element.firstname}</td>
+  <td class="hide-overflow email-content">${element.email}</td>
+  <td class="hide-overflow">${element.firstname}</td>
   <td>${element.lastname}</td>
-  <td style="min-width: 200px;">${parseDate(element.registerTime)}</td>
+  <td class="time-content">${parseDate(element.registerTime)}</td>
   <td class="hide-overflow">${parseRating(element.rating)}</td>
   <td style="min-width: 100px;">
       <ul class="action-list">

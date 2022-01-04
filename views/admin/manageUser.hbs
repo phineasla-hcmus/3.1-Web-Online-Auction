@@ -11,22 +11,18 @@
             <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
                 <input type="hidden" id="txtUserDowngrade" name="downid" />
             </form>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row m-0">
+                <div class="col-md-12 px-0">
                     <div class="panel">
-                        {{!-- <div class="panel-heading bg-secondary">
-                        </div> --}}
                         <div class="panel-body table-responsive">
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Email</th>
+                                        <th class="email-title">Email</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
-                                        {{!-- <th>Dob</th>
-                                        <th>Address</th> --}}
-                                        <th>Rating</th>
+                                        <th class="rating-title">Rating</th>
                                         <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
@@ -34,15 +30,13 @@
                                     {{#each pagingUserList as |item|}}
                                         <tr>
                                             <td>{{item.userId}}</td>
-                                            <td style="max-width: 250px" class="hide-overflow">{{item.email}}</td>
-                                            <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
+                                            <td class="hide-overflow email-content">{{item.email}}</td>
+                                            <td class="hide-overflow">{{item.firstname}}</td>
                                             <td>{{item.lastname}}</td>
-                                            {{!-- <td></td> --}}
-                                            {{!-- <td class="hide-overflow" style="min-width: 250px;"></td> --}}
-                                            <td>{{parseRating item.rating}}</td>
+                                            <td class="rating-content">{{parseRating item.rating}}</td>
                                             <td><a href="/admin/manage/users/{{item.userId}}" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
                                             {{#if (isSeller item.roleId)}}
-                                                <td style="min-width: 100px;">
+                                                <td>
                                                     <a data-id="{{item.userId}}" href="javascript:;" class="btn btn-danger downgrade">Downgrade</a>
                                                 </td>
                                             {{/if}}
@@ -83,18 +77,18 @@
              <form action="/admin/declineRequest" method="post" id="frmDecline">
                 <input type="hidden" id="txtUserDecline" name="declineid" />
             </form>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row m-0">
+                <div class="col-md-12 px-0">
                     <div class="panel">
                         <div class="panel-body table-responsive">
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Email</th>
+                                        <th class="email-title">Email</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
-                                        <th>Register time</th>
+                                        <th class="time-title">Register time</th>
                                         <th>Rating</th>
                                         <th>Action</th>
                                     </tr>
@@ -103,10 +97,10 @@
                                     {{#each pagingRequestList as |item|}}
                                         <tr>
                                             <td>{{item.userId}}</td>
-                                            <td style="max-width: 250px" class="hide-overflow">{{item.email}}</td>
-                                            <td style="max-width: 200px;" class="hide-overflow">{{item.firstname}}</td>
+                                            <td class="hide-overflow email-content">{{item.email}}</td>
+                                            <td class="hide-overflow">{{item.firstname}}</td>
                                             <td>{{item.lastname}}</td>
-                                            <td style="min-width: 200px;">{{parseDate item.registerTime}}</td>
+                                            <td class="time-content">{{parseDate item.registerTime}}</td>
                                             <td class="hide-overflow">{{item.rating}}</td>
                                             <td style="min-width: 100px;">
                                                 <ul class="action-list">
