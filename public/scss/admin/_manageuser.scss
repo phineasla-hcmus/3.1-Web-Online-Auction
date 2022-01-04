@@ -44,8 +44,8 @@
   border-radius: 0;
 }
 .panel .panel-body .table thead tr th {
-  color: black;
-  background: white;
+  color: white;
+  background: $darkBlue;
   font-size: 17px;
   font-weight: 700;
   padding: 12px;
@@ -102,11 +102,13 @@
   margin: 0;
 }
 .pagination li a {
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.3);
+  // color: #fff;
+  // background-color: rgba(0, 0, 0, 0.3);
   font-size: 15px;
   font-weight: 700;
-  margin: 0 2px;
+  padding: 1px 7px;
+  color: black;
+  // margin: 0 2px;
   border: none;
   border-radius: 0;
   transition: all 0.3s ease 0s;
@@ -115,11 +117,45 @@
 .pagination li a:focus,
 .pagination li.active a {
   color: #fff;
-  background-color: #000;
+  // background-color: #000;
+  background-color: #0d6efd;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 .hide-overflow {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.email-title,
+.email-content,
+.rating-title,
+.rating-content,
+.time-title,
+.time-content {
+  @include breakpoint-down(small) {
+    display: none;
+  }
+  // @include breakpoint-up(medium) {
+  //   display: block;
+  // }
+}
+
+.time-content {
+  @include breakpoint-up(medium) {
+    min-width: 200px;
+  }
+}
+.admin-navigation {
+  background-color: black;
+  margin: 0;
+  @include breakpoint-down(small) {
+    margin: 0 1rem;
+  }
+}
+
+.list-of-users,
+.list-upgrade-requests {
+  @include breakpoint-down(small) {
+    padding: 0 1rem;
+  }
 }

@@ -656,8 +656,8 @@ ul {
 }
 
 .panel .panel-body .table thead tr th {
-  color: black;
-  background: white;
+  color: white;
+  background: #292560;
   font-size: 17px;
   font-weight: 700;
   padding: 12px;
@@ -725,11 +725,10 @@ ul {
 }
 
 .pagination li a {
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.3);
   font-size: 15px;
   font-weight: 700;
-  margin: 0 2px;
+  padding: 1px 7px;
+  color: black;
   border: none;
   border-radius: 0;
   transition: all 0.3s ease 0s;
@@ -739,7 +738,7 @@ ul {
 .pagination li a:focus,
 .pagination li.active a {
   color: #fff;
-  background-color: #000;
+  background-color: #0d6efd;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
@@ -747,6 +746,40 @@ ul {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@media (max-width: 39.9375em) {
+  .email-title,
+.email-content,
+.rating-title,
+.rating-content,
+.time-title,
+.time-content {
+    display: none;
+  }
+}
+
+@media (min-width: 40em) {
+  .time-content {
+    min-width: 200px;
+  }
+}
+
+.admin-navigation {
+  background-color: black;
+  margin: 0;
+}
+@media (max-width: 39.9375em) {
+  .admin-navigation {
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 39.9375em) {
+  .list-of-users,
+.list-upgrade-requests {
+    padding: 0 1rem;
+  }
 }
 
 .card {
@@ -804,13 +837,13 @@ ul {
   font-size: 19px;
 }
 
-.buttons button:nth-child(1) {
+.buttons button {
   border: 1px solid #fdb03d !important;
   color: #fdb03d;
   height: 40px;
 }
 
-.buttons button:nth-child(1):hover {
+.buttons button:hover {
   border: 1px solid #fdb03d !important;
   color: #fff;
   height: 40px;

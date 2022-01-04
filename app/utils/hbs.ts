@@ -21,7 +21,8 @@ const hbs = create({
     isFullStar,
     isEmptyStar,
     getRatingType,
-    checkFavoriteProduct
+    checkFavoriteProduct,
+    parseRating
   },
 });
 
@@ -107,7 +108,11 @@ function isEmptyStar(star: string) {
   return star === 'empty';
 }
 
-function getRatingType(rating: string, type : string){
+function parseRating(rating: number) {
+  return rating ? rating : '';
+}
+
+function getRatingType(rating: string, type: string) {
   return rating === type;
 }
 
