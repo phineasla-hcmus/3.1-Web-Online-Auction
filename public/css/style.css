@@ -58,6 +58,7 @@ html {
 }
 
 body {
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -426,6 +427,11 @@ ul.nav-pills li:hover {
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
   }
+}
+.products__item {
+  display: flex;
+  flex: 1 0 auto;
+  height: 100%;
 }
 .products__item--new {
   background: #fdb03d;

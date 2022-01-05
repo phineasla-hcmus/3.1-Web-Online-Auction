@@ -1,10 +1,11 @@
 <h1 class="h3 text-center">My rating</h1>
 <p class="h4">
-  <i class="fa fa-star text-warning" aria-hidden="true"></i>
+
   {{#if empty}}
     <div class="alert alert-info">You have not received any rates yet </div>
   {{else}}
-    Rating:
+    <i class="fa fa-star text-warning" aria-hidden="true"></i>
+    Rating
     {{ratingPoint}}
     ({{rateNums}}
     reviews)
