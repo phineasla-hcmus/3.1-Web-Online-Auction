@@ -1,48 +1,51 @@
-<h1 class="h3 text-center">My rating</h1>
-<p class="h4">
-  <i class="fa fa-star text-warning" aria-hidden="true"></i>
-  {{#if empty}}
-    <div class="alert alert-info">You have not received any rates yet </div>
-  {{else}}
-    Rating:
-    {{ratingPoint}}
-    ({{rateNums}}
-    reviews)
+<h3 class="text-center">My rating</h3>
+<div style="background-color: white;" class="rounded-3 pt-5 p-4">
+  <p class="h4">
 
-  {{/if}}
-</p>
-<div class="rating__content">
-  {{#each ratingList as |ratingItem|}}
-    <div class="rating__item p-3 mb-3">
-      <div style="gap: 1.25rem" class="d-flex">
-        {{! <p style="font-size: 2rem;" class="rating__title">
+    {{#if empty}}
+      <div class="alert alert-info">You have not received any rates yet </div>
+    {{else}}
+      <i class="fa fa-star text-warning" aria-hidden="true"></i>
+      Rating:
+      {{ratingPoint}}
+      ({{rateNums}}
+      reviews)
+
+    {{/if}}
+  </p>
+  <div class="rating__content">
+    {{#each ratingList as |ratingItem|}}
+      <div class="rating__item p-3 mb-3">
+        <div style="gap: 1.25rem" class="d-flex">
+          {{! <p style="font-size: 2rem;" class="rating__title">
           <i class="fa fa-user-circle" aria-hidden="true"></i>
         </p> }}
-        <div>
-          <p class="mb-0 fw-bold">{{ratingItem.rateName}}</p>
-          {{#if ratingItem.satisfied}}
-            <p class="text-success">Satisfied
-              <i class="fa fa-thumbs-up" aria-hidden="true"></i></p>
-          {{else}}
-            <p class="text-danger">Dissatisfied
-              <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-            </p>
-          {{/if}}
-          <p class="text-secondary mb-0"><span>[{{ratingItem.catName}}]</span>
-            {{ratingItem.proName}}</p>
+          <div>
+            <p class="mb-0 fw-bold">{{ratingItem.rateName}}</p>
+            {{#if ratingItem.satisfied}}
+              <p class="text-success">Satisfied
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i></p>
+            {{else}}
+              <p class="text-danger">Dissatisfied
+                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+              </p>
+            {{/if}}
+            <p class="text-secondary mb-0"><span>[{{ratingItem.catName}}]</span>
+              {{ratingItem.proName}}</p>
 
-          <p class="mb-0">{{ratingItem.comment}}</p>
-          <small style="font-size: 0.7rem;" class="text-secondary">{{parseDate
-              ratingItem.ratingTime
-            }}</small>
+            <p class="mb-0">{{ratingItem.comment}}</p>
+            <small style="font-size: 0.7rem;" class="text-secondary">{{parseDate
+                ratingItem.ratingTime
+              }}</small>
+          </div>
         </div>
       </div>
-    </div>
-    {{#unless ratingItem.last}}
-      <hr />
+      {{#unless ratingItem.last}}
+        <hr />
 
-    {{/unless}}
+      {{/unless}}
 
-  {{/each}}
+    {{/each}}
 
+  </div>
 </div>

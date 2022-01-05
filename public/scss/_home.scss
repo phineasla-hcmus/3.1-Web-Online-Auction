@@ -90,9 +90,9 @@
   }
 
   &__item {
-    // display: flex;
-    // flex: 1 0 auto;
-    // height: 100%;
+    display: flex;
+    flex: 1 0 auto;
+    height: 100%;
     &--new {
       background: $darkYellow;
       color: white;
@@ -297,9 +297,16 @@
     text-align: center;
   }
 
-  &__search,
   &__favorite,
   &__bidding {
+    height: fit-content;
+    @include breakpoint-up(large) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+  }
+  &__search {
     @include breakpoint-up(large) {
       display: grid;
       grid-template-columns: repeat(6, 1fr);

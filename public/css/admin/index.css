@@ -58,6 +58,7 @@ html {
 }
 
 body {
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -149,6 +150,10 @@ ul {
   background-color: #292560 !important;
 }
 
+.bg-light {
+  background-color: #f5f5fa !important;
+}
+
 .owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next {
   font-size: 2rem;
 }
@@ -186,17 +191,30 @@ ul {
   }
 }
 
-.nav-active {
-  background-color: #372dc8;
+.nav-active a {
+  background-color: #ebebf0 !important;
 }
 
-ul.nav-pills li:hover {
-  transition: background-color 200ms ease-in-out;
-  background-color: #372dc8;
+ul.nav-pills li a i {
+  color: #9b9b9b;
+}
+@media (min-width: 40em) {
+  ul.nav-pills li a i {
+    margin-right: 1.25rem;
+  }
+}
+
+ul.nav-pills li a {
+  color: #4a4a4a;
+  padding: 7px 18px;
+}
+
+ul.nav-pills li a:hover {
+  background-color: #ebebf0;
+  color: black;
 }
 
 .panel {
-  font-family: "Raleway", sans-serif;
   padding: 0;
   border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);

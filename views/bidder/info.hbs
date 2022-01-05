@@ -1,18 +1,20 @@
-<h1 class="h3 text-center">Edit personal information</h1>
-<div class="row my-2 m-0">
+<h4 class="text-center">Edit personal information</h4>
+<div style="background-color: white;" class="rounded-3 pt-5 p-4">
   <div class="info__wrapper p-0">
     <div class="d-flex align-items-center justify-content-between">
-      <p class="h5 me-2"><i
+      <p class="h6 me-2"><i
           class="fa fa-envelope pe-2 text-warning"
           aria-hidden="true"
         ></i>
-        <span class="h6">{{user.email}}</span>
+        <span style="font-size: 14px;" class="h6">{{user.email}}</span>
       </p>
 
-      <button id="btnEditEmail" type="button" class="btn btn-primary"><i
-          class="fa fa-pencil"
-          aria-hidden="true"
-        ></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditEmail"
+        type="button"
+        class="btn btn-primary"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
     </div>
     <div style="display: none;" id="emailFormWrapper">
@@ -42,14 +44,17 @@
       </form>
     </div>
     <div class="d-flex align-items-center mt-2 justify-content-between">
-      <p class="h5 me-2">
+      <p class="h6 me-2">
         <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
-        <span class="h6">{{user.firstName}} {{user.lastName}}</span>
+        <span style="font-size: 14px;" class="h6">{{user.firstName}}
+          {{user.lastName}}</span>
       </p>
-      <button id="btnEditName" type="button" class="btn btn-primary"><i
-          class="fa fa-pencil"
-          aria-hidden="true"
-        ></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditName"
+        type="button"
+        class="btn btn-primary"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="nameFormWrapper">
       <form action="changeName" id="frmChangeName" method="post">
@@ -86,9 +91,9 @@
     </div>
     <div class="d-flex h4 mt-2 justify-content-between">
       <div>
-        <i class="fa fa-key pe-2 text-warning" aria-hidden="true"></i>
+        <i class="h6 fa fa-key pe-2 text-warning" aria-hidden="true"></i>
         <input
-          style="background: none; display: inline-block; width: fit-content"
+          style="background: none; display: inline-block; width: fit-content; padding: 0.25rem 0.3rem"
           class="form-control"
           value="123456"
           type="password"
@@ -102,10 +107,12 @@
         id="passError"
         class="alert alert-danger"
       ></div>
-      <button id="btnEditPass" class="btn btn-primary" type="button"><i
-          class="fa fa-pencil"
-          aria-hidden="true"
-        ></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditPass"
+        class="btn btn-primary"
+        type="button"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="passFormWrapper">
       <form id="frmChangePassword" method="post">
