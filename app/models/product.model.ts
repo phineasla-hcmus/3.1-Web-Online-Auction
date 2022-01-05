@@ -62,6 +62,9 @@ export default {
       .where('proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname');
   },
+  async getSellerName(sellerId: any){
+    return db('users').where("userId",sellerId);
+  },
   async findRelatedProduct(proID: any) {
     return db('products')
       .where('products.proid', proID)
@@ -120,6 +123,10 @@ export default {
       .join('users as u', { 'pro.bidderId': 'u.userId' })
       .where('pro.proId', proId)
       .select('auctionhistory.*', 'u.firstname', 'u.lastname');
+  },
+  async getListBidder(proId: any){
+    return db('auctionhistory')
+      .where('proId',proId).join('users',{"auctionhistory.bidderId" : 'users.userId'}).distinct("bidderId","users.firstname","users.lastname");
   },
   async checkIfLike_or_Unlike(bidderId: number, proId: any) {
     const list = await db('watchlist')

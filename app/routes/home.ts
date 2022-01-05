@@ -113,6 +113,13 @@ homeRouter.get('/product', async (req, res) => {
   const detailedProduct = await productModel.findProductbyId(productID);
   detailedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
+    element.userId = userId;
+  });
+
+  const sellerName = await productModel.getSellerName(detailedProduct[0].sellerId);
+
+  detailedProduct.forEach((element) => {
+    element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
   });
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
@@ -121,6 +128,12 @@ homeRouter.get('/product', async (req, res) => {
   });
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
+
+  const listBidder = await productModel.getListBidder(productID);
+
+  listBidder.forEach((element) => {
+    element.bidderName = element.firstname + ' ' + element.lastname;
+  });
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
     userId,
@@ -199,6 +212,7 @@ homeRouter.get('/product', async (req, res) => {
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
     isUserId: isUserId,
+    listBidder: listBidder
   });
 });
 
@@ -215,6 +229,10 @@ homeRouter.post('/product', async (req, res) => {
       const price = parseInt(req.body.price);
       const minimumPrice = parseInt(req.body.minimumPrice);
       const stepPrice = parseInt(req.body.stepPrice);
+
+      const product = await productModel.findProductbyId(proId);
+
+      const numberofbids = product[0].numberOfBids+1;
 
       // check ratio ( does it necessary ?)
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
@@ -238,7 +256,8 @@ homeRouter.post('/product', async (req, res) => {
               userId,
               biddername,
               price,
-              minimumPrice
+              minimumPrice,
+              numberofbids
             ) === true
           )
             //TODO need to reload page
@@ -262,7 +281,8 @@ homeRouter.post('/product', async (req, res) => {
                 userId,
                 biddername,
                 price,
-                newPrice
+                newPrice,
+                numberofbids
               ) === true
             )
               //TODO need to reload page
@@ -283,7 +303,8 @@ homeRouter.post('/product', async (req, res) => {
                 userId,
                 biddername,
                 price,
-                price
+                price,
+                numberofbids
               ) === true
             )
               //TODO need to reload page

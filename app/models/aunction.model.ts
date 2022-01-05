@@ -8,7 +8,7 @@ export default {
       .orderBy('maxPrice', 'DESC');
   },
 
-  bidProductwithPriceLarger(productId: any, uID: any,uName: any, mPrice: any, cPrice: any) {
+  bidProductwithPriceLarger(productId: any, uID: any,uName: any, mPrice: any, cPrice: any,numberofBids: any) {
     const insertAunctionAuto = {
       proId: productId,
       userId: uID,
@@ -32,14 +32,14 @@ export default {
           .then(function (result) {
             db('products')
               .where({ proId: productId })
-              .update({ currentPrice: cPrice ,bidderId: uID})
+              .update({ currentPrice: cPrice ,bidderId: uID,numberOfBids :numberofBids })
               .then(function (result) {
               });
           });
       });
       return true;
   },
-  bidProductWithPriceSmaller(productId: any, uID: any,uName: any ,mPrice: any, cPrice: any){
+  bidProductWithPriceSmaller(productId: any, uID: any,uName: any ,mPrice: any, cPrice: any,numberofBids: any){
     const insertAunctionAuto = {
       proId: productId,
       userId: uID,
@@ -63,7 +63,7 @@ export default {
           .then(function (result) {
             db('products')
               .where({ proId: productId })
-              .update({ currentPrice: cPrice})
+              .update({ currentPrice: cPrice,numberOfBids: numberofBids})
               .then(function (result) {
               });
           });

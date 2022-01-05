@@ -61,6 +61,14 @@ form {
   text-decoration: none;
 }
 
+@media (min-width: 64em) {
+   .products__disable{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+}
+
 /* CSS */
 .addRootButton-pushable, .addChildButton-pushable,.editRootButton-pushable,.deleteRootButton-pushable {
   position: relative;

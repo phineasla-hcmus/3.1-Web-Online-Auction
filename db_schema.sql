@@ -115,6 +115,7 @@ CREATE TABLE `auctionHistory` (
   `bidderId` int unsigned NOT NULL,
   `bidderName` varchar(80) NOT NULL,
   `auctionPrice` int NOT NULL,
+  `isDenied` int default 1, -- 0 is denied , 1 is non
   PRIMARY KEY (`proId`, `auctionTime`,`bidderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -176,6 +177,7 @@ CREATE TABLE `aunctionAuto`(
   `userId` int unsigned NOT NULL,
   `maxPrice` int unsigned NOT NULL,
   `time` datetime NOT NULL,
+  `isDenied` int default 1, -- 0 is denied , 1 is non
   PRIMARY KEY(`proId`,`userId`,`maxPrice`) 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
