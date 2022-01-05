@@ -6,16 +6,16 @@ import productModel from '../models/product.model';
 const sellerRouter = Router();
 
 //TODO PhineasLa
-sellerRouter.get('/viewPostedProduct', async function (req, res) {
-  res.render('seller/viewPostedProduct', {
+sellerRouter.get('/my-product', async function (req, res) {
+  res.render('seller/myProduct', {
     layout: 'bidder',
     postedProduct: true,
   });
 });
 
 //TODO PhineasLa
-sellerRouter.get('/uploadProduct', async function (req, res) {
-  res.render('seller/uploadProduct', {
+sellerRouter.get('/add-product', async function (req, res) {
+  res.render('seller/addProduct', {
     layout: 'bidder',
     uploadProduct: true,
   });

@@ -25,7 +25,7 @@ const hbs = create({
     checkFavoriteProduct,
     parseRating,
     isDisableProduct,
-    isSellerOfThis
+    isSellerOfThis,
   },
 });
 
@@ -61,7 +61,7 @@ function getRemainingTime(date: string) {
 }
 
 function maskBidderName(bidderName: string) {
-  if (bidderName != undefined) {
+  if (bidderName != undefined && bidderName.length != 0) {
     const lastname = bidderName.substring(4);
     const mask = '*'.repeat(4);
     return mask + lastname;
@@ -70,7 +70,6 @@ function maskBidderName(bidderName: string) {
 }
 
 function isFavorite(proId: any, listFavorite: any) {
-
   return listFavorite.some(function (e1: any) {
     return e1.proId === proId;
   });
@@ -84,8 +83,8 @@ function isSeller(roleId: number) {
   return roleId === 3;
 }
 
-function isBidderOrSeller(roleId: number){
-  return roleId ===2 || roleId===3;
+function isBidderOrSeller(roleId: number) {
+  return roleId === 2 || roleId === 3;
 }
 function isAdmin(roleId: number) {
   return roleId === 4;
@@ -122,8 +121,8 @@ function getRatingType(rating: string, type: string) {
   return rating === type;
 }
 
-function isDisableProduct(isDisable: number){
-  return isDisable ===1;
+function isDisableProduct(isDisable: number) {
+  return isDisable === 1;
 }
 function isSellerOfThis(sellerId: number, userId: number){
   return sellerId===userId;
@@ -157,4 +156,3 @@ async function checkFavoriteProduct(userId: any, proId: number) {
   const check = await productModel.checkIfLike_or_Unlike(userId.userId, proId);
   return true;
 }
-

@@ -1,137 +1,194 @@
 {{#section "scripts"}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/public/js/admin/manageUser.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="/public/js/admin/manageUser.js"></script>
 {{/section}}
-<div>
-    <h3 class="text-center">Manage users</h3>
-    <div class="list-of-users">
-        {{#if emptyList}}
-            <div class="alert alert-info">There are not any users</div>
-        {{else}}
-            <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
-                <input type="hidden" id="txtUserDowngrade" name="downid" />
-            </form>
-            <div class="row m-0">
-                <div class="col-md-12 px-0">
-                    <div class="panel">
-                        <div class="panel-body table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th class="email-title">Email</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th class="rating-title">Rating</th>
-                                        <th colspan="2">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="list-user">
-                                    {{#each pagingUserList as |item|}}
-                                        <tr>
-                                            <td>{{item.userId}}</td>
-                                            <td class="hide-overflow email-content">{{item.email}}</td>
-                                            <td class="hide-overflow">{{item.firstname}}</td>
-                                            <td>{{item.lastname}}</td>
-                                            <td class="rating-content">{{parseRating item.rating}}</td>
-                                            <td><a href="/admin/manage/users/{{item.userId}}" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
-                                            {{#if (isSeller item.roleId)}}
-                                                <td>
-                                                    <a data-id="{{item.userId}}" href="javascript:;" class="btn btn-danger downgrade">Downgrade</a>
-                                                </td>
-                                            {{/if}}
-                                        </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer bg-secondary">
-                            <nav id="paginatorUser" class="products__pagination" aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                                    </li>
-                                    {{#each pagesUser}}
-                                        <li class="page-item"><a role="button" class="page-link"
-                                                    href="javascript:;">{{value}}</a></li>
-                                    {{/each}}
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+<h4 class="text-center">Manage users</h4>
+<div style="background-color: white;" class="rounded-3">
+  <div class="list-of-users">
+    {{#if emptyList}}
+      <div class="alert alert-info">There are not any users</div>
+    {{else}}
+      <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
+        <input type="hidden" id="txtUserDowngrade" name="downid" />
+      </form>
+      <div class="row m-0">
+        <div class="col-md-12 px-0">
+          <div class="panel">
+            <div class="panel-body table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th class="email-title">Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th class="rating-title">Rating</th>
+                    <th colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="list-user">
+                  {{#each pagingUserList as |item|}}
+                    <tr>
+                      <td>{{item.userId}}</td>
+                      <td
+                        class="hide-overflow email-content"
+                      >{{item.email}}</td>
+                      <td class="hide-overflow">{{item.firstname}}</td>
+                      <td>{{item.lastname}}</td>
+                      <td class="rating-content">{{parseRating
+                          item.rating
+                        }}</td>
+                      <td><a
+                          href="/admin/manage/users/{{item.userId}}"
+                          class="btn btn-sm btn-warning text-white"
+                        ><i class="fa fa-search"></i></a></td>
+                      {{#if (isSeller item.roleId)}}
+                        <td class="downgrade-wrapper">
+                          <a
+                            data-id="{{item.userId}}"
+                            href="javascript:;"
+                            class="btn btn-danger downgrade"
+                          >Downgrade</a>
+                        </td>
+                      {{/if}}
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
-        {{/if}}
-    </div>
-    <div class="list-upgrade-requests mt-3">
-        <h4>Upgrade requests</h4>
-        {{#if emptyRequest}}
-            <div class="alert alert-info">There are not any requests</div>
-        {{else}}
-            <form action="/admin/approveRequest" method="post" id="frmApprove">
-                <input type="hidden" id="txtUserApprove" name="approveid" />
-            </form>
-             <form action="/admin/declineRequest" method="post" id="frmDecline">
-                <input type="hidden" id="txtUserDecline" name="declineid" />
-            </form>
-            <div class="row m-0">
-                <div class="col-md-12 px-0">
-                    <div class="panel">
-                        <div class="panel-body table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th class="email-title">Email</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th class="time-title">Register time</th>
-                                        <th>Rating</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="list-request">
-                                    {{#each pagingRequestList as |item|}}
-                                        <tr>
-                                            <td>{{item.userId}}</td>
-                                            <td class="hide-overflow email-content">{{item.email}}</td>
-                                            <td class="hide-overflow">{{item.firstname}}</td>
-                                            <td>{{item.lastname}}</td>
-                                            <td class="time-content">{{parseDate item.registerTime}}</td>
-                                            <td class="hide-overflow">{{item.rating}}</td>
-                                            <td style="min-width: 100px;">
-                                                <ul class="action-list">
-                                                    <li><a data-id="{{item.userId}}" href="#" class="btn btn-success approveRequest"><i class="fa fa-check" aria-hidden="true"></i></a></li>
-                                                    <li><a data-id="{{item.userId}}" href="#" class="btn btn-danger declineRequest"><i class="fa fa-times"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer bg-secondary">
-                           <nav id="paginatorRequest" class="products__pagination" aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                                    </li>
-                                    {{#each pagesRequest}}
-                                        <li class="page-item"><a role="button" class="page-link"
-                                                    href="javascript:;">{{value}}</a></li>
-                                    {{/each}}
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+            <div class="panel-footer bg-secondary">
+              <nav
+                id="paginatorUser"
+                class="products__pagination"
+                aria-label="..."
+              >
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1"><i
+                        class="fa fa-chevron-left"
+                        aria-hidden="true"
+                      ></i></a>
+                  </li>
+                  {{#each pagesUser}}
+                    <li class="page-item"><a
+                        role="button"
+                        class="page-link"
+                        href="javascript:;"
+                      >{{value}}</a></li>
+                  {{/each}}
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i
+                        class="fa fa-chevron-right"
+                        aria-hidden="true"
+                      ></i></a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-        {{/if}}
-    </div>
-</div
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  <div class="list-upgrade-requests mt-3">
+    <h4>Upgrade requests</h4>
+    {{#if emptyRequest}}
+      <div class="alert alert-info">There are not any requests</div>
+    {{else}}
+      <form action="/admin/approveRequest" method="post" id="frmApprove">
+        <input type="hidden" id="txtUserApprove" name="approveid" />
+      </form>
+      <form action="/admin/declineRequest" method="post" id="frmDecline">
+        <input type="hidden" id="txtUserDecline" name="declineid" />
+      </form>
+      <div class="row m-0">
+        <div class="col-md-12 px-0">
+          <div class="panel">
+            <div class="panel-body table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th class="email-title">Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th class="time-title">Register time</th>
+                    <th>Rating</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="list-request">
+                  {{#each pagingRequestList as |item|}}
+                    <tr>
+                      <td>{{item.userId}}</td>
+                      <td
+                        class="hide-overflow email-content"
+                      >{{item.email}}</td>
+                      <td class="hide-overflow">{{item.firstname}}</td>
+                      <td>{{item.lastname}}</td>
+                      <td class="time-content">{{parseDate
+                          item.registerTime
+                        }}</td>
+                      <td class="hide-overflow">{{item.rating}}</td>
+                      <td style="min-width: 100px;">
+                        <ul class="action-list">
+                          <li><a
+                              data-id="{{item.userId}}"
+                              href="#"
+                              class="btn btn-success approveRequest"
+                            ><i
+                                class="fa fa-check"
+                                aria-hidden="true"
+                              ></i></a></li>
+                          <li><a
+                              data-id="{{item.userId}}"
+                              href="#"
+                              class="btn btn-danger declineRequest"
+                            ><i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-footer bg-secondary">
+              <nav
+                id="paginatorRequest"
+                class="products__pagination"
+                aria-label="..."
+              >
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1"><i
+                        class="fa fa-chevron-left"
+                        aria-hidden="true"
+                      ></i></a>
+                  </li>
+                  {{#each pagesRequest}}
+                    <li class="page-item"><a
+                        role="button"
+                        class="page-link"
+                        href="javascript:;"
+                      >{{value}}</a></li>
+                  {{/each}}
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i
+                        class="fa fa-chevron-right"
+                        aria-hidden="true"
+                      ></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>

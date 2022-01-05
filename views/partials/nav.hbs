@@ -49,7 +49,7 @@
           {{user.firstName}} {{user.lastName}}
         </a>
         
-        <ul style="min-width: 100%;" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul style="min-width: 100%" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           {{#if (isBidder user.roleId)}}
             <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
             <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
@@ -63,8 +63,8 @@
             <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
             <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
             <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
-            <li><a class="dropdown-item" href="/seller/viewPostedProduct">Posted product</a></li>
-            <li><a class="dropdown-item" href="/seller/uploadProduct">Upload product</a></li>
+            <li><a class="dropdown-item" href="/seller/my-product">Posted product</a></li>
+            <li><a class="dropdown-item" href="/seller/add-product">Upload product</a></li>
           {{/if}}
           {{#if (isAdmin user.roleId)}}
             <li><a class="dropdown-item" href="/admin/manage/categories">Manage categories</a></li>
@@ -144,8 +144,8 @@
             <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
             <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
             <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
-            <li><a class="dropdown-item" href="/seller/viewPostedProduct">Posted product</a></li>
-            <li><a class="dropdown-item" href="/seller/uploadProduct">Upload product</a></li>
+            <li><a class="dropdown-item" href="/seller/my-product">Posted product</a></li>
+            <li><a class="dropdown-item" href="/seller/add-product">Upload product</a></li>
             {{/if}}
             {{#if (isAdmin user.roleId)}}
               <li class="header__menu--item"><a href="/admin/manage/categories">Manage categories</a></li>

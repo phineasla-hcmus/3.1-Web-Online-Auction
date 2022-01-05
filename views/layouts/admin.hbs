@@ -25,46 +25,48 @@
 
     {{{section.stylesheets}}}
   </head>
-  <body>
+  <body class="bg-light">
     <header class="header">{{>nav}}</header>
-    <div class="myContainer myContainer--py">
-      <div>
-          <div class="admin-navigation row rounded">
-            <div
-                class="d-flex align-items-center align-items-sm-start text-white"
+    <div
+      class="myContainer myContainer--py pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto"
+    >
+      <div class="row m-0 flex-grow-sm-1 flex-grow-0 pt-1 w-100">
+        <aside
+          class="col-sm-3 flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0 pb-3"
+        >
+          <div>
+            {{user.firstname}} {{user.lastname}}
+          </div>
+          <div class="bg-light px-0 h-100 sticky-top admin-wrapper">
+            <ul
+              class="nav nav-pills flex-sm-column flex-row mb-auto text-truncate"
             >
-                <ul
-                style="margin: 0 auto"
-                class="nav nav-pills mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                id="menu"
-                >
-                  <li class="rounded mx-2 py-1 px-2 {{#if category}}nav-active{{/if}}">
-                      <a href="/admin/manage/categories" class="nav-link align-middle px-0 text-white fw-bold">
-                      
-                      <i style="font-size: 1.375rem;" class="fa fa-list-alt" aria-hidden="true"></i>
-                      <span class="ms-1 d-none d-sm-inline">Manage categories</span>
-                      </a>
-                  </li>
-                  <li class="rounded mx-2 py-1 px-2 {{#if product}}nav-active{{/if}}">
-                      <a
-                      href="/admin/manage/products"
-                      class="nav-link px-0 align-middle text-white fw-bold"
-                      >
-                      <i style="font-size: 1.375rem;" class="fa fa-archive" aria-hidden="true"></i>
-                      <span class="ms-1 d-none d-sm-inline">Manage products</span>
-                      </a>
-                  </li>
-                  <li class="rounded mx-2 py-1 px-2 {{#if users}}nav-active{{/if}}">
-                      <a href="/admin/manage/users" class="nav-link px-0 align-middle text-white fw-bold">
-                      <i style="font-size: 1.375rem;" class="fa fa-user" aria-hidden="true"></i>
-                      <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
-                  </li>
-                </ul>
-            </div>
+              <li class="{{#if category}}nav-active{{/if}}">
+                  <a href="/admin/manage/categories" class="nav-link align-middle">
+                  <i class="fa fa-list-alt" aria-hidden="true"></i>
+                  <span class="ms-1 d-none d-sm-inline">Manage categories</span>
+                  </a>
+              </li>
+                <li class="{{#if product}}nav-active{{/if}}">
+                    <a
+                    href="/admin/manage/products"
+                    class="nav-link align-middle"
+                    >
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <span class="ms-1 d-none d-sm-inline">Manage products</span>
+                    </a>
+                </li>
+                <li class="{{#if users}}nav-active{{/if}}">
+                    <a href="/admin/manage/users" class="nav-link align-middle">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="ms-1 d-none d-sm-inline">Manage users</span></a>
+                </li>
+            </ul>
           </div>
-          <div class="col pt-0 pe-0 mt-3">
-              {{{body}}}  
-          </div>
+        </aside>
+        <main class="col-sm-9">
+          {{{body}}}  
+        </main>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

@@ -239,6 +239,7 @@
       & h3 {
         // font-size: 20px;
         // font-size: 1.25rem;
+        max-width: 10rem;
         font-size: 1rem;
         @include breakpoint-up(medium) {
           font-size: 0.75rem;
