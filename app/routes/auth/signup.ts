@@ -7,7 +7,7 @@ import { RoleType } from '../../models/role.model';
 import { addUser } from '../../models/user.model';
 import { sendVerify } from '../../utils/email';
 import logger from '../../utils/logger';
-import signUpValidator from '../../validators/signup.validator';
+import { signUpValidator } from '../../validators/user.validator';
 
 const signUpRouter = Router();
 

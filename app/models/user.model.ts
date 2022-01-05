@@ -42,9 +42,9 @@ export async function findUserByEmail(email: string, columns?: UserColumn[]) {
  * @default ```SELECT * FROM users WHERE userId=?```
  * @param userId
  * @param columns specify which columns to SELECT, override default
- * @returns
+ * @returns `Express.User` by default, or an object contain selected columns
  */
-export async function findUserById(userId: number, columns?: UserColumn[]) {
+export async function findUserById(userId: any, columns?: UserColumn[]) {
   const query =
     columns && columns.length
       ? knex.column(columns).select().from<User>('users')
@@ -118,6 +118,6 @@ export async function updateBidderToSeller(userId: any) {
   });
 }
 
-export async function getRatingUser(userId: any){
-  return knex('users').where({userId});
+export async function getRatingUser(userId: any) {
+  return knex('users').where({ userId });
 }

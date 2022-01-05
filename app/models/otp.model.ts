@@ -18,20 +18,6 @@ export async function findOtp(
 }
 
 /**
- *
- * @param userId
- * @returns a token string if found, else `undefined`
- */
-// export async function findOtp(userId: any): Promise<string | undefined> {
-//   //TODO@phineasla: merge getOtp and findOtp
-//   return knex('otp')
-//     .where({ userId })
-//     .select('token')
-//     .first()
-//     .then((v) => v?.token);
-// }
-
-/**
  * Insert token into `otp` table, if `userId` is already existed, overwrite the old token
  * @param userId
  * @returns the token generated, haven't test if knex throws any error though
@@ -54,8 +40,9 @@ export async function addOtp(userId: any, otpType: OtpType) {
 /**
  *
  * @param userId
+ * @param otpType
  * @returns `1` if delete successfully, else `0`
  */
-export async function deleteOtp(userId: any) {
-  return knex('otp').where({ userId }).del();
+export async function deleteOtp(userId: any, otpType: OtpType) {
+  return knex('otp').where({ userId, otpType }).del();
 }
