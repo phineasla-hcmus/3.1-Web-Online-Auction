@@ -42,12 +42,12 @@ insert into products values(9, 'Samsung Galaxy Z Flip3 5G', 5, "900", "100", "20
 insert into products values(10, 'Apple iPad Pro 12.9 2021 M1 5G 256GB', 6, "1300", "150", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
 insert into products values(11, 'iPad Pro 12.9 2020 4G 128GB', 6, "1100", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
 insert into products values(12, 'Apple iPad mini 6 4G 256G', 6, "900", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
-insert into products values(13, 'Samsung Galaxy S20 FE 256GB (Fan Edition)', 5, "500", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
+insert into products values(13, 'Samsung Galaxy S20 FE 256GB (Fan Edition)', 5, "500", "100", "2021-11-30 08:20:30", "2022-01-04 09:30:00", 8, 1, 2, 1,1);
 insert into products values(14, 'ASUS ROG Phone 5', 5, "800", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
 insert into products values(15, 'Xiaomi Mi 11 Lite 5G', 5, "350", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
-insert into products values(16, 'Samsung Galaxy Note 20 Ultra 5G', 5, "1000", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
+insert into products values(16, 'Samsung Galaxy Note 20 Ultra 5G', 5, "1000", "100", "2021-11-30 08:20:30", "2022-01-04 09:30:00", 8, 1, 2, 1,1);
 insert into products values(17, 'Xiaomi Pad 5', 6, "400", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
-insert into products values(18, 'Samsung Galaxy Tab S7', 6, "800", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
+insert into products values(18, 'Samsung Galaxy Tab S7', 6, "800", "100", "2021-11-30 08:20:30", "2022-01-04 09:30:00", 8, 1, 2, 1,1);
 insert into products values(19, 'Samsung Galaxy Tab S7 Plus', 6, "1050", "100", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 8, 1, 2, 1,1);
 
 insert into watchlist values(1, 1);

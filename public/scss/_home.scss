@@ -90,9 +90,9 @@
   }
 
   &__item {
-    // display: flex;
-    // flex: 1 0 auto;
-    // height: 100%;
+    display: flex;
+    flex: 1 0 auto;
+    height: 100%;
     &--new {
       background: $darkYellow;
       color: white;
