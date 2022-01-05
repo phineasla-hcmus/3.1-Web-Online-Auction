@@ -58,9 +58,13 @@
             <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
           {{/if}}
           {{#if (isSeller user.roleId)}}
-            <li><a class="dropdown-item" href="/">Upload product</a></li>
-            <li><a class="dropdown-item" href="/">Bidding List</a></li>
-            <li><a class="dropdown-item" href="/">Winning List</a></li>
+            <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
+            <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
+            <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
+            <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
+            <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+            <li><a class="dropdown-item" href="/seller/viewPostedProduct">Posted product</a></li>
+            <li><a class="dropdown-item" href="/seller/uploadProduct">Upload product</a></li>
           {{/if}}
           {{#if (isAdmin user.roleId)}}
             <li><a class="dropdown-item" href="/admin/manage/categories">Manage categories</a></li>
@@ -135,14 +139,18 @@
               </li>
             {{/if}}
             {{#if (isSeller user.roleId)}}
-              <li class="header__menu--item"><a href="/">Upload product</a></li>
-              <li class="header__menu--item"><a href="/">Bidding List</a></li>
-              <li class="header__menu--item"><a href="/">Winning List</a></li>
+              <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
+            <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
+            <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
+            <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
+            <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+            <li><a class="dropdown-item" href="/seller/viewPostedProduct">Posted product</a></li>
+            <li><a class="dropdown-item" href="/seller/uploadProduct">Upload product</a></li>
             {{/if}}
             {{#if (isAdmin user.roleId)}}
-              <li class="header__menu--item"><a href="/">Manage categories</a></li>
-              <li class="header__menu--item"><a href="/">Manage products</a></li>
-              <li class="header__menu--item"><a href="/">Winning users</a></li>
+              <li class="header__menu--item"><a href="/admin/manage/categories">Manage categories</a></li>
+              <li class="header__menu--item"><a href="/admin/manage/products">Manage products</a></li>
+              <li class="header__menu--item"><a href="/admin/manage/users">Winning users</a></li>
             {{/if}}
           </ul>
 

@@ -65,6 +65,7 @@ export default {
   async findRelatedProduct(proID: any) {
     return db('products')
       .where('products.proid', proID)
+      .where("products.isDisable",1)
       .join('products AS relatedProduct', {
         'products.catId': 'relatedProduct.catId',
       })
@@ -72,7 +73,7 @@ export default {
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .join('users', { 'relatedProduct.bidderId': 'users.userId' })
       .limit(5)
-      .select('relatedProduct.*', 'users.firstname', 'users.lastname').where("isDisable",1);
+      .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
   // perform full-text search
   async findProductByKeyword(

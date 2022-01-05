@@ -15,6 +15,7 @@ import loginRouter from './routes/auth/login';
 import { recoveryRouter, verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
 import bidderRouter from './routes/bidder';
+import sellerRouter from './routes/seller';
 import homeRouter from './routes/home';
 import hbs from './utils/hbs';
 
@@ -106,7 +107,7 @@ app.use('/auth/recovery', recoveryRouter);
 
 app.use('/bidder', bidderRouter);
 app.use('/admin', adminRouter);
-
+app.use('/seller',sellerRouter);
 async function test() {
   // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
 }
