@@ -28,7 +28,7 @@ export default {
   //           });
   //       });
   //   },
-  async denyBidder(proId: any, bidderId: any) {
+  async denyBidder(proId: any, bidderId: any,priceUpdate: any) {
     return db('deniedbidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
@@ -39,7 +39,12 @@ export default {
             db('auctionhistory')
               .where({ proId: proId, bidderId: bidderId })
               .update({ isDenied: 0 })
-              .then();
+              .then(function (result){
+                db('products')
+                .where({ proId: proId})
+                .update({ currentPrice:priceUpdate })
+                .then();
+              });
           });
       });
   },

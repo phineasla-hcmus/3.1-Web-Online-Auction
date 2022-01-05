@@ -61,7 +61,7 @@ export default {
   },
   async findProductbyId(proId: any) {
     return db('products')
-      .join('users', { 'products.bidderId': 'users.userId' })
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .where('proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname');
   },
@@ -77,7 +77,7 @@ export default {
       })
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
-      .join('users', { 'relatedProduct.bidderId': 'users.userId' })
+      .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
@@ -146,4 +146,7 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist').where('bidderId', bidderId);
   },
+  async getDeniedBidder(proId: any){
+    return db('deniedbidder').where({proId:proId});
+  }
 };

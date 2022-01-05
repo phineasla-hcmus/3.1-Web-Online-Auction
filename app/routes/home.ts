@@ -117,7 +117,8 @@ homeRouter.get('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
-  console.log(detailedProduct);
+  const listofDeniedBidder = await productModel.getDeniedBidder(productID);
+  
   detailedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
     element.userId = userId;
@@ -130,7 +131,8 @@ homeRouter.get('/product', async (req, res) => {
   detailedProduct.forEach((element) => {
     element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
   });
-  console.log("huhu");
+  
+
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   listRelatedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
@@ -148,7 +150,7 @@ homeRouter.get('/product', async (req, res) => {
     userId,
     productID
   );
-  console.log("huhu");
+  
   if (userId != 0) {
     for (let i = 0; i < listRelatedProduct.length; i++) {
       listRelatedProduct[i].user = res.locals.user;
@@ -173,14 +175,15 @@ homeRouter.get('/product', async (req, res) => {
   const bidderRating = await getRatingUser(detailedProduct[0].bidderId);
   const sellerRating = await getRatingUser(detailedProduct[0].sellerId);
 
-  detailedProduct[0].bidderRating = bidderRating[0].rating
-    ? bidderRating[0].rating
+  detailedProduct[0].bidderRating = bidderRating[0] ? bidderRating[0].rating  : 'x';
+ 
+  detailedProduct[0].sellerRating = sellerRating[0]
+    ? sellerRating[0].rating
     : 'x';
-  detailedProduct[0].sellerRating = sellerRating[0].rating
-    ? bidderRating[0].rating
-    : 'x';
+
   if (userId != 0) {
     const userRating = await getRatingUser(userId);
+
     if (userRating[0].rating === null) {
       if (detailedProduct[0].isAllowRating == '1')
         detailedProduct[0].userRating = 1;
@@ -222,6 +225,7 @@ homeRouter.get('/product', async (req, res) => {
     FavoriteProduct: FavoriteProduct,
     isUserId: isUserId,
     listBidder: listBidder,
+    listofDeniedBidder: listofDeniedBidder
   });
 });
 

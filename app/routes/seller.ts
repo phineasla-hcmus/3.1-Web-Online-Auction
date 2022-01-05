@@ -26,13 +26,15 @@ sellerRouter.post('/denyBidder', async function (req, res) {
   const bidderId = req.body.bidderId;
   const stepPrice = req.body.stepPrice;
 
+  const maxPriceOfUserInHistory = await  aunctionModel.findMaxPriceOfUserInHistory(proId,bidderId);
 
+  
   const productDetail = await productModel.findProductbyId(proId);
   const basePrice=productDetail[0].basePrice;
   const highestBidder = productDetail[0].bidderId;
 
   if(highestBidder!= bidderId){
-    sellerModel.denyBidder(proId,bidderId);
+    sellerModel.denyBidder(proId,bidderId,maxPriceOfUserInHistory[0].auctionPrice);
     const url = req.headers.referer || '/';
     res.redirect(url);
   }

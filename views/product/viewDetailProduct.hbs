@@ -53,14 +53,14 @@
                                         <strong>
                                             Seller:
                                         </strong>
-                                        {{#unless ../empty}}
+                                       
                                     </th>
                                     <td>
                                         {{maskBidderName sellerName}} &nbsp; {{sellerRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
-                                    {{/unless}}
+                              
                                 </tr>
                                 <tr>
                                     <th class="pl-0 w-50" scope="row">
@@ -68,12 +68,12 @@
                                             Highest Bidder:
                                         </strong>
                                     </th>
-                                    {{#unless ../empty}}
+                               
                                     <td>
                                         {{maskBidderName bidderName}} &nbsp; {{bidderRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
                                     </td>
-                                    {{/unless}}
+                                
                                 </tr>
                                 <tr>
                                     <th class="pl-0 w-50" scope="row">
@@ -137,10 +137,12 @@
                             </form>
                             {{/if}}
                             {{#if (isSellerOfThis this.sellerId this.userId)}}
-
                             {{else}}
 
-                            <form id="bidAction" method="post" action="/product" hidden>
+                                {{#if (isDiniedUser ../listofDeniedBidder this.userId)}}
+                                <h3>You are dinied to bid this product.</h3>
+                                {{else}}
+                                <form id="bidAction" method="post" action="/product" hidden>
                                 {{#if (getRatingType userRating 1)}}
                                 <p class="d-flex justify-content-center">
                                     <strong>Minimum Bid Price:&nbsp </strong>
@@ -178,6 +180,7 @@
                             <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
                                 Bid now
                             </button>
+                                {{/if}}
                             {{/if}}
                         </div>
                         {{/if}}
