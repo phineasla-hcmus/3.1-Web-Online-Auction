@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
-import { findUserByEmail, updateUser } from '../models/user.model';
-import { check } from 'express-validator';
+import { updateUser, updateUserName } from '../models/user.model';
 
 const bidderRouter = Router();
 
@@ -20,41 +19,25 @@ bidderRouter.get('/info', async function (req, res) {
   });
 });
 
-bidderRouter.post('/info', async function (req, res) {
+bidderRouter.get('/changeEmail', async function (req, res) {
+  const newEmail: any = req.query.email;
   const userId = res.locals.user.userId;
-  const newEmail = req.body.email;
-  // const firstname = req.body.firstname;
-  // const lastname = req.body.lastname;
-  // const newName = firstname + ' ' + lastname;
-  // const oldpass = req.body.oldpass;
-  // const newpass = req.body.newpass;
-  if (newEmail) {
-    check(newEmail, 'Email is not valid')
-      .isEmail()
-      .custom(async (email) => {
-        const user = await findUserByEmail(email);
-        if (user) {
-          throw new Error('E-mail already in use');
-        }
-      });
-    res.locals.user.email = newEmail;
+  const alreadyUsed = await bidderModel.isAlreadyUsed(newEmail, userId);
+  if (alreadyUsed) res.json(alreadyUsed);
+  else {
     await updateUser(userId, { email: newEmail });
+    const url = req.headers.referer || '/';
+    res.redirect(url);
   }
-  // else if (newName) {
-  //   res.locals.user.firstName = firstname;
-  //   res.locals.user.lastName = lastname;
-  //   await updateUserName(userId, firstname, lastname);
-  // }
-  const status = await bidderModel.getBidderStatus(res.locals.user.userId);
-  let registered = false;
-  if (status[0].status != null) {
-    registered = true;
-  }
-  res.render('bidder/info', {
-    layout: 'bidder',
-    info: true,
-    registered,
-  });
+});
+
+bidderRouter.post('/changeName', async function (req, res) {
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const userId = res.locals.user.userId;
+  await updateUserName(userId, firstname, lastname);
+  const url = req.headers.referer || '/';
+  res.redirect(url);
 });
 
 bidderRouter.post('/upgrade', async function (req, res) {
@@ -124,13 +107,23 @@ bidderRouter.get('/currentbids', async function (req, res) {
 
 bidderRouter.get('/rating', async function (req, res) {
   const ratingList = await bidderModel.getRatingList(res.locals.user.userId);
-  ratingList.forEach((element) => {
+  ratingList.forEach((element, index) => {
     element.rateName = element.firstname + ' ' + element.lastname;
+    if (index === ratingList.length - 1) {
+      element.last = true;
+    }
   });
+  const rateNums = ratingList.length;
+  const satisfiedList = ratingList.filter((item) => item.satisfied === 1);
+  const ratingPoint = (satisfiedList.length / rateNums) * 10;
+
   res.render('bidder/rating', {
     layout: 'bidder',
     ratingList,
     rating: true,
+    empty: ratingList.length === 0,
+    rateNums,
+    ratingPoint,
   });
 });
 

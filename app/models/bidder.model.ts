@@ -5,9 +5,16 @@ export default {
   async getRatingList(userId: number) {
     return db('ratingHistory')
       .join('products as p', { 'ratingHistory.proId': 'p.proId' })
+      .join('categories as cat', { 'p.catId': 'cat.catId' })
       .join('users as u', { 'ratingHistory.rateId': 'u.userId' })
       .where('ratingHistory.userId', userId)
-      .select('ratingHistory.*', 'p.proName', 'u.firstname', 'u.lastname');
+      .select(
+        'ratingHistory.*',
+        'p.proName',
+        'u.firstname',
+        'u.lastname',
+        'cat.catName'
+      );
   },
   async getFavoriteList(bidderId: number) {
     return db('watchlist')
@@ -26,6 +33,13 @@ export default {
   async isAlreadyRated(proId: number) {
     const ratingList = await db('ratingHistory').where('proId', proId);
     if (ratingList.length === 0) return false;
+    return true;
+  },
+  async isAlreadyUsed(email: string, userId: number) {
+    const usedList = await db('users')
+      .whereNot('userId', userId)
+      .andWhere('email', email);
+    if (usedList.length === 0) return false;
     return true;
   },
   async getCurrentBids(bidderId: number) {

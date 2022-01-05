@@ -609,15 +609,11 @@ ul.nav-pills li:hover {
   text-align: center;
 }
 @media (min-width: 64em) {
-  .products__search, .products__favorite, .products__bidding,.products__disable {
+  .products__search, .products__favorite, .products__bidding {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
   }
-}
-
-.nav-active {
-  background-color: #372dc8;
 }
 
 .bidder__wrapper {
