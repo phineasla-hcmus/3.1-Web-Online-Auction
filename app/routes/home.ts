@@ -12,17 +12,23 @@ homeRouter.get('/', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const nearEndList = await productModel.findNearEndProducts();
   nearEndList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
   });
 
   const mostBidsList = await productModel.findMostBidsProducts();
   mostBidsList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
   });
 
   const highestPriceList = await productModel.findHighestPriceProducts();
   highestPriceList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
   });
 
   //get favorite Product
@@ -116,7 +122,9 @@ homeRouter.get('/product', async (req, res) => {
     element.userId = userId;
   });
 
-  const sellerName = await productModel.getSellerName(detailedProduct[0].sellerId);
+  const sellerName = await productModel.getSellerName(
+    detailedProduct[0].sellerId
+  );
 
   detailedProduct.forEach((element) => {
     element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
@@ -212,7 +220,7 @@ homeRouter.get('/product', async (req, res) => {
     amountPic: numberofPic,
     FavoriteProduct: FavoriteProduct,
     isUserId: isUserId,
-    listBidder: listBidder
+    listBidder: listBidder,
   });
 });
 
@@ -232,7 +240,7 @@ homeRouter.post('/product', async (req, res) => {
 
       const product = await productModel.findProductbyId(proId);
 
-      const numberofbids = product[0].numberOfBids+1;
+      const numberofbids = product[0].numberOfBids + 1;
 
       // check ratio ( does it necessary ?)
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
