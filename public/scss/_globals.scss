@@ -181,3 +181,13 @@ ul.nav-pills li a:hover {
 //   transition: background-color 200ms ease-in-out;
 //   background-color: #eee;
 // }
+.hide-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dropdown-menu[data-bs-popper] {
+  left: inherit;
+  right: 0;
+}
