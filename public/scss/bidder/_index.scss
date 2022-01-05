@@ -4,3 +4,8 @@
     padding: 0;
   }
 }
+aside {
+  @include breakpoint-up(medium) {
+    padding-left: 0 !important;
+  }
+}

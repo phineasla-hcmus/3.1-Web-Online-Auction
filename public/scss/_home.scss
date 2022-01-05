@@ -297,9 +297,16 @@
     text-align: center;
   }
 
-  &__search,
   &__favorite,
   &__bidding {
+    height: fit-content;
+    @include breakpoint-up(large) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+  }
+  &__search {
     @include breakpoint-up(large) {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
