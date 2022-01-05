@@ -203,6 +203,11 @@ ul.nav-pills li a i {
     margin-right: 1.25rem;
   }
 }
+@media (max-width: 39.9375em) {
+  ul.nav-pills li a i {
+    font-size: 1.25rem;
+  }
+}
 
 ul.nav-pills li a {
   color: #4a4a4a;
@@ -274,6 +279,7 @@ ul.nav-pills li a:hover {
   font-weight: 700;
   padding: 12px;
   border-bottom: none;
+  max-width: 10rem;
 }
 
 .panel .panel-body .table thead tr th:nth-of-type(1) {
@@ -292,6 +298,7 @@ ul.nav-pills li a:hover {
   padding: 13px;
   vertical-align: middle;
   border-color: #e7e7e7;
+  max-width: 10rem;
 }
 
 .panel .panel-body .table tbody tr:nth-child(odd) td {
@@ -378,9 +385,15 @@ ul.nav-pills li a:hover {
 }
 
 @media (max-width: 39.9375em) {
-  .list-of-users,
-.list-upgrade-requests {
-    padding: 0 1rem;
+  .downgrade-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 39.9375em) {
+  .admin-wrapper {
+    width: fit-content;
+    margin: 0 auto;
   }
 }
 

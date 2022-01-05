@@ -50,6 +50,7 @@
   font-weight: 700;
   padding: 12px;
   border-bottom: none;
+  max-width: 10rem;
 }
 .panel .panel-body .table thead tr th:nth-of-type(1) {
   width: 120px;
@@ -65,6 +66,7 @@
   padding: 13px;
   vertical-align: middle;
   border-color: #e7e7e7;
+  max-width: 10rem;
 }
 .panel .panel-body .table tbody tr:nth-child(odd) td {
   background: #f5f5f5;
@@ -146,9 +148,21 @@
   }
 }
 
-.list-of-users,
-.list-upgrade-requests {
+// .list-of-users,
+// .list-upgrade-requests {
+//   @include breakpoint-down(small) {
+//     padding: 0 1rem;
+//   }
+// }
+
+.downgrade-wrapper {
   @include breakpoint-down(small) {
-    padding: 0 1rem;
+    display: none;
+  }
+}
+.admin-wrapper {
+  @include breakpoint-down(small) {
+    width: fit-content;
+    margin: 0 auto;
   }
 }
