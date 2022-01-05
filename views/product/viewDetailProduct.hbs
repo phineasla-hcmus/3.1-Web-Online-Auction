@@ -53,12 +53,14 @@
                                         <strong>
                                             Seller:
                                         </strong>
+                                        {{#unless ../empty}}
                                     </th>
                                     <td>
                                         {{maskBidderName sellerName}} &nbsp; {{sellerRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
+                                    {{/unless}}
                                 </tr>
                                 <tr>
                                     <th class="pl-0 w-50" scope="row">
@@ -188,6 +190,7 @@
                                     <th scope="col">Time</th>
                                     <th scope="col">Bidder</th>
                                     <th scope="col">Price</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -196,6 +199,11 @@
                                     <td>{{parseDate history.auctionTime}}</td>
                                     <td>{{maskBidderName history.bidderName}}</td>
                                     <td>{{history.auctionPrice}} USD</td>
+                                    {{#if history.isDenied}}
+                                    <td> ACCEPT</td>
+                                    {{else}}
+                                    <td> DENIED</td>
+                                    {{/if}}
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -228,6 +236,7 @@
                                 <form method="post" action="/seller/denyBidder">
                                     <input type="hidden" value="{{listbidder.bidderId}}" name="bidderId">
                                     <input type="hidden" value="{{../proId}}" name="proId">
+                                    <input type="hidden" value="{{../stepPrice}}" name="stepPrice">
                                     <button type="submit" class="btn btn-danger"> DENY </button>
                                 </form>
                             </li>

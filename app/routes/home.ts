@@ -111,17 +111,18 @@ homeRouter.get('/product', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
+  console.log(detailedProduct);
   detailedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
     element.userId = userId;
   });
-
+  console.log("detailedProduct");
   const sellerName = await productModel.getSellerName(detailedProduct[0].sellerId);
 
   detailedProduct.forEach((element) => {
     element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
   });
-
+  console.log("huhu");
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   listRelatedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
@@ -139,7 +140,7 @@ homeRouter.get('/product', async (req, res) => {
     userId,
     productID
   );
-
+  console.log("huhu");
   if (userId != 0) {
     for (let i = 0; i < listRelatedProduct.length; i++) {
       listRelatedProduct[i].user = res.locals.user;

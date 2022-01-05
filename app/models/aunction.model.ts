@@ -7,6 +7,11 @@ export default {
       .where('proId', '=', proId)
       .orderBy('maxPrice', 'DESC');
   },
+  async findMaxPriceInHistory(proId: any){
+    return db('auctionHistory')
+    .where('proId', '=', proId)
+    .orderBy('auctionPrice', 'DESC').where({isDenied:1});
+  },
 
   bidProductwithPriceLarger(productId: any, uID: any,uName: any, mPrice: any, cPrice: any,numberofBids: any) {
     const insertAunctionAuto = {

@@ -75,6 +75,8 @@ CREATE TABLE `products` (
   `proId` int unsigned NOT NULL AUTO_INCREMENT,
   `proName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `catId` int unsigned NOT NULL,
+  `basePrice` int unsigned NOT NULL,
+  `buynowPrice` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
   `stepPrice` int unsigned DEFAULT NULL,
   `postDate` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -82,8 +84,8 @@ CREATE TABLE `products` (
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
-  `isAllowRating` int NOT NULL,  -- 1 is allow , 0 is not allow
-  `isDisable` int NOT NULL,  -- 1 is active , 0 is disable  // for admin add to deleting product
+  `isAllowRating` int NOT NULL,  -- 1 is allow to bid for user who don't have Rating , 0 is not allow
+  `isDisable` int default 1,  -- 1 is active , 0 is disable  // for admin add to deleting product
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -126,10 +126,9 @@ function isDisableProduct(isDisable: number){
   return isDisable ===1;
 }
 function isSellerOfThis(sellerId: number, userId: number){
-  console.log("sellerID ",sellerId);
-  console.log("userID", userId);
   return sellerId===userId;
 }
+
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
  * @example
