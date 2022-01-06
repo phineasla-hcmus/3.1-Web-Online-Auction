@@ -4,13 +4,14 @@
             <p>
                 <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 {{numberOfProducts}} products found for the keyword '<span class="text-danger">{{keyword}}</span>'</p>
-            <div>
+            <div style="background-color: #eee; padding: 10px">
                 Sort by:
-                <select id="sort-option" name="sortby" class="selectbox">
-                    <option style="display: none;">None</option>
-                    <option value="by-expired-date">Descending expired date</option>
-                    <option value="by-price">Ascending Price</option>
-                </select>
+                <form id="sortOption" action="/search" method="get">
+                    <input type="hidden" name="keyword" value={{keyword}}>
+                    <input id="sortby" type="hidden" name="sortby">
+                </form>
+                <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
+                <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
             </div> 
         </div>  
         <div class="mt-5">
