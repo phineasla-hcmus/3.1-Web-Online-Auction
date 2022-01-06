@@ -1,7 +1,5 @@
-import { buildCheckFunction, check, param, query } from 'express-validator';
+import { query } from 'express-validator';
 import { findOtp, OtpType } from '../models/otp.model';
-
-const checkBodyAndQuery = buildCheckFunction(['body', 'query']);
 
 export const recoveryTokenValidator = query('token')
   .notEmpty()

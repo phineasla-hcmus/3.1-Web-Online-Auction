@@ -8,15 +8,15 @@ import path from 'path';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
-import categoryModel from './models/category.model';
+import { getSubcategoryList, getCategoryList } from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import { recoveryRouter, verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
 import bidderRouter from './routes/bidder';
-import sellerRouter from './routes/seller';
 import homeRouter from './routes/home';
+import sellerRouter from './routes/seller';
 import hbs from './utils/hbs';
 
 const app = express();
@@ -83,8 +83,8 @@ app.use((req, res, next) => {
 });
 
 app.use(async function (req, res, next) {
-  res.locals.parentCategories = await categoryModel.findParentCategory();
-  res.locals.childCategories = await categoryModel.findChildCategory();
+  res.locals.parentCategories = await getCategoryList();
+  res.locals.childCategories = await getSubcategoryList();
   next();
 });
 
@@ -107,7 +107,7 @@ app.use('/auth/recovery', recoveryRouter);
 
 app.use('/bidder', bidderRouter);
 app.use('/admin', adminRouter);
-app.use('/seller',sellerRouter);
+app.use('/seller', sellerRouter);
 async function test() {
   // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
 }

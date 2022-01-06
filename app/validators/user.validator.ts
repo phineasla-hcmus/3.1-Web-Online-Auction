@@ -12,7 +12,7 @@ const passwordLength = {
   max: 50,
 };
 
-export const registerEmailValidator = body('email', 'Email is not valid')
+export const newEmailValidator = body('email', 'Email is not valid')
   .isEmail()
   .bail()
   .custom(async (email) => {
@@ -36,6 +36,14 @@ export const confirmPasswordValidator = body('passwordConfirmation').custom(
     return true;
   }
 );
+
+export const firstNameValidator = body('firstName')
+  .isLength(nameLength)
+  .withMessage('First name too long');
+
+export const lastNameValidator = body('lastName')
+  .isLength(nameLength)
+  .withMessage('Last name too long');
 
 export const recaptchaValidator = body('g-recaptcha-response').custom(
   async (recaptcha) => {
@@ -68,11 +76,11 @@ export const dobValidator = body('dob').custom((dob) => {
 });
 
 export const signUpValidator = [
-  registerEmailValidator,
+  newEmailValidator,
   passwordValidator,
   confirmPasswordValidator,
   recaptchaValidator,
-  body('firstName').isLength(nameLength).withMessage('First name too long'),
-  body('lastName').isLength(nameLength).withMessage('Last name too long'),
+  firstNameValidator,
+  lastNameValidator,
   dobValidator,
 ];
