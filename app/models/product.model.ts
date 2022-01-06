@@ -88,7 +88,7 @@ export default {
     limit: number
   ) {
     // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
+    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -99,7 +99,7 @@ export default {
     limit: number
   ) {
     // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by expiredDate DESC limit ${limit} offset ${offset}`;
+    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by expiredDate DESC limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -110,7 +110,7 @@ export default {
     limit: number
   ) {
     // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by currentPrice ASC limit ${limit} offset ${offset}`;
+    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by currentPrice ASC limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },
