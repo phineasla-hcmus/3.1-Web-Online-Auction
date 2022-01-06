@@ -129,7 +129,10 @@ export default {
   },
   async getListBidder(proId: any) {
     return db('auctionhistory')
-      .where('proId',proId).where('isDenied',1).join('users',{"auctionhistory.bidderId" : 'users.userId'}).distinct("bidderId","users.firstname","users.lastname");
+      .where('proId', proId)
+      .where('isDenied', 1)
+      .join('users', { 'auctionhistory.bidderId': 'users.userId' })
+      .distinct('bidderId', 'users.firstname', 'users.lastname');
   },
   async checkIfLike_or_Unlike(bidderId: number, proId: any) {
     const list = await db('watchlist')
@@ -146,7 +149,7 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist').where('bidderId', bidderId);
   },
-  async getDeniedBidder(proId: any){
-    return db('deniedbidder').where({proId:proId});
-  }
+  async getDeniedBidder(proId: any) {
+    return db('deniedbidder').where({ proId: proId });
+  },
 };

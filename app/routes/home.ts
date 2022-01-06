@@ -118,7 +118,7 @@ homeRouter.get('/product', async (req, res) => {
   const isUserId = res.locals.user ? 1 : 0;
   const detailedProduct = await productModel.findProductbyId(productID);
   const listofDeniedBidder = await productModel.getDeniedBidder(productID);
-  
+
   detailedProduct.forEach((element) => {
     element.bidderName = element.firstname + ' ' + element.lastname;
     element.userId = userId;
@@ -131,7 +131,6 @@ homeRouter.get('/product', async (req, res) => {
   detailedProduct.forEach((element) => {
     element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
   });
-  
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   listRelatedProduct.forEach((element) => {
@@ -150,7 +149,7 @@ homeRouter.get('/product', async (req, res) => {
     userId,
     productID
   );
-  
+
   if (userId != 0) {
     for (let i = 0; i < listRelatedProduct.length; i++) {
       listRelatedProduct[i].user = res.locals.user;
@@ -175,8 +174,10 @@ homeRouter.get('/product', async (req, res) => {
   const bidderRating = await getRatingUser(detailedProduct[0].bidderId);
   const sellerRating = await getRatingUser(detailedProduct[0].sellerId);
 
-  detailedProduct[0].bidderRating = bidderRating[0] ? bidderRating[0].rating  : 'x';
- 
+  detailedProduct[0].bidderRating = bidderRating[0]
+    ? bidderRating[0].rating
+    : 'x';
+
   detailedProduct[0].sellerRating = sellerRating[0]
     ? sellerRating[0].rating
     : 'x';
@@ -225,7 +226,7 @@ homeRouter.get('/product', async (req, res) => {
     FavoriteProduct: FavoriteProduct,
     isUserId: isUserId,
     listBidder: listBidder,
-    listofDeniedBidder: listofDeniedBidder
+    listofDeniedBidder: listofDeniedBidder,
   });
 });
 
@@ -275,11 +276,10 @@ homeRouter.post('/product', async (req, res) => {
               numberofbids
             ) === true
           )
-
-          //TODO Phineas Mail 
-          //Tới :
-          // seller là sản phẩm này(Proid) giá được cập nhật = minimumPrice , 
-          // userId là đấu giá thành công sản phẩm này với giá = price
+            //TODO Phineas Mail
+            //Tới :
+            // seller là sản phẩm này(Proid) giá được cập nhật = minimumPrice ,
+            // userId là đấu giá thành công sản phẩm này với giá = price
 
             //TODO need to reload page
             return res.json({
@@ -307,12 +307,11 @@ homeRouter.post('/product', async (req, res) => {
                 numberofbids
               ) === true
             )
-
-            //TODO Phineas Mail 
-          //Tới :
-          // seller là sản phẩm này(Proid) giá được cập nhật = newPrice , 
-          // userId là đấu giá thành công sản phẩm này với giá = price
-          // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
+              //TODO Phineas Mail
+              //Tới :
+              // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
+              // userId là đấu giá thành công sản phẩm này với giá = price
+              // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
 
               //TODO need to reload page
               return res.json({
@@ -336,12 +335,12 @@ homeRouter.post('/product', async (req, res) => {
                 numberofbids
               ) === true
             )
-            //TODO Phineas Mail 
-          //Tới :
-          // seller là sản phẩm này(Proid) giá được cập nhật = price , 
-          // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
-  
-            //TODO need to reload page
+              //TODO Phineas Mail
+              //Tới :
+              // seller là sản phẩm này(Proid) giá được cập nhật = price ,
+              // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
+
+              //TODO need to reload page
               return res.json({
                 status: 'info',
                 msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
@@ -372,6 +371,7 @@ homeRouter.post('/product', async (req, res) => {
 
 homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
+  const sortby = req.query.sortby;
   if (keyword) {
     const amountPro: any = await productModel.countProductByKeyword(keyword);
     const limitpage = 6;
@@ -383,11 +383,23 @@ homeRouter.get('/search', async (req, res) => {
     const offset = (page - 1) * limitpage;
     const listofPage = [];
 
-    const list = await productModel.findProductByKeyword(
-      keyword,
-      offset,
-      limitpage
-    );
+    let list = [];
+    if (sortby === 'date') {
+      list = await productModel.findProductByExpiredDate(
+        keyword,
+        offset,
+        limitpage
+      );
+    } else if (sortby === 'price') {
+      list = await productModel.findProductByPrice(keyword, offset, limitpage);
+    } else {
+      list = await productModel.findProductByKeyword(
+        keyword,
+        offset,
+        limitpage
+      );
+    }
+
     const userId = res.locals.user ? res.locals.user.userId : 0;
     if (userId != 0) {
       const listFavorite = await bidderModel.getFavoriteList(userId);
@@ -404,7 +416,9 @@ homeRouter.get('/search', async (req, res) => {
       }
     }
     list.forEach((element: any) => {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+      if (element.firstname != null && element.lastname != null) {
+        element.bidderName = element.firstname + ' ' + element.lastname;
+      } else element.bidderName = '';
     });
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({
@@ -418,6 +432,8 @@ homeRouter.get('/search', async (req, res) => {
       empty: list.length === 0,
       keyword: keyword,
       numberOfProducts: amountPro,
+      sortByDate: sortby === 'date',
+      sortByPrice: sortby === 'price',
     });
   }
 });
@@ -459,7 +475,9 @@ homeRouter.get(
         }
       }
       list.forEach((element: any) => {
-        element.bidderName = element.firstname + ' ' + element.lastname;
+        if (element.firstname != null && element.lastname != null) {
+          element.bidderName = element.firstname + ' ' + element.lastname;
+        } else element.bidderName = '';
       });
 
       for (let i = 1; i <= numPage; i++) {
@@ -510,7 +528,9 @@ homeRouter.get('/search/get-list-products-by-price', async (req, res) => {
       }
     }
     list.forEach((element: any) => {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+      if (element.firstname != null && element.lastname != null) {
+        element.bidderName = element.firstname + ' ' + element.lastname;
+      } else element.bidderName = '';
     });
     for (let i = 1; i <= numPage; i++) {
       listofPage.push({

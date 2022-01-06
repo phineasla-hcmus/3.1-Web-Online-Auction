@@ -191,3 +191,10 @@ ul.nav-pills li a:hover {
   left: inherit;
   right: 0;
 }
+.btnSort {
+  background-color: white;
+  &.active {
+    background-color: $darkBlue;
+    color: white;
+  }
+}

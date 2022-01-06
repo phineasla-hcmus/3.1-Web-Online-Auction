@@ -230,6 +230,14 @@ ul.nav-pills li a:hover {
   right: 0;
 }
 
+.btnSort {
+  background-color: white;
+}
+.btnSort.active {
+  background-color: #292560;
+  color: white;
+}
+
 .panel {
   padding: 0;
   border: none;
