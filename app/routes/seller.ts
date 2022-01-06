@@ -43,20 +43,28 @@ sellerRouter.post('/denyBidder', async function (req, res) {
       proId);
     const highestUserHistory = highestUserInHistoryList[0].bidderId;
     const SecondhighestUserHistory =highestUserInHistoryList[1]?highestUserInHistoryList[1].bidderId:0;
-    console.log(SecondhighestUserHistory);
+   
     if(highestUserHistory!=highestBidder){
-      
+      //TODO Phineas Mail
+      //Tới:
+      //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) , sẽ được không được đấu giá nữa.
       sellerModel.denyHighestBidder(proId,bidderId,highestUserInHistoryList[0].auctionPrice,highestUserHistory);
       const url = req.headers.referer || '/';
       res.redirect(url);
     }
     else{
       if(SecondhighestUserHistory!=0){
+        //TODO Phineas Mail
+      //Tới:
+      //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa. 
         sellerModel.denyHighestBidder(proId,bidderId,highestUserInHistoryList[1].auctionPrice,SecondhighestUserHistory);
         const url = req.headers.referer || '/';
         res.redirect(url);
       }
       else{
+        //TODO Phineas Mail
+      //Tới:
+      //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa. 
         sellerModel.denyHighestBidder(proId,bidderId,basePrice,0);
         const url = req.headers.referer || '/';
         res.redirect(url);

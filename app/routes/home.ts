@@ -245,6 +245,7 @@ homeRouter.post('/product', async (req, res) => {
 
       const product = await productModel.findProductbyId(proId);
 
+      const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
 
       // check ratio ( does it necessary ?)
@@ -262,6 +263,7 @@ homeRouter.post('/product', async (req, res) => {
         });
       } else {
         const UsermaxPrice = await aunctionModel.findMaxPrice(proId);
+
         if (UsermaxPrice.length === 0) {
           if (
             aunctionModel.bidProductwithPriceLarger(
@@ -273,6 +275,12 @@ homeRouter.post('/product', async (req, res) => {
               numberofbids
             ) === true
           )
+
+          //TODO Phineas Mail 
+          //Tới :
+          // seller là sản phẩm này(Proid) giá được cập nhật = minimumPrice , 
+          // userId là đấu giá thành công sản phẩm này với giá = price
+
             //TODO need to reload page
             return res.json({
               status: 'success',
@@ -286,6 +294,7 @@ homeRouter.post('/product', async (req, res) => {
           }
         } else {
           const maxPrice: number = UsermaxPrice[0].maxPrice;
+          const userwithMaxPrice = UsermaxPrice[0].bidderId;
           if (maxPrice < price) {
             const newPrice = maxPrice + stepPrice;
             if (
@@ -298,6 +307,13 @@ homeRouter.post('/product', async (req, res) => {
                 numberofbids
               ) === true
             )
+
+            //TODO Phineas Mail 
+          //Tới :
+          // seller là sản phẩm này(Proid) giá được cập nhật = newPrice , 
+          // userId là đấu giá thành công sản phẩm này với giá = price
+          // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
+
               //TODO need to reload page
               return res.json({
                 status: 'success',
@@ -320,7 +336,12 @@ homeRouter.post('/product', async (req, res) => {
                 numberofbids
               ) === true
             )
-              //TODO need to reload page
+            //TODO Phineas Mail 
+          //Tới :
+          // seller là sản phẩm này(Proid) giá được cập nhật = price , 
+          // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
+  
+            //TODO need to reload page
               return res.json({
                 status: 'info',
                 msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
