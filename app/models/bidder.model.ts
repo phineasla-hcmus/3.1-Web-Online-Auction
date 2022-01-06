@@ -19,7 +19,7 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist')
       .join('products as p', { 'watchlist.proId': 'p.proId' })
-      .join('users', { 'p.bidderId': 'users.userId' })
+      .leftJoin('users', { 'p.bidderId': 'users.userId' })
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
       .select('p.*', 'users.firstname', 'users.lastname');
@@ -28,7 +28,7 @@ export default {
     return db('products')
       .where('bidderId', bidderId)
       .andWhere('expiredDate', '<', new Date())
-      .join('users as u', { 'products.sellerId': 'u.userId' });
+      .leftJoin('users as u', { 'products.sellerId': 'u.userId' });
   },
   async isAlreadyRated(proId: number) {
     const ratingList = await db('ratingHistory').where('proId', proId);
