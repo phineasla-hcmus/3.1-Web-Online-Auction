@@ -231,13 +231,13 @@ homeRouter.get('/product', async (req, res) => {
 });
 
 homeRouter.post('/product', async (req, res) => {
-  const userId = res.locals.user ? res.locals.user.userId : 0;
-
+  const user = req.user;
   const content = req.body.content;
+  // const userId = req.user ? res.locals.user.userId : 0;
 
-  if (userId != null) {
-    const biddername =
-      res.locals.user.firstName + ' ' + res.locals.user.lastName;
+  if (user) {
+    const { userId, firstName, lastName } = user;
+    const biddername = firstName + ' ' + lastName;
     if (content === 'Submit') {
       const proId = req.body.proId;
       const price = parseInt(req.body.price);
@@ -249,7 +249,7 @@ homeRouter.post('/product', async (req, res) => {
       const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
 
-      // check ratio ( does it necessary ?)
+      //TODO check ratio (is it necessary?)
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
         return res.json({
           status: 'error',

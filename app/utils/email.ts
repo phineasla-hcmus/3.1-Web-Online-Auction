@@ -3,34 +3,14 @@ import { compile } from 'handlebars';
 import { createTransporter } from '../config/nodemailer';
 import { MAIL_SENDER } from '../config/secret';
 
-/**
- *
- * @param to Recepient
- * @param otp Verification code
- * @param from default to `process.env.MAIL_SENDER`
- */
-// export async function sendVerify(to: string, otp: string) {
-//   const raw = await fs.readFile('./emails/verify.html', 'utf-8');
-//   // Can be improved with precompile handlebars template
-//   const template = compile(raw);
-//   const html = template({ email: to, otp });
-//   const transporter = await createTransporter();
-//   return transporter.sendMail({
-//     subject: 'Verify your email',
-//     from: MAIL_SENDER,
-//     to,
-//     html,
-//   });
-// }
-
-export async function sendVerify(to: string, otp: string) {
+export async function sendVerify(to: string | string[], otp: string) {
   return sendTemplate('./emails/verify.html', to, 'Verify your email', {
     email: to,
     otp,
   });
 }
 
-export async function sendRecovery(to: string, otp: string) {
+export async function sendRecovery(to: string | string[], otp: string) {
   return sendTemplate('./emails/recovery.html', to, 'Reset your password', {
     email: to,
     otp,
@@ -39,7 +19,7 @@ export async function sendRecovery(to: string, otp: string) {
 
 async function sendTemplate(
   filepath: string,
-  to: string,
+  to: string | string[],
   subject: string,
   context: any
 ) {
