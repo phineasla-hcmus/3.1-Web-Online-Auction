@@ -48,6 +48,9 @@
               class="fa fa-trophy text-warning"
               aria-hidden="true"
             >{{maskBidderName bidderName}}</i>
+            {{#if (isSellerOfThis this.sellerId user.userId)}}
+            {{else}}
+            
             {{#if (isBidderOrSeller user.roleId)}}
               {{#if (isFavorite proId FavoriteProduct)}}
                 <form method="post" style="text-align: end;" action="/product">
@@ -156,7 +159,7 @@
                 </form>
               {{/if}}
             {{/if}}
-
+          {{/if}}
           </p>
         </div>
         <ul>

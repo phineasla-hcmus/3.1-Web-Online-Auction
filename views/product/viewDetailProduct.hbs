@@ -13,7 +13,8 @@
                             <div class="products__content owl-carousel owl-theme" style="padding-right:3em;">
                                 {{#each ../amountPic as |pics|}}
                                 <a data-target="#pic-1" data-toggle="tab">
-                                    <img style="max-width: 100px; margin: 0 auto" src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
+                                    <img style="max-width: 100px; margin: 0 auto"
+                                        src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
                                         id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')"
                                         class="subPic" />
                                 </a>
@@ -53,14 +54,14 @@
                                         <strong>
                                             Seller:
                                         </strong>
-                                       
+
                                     </th>
                                     <td>
                                         {{maskBidderName sellerName}} &nbsp; {{sellerRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
-                              
+
                                 </tr>
                                 <tr>
                                     <th class="pl-0" scope="row">
@@ -68,12 +69,12 @@
                                             Highest Bidder:
                                         </strong>
                                     </th>
-                               
+
                                     <td>
                                         {{maskBidderName bidderName}} &nbsp; {{bidderRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
                                     </td>
-                                
+
                                 </tr>
                                 <tr>
                                     <th class="pl-0" scope="row">
@@ -98,6 +99,8 @@
                             </tbody>
                         </table>
                         {{#if ../isUserId}}
+                        {{#if (isSellerOfThis this.sellerId this.userId)}}
+                        {{else}}
                         <div></div>
                         <div class="action1" style="text-align: center;">
 
@@ -136,16 +139,15 @@
                                 </button>
                             </form>
                             {{/if}}
-                            {{#if (isSellerOfThis this.sellerId this.userId)}}
-                            {{else}}
 
-                                {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
-                                <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
-                                    You are denied to bid this product.
-                                </p>
-                                {{!-- <h3>You are denied to bid this product.</h3> --}}
-                                {{else}}
-                                <form id="bidAction" method="post" action="/product" hidden>
+
+                            {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
+                            <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
+                                You are denied to bid this product.
+                            </p>
+                            {{!-- <h3>You are denied to bid this product.</h3> --}}
+                            {{else}}
+                            <form id="bidAction" method="post" action="/product" hidden>
                                 {{#if (getRatingType userRating 1)}}
                                 <p class="d-flex justify-content-center">
                                     <strong>Minimum Bid Price:&nbsp </strong>
@@ -183,9 +185,10 @@
                             <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
                                 Bid now
                             </button>
-                                {{/if}}
                             {{/if}}
+
                         </div>
+                        {{/if}}
                         {{/if}}
                         {{#if ../empty}}
                         <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
@@ -221,7 +224,7 @@
             </div>
             <div>&nbsp;</div>
             {{#if (isSellerOfThis this.sellerId this.userId)}}
-            
+
             <div class=" ">
                 <h1 class="products__title">
                     List Bidder
@@ -262,7 +265,16 @@
                 <div class="description-content">
                     {{fullDes}}
                 </div>
+                {{#if (isSellerOfThis this.sellerId this.userId)}}
+                <div style="text-align: center;">
+                <button id="bidButton" class="bid btn btn-default" type="button" onclick="" >
+                    Update
+                </button>
+                </div>
+                {{/if}}
             </div>
+
+
 
             {{/each}}
             <div class="">
@@ -295,22 +307,22 @@
             1200: {
                 items: 5,
             },
-            
+
         },
     })
     $(".owl-carousel").owlCarousel({
-    //loop:true,
-    margin: 10,
-    nav: true,
-    responsive: {
-        0: {
-        items: 5,
+        //loop:true,
+        margin: 10,
+        nav: true,
+        responsive: {
+            0: {
+                items: 5,
+            },
+
         },
-        
-    },
     });
-      
-    </script>
+
+</script>
 {{/section}}
 
 {{#section "stylesheets"}}
