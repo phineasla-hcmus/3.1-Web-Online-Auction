@@ -238,6 +238,10 @@ ul.nav-pills li a:hover {
   color: white;
 }
 
+.w-40 {
+  width: 40% !important;
+}
+
 .panel {
   padding: 0;
   border: none;
