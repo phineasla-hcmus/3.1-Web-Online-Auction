@@ -18,6 +18,25 @@ document.getElementById("bidAction").onsubmit = async function (e) {
         toastr.info(resJson.msg);
 };
 
+document.getElementById("likeAction").onsubmit = async function (e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+  });
+  const resJson = await res.json();
+  if(resJson.status === "like")
+      toastr.success(resJson.msg);
+  if(resJson.status==="unlike")
+      toastr.success(resJson.msg);
+};
+
+
 // $('#bidAction').submit(function (e) {
 //   e.preventDefault(); // avoid to execute the actual submit of the form.
 //   console.log('ENTERING');

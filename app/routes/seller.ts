@@ -75,7 +75,7 @@ sellerRouter.post('/cancelTransaction', async function (req, res) {
 //TODO PhineasLa
 sellerRouter.get('/add-product', async function (req, res) {
   const listSubCategory = await getSubcategoryList();
-  console.log(listSubCategory);
+  console.log(req.body);
   res.render('seller/addProduct', {
     layout: 'bidder',
     uploadProduct: true,

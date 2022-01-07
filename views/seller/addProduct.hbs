@@ -1,42 +1,115 @@
-<h3 style="text-align: center;">Add Product</h3>
+<h3 class="fw-bold" style="text-align: center;">Add Product</h3>
 <form id="addProductForm" method="post" enctype="multipart/form-data" action="/seller/add-product">
   <div class="card">
     <div class="card-body">
       <div class="form-group">
         <div class="item">
-          <h6 for="name">Name<span>*:</span></h6>
-          <input id="name" type="text" name="name" required />
-        </div>
-        <div class="item">
-          <h6>Category<span>*</span>: &nbsp; <select>
-              <option selected value="" disabled selected></option>
-              {{#each listSubCategory}}
-              <option value="{{catId}}">{{catName}}</option>
-              {{/each}}
-            </select>
-          </h6>
-        </div>
-        <div class="item">
-          <h6 for="price">Base price<span>*</span>:</h6>
-          <input id="price" type="number" name="price" step="any" required />
-        </div>
-        <div class="item">
-          <h6 for="step">Step price<span>*</span>:</h6>
-          <input id="step" type="number" name="step" step="any" required />
-        </div>
-        <div class="item">
-          <h6 for="buyNowPrice">Buy now price: </h6>
-          <input id="buyNowPrice" type="number" name="buyNowPrice" step="any" />
-        </div>
-        <div class="item">
-          <h6>Expired After<span>*</span>: &nbsp; <select>
-              <option selected value="" disabled selected></option>
-              <option value="1 week">1 week</option>
-              <option value="1 month">1 month</option>
-              <option value="3 months">3 months</option>
-              <option value="6 months">6 months</option>
-            </select>
-          </h6>
+          <table class="table table-sm table-borderless mb-0">
+            <tbody>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Name<span style="color:red">*</span>:
+                  </h4>
+                </th>
+                <td>
+                  <input id="name" type="text" name="name" required />
+                </td>
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Category<span style="color:red">*</span>:
+                  </h4>
+                </th>
+                <td>
+                  <select name="category">
+                    <option selected value="" disabled selected></option>
+                    {{#each listSubCategory}}
+                    <option value="{{catId}}">{{catName}}</option>
+                    {{/each}}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Base price<span style="color:red">*</span>:
+                  </h4>
+
+                </th>
+                <td>
+                  <input id="price" type="number" name="basePrice" step="any" required />
+                </td>
+
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Step price<span style="color:red">*</span>:
+                  </h4>
+                </th>
+
+                <td>
+                  <input id="step" type="number" name="stepPrice" step="any" required />
+                </td>
+
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Buy now price:
+                  </h4>
+                </th>
+                <td>
+                  <input id="buyNowPrice" type="number" name="buyNowPrice" step="any" />
+                </td>
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Expired After<span style="color:red">*</span>:
+                  </h4>
+                </th>
+                <td>
+                  <input type="number" name="timeNum" /> &nbsp; <select name="timeType">
+                    <option selected value="hour">hour</option>
+                    <option value="day">day</option>
+                    <option value="week">week</option>
+                    <option value="month">month</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Allow non-rated bidder:
+                  </h4>
+                </th>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="isAllow">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th class="pl-0" scope="row">
+                  <h4>
+                    Auto extend limit:
+                  </h4>
+                </th>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="isAuto">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         {{!-- <div class="question">
           <h6>Allow bidding for bidder which doesn't have rating?</h6>
@@ -53,7 +126,7 @@
         </div> --}}
         <textarea id="tinymce-input">Hello, World!</textarea>
         <div class="form-group">
-          <h6 for="images">Photo<span style="color: red;">*</span> <small>(Required at least 3 picture)</small></h6>
+          <h4 for="images">Photo<span style="color: red;">*</span> <small>(Required at least 3 picture)</small></h4>
           <input id="images" type="file" class="filepond" name="images">
         </div>
       </div>
