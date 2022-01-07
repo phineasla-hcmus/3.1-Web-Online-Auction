@@ -1,5 +1,5 @@
 <section class="products">
-    <div class="myContainer myContainer--py">
+    <div class="myContainer myContainer--py products__wrapper">
         <div class="mt-3">
             <p>
                 <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
@@ -11,8 +11,10 @@
                     <input id="sortby" type="hidden" name="sortby">
                     <input id="currentpage" type="hidden" name="page" value="1">
                 </form>
-                <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
-                <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
+                <div class="mt-3">
+                    <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
+                    <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
+                </div>
             </div> 
         </div>  
         <div class="mt-5">

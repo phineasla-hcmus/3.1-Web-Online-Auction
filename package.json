@@ -39,6 +39,7 @@
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
     "sass": "^1.43.5",
+    "tinymce": "^5.10.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

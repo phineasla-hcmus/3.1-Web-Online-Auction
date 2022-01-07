@@ -7,8 +7,8 @@
   ></script>
   <script src="/public/js/admin/manageUser.js"></script>
 {{/section}}
-<h4 class="text-center">Manage users</h4>
-<div style="background-color: white;" class="rounded-3">
+<div style="background-color: white;" class="rounded-3 p-3">
+  <h1 class="text-center fw-bold h3">Manage users</h1>
   <div class="list-of-users">
     {{#if emptyList}}
       <div class="alert alert-info">There are not any users</div>
@@ -16,6 +16,7 @@
       <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
         <input type="hidden" id="txtUserDowngrade" name="downid" />
       </form>
+      <h2 class="h4">List of users</h2>
       <div class="row m-0">
         <div class="col-md-12 px-0">
           <div class="panel">
@@ -96,7 +97,7 @@
     {{/if}}
   </div>
   <div class="list-upgrade-requests mt-3">
-    <h4>Upgrade requests</h4>
+    <h2 class="h4">Upgrade requests</h2>
     {{#if emptyRequest}}
       <div class="alert alert-info">There are not any requests</div>
     {{else}}
