@@ -1,41 +1,61 @@
-<h3>Add Product</h3>
-{{! Yeet tạm của thầy để test multer }}
+<h3 style="text-align: center;">Add Product</h3>
 <form method="post" enctype="multipart/form-data">
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          autofocus
-        />
-      </div>
+
+        <div class="item">
+          <h6 for="name">Name<span>*:</span></h6>
+          <input id="name" type="text" name="name" required/>
+        </div>
+        <div class="item">
+          <h6>Category<span>*</span>: &nbsp; <select>
+            <option selected value="" disabled selected></option>
+            {{#each listSubCategory}}
+            <option value="{{catId}}" >{{catName}}</option>
+            {{/each}}
+          </select>
+          </h6>
+        </div>
+        <div class="item">
+          <h6 for="phone">Base price<span>*</span>:</h6>
+          <input id="phone" type="number" name="phone" required/>
+        </div>
+        <div class="item">
+          <h6 for="phone">Step price<span>*</span>:</h6>
+          <input id="phone" type="number" name="phone" required/>
+        </div>
+        <div class="item">
+          <h6 for="phone">Buy now price: </h6>
+          <input id="phone" type="number" name="phone"/>
+        </div>
+        <div class="item">
+          <h6>Expired After<span>*</span>: &nbsp; <select>
+            <option selected value="" disabled selected></option>
+            <option value="1 week" >1 week</option>
+            <option value="1 month">1 month</option>
+            <option value="3 months">3 months</option>
+            <option value="6 months">6 months</option>
+          </select>
+          </h6>
+        </div>
+        <div class="question">
+          <h6>Is allow bidding for bidder which doesn't have rating?</h6>
+          <div class="question-answer">
+            <div>
+              <input type="radio" value="none" id="radio_1" name="gender"/>
+              <label for="radio_1" class="radio"><span>Yes</span></label>
+            </div>
+            <div>
+              <input  type="radio" value="none" id="radio_2" name="gender"/>
+              <label for="radio_2" class="radio"><span>No</span></label>
+            </div>
+          </div>
+        </div>
       <div class="form-group">
-        <label for="price">Price</label>
-        <input
-          type="number"
-          class="form-control"
-          id="price"
-          name="price"
-          step="any"
-        />
-      </div>
-      <div class="form-group">
-        <label for="step">Bid step</label>
-        <input
-          type="number"
-          class="form-control"
-          id="step"
-          name="step"
-          step="any"
-        />
-      </div>
-      <div class="form-group">
-        <label for="images">Photo</label>
+        <h6 for="images">Photo<span style="color: red;">*</span>:<small>(Required at least 3 picture)</small></h6>
         <input type="file" id="images" name="images" multiple />
+        
       </div>
     </div>
     <div class="card-footer text-muted">
@@ -54,6 +74,8 @@
     rel="stylesheet"
     type="text/css"
   />
+  <link rel="stylesheet" href="/public/css/seller/addProduct.css">
+  
 {{/section}}
 
 {{#section "scripts"}}

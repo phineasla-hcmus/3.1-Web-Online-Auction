@@ -2,6 +2,7 @@ import { Router } from 'express';
 import sellerModel from '../models/seller.model';
 import aunctionModel from '../models/aunction.model';
 import productModel from '../models/product.model';
+import {getSubcategoryList} from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
 
@@ -17,9 +18,12 @@ sellerRouter.get('/my-product', async function (req, res) {
 
 //TODO PhineasLa
 sellerRouter.get('/add-product', async function (req, res) {
+  const listSubCategory = await getSubcategoryList();
+  console.log(listSubCategory);
   res.render('seller/addProduct', {
     layout: 'bidder',
     uploadProduct: true,
+    listSubCategory: listSubCategory,
   });
 });
 
