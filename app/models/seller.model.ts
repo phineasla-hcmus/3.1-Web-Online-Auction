@@ -54,7 +54,6 @@ export default {
     priceUpdate: any,
     secondHighestBidder: any
   ) {
-      console.log(secondHighestBidder);
     return db('deniedbidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
@@ -74,4 +73,7 @@ export default {
           });
       });
   },
+  async addDescription(proId: any, fullDes: any){
+    return db('products').where('proId',proId).update({fulldes: fullDes}).then();
+  }
 };
