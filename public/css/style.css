@@ -195,17 +195,17 @@ ul {
   background-color: #ebebf0 !important;
 }
 
+ul.nav-pills {
+  font-size: 1.25rem;
+}
+
 ul.nav-pills li a i {
   color: #9b9b9b;
 }
 @media (min-width: 40em) {
   ul.nav-pills li a i {
     margin-right: 1.25rem;
-  }
-}
-@media (max-width: 39.9375em) {
-  ul.nav-pills li a i {
-    font-size: 1.25rem;
+    min-width: 1.25rem;
   }
 }
 
@@ -757,6 +757,18 @@ ul.nav-pills li a:hover {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
+  }
+}
+@media (max-width: 39.9375em) {
+  .products__wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 39.9375em) {
+  .btnSort:last-child {
+    margin-top: 0.5rem;
   }
 }
 

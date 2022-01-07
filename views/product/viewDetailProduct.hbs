@@ -1,6 +1,6 @@
 <section class="myContainer myContainer--py row">
     {{>category}}
-    <div class="col-sm-1 col-md-10">
+    <div class="col-sm-1 col-md-10 p-0">
         <div class="card">
             {{#each this.product as |pro|}}
             <div class="container-fluid">
@@ -256,7 +256,7 @@
             {{/if}}
 
             <div class="">
-                <h2 class="products__title">
+                <h2 class="products__title fw-bold">
                     Description
                 </h2>
                 <div class="description-content">
@@ -267,7 +267,7 @@
             {{/each}}
             <div class="">
                 <div class="products__related mt-3">
-                    <h2 class="products__title">Related Product</h2>
+                    <h2 class="products__title fw-bold">Related Product</h2>
                     <div style="padding-left: 0" class="products__content owl-carousel owl-theme related-product">
                         {{#each this.listProduct}}
                         {{>product product=this}}
@@ -299,15 +299,14 @@
         },
     })
     $(".owl-carousel").owlCarousel({
-    //loop:true,
-    margin: 10,
-    nav: true,
-    responsive: {
-        0: {
-        items: 5,
+        margin: 10,
+        nav: true,
+        responsive: {
+            0: {
+            items: 5,
+            },
+            
         },
-        
-    },
     });
       
     </script>

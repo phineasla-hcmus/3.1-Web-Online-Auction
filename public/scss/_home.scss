@@ -314,4 +314,18 @@
       gap: 1rem;
     }
   }
+  &__wrapper {
+    @include breakpoint-down(small) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+}
+
+.btnSort {
+  @include breakpoint-down(small) {
+    &:last-child {
+      margin-top: 0.5rem;
+    }
+  }
 }
