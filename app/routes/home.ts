@@ -254,7 +254,7 @@ homeRouter.post('/product', async (req, res) => {
       const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
 
-      //TODO check ratio (is it necessary?)
+
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
         return res.json({
           status: 'error',

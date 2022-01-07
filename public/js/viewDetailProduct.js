@@ -91,3 +91,11 @@ function changeImg(pic) {
   mainPic.src = subPic.src;
   subPic.src = tmp;
 }
+
+function showUpdateField(){
+  var updateField = document.getElementById('updateField');
+  var updateButton = document.getElementById("updateDesButton");
+
+  updateField.removeAttribute("hidden");
+  updateButton.setAttribute("hidden","hidden");
+}

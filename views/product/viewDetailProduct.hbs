@@ -226,7 +226,7 @@
             {{#if (isSellerOfThis this.sellerId this.userId)}}
 
             <div class=" ">
-                <h1 class="products__title">
+                <h1 class="products__title fw-bold">
                     List Bidder
                 </h1>
                 <div class="description-content">
@@ -263,14 +263,25 @@
                     Description
                 </h2>
                 <div class="description-content">
-                    {{fullDes}}
+                    {{{fullDes}}}
                 </div>
                 {{#if (isSellerOfThis this.sellerId this.userId)}}
                 <div style="text-align: center;">
-                <button id="bidButton" class="bid btn btn-default" type="button" onclick="" >
-                    Update
-                </button>
+                    <button id="updateDesButton" class="bid btn btn-default" type="button" onclick="showUpdateField()">
+                        Update
+                    </button>
                 </div>
+
+                <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
+                    <input type="hidden" value={{proId}} name="proId">
+                    <div>&nbsp;</div>
+                    <textarea id="my-expressjs-tinymce-app" name="description"></textarea>
+                    <div style="text-align: center;">
+                        <button class="bid btn btn-default" type="submit" onclick="">
+                            Save
+                        </button>
+                    </div>
+                </form>
                 {{/if}}
             </div>
 
@@ -292,6 +303,8 @@
 </section>
 
 {{#section "scripts"}}
+<script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
+<script type="application/javascript" src="/public/js/tinymce.config.js"></script>
 <script src="/public/js/viewDetailProduct.js"></script>
 <script type="text/javascript">
     $(".owl-carousel.related-product").owlCarousel({

@@ -35,6 +35,20 @@ sellerRouter.post(
     
   }
 );
+sellerRouter.post(`/add-description`, async function (req,res){
+
+  const proId = req.body.proId;
+  const fullDes= req.body.description;
+  const list= await productModel.findProductbyId(proId);
+
+
+  list[0].fullDes = list[0].fullDes+"<hr>" +"<div>" + new Date() + "</div>" + fullDes;
+  sellerModel.addDescription(proId,list[0].fullDes);
+
+  const url = req.headers.referer || '/';
+  res.redirect(url);
+
+});
 
 sellerRouter.post('/denyBidder', async function (req, res) {
   const proId = req.body.proId;
