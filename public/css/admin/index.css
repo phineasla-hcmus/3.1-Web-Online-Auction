@@ -383,6 +383,10 @@ ul.nav-pills li a:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
+.owl-carousel .owl-stage .owl-item:last-child {
+  margin-right: 0 !important;
+}
+
 @media (max-width: 39.9375em) {
   .email-title,
 .email-content,
