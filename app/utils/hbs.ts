@@ -26,7 +26,7 @@ const hbs = create({
     parseRating,
     isDisableProduct,
     isSellerOfThis,
-    isDiniedUser,
+    isDeniedUser,
   },
 });
 
@@ -140,7 +140,7 @@ function isSellerOfThis(sellerId: number, userId: number) {
   return sellerId === userId;
 }
 
-function isDiniedUser(listDenied: any, userId: any) {
+function isDeniedUser(listDenied: any, userId: any) {
   for (let i = 0; i < listDenied.length; i++) {
     if (listDenied[i].bidderId == userId) return true;
   }

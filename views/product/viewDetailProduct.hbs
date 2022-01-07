@@ -139,8 +139,8 @@
                             {{#if (isSellerOfThis this.sellerId this.userId)}}
                             {{else}}
 
-                                {{#if (isDiniedUser ../listofDeniedBidder this.userId)}}
-                                <h3>You are dinied to bid this product.</h3>
+                                {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
+                                <h3>You are denied to bid this product.</h3>
                                 {{else}}
                                 <form id="bidAction" method="post" action="/product" hidden>
                                 {{#if (getRatingType userRating 1)}}

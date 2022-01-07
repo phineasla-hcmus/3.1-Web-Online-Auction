@@ -121,7 +121,9 @@ homeRouter.get('/product', async (req, res) => {
   const listofDeniedBidder = await productModel.getDeniedBidder(productID);
 
   detailedProduct.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
     element.userId = userId;
   });
 
@@ -135,7 +137,9 @@ homeRouter.get('/product', async (req, res) => {
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   listRelatedProduct.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
   });
 
   const auctionHistory = await productModel.getAuctionHistory(productID);
