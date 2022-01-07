@@ -36,7 +36,6 @@ textarea {
   border-radius: 3px;
 }
 
-
 textarea {
   width: calc(100% - 12px);
   padding: 5px;
@@ -100,7 +99,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
   cursor: pointer;
 }
-
 
 label.radio {
   position: relative;
@@ -182,4 +180,9 @@ input[type='radio']:checked + label:after {
   .filepond--item {
     width: calc(33.3% - 0.5em);
   }
+}
+
+/* for tinymce when fullscreen */
+.tox.tox-tinymce.tox-fullscreen {
+  margin-top: 3.5625rem;
 }
