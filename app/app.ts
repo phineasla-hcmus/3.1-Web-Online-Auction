@@ -102,6 +102,16 @@ const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const mustbeSeller = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user?.roleId!=RoleType.Seller) return res.redirect(req.session.returnTo || '/');
+  next();
+};
+
+const mustbeAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user?.roleId!=RoleType.Admin) return res.redirect(req.session.returnTo || '/');
+  next();
+};
+
 app.use('/', homeRouter);
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
@@ -110,8 +120,8 @@ app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
 app.use('/bidder',mustLoggedIn, bidderRouter);
-app.use('/admin',mustLoggedIn, adminRouter);
-app.use('/seller',mustLoggedIn, sellerRouter);
+app.use('/admin',mustLoggedIn,mustbeAdmin, adminRouter);
+app.use('/seller',mustLoggedIn,mustbeSeller, sellerRouter);
 async function test() {
   // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
 }

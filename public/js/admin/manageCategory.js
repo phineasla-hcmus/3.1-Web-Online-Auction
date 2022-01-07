@@ -11,12 +11,12 @@ function onClick(id) {
   if (
     document.getElementById(`parentCat${id}`).style.background === '#292560'
   ) {
-    document.getElementById(`parentCat${id}`).style.background = '#f5f5f5';
+    document.getElementById(`parentCat${id}`).style.background = '#fff';
   } else {
     document.getElementById(`parentCat${id}`).style.background = '#292560';
   }
   if (document.getElementById(`child${id}`).style.display === 'contents') {
-    document.getElementById(`parentCat${id}`).style.background = '#f5f5f5';
+    document.getElementById(`parentCat${id}`).style.background = '#fff';
     document.getElementById(`child${id}`).style.display = 'none';
   } else {
     document.getElementById(`child${id}`).style.display = 'contents';

@@ -340,10 +340,6 @@ h2 small {
   }
 }
 
-.owl-carousel .owl-stage .owl-item:last-child {
-  margin-right: 0 !important;
-}
-
 @media screen and (max-width: 39.9375em) {
   .card {
     margin-left: 0;

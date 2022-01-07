@@ -19,7 +19,7 @@
                     {{#each pages}}
                     {{#if isCurrent}}
                     <li class="page-item">
-                        <a class="page-link" href="/category?catId={{cateId}}&page={{prev}}" tabindex="-1">Previous</a>
+                        <a class="page-link" href="/category?catId={{cateId}}&page={{prev}}" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                     </li>
                     {{/if}}
                     {{/each}}
@@ -36,7 +36,7 @@
                     {{#each pages}}
                     {{#if isCurrent}}
                     <li class="page-item">
-                        <a class="page-link" href="/category?catId={{cateId}}&page={{next}}">Next</a>
+                        <a class="page-link" href="/category?catId={{cateId}}&page={{next}}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     </li>
                     {{/if}}
                     {{/each}}
