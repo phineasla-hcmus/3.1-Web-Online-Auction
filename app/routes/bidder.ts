@@ -132,9 +132,10 @@ bidderRouter.get('/rating', async function (req, res) {
 });
 
 bidderRouter.get('/win', async function (req, res) {
-  const winningList = await bidderModel.getWinningList(res.locals.user.userId);
+  const bidderId = res.locals.user.userId;
+  const winningList = await bidderModel.getWinningList(bidderId);
   winningList.forEach(async function (element) {
-    const rated = await bidderModel.isAlreadyRated(element.proId);
+    const rated = await bidderModel.isAlreadyRated(bidderId, element.proId);
     if (rated) {
       element.rated = true;
     } else element.rated = false;

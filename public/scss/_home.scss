@@ -299,7 +299,8 @@
   }
 
   &__favorite,
-  &__bidding {
+  &__bidding,
+  &__winning {
     height: fit-content;
     @include breakpoint-up(large) {
       display: grid;
