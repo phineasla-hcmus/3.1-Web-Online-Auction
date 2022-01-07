@@ -49,13 +49,6 @@ CREATE TABLE `otp` (
   PRIMARY KEY (`userId`, `otpType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `recovery`;
-CREATE TABLE `recovery` (
-	`userId` int unsigned NOT NULL,
-    `token` char(32),
-    PRIMARY KEY (`userId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- ----------------------------
 -- Table structure for categories
 -- ----------------------------
@@ -79,14 +72,14 @@ CREATE TABLE `products` (
   `buynowPrice` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
   `stepPrice` int unsigned DEFAULT NULL,
-  `fullDes` text not null ,
+  `description` text not null ,
   `postDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,
   `bidderId` int DEFAULT NULL,
   `sellerId` int unsigned NOT NULL,
   `isAllowRating` int NOT NULL,  -- 1 is allow to bid for user who don't have Rating , 0 is not allow
-  `isDisable` int default 1,  -- 1 is active , 0 is disable  // for admin add to deleting product,
+  `isDisable` int default 1,  -- 1 is active , 0 is disable // for admin add to deleting product,
   `isExtendLimit` int null, -- 1 is extend, 0 is not
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

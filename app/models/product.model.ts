@@ -1,4 +1,25 @@
 import db from '../config/database';
+
+export interface ProductBasic {
+  proId: number;
+  proName: string;
+  catId: number;
+  currentPrice: number;
+  expiredDate: Date;
+}
+
+export interface ProductExtended {}
+
+export interface Product extends ProductBasic {
+  basePrice: number;
+  buyNowPrice: number;
+  stepPrice: number;
+  description: string;
+  postDate: Date;
+  expiredDate: Date;
+  numberOfBids: number;
+}
+
 export default {
   async findNearEndProducts() {
     return db('products')
@@ -191,7 +212,20 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist').where('bidderId', bidderId);
   },
-  async getDeniedBidder(proId: any) {
+  async getDeniedBidder(proId: number) {
     return db('deniedbidder').where({ proId: proId });
+  },
+
+  async addProduct(product: {
+    proId: number;
+    proName: string;
+    catId: number;
+    basePrice: number;
+    buyNowPrice: number;
+    stepPrice: number;
+    description: string;
+    expiredDate: Date;
+  }) {
+
   },
 };
