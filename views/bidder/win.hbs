@@ -1,110 +1,109 @@
-<h3 class="text-center">My winning products</h3>
-<div style="background-color: white;" class="rounded-3 pt-5 p-4">
-  <div class="winning__content py-3">
-    {{#each this.winningList as |winItem|}}
-      <div class="winning__item bg-light p-4 mb-3">
-        <div class="winning__item--content d-flex">
-          <img
-            style="max-height: 5rem;"
-            src="/public/images/product/{{winItem.proId}}/1.jpg"
-            alt="Winning Product"
-          />
-          <div class="ps-3">
-            <p class="m-0 fw-bold">{{winItem.proName}}</p>
-            <p class="m-0 text-danger"><i
-                class="fa fa-usd"
-              ></i>{{winItem.currentPrice}}
-            </p>
-            <p class="m-0"><i class="fa fa-user" aria-hidden="true"></i>
-              {{winItem.sellerName}}</p>
+<h1 class="text-center h3 fw-bold">My winning products</h1>
+{{#if empty}}
+  <div class="alert alert-info">You have not won any products yet</div>
+{{else}}
+  <div style="background-color: white;" class="rounded-3 pt-5 p-4">
+    <div class="winning__content py-3">
+      {{#each this.winningList as |winItem|}}
+        <div class="winning__item bg-light p-4 mb-3">
+          <div class="winning__item--content d-flex">
+            <img
+              style="max-height: 5rem;"
+              src="/public/images/product/{{winItem.proId}}/1.jpg"
+              alt="Winning Product"
+            />
+            <div class="ps-3">
+              <p class="m-0 fw-bold">{{winItem.proName}}</p>
+              <p class="m-0 text-danger"><i
+                  class="fa fa-usd"
+                ></i>{{winItem.currentPrice}}
+              </p>
+              <p class="m-0"><i class="fa fa-user" aria-hidden="true"></i>
+                {{winItem.sellerName}}</p>
+            </div>
           </div>
-        </div>
-        {{#unless winItem.rated}}
-          <button
-            class="btn header__btn mt-2 btn__rate"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#ratingModal"
-            data-id="{{winItem.sellerId}} {{winItem.proId}}"
-          >Rate</button>
-        {{/unless}}
-
-      </div>
-    {{/each}}
-    <div
-      style="margin-top: 5.5rem;"
-      class="modal fade"
-      id="ratingModal"
-      tabindex="-1"
-      aria-labelledby="ratingModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ratingModalLabel">Give us your thoughts</h5>
+          {{#unless winItem.rated}}
             <button
+              class="btn header__btn mt-2 btn__rate"
               type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form action="/bidder/rateSeller" id="frmComment" method="post">
-              <div class="mb-3">
-                <input id="txtSeller" type="hidden" name="sellerid" />
-                <input id="txtProduct" type="hidden" name="proid" />
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="opinion"
-                    id="satisfied"
-                    value="satisfied"
-                  />
-                  <label class="form-check-label" for="satisfied">
-                    Satisfied
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                  </label>
+              data-bs-toggle="modal"
+              data-bs-target="#ratingModal"
+              data-id="{{winItem.sellerId}} {{winItem.proId}}"
+            >Rate</button>
+          {{/unless}}
+
+        </div>
+      {{/each}}
+      <div
+        style="margin-top: 5.5rem;"
+        class="modal fade"
+        id="ratingModal"
+        tabindex="-1"
+        aria-labelledby="ratingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ratingModalLabel">Give us your
+                thoughts</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="/bidder/rateSeller" id="frmComment" method="post">
+                <div class="mb-3">
+                  <input id="txtSeller" type="hidden" name="sellerid" />
+                  <input id="txtProduct" type="hidden" name="proid" />
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="opinion"
+                      id="satisfied"
+                      value="satisfied"
+                    />
+                    <label class="form-check-label" for="satisfied">
+                      Satisfied
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="opinion"
+                      id="dissatisfied"
+                      value="dissatisfied"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Dissatisfied
+                      <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <label for="email" class="col-form-label">Comment</label>
+                  {{! <input type="email" class="form-control" id="email" /> }}
+                  <textarea
+                    style="display: block; width: 100%"
+                    name="commentBox"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
                 </div>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="opinion"
-                    id="dissatisfied"
-                    value="dissatisfied"
-                  />
-                  <label class="form-check-label" for="flexRadioDefault2">
-                    Dissatisfied
-                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                  </label>
-                </div>
-                <label for="email" class="col-form-label">Comment</label>
-                {{! <input type="email" class="form-control" id="email" /> }}
-                <textarea
-                  style="display: block; width: 100%"
-                  name="commentBox"
-                  cols="30"
-                  rows="10"
-                ></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
           </div>
-          {{! <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >Close</button>
-        </div> }}
         </div>
       </div>
     </div>
   </div>
-</div>
+{{/if}}
+
 {{#section "scripts"}}
   <script>
     $('.btn__rate').on('click', function() { const id = $(this).data('id');

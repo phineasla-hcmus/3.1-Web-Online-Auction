@@ -54,7 +54,9 @@ bidderRouter.get('/favorite', async function (req, res) {
   );
 
   favoriteList.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastname != null) {
+      element.bidderName = element.firstname + ' ' + element.lastname;
+    } else element.bidderName = '';
   });
 
   if (userId != 0) {
@@ -75,6 +77,7 @@ bidderRouter.get('/favorite', async function (req, res) {
     layout: 'bidder',
     favoriteList,
     favorite: true,
+    empty: favoriteList.length === 0,
   });
 });
 
@@ -102,6 +105,7 @@ bidderRouter.get('/currentbids', async function (req, res) {
     layout: 'bidder',
     currentBidsList,
     currentBids: true,
+    empty: currentBidsList.length === 0,
   });
 });
 
@@ -136,7 +140,12 @@ bidderRouter.get('/win', async function (req, res) {
     } else element.rated = false;
     element.sellerName = element.firstname + ' ' + element.lastname;
   });
-  res.render('bidder/win', { layout: 'bidder', winningList, win: true });
+  res.render('bidder/win', {
+    layout: 'bidder',
+    winningList,
+    win: true,
+    empty: winningList.length === 0,
+  });
 });
 
 bidderRouter.post('/rateSeller', async function (req, res) {
