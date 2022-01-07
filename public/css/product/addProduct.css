@@ -20,6 +20,7 @@ h1 {
   z-index: 2;
   line-height: 83px;
 }
+
 .testbox {
   display: flex;
   justify-content: center;
@@ -34,23 +35,37 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+
 input {
   width: calc(100% - 10px);
   padding: 5px;
 }
-input[type='date'] {
+input[type=date] {
   padding: 4px 5px;
 }
+
 textarea {
   width: calc(100% - 12px);
   padding: 5px;
 }
+
 .item:hover p,
-.item:hover i,
+.item:hover i {
+  color: #cc7a00;
+}
+
 .question:hover p,
-.question label:hover,
+.question label:hover {
+  color: #cc7a00;
+}
+
 input:hover::placeholder {
   color: #cc7a00;
+}
+
+.item {
+  position: relative;
+  margin: 10px 0;
 }
 .item input:hover,
 .item select:hover,
@@ -59,51 +74,55 @@ input:hover::placeholder {
   box-shadow: 0 0 3px 0 #cc7a00;
   color: #cc7a00;
 }
-.item {
-  position: relative;
-  margin: 10px 0;
-}
 .item span {
   color: red;
 }
-input[type='date']::-webkit-inner-spin-button {
+
+input[type=date]::-webkit-inner-spin-button {
   display: none;
 }
+
 .item i,
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   font-size: 20px;
   color: #cc7a00;
 }
+
 .item i {
   right: 1%;
   top: 30px;
   z-index: 1;
 }
-[type='date']::-webkit-calendar-picker-indicator {
+
+[type=date]::-webkit-calendar-picker-indicator {
   right: 1%;
   z-index: 2;
   opacity: 0;
   cursor: pointer;
 }
-input[type='radio'],
-input[type='checkbox'] {
+
+input[type=radio], input[type=checkbox] {
   display: none;
 }
+
 label.radio {
   position: relative;
   display: inline-block;
   margin: 5px 20px 15px 0;
   cursor: pointer;
 }
+
 .question span {
   margin-left: 30px;
 }
+
 .question-answer label {
   display: block;
 }
+
 label.radio:before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: 17px;
@@ -111,12 +130,16 @@ label.radio:before {
   border-radius: 50%;
   border: 2px solid #ccc;
 }
-input[type='radio']:checked + label:before,
+
+input[type=radio]:checked + label:before {
+  border: 2px solid #cc7a00;
+}
+
 label.radio:hover:before {
   border: 2px solid #cc7a00;
 }
 label.radio:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 6px;
   left: 5px;
@@ -128,18 +151,22 @@ label.radio:after {
   transform: rotate(-45deg);
   opacity: 0;
 }
-input[type='radio']:checked + label:after {
+
+input[type=radio]:checked + label:after {
   opacity: 1;
 }
 
 @media (min-width: 568px) {
   .name-item,
-  .city-item {
+.city-item {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .name-item input,
+
+  .name-item input {
+    width: calc(50% - 20px);
+  }
   .name-item div {
     width: calc(50% - 20px);
   }
@@ -151,3 +178,10 @@ input[type='radio']:checked + label:after {
     padding-bottom: 5px;
   }
 }
+@media (min-width: 30em) {
+  .filepond--item {
+    width: calc(33.3% - 0.5em);
+  }
+}
+
+/*# sourceMappingURL=addProduct.css.map */

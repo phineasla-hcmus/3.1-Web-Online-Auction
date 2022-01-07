@@ -5,7 +5,7 @@ export const addProductValidator = [
   body('price').isCurrency(),
   body('step').isCurrency(),
   body('description').notEmpty(),
-  body('buy-now-price')
+  body('buyNowPrice')
     .optional({ nullable: true, checkFalsy: true })
     .isCurrency(),
 ];

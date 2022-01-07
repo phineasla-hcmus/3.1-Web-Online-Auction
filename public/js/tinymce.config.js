@@ -1,5 +1,5 @@
 tinymce.init({
-  selector: 'textarea#my-expressjs-tinymce-app',
+  selector: 'textarea#tinymce-input',
   height: 500,
   menubar: false,
   plugins: [

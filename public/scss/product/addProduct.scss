@@ -1,0 +1,199 @@
+body,
+div,
+form,
+input,
+select,
+textarea,
+label {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+h1 {
+  position: absolute;
+  margin: 0;
+  font-size: 40px;
+  color: #fff;
+  z-index: 2;
+  line-height: 83px;
+}
+
+.testbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  padding: 20px;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input {
+  width: calc(100% - 10px);
+  padding: 5px;
+
+  &[type='date'] {
+    padding: 4px 5px;
+  }
+}
+
+textarea {
+  width: calc(100% - 12px);
+  padding: 5px;
+}
+
+.item:hover {
+  p,
+  i {
+    color: #cc7a00;
+  }
+}
+
+.question {
+  &:hover p,
+  label:hover {
+    color: #cc7a00;
+  }
+}
+
+input:hover::placeholder {
+  color: #cc7a00;
+}
+
+.item {
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 #cc7a00;
+    color: #cc7a00;
+  }
+
+  position: relative;
+  margin: 10px 0;
+
+  span {
+    color: red;
+  }
+}
+
+input[type='date']::-webkit-inner-spin-button {
+  display: none;
+}
+
+.item i,
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  font-size: 20px;
+  color: #cc7a00;
+}
+
+.item i {
+  right: 1%;
+  top: 30px;
+  z-index: 1;
+}
+
+[type='date']::-webkit-calendar-picker-indicator {
+  right: 1%;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+}
+
+input {
+  &[type='radio'],
+  &[type='checkbox'] {
+    display: none;
+  }
+}
+
+label.radio {
+  position: relative;
+  display: inline-block;
+  margin: 5px 20px 15px 0;
+  cursor: pointer;
+}
+
+.question span {
+  margin-left: 30px;
+}
+
+.question-answer label {
+  display: block;
+}
+
+label.radio:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+input[type='radio']:checked + label:before {
+  border: 2px solid #cc7a00;
+}
+
+label.radio {
+  &:hover:before {
+    border: 2px solid #cc7a00;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 8px;
+    height: 4px;
+    border: 3px solid #cc7a00;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+input[type='radio']:checked + label:after {
+  opacity: 1;
+}
+
+@media (min-width: 568px) {
+  .name-item,
+  .city-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .name-item {
+    input {
+      width: calc(50% - 20px);
+    }
+    div {
+      width: calc(50% - 20px);
+      input {
+        width: 97%;
+      }
+      label {
+        display: block;
+        padding-bottom: 5px;
+      }
+    }
+  }
+}
+
+@media (min-width: 30em) {
+  .filepond--item {
+    width: calc(33.3% - 0.5em);
+  }
+}
