@@ -265,7 +265,7 @@
                     Description
                 </h2>
                 <div class="description-content">
-                    {{{fullDes}}}
+                    {{{description}}}
                 </div>
                 {{#if (isSellerOfThis this.sellerId this.userId)}}
                 <div style="text-align: center;">
@@ -277,7 +277,7 @@
                 <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
                     <input type="hidden" value={{proId}} name="proId">
                     <div>&nbsp;</div>
-                    <textarea id="my-expressjs-tinymce-app" name="description"></textarea>
+                    <textarea id="tinymce-input" name="description"></textarea>
                     <div style="text-align: center;">
                         <button class="bid btn btn-default" type="submit" onclick="">
                             Save
@@ -305,7 +305,7 @@
 </section>
 
 {{#section "scripts"}}
-<script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
+<script type="application/javascript" src="/public/tinymce/tinymce.min.js"></script>
 <script type="application/javascript" src="/public/js/tinymce.config.js"></script>
 <script src="/public/js/viewDetailProduct.js"></script>
 <script type="text/javascript">

@@ -1,6 +1,27 @@
 import db from '../config/database';
+
+export interface ProductBasic {
+  proId: number;
+  proName: string;
+  catId: number;
+  currentPrice: number;
+  expiredDate: Date;
+}
+
+export interface ProductExtended {}
+
+export interface Product extends ProductBasic {
+  basePrice: number;
+  buyNowPrice: number;
+  stepPrice: number;
+  description: string;
+  postDate: Date;
+  expiredDate: Date;
+  numberOfBids: number;
+}
+
 export default {
-  findNearEndProducts() {
+  async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -9,7 +30,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  findMostBidsProducts() {
+  async findMostBidsProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -18,7 +39,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  findHighestPriceProducts() {
+  async findHighestPriceProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -27,7 +48,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  getCurrentBidder(proId: number) {
+  async getCurrentBidder(proId: number) {
     return db('products')
       .join('users', { 'products.bidderId': 'users.userId' })
       .where('products.proId', proId)
@@ -191,7 +212,20 @@ export default {
   async getFavoriteList(bidderId: number) {
     return db('watchlist').where('bidderId', bidderId);
   },
-  async getDeniedBidder(proId: any) {
+  async getDeniedBidder(proId: number) {
     return db('deniedbidder').where({ proId: proId });
+  },
+
+  async addProduct(product: {
+    proId: number;
+    proName: string;
+    catId: number;
+    basePrice: number;
+    buyNowPrice: number;
+    stepPrice: number;
+    description: string;
+    expiredDate: Date;
+  }) {
+
   },
 };

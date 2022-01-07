@@ -76,10 +76,10 @@ export default {
           });
       });
   },
-  async addDescription(proId: any, fullDes: any) {
+  async addDescription(proId: any, description: any) {
     return db('products')
       .where('proId', proId)
-      .update({ fulldes: fullDes })
+      .update({ description: description })
       .then();
   },
   async getBiddingProducts(sellerId: number) {

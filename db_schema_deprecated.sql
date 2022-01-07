@@ -59,7 +59,7 @@ CREATE TABLE `products` (
   `catId` int unsigned NOT NULL,
   `currentPrice` int unsigned NOT NULL,
   `buyNowPrice` int unsigned DEFAULT NULL,
-  `fullDes` varchar(200) NOT NULL,
+  `description` varchar(200) NOT NULL,
   `postDate` datetime NOT NULL,
   `expiredDate` datetime NOT NULL,
   `numberOfBids` tinyint unsigned DEFAULT 0,

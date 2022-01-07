@@ -94,12 +94,17 @@ sellerRouter.post(
 );
 sellerRouter.post(`/add-description`, async function (req, res) {
   const proId = req.body.proId;
-  const fullDes = req.body.description;
+  const description = req.body.description;
   const list = await productModel.findProductbyId(proId);
 
-  list[0].fullDes =
-    list[0].fullDes + '<hr>' + '<div>' + new Date() + '</div>' + fullDes;
-  sellerModel.addDescription(proId, list[0].fullDes);
+  list[0].description =
+    list[0].description +
+    '<hr>' +
+    '<div>' +
+    new Date() +
+    '</div>' +
+    description;
+  sellerModel.addDescription(proId, list[0].description);
 
   const url = req.headers.referer || '/';
   res.redirect(url);
