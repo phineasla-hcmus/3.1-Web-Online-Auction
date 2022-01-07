@@ -1,5 +1,5 @@
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 .logo {
@@ -24,7 +24,8 @@ body {
   padding-left: 60px;
   outline: none;
 }
-.form-control:focus, .form-control:active {
+.form-control:focus,
+.form-control:active {
   outline: none !important;
   box-shadow: none;
   border: 1px solid #292560;
@@ -69,14 +70,16 @@ select.form-control {
 .social-media .social-icon span {
   color: #cecceb;
 }
-.social-media .social-icon:hover, .social-media .social-icon:focus {
+.social-media .social-icon:hover,
+.social-media .social-icon:focus {
   background: #292560;
 }
-.social-media .social-icon:hover span, .social-media .social-icon:focus span {
+.social-media .social-icon:hover span,
+.social-media .social-icon:focus span {
   color: white;
 }
 
-input[type=checkbox] {
+input[type='checkbox'] {
   margin-right: 5px;
 }
 
@@ -86,7 +89,9 @@ input[type=checkbox] {
   font-size: 15px;
   padding: 10px 20px;
 }
-.btn:hover, .btn:active, .btn:focus {
+.btn:hover,
+.btn:active,
+.btn:focus {
   outline: none;
 }
 .btn.btn-primary {

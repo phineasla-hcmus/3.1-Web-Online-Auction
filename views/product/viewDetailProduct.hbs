@@ -13,7 +13,7 @@
                             <div class="products__content owl-carousel owl-theme" style="padding-right:3em;">
                                 {{#each ../amountPic as |pics|}}
                                 <a data-target="#pic-1" data-toggle="tab">
-                                    <img src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
+                                    <img style="max-width: 100px; margin: 0 auto" src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
                                         id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')"
                                         class="subPic" />
                                 </a>
@@ -23,13 +23,13 @@
 
                     </div>
                     <div class="details col-md-6">
-                        <h3 class="product-title">
+                        <h1 class="product-title">
                             {{proName}}
-                        </h3>
+                        </h1>
                         <table class="table table-sm table-borderless mb-0">
                             <tbody>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Current Price:
                                         </strong>
@@ -39,7 +39,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Step Price:
                                         </strong>
@@ -49,7 +49,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Seller:
                                         </strong>
@@ -63,7 +63,7 @@
                               
                                 </tr>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Highest Bidder:
                                         </strong>
@@ -76,7 +76,7 @@
                                 
                                 </tr>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Post Date:
                                         </strong>
@@ -86,13 +86,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="pl-0 w-50" scope="row">
+                                    <th class="pl-0" scope="row">
                                         <strong>
                                             Expired Date:
                                         </strong>
                                     </th>
                                     <td>
-                                        {{getRemainingTime expiredDate}} days left
+                                        {{getRemainingTime expiredDate}} left
                                     </td>
                                 </tr>
                             </tbody>
@@ -139,8 +139,11 @@
                             {{#if (isSellerOfThis this.sellerId this.userId)}}
                             {{else}}
 
-                                {{#if (isDiniedUser ../listofDeniedBidder this.userId)}}
-                                <h3>You are dinied to bid this product.</h3>
+                                {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
+                                <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
+                                    You are denied to bid this product.
+                                </p>
+                                {{!-- <h3>You are denied to bid this product.</h3> --}}
                                 {{else}}
                                 <form id="bidAction" method="post" action="/product" hidden>
                                 {{#if (getRatingType userRating 1)}}
@@ -185,7 +188,7 @@
                         </div>
                         {{/if}}
                         {{#if ../empty}}
-                        <p class="alert alert-info fw-bold mt-3">No one has bid for this product yet!</p>
+                        <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
                         {{else}}
                         <table class="table table-info table-striped mt-3">
                             <thead>
@@ -253,9 +256,9 @@
             {{/if}}
 
             <div class="">
-                <h1 class="products__title">
+                <h2 class="products__title">
                     Description
-                </h1>
+                </h2>
                 <div class="description-content">
                     {{fullDes}}
                 </div>
@@ -264,8 +267,8 @@
             {{/each}}
             <div class="">
                 <div class="products__related mt-3">
-                    <h1 class="products__title">Related Product</h1>
-                    <div class="products__content owl-carousel owl-theme">
+                    <h2 class="products__title">Related Product</h2>
+                    <div style="padding-left: 0" class="products__content owl-carousel owl-theme related-product">
                         {{#each this.listProduct}}
                         {{>product product=this}}
                         {{/each}}
@@ -278,8 +281,39 @@
 
 {{#section "scripts"}}
 <script src="/public/js/viewDetailProduct.js"></script>
+<script type="text/javascript">
+    $(".owl-carousel.related-product").owlCarousel({
+        margin: 10,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            900: {
+                items: 3,
+            },
+            1200: {
+                items: 5,
+            },
+            
+        },
+    })
+    $(".owl-carousel").owlCarousel({
+    //loop:true,
+    margin: 10,
+    nav: true,
+    responsive: {
+        0: {
+        items: 5,
+        },
+        
+    },
+    });
+      
+    </script>
 {{/section}}
 
 {{#section "stylesheets"}}
 <link rel="stylesheet" href="/public/css/detailProduct.css">
+
 {{/section}}

@@ -17,3 +17,10 @@ export async function getSubcategoryList() {
 export async function findCategory(id: any) {
   return knex<Category>('categories').where('catId', id).first();
 }
+
+export async function findParentCategoryByKeyword(keyword: string | any) {
+  // still looking for match against in knex
+  const sql = `select * from categories where match(catName) against('${keyword}')`;
+  const raw = await knex.raw(sql);
+  return raw[0];
+}

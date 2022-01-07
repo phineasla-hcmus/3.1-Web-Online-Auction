@@ -164,7 +164,10 @@
             {{this.numberOfBids}}
           </li>
           {{#if (isBidderOrSeller user.roleId)}}
-            <li><a href="#" style="font-size:xx-small;">Bid now</a></li>
+            <li><a
+                href="/product?proId={{this.proId}}"
+                style="font-size:xx-small;"
+              >Bid now</a></li>
           {{/if}}
 
           {{#if (isAdmin user.roleId)}}
