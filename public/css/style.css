@@ -387,6 +387,10 @@ ul.nav-pills li a:hover {
   margin-right: 0 !important;
 }
 
+.tox.tox-tinymce {
+  margin-top: 3.5625rem;
+}
+
 .header {
   background-color: #292560;
   position: fixed;
