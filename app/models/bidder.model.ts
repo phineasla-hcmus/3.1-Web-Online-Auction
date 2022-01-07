@@ -6,8 +6,8 @@ export default {
     return db('ratingHistory')
       .join('products as p', { 'ratingHistory.proId': 'p.proId' })
       .join('categories as cat', { 'p.catId': 'cat.catId' })
-      .join('users as u', { 'ratingHistory.rateId': 'u.userId' })
-      .where('ratingHistory.userId', userId)
+      .join('users as u', { 'p.sellerId': 'u.userId' })
+      .where('ratingHistory.rateId', userId)
       .select(
         'ratingHistory.*',
         'p.proName',
@@ -30,8 +30,10 @@ export default {
       .andWhere('expiredDate', '<', new Date())
       .leftJoin('users as u', { 'products.sellerId': 'u.userId' });
   },
-  async isAlreadyRated(proId: number) {
-    const ratingList = await db('ratingHistory').where('proId', proId);
+  async isAlreadyRated(bidderId: number, proId: number) {
+    const ratingList = await db('ratingHistory')
+      .where('userId', bidderId)
+      .andWhere('proId', proId);
     if (ratingList.length === 0) return false;
     return true;
   },

@@ -2,18 +2,74 @@ import { Router } from 'express';
 import sellerModel from '../models/seller.model';
 import aunctionModel from '../models/aunction.model';
 import productModel from '../models/product.model';
+import bidderModel from '../models/bidder.model';
 import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
 
 const sellerRouter = Router();
 
-//TODO PhineasLa
 sellerRouter.get('/my-product', async function (req, res) {
+  const sellerId = res.locals.user.userId;
+  const biddingList = await sellerModel.getBiddingProducts(sellerId);
+  const winningList = await sellerModel.getWinningProducts(sellerId);
+  winningList.forEach(async function (element) {
+    const rated = await sellerModel.isAlreadyRated(sellerId, element.proId);
+    if (rated) {
+      element.rated = true;
+    } else element.rated = false;
+  });
+
   res.render('seller/myProduct', {
     layout: 'bidder',
     postedProduct: true,
+    biddingList,
+    winningList,
+    emptyBidding: biddingList.length === 0,
+    emptyWinning: winningList.length === 0,
   });
+});
+
+sellerRouter.post('/rateBidder', async function (req, res) {
+  const opinion = req.body.opinion;
+  let satisfied = false;
+  if (opinion === 'satisfied') {
+    satisfied = true;
+  }
+  const comment = req.body.commentBox;
+  const bidder = +req.body.bidderid;
+  const product = +req.body.proid;
+
+  const rating = {
+    userId: res.locals.user.userId,
+    rateId: bidder,
+    proId: product,
+    ratingTime: new Date(),
+    satisfied,
+    comment,
+  };
+
+  await bidderModel.rate(rating);
+  const url = req.headers.referer || '/';
+  res.redirect(url);
+});
+
+sellerRouter.post('/cancelTransaction', async function (req, res) {
+  const proId = req.body.proId;
+  const bidderId = req.body.bidderId;
+  await sellerModel.cancelTransaction(proId);
+  const rating = {
+    userId: res.locals.user.userId,
+    rateId: bidderId,
+    proId,
+    ratingTime: new Date(),
+    satisfied: false,
+    comment: 'The winner does not pay',
+  };
+  await bidderModel.rate(rating);
+
+  const url = req.headers.referer || '/';
+  res.redirect(url);
 });
 
 //TODO PhineasLa
@@ -36,19 +92,17 @@ sellerRouter.post(
     console.log(req.body);
   }
 );
-sellerRouter.post(`/add-description`, async function (req,res){
-
+sellerRouter.post(`/add-description`, async function (req, res) {
   const proId = req.body.proId;
-  const fullDes= req.body.description;
-  const list= await productModel.findProductbyId(proId);
+  const fullDes = req.body.description;
+  const list = await productModel.findProductbyId(proId);
 
-
-  list[0].fullDes = list[0].fullDes+"<hr>" +"<div>" + new Date() + "</div>" + fullDes;
-  sellerModel.addDescription(proId,list[0].fullDes);
+  list[0].fullDes =
+    list[0].fullDes + '<hr>' + '<div>' + new Date() + '</div>' + fullDes;
+  sellerModel.addDescription(proId, list[0].fullDes);
 
   const url = req.headers.referer || '/';
   res.redirect(url);
-
 });
 
 sellerRouter.post('/denyBidder', async function (req, res) {

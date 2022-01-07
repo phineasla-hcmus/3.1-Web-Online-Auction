@@ -190,35 +190,37 @@
                         </div>
                         {{/if}}
                         {{/if}}
+                    </div>
+                    <div class="auction-history">
+                        <h2 class="products__title fw-bold">Auction history</h2>
                         {{#if ../empty}}
-                        <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
+                            <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
                         {{else}}
-                        <table class="table table-info table-striped mt-3">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Bidder</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each ../auctionHistory as |history|}}
-                                <tr>
-                                    <td>{{parseDate history.auctionTime}}</td>
-                                    <td>{{maskBidderName history.bidderName}}</td>
-                                    <td>{{history.auctionPrice}} USD</td>
-                                    {{#if history.isDenied}}
-                                    <td> ACCEPT</td>
-                                    {{else}}
-                                    <td> DENIED</td>
-                                    {{/if}}
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
+                            <table class="table table-info table-striped mt-3">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Bidder</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each ../auctionHistory as |history|}}
+                                    <tr>
+                                        <td>{{parseDate history.auctionTime}}</td>
+                                        <td>{{maskBidderName history.bidderName}}</td>
+                                        <td>{{history.auctionPrice}} USD</td>
+                                        {{#if history.isDenied}}
+                                        <td> ACCEPT</td>
+                                        {{else}}
+                                        <td> DENIED</td>
+                                        {{/if}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
                         {{/if}}
-
                     </div>
                 </div>
             </div>

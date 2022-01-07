@@ -7,7 +7,7 @@
             <div style="background-color: #eee; padding: 10px">
                 Sort by:
                 <form id="sortOption" action="/search" method="get">
-                    <input type="hidden" name="keyword" value={{keyword}}>
+                    <input type="hidden" name="keyword" value="{{keyword}}">
                     <input id="sortby" type="hidden" name="sortby">
                     <input id="currentpage" type="hidden" name="page" value="1">
                 </form>
@@ -30,10 +30,12 @@
                 {{/each}}
             </div>
         </div>
+        <input id="prevpage" type="hidden" name="prevpage" value={{prev}}>
+        <input id="nextpage" type="hidden" name="nextpage" value={{next}}>
         <nav id="paginator" class="products__pagination" aria-label="...">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                    <a class="page-link page-prev" href="javascript:;" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                 </li>
                 {{#each pages}}
                     {{#if isCurrent}}
@@ -44,7 +46,7 @@
                     {{/if}}
                 {{/each}}
                 <li class="page-item">
-                    <a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    <a class="page-link page-next" href="javascript:;"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </nav>

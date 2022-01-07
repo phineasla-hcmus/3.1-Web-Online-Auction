@@ -78,8 +78,8 @@ homeRouter.get('/category', async (req, res) => {
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
     listofPage.push({
-      prev:i-1==0?i:i-1,
-      next:i+1>numPage?i:i+1,
+      prev: i - 1 == 0 ? i : i - 1,
+      next: i + 1 > numPage ? i : i + 1,
       value: i,
       cateId: list.length === 0 ? 0 : list[0].catId,
       isCurrent: +page === i,
@@ -255,7 +255,6 @@ homeRouter.post('/product', async (req, res) => {
 
       const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
-
 
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
         return res.json({
@@ -476,6 +475,8 @@ homeRouter.get('/search', async (req, res) => {
       numberOfProducts: amountPro,
       sortByDate: sortby === 'date',
       sortByPrice: sortby === 'price',
+      prev: +page - 1,
+      next: +page + 1,
     });
   }
 });

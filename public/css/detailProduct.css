@@ -150,9 +150,9 @@ img {
 .like {
   background: #ff9f1a;
   margin-top: 30px;
-  padding: 1.2em 1.5em;
+  /* padding: 1.2em 1.5em; */
   border: none;
-  text-transform: UPPERCASE;
+  /* text-transform: UPPERCASE; */
   font-weight: bold;
   color: #fff;
   -webkit-transition: background 0.3s ease;
@@ -338,10 +338,6 @@ h2 small {
     flex-basis: 50%;
     text-align: right;
   }
-}
-
-.owl-carousel .owl-stage .owl-item:last-child {
-  margin-right: 0 !important;
 }
 
 @media screen and (max-width: 39.9375em) {
