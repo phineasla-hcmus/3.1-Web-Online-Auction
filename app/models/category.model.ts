@@ -18,6 +18,18 @@ export async function findCategory(id: any) {
   return knex<Category>('categories').where('catId', id).first();
 }
 
+export async function countProductByCategory(
+  catid: string | number | Readonly<any> | null
+) {
+  return knex('products')
+    .join('categories AS cat', { 'products.catId': 'cat.catId' })
+    .where('cat.catId', catid)
+    .andWhere('products.expiredDate', '>=', new Date())
+    .count({ amount: 'proId' })
+    .first()
+    .then((v) => v?.amount);
+}
+
 export async function findParentCategoryByKeyword(keyword: string | any) {
   // still looking for match against in knex
   const sql = `select * from categories where match(catName) against('${keyword}')`;

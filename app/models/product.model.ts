@@ -1,6 +1,6 @@
 import db from '../config/database';
 export default {
-  findNearEndProducts() {
+  async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -9,7 +9,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  findMostBidsProducts() {
+  async findMostBidsProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -18,7 +18,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  findHighestPriceProducts() {
+  async findHighestPriceProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
@@ -27,7 +27,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
-  getCurrentBidder(proId: number) {
+  async getCurrentBidder(proId: number) {
     return db('products')
       .join('users', { 'products.bidderId': 'users.userId' })
       .where('products.proId', proId)
