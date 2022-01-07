@@ -9,6 +9,7 @@
                 <form id="sortOption" action="/search" method="get">
                     <input type="hidden" name="keyword" value={{keyword}}>
                     <input id="sortby" type="hidden" name="sortby">
+                    <input id="currentpage" type="hidden" name="page" value="1">
                 </form>
                 <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
                 <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
@@ -37,7 +38,7 @@
                         <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
                     {{else}}
                         <li class="page-item"><a class="page-link"
-                                href="/search?keyword={{../keyword}}&page={{value}}">{{value}}</a></li>
+                                href="javascript:;">{{value}}</a></li>
                     {{/if}}
                 {{/each}}
                 <li class="page-item">

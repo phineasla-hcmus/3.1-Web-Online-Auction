@@ -26,7 +26,7 @@ const hbs = create({
     parseRating,
     isDisableProduct,
     isSellerOfThis,
-    isDiniedUser
+    isDiniedUser,
   },
 });
 
@@ -58,7 +58,18 @@ function getRemainingTime(date: string) {
   hours = hours - days * 24;
   minutes = minutes - days * 24 * 60 - hours * 60;
   seconds = seconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
-  return days + ' days ' + hours + ' hours ' + minutes + ' minutes ';
+
+  let result = '';
+  if (days > 0) {
+    result += days + ' days';
+  }
+  if (hours > 0) {
+    result += ' ' + hours + ' hours';
+  }
+  if (minutes > 0) {
+    result += ' ' + minutes + ' minutes';
+  }
+  return result;
 }
 
 function maskBidderName(bidderName: string) {
@@ -125,14 +136,13 @@ function getRatingType(rating: string, type: string) {
 function isDisableProduct(isDisable: number) {
   return isDisable === 1;
 }
-function isSellerOfThis(sellerId: number, userId: number){
-  return sellerId===userId;
+function isSellerOfThis(sellerId: number, userId: number) {
+  return sellerId === userId;
 }
 
-function isDiniedUser(listDenied: any, userId: any){
-  for(let i=0;i<listDenied.length;i++){
-    if(listDenied[i].bidderId == userId)
-    return true;
+function isDiniedUser(listDenied: any, userId: any) {
+  for (let i = 0; i < listDenied.length; i++) {
+    if (listDenied[i].bidderId == userId) return true;
   }
   return false;
 }
