@@ -32,7 +32,6 @@ if (process.env.NODE_ENV !== 'production') {
     morgan('dev', { skip: (req, res) => req.originalUrl.startsWith('/public') })
   );
 }
-app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use(compression());
 app.use(
   session({
@@ -45,6 +44,11 @@ app.use(
 // Replace bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use(
+  '/tinymce',
+  express.static(path.join(__dirname, '../node_modules', 'tinymce'))
+);
 app.use(passport.initialize());
 app.use(passport.session());
 

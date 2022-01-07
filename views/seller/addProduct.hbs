@@ -3,7 +3,6 @@
   <div class="card">
     <div class="card-body">
       <div class="form-group">
-
         <div class="item">
           <h6 for="name">Name<span>*:</span></h6>
           <input id="name" type="text" name="name" required/>
@@ -55,8 +54,8 @@
       <div class="form-group">
         <h6 for="images">Photo<span style="color: red;">*</span>:<small>(Required at least 3 picture)</small></h6>
         <input type="file" id="images" name="images" multiple />
-        
       </div>
+      <textarea id="my-expressjs-tinymce-app">Hello, World!</textarea>
     </div>
     <div class="card-footer text-muted">
       <button type="submit" class="btn btn-primary">
@@ -74,8 +73,7 @@
     rel="stylesheet"
     type="text/css"
   />
-  <link rel="stylesheet" href="/public/css/seller/addProduct.css">
-  
+  <link rel="stylesheet" href="/public/css/seller/addProduct.css" />
 {{/section}}
 
 {{#section "scripts"}}
@@ -97,5 +95,7 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"
   ></script>
+  <script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
+  <script type="application/javascript" src= "/public/js/tinymce.config.js"></script>
   <script src="/public/js/addProduct.js"></script>
 {{/section}}
