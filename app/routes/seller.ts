@@ -2,7 +2,7 @@ import { Router } from 'express';
 import sellerModel from '../models/seller.model';
 import aunctionModel from '../models/aunction.model';
 import productModel from '../models/product.model';
-import {getSubcategoryList} from '../models/category.model';
+import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
 
@@ -32,7 +32,8 @@ sellerRouter.post(
   upload.array('images'),
   ...addProductValidator,
   async (req, res) => {
-    
+    console.log(req.files);
+    console.log(req.body);
   }
 );
 
