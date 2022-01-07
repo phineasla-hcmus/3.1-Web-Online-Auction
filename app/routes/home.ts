@@ -78,6 +78,8 @@ homeRouter.get('/category', async (req, res) => {
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
     listofPage.push({
+      prev:i-1==0?i:i-1,
+      next:i+1>numPage?i:i+1,
       value: i,
       cateId: list.length === 0 ? 0 : list[0].catId,
       isCurrent: +page === i,

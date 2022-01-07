@@ -1,30 +1,37 @@
 form {
-    display: inline;
+  display: inline;
 }
 .products-root > li {
   border-radius: 5px;
-  background:#f5f5f5 ;
+  background: #f5f5f5;
   padding-left: 5px;
   margin-bottom: 15px;
   border-style: double;
-  border-color: #662d91;
+  border-color: #292560;
   font-size: large;
   transition: background-color 300ms ease-in-out;
 }
 .products-root > li:hover {
   border-radius: 5px;
-  background-color: #6964e2;
+  background-color: #292560 !important;
   cursor: pointer;
 }
-.products-root > li:hover > a {
-  color: white;
-}
+
 .products-root > li > a {
   font-weight: bold;
   color: black;
   font-size: larger;
   text-decoration: none;
   transition: color 300ms ease-in-out;
+}
+
+/* .products-root > li.active {
+  color: white;
+} */
+
+.products-root > li:hover > a,
+.products-root > li:focus > a {
+  color: white;
 }
 
 .products-child {
@@ -45,12 +52,12 @@ form {
   padding-top: 10px;
   height: 35px;
   border-radius: 5px;
-  border-style:groove;
-  border-color:#6964e2 ;
+  border-style: groove;
+  border-color: #292560;
   background: white;
 }
 
-.products-child> li > div > a {
+.products-child > li > div > a {
   color: black;
   text-decoration: none;
   transition: color 300ms ease-in-out;
@@ -62,7 +69,7 @@ form {
 }
 
 @media (min-width: 64em) {
-   .products__disable{
+  .products__disable {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
@@ -70,7 +77,10 @@ form {
 }
 
 /* CSS */
-.addRootButton-pushable, .addChildButton-pushable,.editRootButton-pushable,.deleteRootButton-pushable {
+/* .addRootButton-pushable,
+.addChildButton-pushable,
+.editRootButton-pushable,
+.deleteRootButton-pushable {
   position: relative;
   border: none;
   background: transparent;
@@ -83,8 +93,10 @@ form {
   touch-action: manipulation;
 }
 
-
-.addRootButton-shadow, .addChildButton-shadow,.editRootButton-shadow,.deleteRootButton-shadow {
+.addRootButton-shadow,
+.addChildButton-shadow,
+.editRootButton-shadow,
+.deleteRootButton-shadow {
   position: absolute;
   top: 0;
   left: 0;
@@ -94,13 +106,10 @@ form {
   background: hsl(0deg 0% 0% / 0.25);
   will-change: transform;
   transform: translateY(2px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 
-.editRootButton-edge{
+.editRootButton-edge {
   position: absolute;
   top: 0;
   left: 0;
@@ -116,7 +125,7 @@ form {
   );
 }
 
-.deleteRootButton-edge{
+.deleteRootButton-edge {
   position: absolute;
   top: 0;
   left: 0;
@@ -132,7 +141,7 @@ form {
   );
 }
 
-.addChildButton-edge{
+.addChildButton-edge {
   position: absolute;
   top: 0;
   left: 0;
@@ -148,7 +157,7 @@ form {
   );
 }
 
-.addRootButton-edge{
+.addRootButton-edge {
   position: absolute;
   top: 0;
   left: 0;
@@ -174,10 +183,7 @@ form {
   background: rgb(9, 159, 196);
   will-change: transform;
   transform: translateY(-4px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 
 .deleteRootButton-front {
@@ -190,10 +196,7 @@ form {
   background: rgb(196, 31, 9);
   will-change: transform;
   transform: translateY(-4px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 
 .addChildButton-front {
@@ -206,10 +209,7 @@ form {
   background: rgb(9, 196, 81);
   will-change: transform;
   transform: translateY(-4px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 
 .addRootButton-front {
@@ -222,49 +222,61 @@ form {
   background: hsl(345deg 100% 47%);
   will-change: transform;
   transform: translateY(-4px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
 }
 
 @media (min-width: 768px) {
-  .addRootButton-front, .addChildButton-front, .editRootButton-front, .deleteRootButton-front {
+  .addRootButton-front,
+  .addChildButton-front,
+  .editRootButton-front,
+  .deleteRootButton-front {
     font-size: 1.25rem;
     padding: 12px 42px;
   }
 }
 
-.addRootButton-pushable:hover, .addChildButton-pushable:hover,.editRootButton-pushable:hover,.deleteRootButton-pushable:hover  {
+.addRootButton-pushable:hover,
+.addChildButton-pushable:hover,
+.editRootButton-pushable:hover,
+.deleteRootButton-pushable:hover {
   filter: brightness(110%);
 }
 
-.addRootButton-pushable:hover .addRootButton-front,.addChildButton-pushable:hover .addChildButton-front,.editRootButton-pushable:hover .editRootButton-front,.deleteRootButton-pushable:hover .deleteRootButton-front {
+.addRootButton-pushable:hover .addRootButton-front,
+.addChildButton-pushable:hover .addChildButton-front,
+.editRootButton-pushable:hover .editRootButton-front,
+.deleteRootButton-pushable:hover .deleteRootButton-front {
   transform: translateY(-6px);
-  transition:
-    transform
-    250ms
-    cubic-bezier(.3, .7, .4, 1.5);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
 }
 
-.addRootButton-pushable:active .addRootButton-front,.addChildButton-pushable:active .addChildButton-front,.editRootButton-pushable:active .editRootButton-front,.deleteRootButton-pushable:active .deleteRootButton-front {
+.addRootButton-pushable:active .addRootButton-front,
+.addChildButton-pushable:active .addChildButton-front,
+.editRootButton-pushable:active .editRootButton-front,
+.deleteRootButton-pushable:active .deleteRootButton-front {
   transform: translateY(-2px);
   transition: transform 34ms;
 }
 
-.addRootButton-pushable:hover .addRootButton-shadow, .addChildButton-pushable:hover .addChildButton-shadow,.editRootButton-pushable:hover .editRootButton-shadow,.deleteRootButton-pushable:hover .deleteRootButton-shadow{
+.addRootButton-pushable:hover .addRootButton-shadow,
+.addChildButton-pushable:hover .addChildButton-shadow,
+.editRootButton-pushable:hover .editRootButton-shadow,
+.deleteRootButton-pushable:hover .deleteRootButton-shadow {
   transform: translateY(4px);
-  transition:
-    transform
-    250ms
-    cubic-bezier(.3, .7, .4, 1.5);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
 }
 
-.addRootButton-pushable:active .addRootButton-shadow, .addChildButton-pushable:active .addChildButton-shadow,.editRootButton-pushable:active .editRootButton-shadow,.deleteRootButton-pushable:active .deleteRootButton-shadow{
+.addRootButton-pushable:active .addRootButton-shadow,
+.addChildButton-pushable:active .addChildButton-shadow,
+.editRootButton-pushable:active .editRootButton-shadow,
+.deleteRootButton-pushable:active .deleteRootButton-shadow {
   transform: translateY(1px);
   transition: transform 34ms;
 }
 
-.addRootButton-pushable:focus:not(:focus-visible),.addChildButton-pushable:focus:not(:focus-visible),.editRootButton-pushable:focus:not(:focus-visible),.deleteRootButton-pushable:focus:not(:focus-visible) {
+.addRootButton-pushable:focus:not(:focus-visible),
+.addChildButton-pushable:focus:not(:focus-visible),
+.editRootButton-pushable:focus:not(:focus-visible),
+.deleteRootButton-pushable:focus:not(:focus-visible) {
   outline: none;
-}
+} */

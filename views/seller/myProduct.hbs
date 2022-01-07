@@ -1,1 +1,156 @@
-<h3> Posted Product</h3>
+<h1 class="text-center h3 fw-bold">Posted products</h1>
+<div style="background-color: white;" class="rounded-3 pt-5 p-4">
+<h2 class="h4">List of bidding products</h2>
+{{#if emptyBidding}}
+  <div class="alert alert-info">You don't have any bidding products</div>
+{{else}}
+    <div class="products__bidding">
+        {{#each this.biddingList as |product|}}
+            {{>product product=product user=../user}}
+        {{/each}}
+    </div>
+{{/if}}
+<h2 class="h4">List of winning products</h2>
+{{#if emptyWinning}}
+    <div class="alert alert-info">You don't have any winning products</div>
+{{else}}
+    <div class="products__winning">
+        <div class="row m-0">
+            <div class="col-md-12 px-0">
+            <div class="panel">
+                <div class="panel-body table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list-request">
+                    {{#each this.winningList as |item|}}
+                        <tr>
+                        <td style="min-width: 7rem;">
+                            <img
+                            src="/public/images/product/{{item.proId}}/1.jpg"
+                            class="img-fluid"
+                            alt=""
+                        /></td>
+                        <td style="min-width: 15rem;" class="hide-overflow"
+                        >{{item.proName}}</td>
+                        <td style="min-width: 6rem;">{{item.currentPrice}}$</td>
+                        <td style="min-width: 7rem;">
+                            <ul class="action-list">
+                                {{#unless item.rated}}
+                                     <li><a
+                            style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                                 data-id="{{item.bidderId}} {{item.proId}}"
+                                role="button"
+                                class="btn bg-primary rateBidder text-white"
+                                data-bs-toggle="modal"
+                                data-bs-target="#ratingBidderModal"
+                                >Rate</a></li>
+                                {{/unless}}
+                            <li><a
+                            style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                                role="button"
+                                data-id="{{item.bidderId}} {{item.proId}}"
+                                class="btn btn-danger cancelTransaction"
+                                ><i class="fa fa-times"></i></a></li>    
+                            </ul>
+                        </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <form id="frmCancelTransaction" method="post" action="/seller/cancelTransaction">
+            <input id="txtBidderId" type="hidden" name="bidderId">
+            <input id="txtProId" type="hidden" name="proId">
+        </form>
+        <div
+        style="margin-top: 5.5rem;"
+        class="modal fade"
+        id="ratingBidderModal"
+        tabindex="-1"
+        aria-labelledby="ratingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ratingModalLabel">Give us your
+                thoughts</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="/seller/rateBidder" id="frmComment" method="post">
+                <div class="mb-3">
+                  <input id="txtBidder" type="hidden" name="bidderid" />
+                  <input id="txtProduct" type="hidden" name="proid" />
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="opinion"
+                      id="satisfied"
+                      value="satisfied"
+                    />
+                    <label class="form-check-label" for="satisfied">
+                      Satisfied
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="opinion"
+                      id="dissatisfied"
+                      value="dissatisfied"
+                    />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Dissatisfied
+                      <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </label>
+                  </div>
+                  <label for="email" class="col-form-label">Comment</label>
+                  <textarea
+                    style="display: block; width: 100%"
+                    name="commentBox"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>  
+{{/if}}
+</div>
+{{#section "scripts"}}
+  <script>
+    $('.rateBidder').on('click', function() { const id = $(this).data('id');
+    const parts = id.split(' '); $('#txtBidder').val(parts[0]);
+    $('#txtProduct').val(parts[1])})
+    $('.cancelTransaction').on('click', function() {
+        const id = $(this).data('id');
+        const parts = id.split(' ');
+        $('#txtBidderId').val(parts[0]);
+        $('#txtProId').val(parts[1]);
+        $('#frmCancelTransaction').submit();
+    })
+  </script>
+{{/section}}

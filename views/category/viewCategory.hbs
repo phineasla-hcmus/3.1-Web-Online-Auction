@@ -2,36 +2,48 @@
     <div class="myContainer myContainer--py row">
         {{>category}}
         <div class="col-sm-12 col-md-10">
-        <div class="products__near--end">
-            {{#if this.empty}}
-            <h1 style="text-align: center">Unavailable Items</h1>
-            {{else}}
-            <h1 class="products__title">{{this.cateName}} </h1>
-            <div class="products__content">
-                {{#each this.listProductByCategory}}
+            <div class="products__near--end">
+                {{#if this.empty}}
+                <h1 style="text-align: center">Unavailable Items</h1>
+                {{else}}
+                <h1 class="products__title">{{this.cateName}} </h1>
+                <div class="products__content">
+                    {{#each this.listProductByCategory}}
                     {{>product product=this}}
-                {{/each}}
+                    {{/each}}
+                </div>
             </div>
-        </div>
-        <nav class="products__pagination" aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                {{#each pages}}
+            <nav class="products__pagination" aria-label="...">
+                <ul class="pagination">
+
+                    {{#each pages}}
                     {{#if isCurrent}}
-                        <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
-                    {{else}}
-                        <li class="page-item"><a class="page-link"
-                                href="/category?catId={{cateId}}&page={{value}}">{{value}}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="/category?catId={{cateId}}&page={{prev}}" tabindex="-1">Previous</a>
+                    </li>
                     {{/if}}
-                {{/each}}
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-        {{/if}}
+                    {{/each}}
+                    {{#each pages}}
+
+                    {{#if isCurrent}}
+                    <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
+                    {{else}}
+                    <li class="page-item"><a class="page-link"
+                            href="/category?catId={{cateId}}&page={{value}}">{{value}}</a></li>
+                    {{/if}}
+
+                    {{/each}}
+                    {{#each pages}}
+                    {{#if isCurrent}}
+                    <li class="page-item">
+                        <a class="page-link" href="/category?catId={{cateId}}&page={{next}}">Next</a>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+
+                </ul>
+            </nav>
+            {{/if}}
 
 
         </div>
