@@ -135,25 +135,12 @@ sellerRouter.post(
 
     const files = req.files as Express.Multer.File[];
     const buffers = files.map((file) => file.buffer);
-    // const result = await Promise.all<number | UploadApiResponse>([
-    //   productModel.addProduct({
-    //     proName: name,
-    //     sellerId: userId,
-    //     catId: category,
-    //     basePrice,
-    //     stepPrice,
-    //     description,
-    //     expiredDate,
-    //     buyNowPrice,
-    //     isAllowRating: isAllow,
-    //     isExtendLimit: isAuto,
-    //   }),
-    //   ...bulkUpload(buffers, { folder: '/product' }),
-    // ]);
 
-    const uploadResponse = await Promise.all(
-      bulkUpload(buffers, { folder: '/product' })
-    );
+    // const uploadResponse = await Promise.all(
+    //   bulkUpload(buffers, { folder: '/product' })
+    // );
+
+    const uploadResponse = ['a', 'b'];
 
     const productId = await productModel.addProduct({
       proName: name,
@@ -166,10 +153,24 @@ sellerRouter.post(
       buyNowPrice,
       isAllowRating: isAllow,
       isExtendLimit: isAuto,
-      thumbnailId: uploadResponse[0].public_id,
+      thumbnailId: uploadResponse[0],
     });
 
-    await productModel.addProductImage(productId, uploadResponse);
+    // const productId = await productModel.addProduct({
+    //   proName: name,
+    //   sellerId: userId,
+    //   catId: category,
+    //   basePrice,
+    //   stepPrice,
+    //   description,
+    //   expiredDate,
+    //   buyNowPrice,
+    //   isAllowRating: isAllow,
+    //   isExtendLimit: isAuto,
+    //   thumbnailId: uploadResponse[0].public_id,
+    // });
+
+    // await productModel.addProductImage(productId, uploadResponse);
 
     res.redirect('/seller/add-product');
   }

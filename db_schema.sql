@@ -81,7 +81,7 @@ CREATE TABLE `products` (
   `isAllowRating` 	int 			NOT NULL,	-- 1 is allow to bid for user who don't have Rating , 0 is not allow
   `isDisable` 		int 			DEFAULT 1,  -- 1 is active , 0 is disable // for admin add to deleting product,
   `isExtendLimit` 	int 			DEFAULT 0, 	-- 1 is extend, 0 is not,
-  `thumbnailId`		char(30)		NOT NULL,
+  `thumbnailId`		char(30)		DEFAULT NULL,
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -92,7 +92,7 @@ CREATE TABLE `productImages` (
     `secureUrl`		varchar(256)	NOT NULL,
     `extra`			json			NOT NULL,
     PRIMARY KEY (`proId`, `imgId`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `activeProducts`;
 CREATE TABLE `activeProducts`(
