@@ -167,12 +167,15 @@
       </li>
       {{#if user}}
         <li class="header__menu--item">
-          <a
+          <form action="/logout" method="post" style="text-align: center;"> 
+          <button
             style="margin-left: auto;"
             href="/"
             class="btn header__btn my-2 my-lg-0"
             role="button"
-          >Log out</a>
+            type="submit"
+          >Log out</button>
+          </form>
         </li>
       {{/if}}
     </ul>

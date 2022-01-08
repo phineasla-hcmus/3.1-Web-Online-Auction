@@ -298,7 +298,7 @@ homeRouter.post('/product', async (req, res) => {
       const stepPrice = parseInt(req.body.stepPrice);
 
       const product = await productModel.findProductbyId(proId);
-
+      
       const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
 
