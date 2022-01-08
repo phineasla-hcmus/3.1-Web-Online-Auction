@@ -17,12 +17,12 @@ $(document).ready(function (e) {
     maxFileSize: '2MB',
   });
 
-  $('#addProductForm').submit(function (e) {
+  $('#addProductForm').submit(async function (e) {
     e.preventDefault();
-    var formdata = new FormData(this);
+    const formdata = new FormData(this);
     // append FilePond files into the form data
     pondFiles = pond.getFiles();
-    for (var i = 0; i < pondFiles.length; i++) {
+    for (let i = 0; i < pondFiles.length; i++) {
       // append the blob files
       formdata.append('images', pondFiles[i].file);
     }
@@ -34,11 +34,10 @@ $(document).ready(function (e) {
       processData: false,
       contentType: false,
       method: $(this).attr('method'),
-      success: function (data, textStatus) {
-        console.log(data);
-        console.log(textStatus);
-        if (data.redirect) {
-          window.location.href = data.redirect;
+      success: function (res) {
+        console.log(res);
+        if (res.redirect) {
+          window.location.replace(res.url);
         } else {
           // const resJson = await res.json();
           // resJson.forEach((err) => toastr.error(err.msg));

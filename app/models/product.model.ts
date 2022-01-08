@@ -67,13 +67,24 @@ export default {
   },
 
   /**
-   * The first image of each product in `productImages`
-   * @param One or multiple URL(s)
+   * @param productId can be one or multiple product IDs
+   * @return array of `{ secureUrl }`
    */
-  async findThumbnail(productId: any | any[]) {
+  async findThumbnail(productId: any[]): Promise<{ secureUrl: string }[]> {
     return db('productimages')
+      .select('secureUrl')
       .join('products', { imgId: 'thumbnailId' })
-      .where(productId);
+      .whereIn('productimages.proId', productId);
+  },
+
+  /**
+   * @param productId
+   * @returns array of `{ secureUrl }`
+   */
+  async findProductImage(
+    productId: string | number
+  ): Promise<{ secureUrl: string }[]> {
+    return db('productimages').select('secureUrl').where(productId);
   },
 
   async findNearEndProducts() {
@@ -178,7 +189,7 @@ export default {
         'products.thumbnailId': 'productimages.imgId',
       })
       .where('products.proId', proId)
-      .select('products.*', 'users.firstname', 'users.lastname');
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl');
   },
   async getSellerName(sellerId: any) {
     return db('users').where('userId', sellerId);
@@ -193,13 +204,16 @@ export default {
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'productimages.imgId' })
+      .leftJoin('productimages', {
+        'products.thumbnailId': 'productimages.imgId',
+      })
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
   async findExpiredProductInTime() {
     return db('activeProducts')
       .join('products', { 'activeProducts.proId': 'products.proId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('products.expiredDate', '<', new Date());
   },
   async removeActiveProduct(proId: any) {

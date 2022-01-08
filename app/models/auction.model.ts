@@ -7,20 +7,29 @@ export default {
       .where('proId', '=', proId)
       .orderBy('maxPrice', 'DESC');
   },
-  async findMaxPriceInHistory(proId: any, userId : any){
+  async findMaxPriceInHistory(proId: any, userId: any) {
     return db('auctionHistory')
-    .where('proId', '=', proId)
-    .where('bidderId',"<>",userId)
-    .orderBy('auctionPrice', 'DESC').where({isDenied:1});
+      .where('proId', '=', proId)
+      .where('bidderId', '<>', userId)
+      .orderBy('auctionPrice', 'DESC')
+      .where({ isDenied: 1 });
   },
-  async findMaxPriceOfUserInHistory(proId: any,bidderId: any){
+  async findMaxPriceOfUserInHistory(proId: any, bidderId: any) {
     return db('auctionHistory')
-    .where('proId', '=', proId)
-    .where('bidderId', '=', bidderId)
-    .orderBy('auctionPrice', 'DESC').where({isDenied:1});
+      .where('proId', '=', proId)
+      .where('bidderId', '=', bidderId)
+      .orderBy('auctionPrice', 'DESC')
+      .where({ isDenied: 1 });
   },
 
-  bidProductwithPriceLarger(productId: any, uID: any,uName: any, mPrice: any, cPrice: any,numberofBids: any) {
+  bidProductwithPriceLarger(
+    productId: any,
+    uID: any,
+    uName: any,
+    mPrice: any,
+    cPrice: any,
+    numberofBids: any
+  ) {
     const insertauctionAuto = {
       proId: productId,
       userId: uID,
@@ -44,14 +53,25 @@ export default {
           .then(function (result) {
             db('products')
               .where({ proId: productId })
-              .update({ currentPrice: cPrice ,bidderId: uID,numberOfBids :numberofBids })
-              .then(function (result) {
-              });
+              .update({
+                currentPrice: cPrice,
+                bidderId: uID,
+                numberOfBids: numberofBids,
+              })
+              .then(function (result) {});
           });
       });
-      return true;
+    // RETURN TRUE CHI VẬY? PROMISE LÚC NÀO CHẢ CHẠY ĐƯỢC, CHỈ KHI NÓ FAIL THÌ MỚI CATCH
+    return true;
   },
-  bidProductWithPriceSmaller(productId: any, uID: any,uName: any ,mPrice: any, cPrice: any,numberofBids: any){
+  bidProductWithPriceSmaller(
+    productId: any,
+    uID: any,
+    uName: any,
+    mPrice: any,
+    cPrice: any,
+    numberofBids: any
+  ) {
     const insertauctionAuto = {
       proId: productId,
       userId: uID,
@@ -75,15 +95,17 @@ export default {
           .then(function (result) {
             db('products')
               .where({ proId: productId })
-              .update({ currentPrice: cPrice,numberOfBids: numberofBids})
-              .then(function (result) {
-              });
+              .update({ currentPrice: cPrice, numberOfBids: numberofBids })
+              .then(function (result) {});
           });
       });
-      return true;
+    return true;
   },
 
-  updateProductExpiredDate(proId : any,newExpiredDate : any){
-    return db('products').where('proId',"=",proId).update({expiredDate :newExpiredDate }).then();
-  }
+  updateProductExpiredDate(proId: any, newExpiredDate: any) {
+    return db('products')
+      .where('proId', '=', proId)
+      .update({ expiredDate: newExpiredDate })
+      .then();
+  },
 };

@@ -1,5 +1,4 @@
 import compression from 'compression';
-import e from 'express';
 import express, { NextFunction, Request, Response } from 'express';
 import mySqlSessionStore from 'express-mysql-session';
 import session from 'express-session';
@@ -9,14 +8,14 @@ import path from 'path';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
-import {
-  getSubcategoryList,
-  getCategoryList,
-  findParentCategoryByKeyword,
-} from './models/category.model';
-import { getExpiredSeller, downgradeSellerAuto } from './models/user.model';
+import { getCategoryList, getSubcategoryList } from './models/category.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
+import {
+  downgradeSellerAuto,
+  findUserById,
+  getExpiredSeller,
+} from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import { recoveryRouter, verifyRouter } from './routes/auth/otp';
@@ -24,7 +23,13 @@ import signUpRouter from './routes/auth/signup';
 import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
 import sellerRouter from './routes/seller';
+import {
+  sendSellerAuctionEnded,
+  sendSellerNoSale,
+  sendWinner,
+} from './utils/email';
 import hbs from './utils/hbs';
+import logger from './utils/logger';
 
 const DELAY = 10000; //10 second
 
@@ -134,28 +139,39 @@ app.use('/bidder', mustLoggedIn, bidderRouter);
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);
 
-async function test() {}
-test();
-
 setTimeout(async function run() {
   const listExpireProduct = await productModel.findExpiredProductInTime();
 
   for (let i = 0; i < listExpireProduct.length; i++) {
     console.log(listExpireProduct[i].proName);
-    const sellerId = listExpireProduct[i].sellerId;
-    const winBidder = listExpireProduct[i].bidderId;
-    const winPrice = listExpireProduct[i].currentPrice;
-    const proName = listExpireProduct[i].proName;
+    const product = listExpireProduct[i];
+    const sellerId = product.sellerId;
+    const winId = product.bidderId;
+    const proPrice = product.currentPrice;
+    const proName = product.proName;
+    const proId = product.proId;
+    const thumbnailUrl = product.secureUrl;
+
+    const productEmail = {
+      id: proId,
+      name: proName,
+      price: proPrice,
+      thumbnailUrl,
+    };
+
+    // sellerId and bidderId must be valid
+    const seller = await findUserById(sellerId, ['email']);
+    const sellerEmail = seller!.email;
 
     if (listExpireProduct[i].bidderId != 0) {
-      //TODO PhineasLa Mailing
-      //Tới:
-      //sellerId : sản phẩm proName đấu giá kết thúc với người thắng là winBidder với giá = winPrice
-      //winbidder : Đấu giá thành công sản phẩm proName với giá = winPrice
+      // Winner
+      const winner = await findUserById(winId, ['email']);
+      const winnerEmail = winner!.email;
+      sendSellerAuctionEnded(sellerEmail, productEmail);
+      sendWinner(winnerEmail, productEmail);
     } else {
-      //TODO PhineasLa Mailing
-      //Tới:
-      //sellerId : sản phẩm proName đấu giá kết thúc và không có người đấu giá nào cả :(((
+      // You sucks and no one buys your product
+      sendSellerNoSale(sellerEmail, productEmail);
     }
     productModel.removeActiveProduct(listExpireProduct[i].proId);
   }
@@ -164,14 +180,11 @@ setTimeout(async function run() {
 
   for (let i = 0; i < listExpiredSeller.length; i++) {
     const sellerId = listExpiredSeller[i].bidderId;
-
-    //TODO PhineasLa Mailing
-    //Tới:
-    //sellerId : Bạn vừa bị hạ cấp xuống thành bidder do hết thời hạn 7 ngày
+    // KHÔNG CẦN GỬI MAIL
     downgradeSellerAuto(listExpiredSeller[i].bidderId);
   }
-
   setTimeout(run, DELAY);
 }, DELAY);
+
 // Let server.ts handle 404 and 500
 export default app;

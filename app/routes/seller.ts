@@ -181,7 +181,12 @@ sellerRouter.post(
 
     // await productModel.addProductImage(productId, uploadResponse);
 
-    res.redirect('/seller/add-product');
+    // jQuery ajax cannot understand res.redirect
+    // res.redirect('/seller/add-product');
+    // res.contentType('json');
+    res
+      .status(200)
+      .send({ url: '/seller/add-product', msg: 'success', redirect: true });
   }
 );
 sellerRouter.post(`/add-description`, async function (req, res) {
