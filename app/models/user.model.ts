@@ -92,3 +92,17 @@ export async function updateUser(
 export async function getRatingUser(userId: any) {
   return knex('users').where({ userId });
 }
+
+export async function getExpiredSeller(){
+  return knex('upgradelist')
+  .where('status','=',1)
+  .andWhere('expiredDate', '<', new Date());
+}
+
+export async function downgradeSellerAuto(sellerId: number) {
+  knex('users').where('userId', sellerId).update({
+    roleId: 2,
+  }).then(function (result){
+    return knex('upgradelist').where('bidderId','=',sellerId).del();
+  });
+}
