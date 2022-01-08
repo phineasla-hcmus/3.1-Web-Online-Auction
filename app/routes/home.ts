@@ -285,6 +285,7 @@ homeRouter.get('/product', async (req, res) => {
 homeRouter.post('/product', async (req, res) => {
   const user = req.user;
   const content = req.body.content;
+  const url = req.headers.referer || '/';
   // const userId = req.user ? res.locals.user.userId : 0;
 
   if (user) {
@@ -365,6 +366,8 @@ homeRouter.post('/product', async (req, res) => {
               // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
 
               //TODO need to reload page
+        
+              
               return res.json({
                 status: 'success',
                 msg: 'Bid Successfully!!!',
@@ -409,12 +412,11 @@ homeRouter.post('/product', async (req, res) => {
     if (content === 'like') {
       productModel.addFavoriteList(userId, req.body.proId);
 
-      const url = req.headers.referer || '/';
       res.redirect(url);
     }
     if (content === 'unlike') {
       productModel.removeFavoriteList(userId, req.body.proId);
-      const url = req.headers.referer || '/';
+  
       res.redirect(url);
     }
   }
