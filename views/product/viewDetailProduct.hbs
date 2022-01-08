@@ -7,13 +7,13 @@
                 <div class="wrapper row">
                     <div class="preview col-md-6">
                         <div class="preview-pic tab-content">
-                            <div class="tab-pane active">
-                                <img src="/public/images/product/{{proId}}/1.jpg" id="mainPic" />
+                            <div class="tab-pane active mb-4">
+                                <img style="max-height: 19.875rem;" src="/public/images/product/{{proId}}/1.jpg" id="mainPic" />
                             </div>
                             <div class="products__content owl-carousel owl-theme" style="padding-right:3em;">
                                 {{#each ../amountPic as |pics|}}
                                 <a data-target="#pic-1" data-toggle="tab">
-                                    <img style="max-width: 100px; margin: 0 auto"
+                                    <img style="max-width: 100px; margin: 0 auto; height: 2.625rem"
                                         src="/public/images/product/{{pro.proId}}/{{pics.value}}.jpg"
                                         id="subPic{{pics.value}}" onmouseover="changeImg('{{pics.value}}')"
                                         class="subPic" />
@@ -196,30 +196,34 @@
                         {{#if ../empty}}
                             <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
                         {{else}}
-                            <table class="table table-info table-striped mt-3">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">Bidder</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each ../auctionHistory as |history|}}
-                                    <tr>
-                                        <td>{{parseDate history.auctionTime}}</td>
-                                        <td>{{maskBidderName history.bidderName}}</td>
-                                        <td>{{history.auctionPrice}} USD</td>
-                                        {{#if history.isDenied}}
-                                        <td> ACCEPT</td>
-                                        {{else}}
-                                        <td> DENIED</td>
-                                        {{/if}}
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                            <div class="panel">
+                                <div class="panel-body table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Time</th>
+                                                <th scope="col">Bidder</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each ../auctionHistory as |history|}}
+                                            <tr>
+                                                <td style="min-width: 12rem;">{{parseDate history.auctionTime}}</td>
+                                                <td>{{maskBidderName history.bidderName}}</td>
+                                                <td>{{history.auctionPrice}} USD</td>
+                                                {{#if history.isDenied}}
+                                                <td> Accept</td>
+                                                {{else}}
+                                                <td> Denied</td>
+                                                {{/if}}
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         {{/if}}
                     </div>
                 </div>
