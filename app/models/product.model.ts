@@ -1,3 +1,4 @@
+import { UploadApiResponse } from 'cloudinary';
 import db from '../config/database';
 
 interface ProductInsert {
@@ -9,8 +10,22 @@ interface ProductInsert {
   stepPrice: number;
   expiredDate: Date;
   isAllowRating: boolean;
-  isExtendLimit? : boolean;
+  isExtendLimit?: boolean;
   buyNowPrice?: number;
+}
+
+/**
+ * Return object ready to be inserted into `productimage`
+ * @param res
+ */
+function unpackResponse(productId: any, res: UploadApiResponse) {
+  const { public_id, secure_url, ...extra } = res;
+  return {
+    proId: productId,
+    imgId: public_id,
+    secureUrl: secure_url,
+    extra: JSON.stringify(extra),
+  };
 }
 
 export default {
@@ -24,6 +39,22 @@ export default {
       .insert({ ...product, currentPrice: product.basePrice })
       .then((value) => value[0]);
   },
+
+  async addProductImage(
+    productId: any,
+    cloudinaryRespond: UploadApiResponse | UploadApiResponse[]
+  ) {
+    let pending;
+    if (Array.isArray(cloudinaryRespond)) {
+      pending = cloudinaryRespond.map((res) =>
+        unpackResponse(productId, res)
+      );
+    } else {
+      pending = unpackResponse(productId, cloudinaryRespond);
+    }
+    return db('productimages').insert(pending);
+  },
+
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', db.fn.now())
@@ -33,6 +64,7 @@ export default {
       .select('products.*', 'users.firstname', 'users.lastname')
       .where('isDisable', 1);
   },
+
   async findMostBidsProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
