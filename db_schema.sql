@@ -158,11 +158,11 @@ CREATE TABLE `deniedBidder`(
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
--- Table structure for aunctionAuto
+-- Table structure for auctionAuto
 -- ----------------------------
 
-DROP TABLE IF EXISTS `aunctionAuto`;
-CREATE TABLE `aunctionAuto`(
+DROP TABLE IF EXISTS `auctionAuto`;
+CREATE TABLE `auctionAuto`(
   `proId` int unsigned NOT NULL,
   `userId` int unsigned NOT NULL,
   `maxPrice` int unsigned NOT NULL,

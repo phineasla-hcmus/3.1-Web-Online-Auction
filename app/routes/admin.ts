@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import adminModel from '../models/admin.model';
-import { updateBidderToSeller, findUserById } from '../models/user.model';
+import { RoleType } from '../models/role.model';
+import { findUserById, updateUser } from '../models/user.model';
 
 const adminRouter = Router();
 
@@ -224,7 +225,7 @@ adminRouter.get('/manage/users/:id', async function (req, res) {
     'address',
     'rating',
   ]);
-  const stars = (user.rating / 10) * 5;
+  const stars = (user?.rating / 10) * 5;
   const rate = [];
   for (let i = 1; i <= 5; i++) {
     if (stars >= i) {
@@ -238,7 +239,7 @@ adminRouter.get('/manage/users/:id', async function (req, res) {
 
 adminRouter.post('/approveRequest', async function (req, res) {
   adminModel.approveRequest(req.body.approveid);
-  await updateBidderToSeller(req.body.approveid);
+  await updateUser(req.body.approveid, { roleId: RoleType.Seller });
   res.redirect('/admin/manage/users');
 });
 

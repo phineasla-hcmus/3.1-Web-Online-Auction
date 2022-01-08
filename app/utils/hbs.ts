@@ -149,6 +149,8 @@ function isDeniedUser(listDenied: any, userId: any) {
 
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
+ * @note
+ * Handlebar partials can't use helpers
  * @example
  * **layout.hbs**
  * ```

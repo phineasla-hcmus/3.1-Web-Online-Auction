@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
-import { updateUser, updateUserName } from '../models/user.model';
+import { updateUser } from '../models/user.model';
 
 const bidderRouter = Router();
 
@@ -32,10 +32,10 @@ bidderRouter.get('/changeEmail', async function (req, res) {
 });
 
 bidderRouter.post('/changeName', async function (req, res) {
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
+  const firstName = req.body.firstname;
+  const lastName = req.body.lastname;
   const userId = res.locals.user.userId;
-  await updateUserName(userId, firstname, lastname);
+  await updateUser(userId, { firstName, lastName });
   const url = req.headers.referer || '/';
   res.redirect(url);
 });

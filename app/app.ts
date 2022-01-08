@@ -5,10 +5,11 @@ import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
+import knex from './config/database';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
-import { getSubcategoryList, getCategoryList } from './models/category.model';
+import { getSubcategoryList, getCategoryList, findParentCategoryByKeyword } from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -103,12 +104,14 @@ const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const mustbeSeller = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.roleId!=RoleType.Seller) return res.redirect(req.session.returnTo || '/');
+  if (req.user?.roleId !== RoleType.Seller)
+    return res.redirect(req.session.returnTo || '/');
   next();
 };
 
 const mustbeAdmin = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.roleId!=RoleType.Admin) return res.redirect(req.session.returnTo || '/');
+  if (req.user?.roleId !== RoleType.Admin)
+    return res.redirect(req.session.returnTo || '/');
   next();
 };
 
@@ -119,11 +122,11 @@ app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
-app.use('/bidder',mustLoggedIn, bidderRouter);
-app.use('/admin',mustLoggedIn,mustbeAdmin, adminRouter);
-app.use('/seller',mustLoggedIn,mustbeSeller, sellerRouter);
-async function test() {
-  // updateUser(2, { address: 'Earth', roleId: 2 }).then((v) => console.log(v));
+app.use('/bidder', mustLoggedIn, bidderRouter);
+app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
+app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);
+
+async function test() {  
 }
 test();
 

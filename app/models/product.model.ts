@@ -1,26 +1,29 @@
 import db from '../config/database';
 
-export interface ProductBasic {
+interface ProductInsert {
   proId: number;
   proName: string;
   catId: number;
-  currentPrice: number;
-  expiredDate: Date;
-}
-
-export interface ProductExtended {}
-
-export interface Product extends ProductBasic {
-  basePrice: number;
-  buyNowPrice: number;
-  stepPrice: number;
+  sellerId: any;
   description: string;
-  postDate: Date;
+  basePrice: number;
+  stepPrice: number;
   expiredDate: Date;
-  numberOfBids: number;
+  isAllowRating: boolean;
+  buyNowPrice?: number;
 }
 
 export default {
+  /**
+   * Insert new user into `products` table
+   * @param product
+   * @returns product ID
+   */
+  async addProduct(product: ProductInsert) {
+    return db('products')
+      .insert({ ...product, currentPrice: product.basePrice })
+      .then((value) => value[0]);
+  },
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
@@ -214,18 +217,5 @@ export default {
   },
   async getDeniedBidder(proId: number) {
     return db('deniedbidder').where({ proId: proId });
-  },
-
-  async addProduct(product: {
-    proId: number;
-    proName: string;
-    catId: number;
-    basePrice: number;
-    buyNowPrice: number;
-    stepPrice: number;
-    description: string;
-    expiredDate: Date;
-  }) {
-
   },
 };

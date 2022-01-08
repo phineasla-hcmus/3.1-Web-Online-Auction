@@ -89,35 +89,6 @@ export async function updateUser(
   return knex('users').where({ userId }).update(user);
 }
 
-export async function updateUserEmail(userId: any, email: string) {
-  return knex('users').where({ userId }).update({
-    email: email,
-  });
-}
-
-export async function updateUserName(
-  userId: any,
-  firstname: string,
-  lastname: string
-) {
-  return knex('users').where({ userId }).update({
-    firstname: firstname,
-    lastname: lastname,
-  });
-}
-
-export async function updateUserPassword(userId: any, password: string) {
-  return knex('users').where({ userId }).update({
-    password: password,
-  });
-}
-
-export async function updateBidderToSeller(userId: any) {
-  return knex('users').where({ userId }).update({
-    roleId: 3,
-  });
-}
-
 export async function getRatingUser(userId: any) {
   return knex('users').where({ userId });
 }

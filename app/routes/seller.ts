@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import sellerModel from '../models/seller.model';
-import aunctionModel from '../models/aunction.model';
+import auctionModel from '../models/auction.model';
 import productModel from '../models/product.model';
 import bidderModel from '../models/bidder.model';
 import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
+import cloudinary from 'cloudinary';
+import { validationResult } from 'express-validator';
 
 const sellerRouter = Router();
 
@@ -75,7 +77,6 @@ sellerRouter.post('/cancelTransaction', async function (req, res) {
 //TODO PhineasLa
 sellerRouter.get('/add-product', async function (req, res) {
   const listSubCategory = await getSubcategoryList();
-  console.log(req.body);
   res.render('seller/addProduct', {
     layout: 'bidder',
     uploadProduct: true,
@@ -88,8 +89,31 @@ sellerRouter.post(
   upload.array('images'),
   ...addProductValidator,
   async (req, res) => {
-    console.log(req.files);
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.json(errors.array());
+    // }
+    // const { name, category, basePrice, stepPrice, timeNum, timeType } =
+    //   req.body;
     console.log(req.body);
+    console.log(req.files?.length)
+    // const productId = await productModel.addProduct({});
+
+    // [Node] [Object: null prototype] {
+    //   [Node]   name: 'abcd',
+    //   [Node]   category: '5',
+    //   [Node]   basePrice: '12345',
+    //   [Node]   stepPrice: '4321',
+    //   [Node]   buyNowPrice: '123',
+    //   [Node]   timeNum: '23',
+    //   [Node]   timeType: 'hour',
+    //   [Node]   isAllow: 'on',
+    //   [Node]   isAuto: 'on',
+    //   [Node]   description: '<p>Something something&nbsp;</p>\r\n' +
+    //   [Node]     '<p><strong>BLABLABLA</strong></p>\r\n' +
+    //   [Node]     '<p style="text-align: center;"><strong>LAMEEEEEEEEEEEEEEEE</strong></p>',
+    //   [Node]   images: [ '', '', '', '', '', '' ]
+    //   [Node] }
   }
 );
 sellerRouter.post(`/add-description`, async function (req, res) {
@@ -116,7 +140,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
   const stepPrice = req.body.stepPrice;
 
   const maxPriceOfUserInHistory =
-    await aunctionModel.findMaxPriceOfUserInHistory(proId, bidderId);
+    await auctionModel.findMaxPriceOfUserInHistory(proId, bidderId);
 
   const productDetail = await productModel.findProductbyId(proId);
   const basePrice = productDetail[0].basePrice;
@@ -131,7 +155,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
     const url = req.headers.referer || '/';
     res.redirect(url);
   } else {
-    const highestUserInHistoryList = await aunctionModel.findMaxPriceInHistory(
+    const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
       proId
     );
     const highestUserHistory = highestUserInHistoryList[0].bidderId;
@@ -175,14 +199,14 @@ sellerRouter.post('/denyBidder', async function (req, res) {
     }
   }
 
-  // const getHighestBidder = await aunctionModel.findMaxPrice(proId);
+  // const getHighestBidder = await auctionModel.findMaxPrice(proId);
   // const highestUser = getHighestBidder[0].userId;
   // const secondHighestUser = getHighestBidder[1]
   //   ? getHighestBidder[1].userId
   //   : 0;
 
   // if (bidderId == highestUser) {
-  // const highestUserInHistoryList = await aunctionModel.findMaxPriceInHistory(
+  // const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
   //   proId
 
   // const highestUserHistory = highestUserInHistoryList[0].bidderId;

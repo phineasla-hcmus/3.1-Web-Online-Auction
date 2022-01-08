@@ -3,7 +3,7 @@ import db from '../config/database';
 
 export default {
   async findMaxPrice(proId: any) {
-    return db('aunctionauto')
+    return db('auctionauto')
       .where('proId', '=', proId)
       .orderBy('maxPrice', 'DESC');
   },
@@ -20,14 +20,14 @@ export default {
   },
 
   bidProductwithPriceLarger(productId: any, uID: any,uName: any, mPrice: any, cPrice: any,numberofBids: any) {
-    const insertAunctionAuto = {
+    const insertauctionAuto = {
       proId: productId,
       userId: uID,
       maxPrice: mPrice,
       time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
     };
 
-    const insertAunctionHistory = {
+    const insertauctionHistory = {
       proId: productId,
       auctionTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       bidderId: uID,
@@ -35,11 +35,11 @@ export default {
       auctionPrice: cPrice,
     };
 
-    db('aunctionauto')
-      .insert(insertAunctionAuto)
+    db('auctionauto')
+      .insert(insertauctionAuto)
       .then(function (result) {
         db('auctionhistory')
-          .insert(insertAunctionHistory)
+          .insert(insertauctionHistory)
           .then(function (result) {
             db('products')
               .where({ proId: productId })
@@ -51,14 +51,14 @@ export default {
       return true;
   },
   bidProductWithPriceSmaller(productId: any, uID: any,uName: any ,mPrice: any, cPrice: any,numberofBids: any){
-    const insertAunctionAuto = {
+    const insertauctionAuto = {
       proId: productId,
       userId: uID,
       maxPrice: mPrice,
       time: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
     };
 
-    const insertAunctionHistory = {
+    const insertauctionHistory = {
       proId: productId,
       auctionTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       bidderId: uID,
@@ -66,11 +66,11 @@ export default {
       auctionPrice: cPrice,
     };
 
-    db('aunctionauto')
-      .insert(insertAunctionAuto)
+    db('auctionauto')
+      .insert(insertauctionAuto)
       .then(function (result) {
         db('auctionhistory')
-          .insert(insertAunctionHistory)
+          .insert(insertauctionHistory)
           .then(function (result) {
             db('products')
               .where({ proId: productId })

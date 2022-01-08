@@ -11,7 +11,7 @@ export default {
   //     return db('deniedbidder')
   //       .insert({ proId: proId, bidderId: bidderId })
   //       .then(function (result) {
-  //         db('aunctionauto')
+  //         db('auctionauto')
   //           .where({ proId: proId, bidderId: bidderId })
   //           .del()
   //           .then(function (result) {
@@ -31,7 +31,7 @@ export default {
     return db('deniedbidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
-        db('aunctionauto')
+        db('auctionauto')
           .where({ proId: proId, userId: bidderId })
           .del()
           .then(function (result) {
@@ -57,7 +57,7 @@ export default {
     return db('deniedbidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
-        db('aunctionauto')
+        db('auctionauto')
           .where({ proId: proId, userId: bidderId })
           .del()
           .then(function (result) {

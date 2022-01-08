@@ -45,3 +45,9 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
 export const COOKIE_MAX_AGE = 2 * DAY;
+
+const KB = 1024;
+const MB = 1024 * KB;
+
+export const MAX_IMAGE_SIZE = 2 * MB;
+export const MAX_IMAGES = 10;
