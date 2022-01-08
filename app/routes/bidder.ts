@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
-import { updateUser } from '../models/user.model';
+import { findUserById, updateUser } from '../models/user.model';
 
 const bidderRouter = Router();
 
@@ -110,7 +110,8 @@ bidderRouter.get('/currentbids', async function (req, res) {
 });
 
 bidderRouter.get('/rating', async function (req, res) {
-  const ratingList = await bidderModel.getRatingList(res.locals.user.userId);
+  const userId = res.locals.user.userId;
+  const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
     element.rateName = element.firstname + ' ' + element.lastname;
     if (index === ratingList.length - 1) {
@@ -118,8 +119,8 @@ bidderRouter.get('/rating', async function (req, res) {
     }
   });
   const rateNums = ratingList.length;
-  const satisfiedList = ratingList.filter((item) => item.satisfied === 1);
-  const ratingPoint = (satisfiedList.length / rateNums) * 10;
+  const user = await findUserById(userId);
+  const ratingPoint = user?.rating;
 
   res.render('bidder/rating', {
     layout: 'bidder',
@@ -169,6 +170,14 @@ bidderRouter.post('/rateSeller', async function (req, res) {
   };
 
   await bidderModel.rate(rating);
+
+  // update rating point for seller
+  const ratingList = await bidderModel.getRatingList(req.body.sellerid);
+  const rateNums = ratingList.length;
+  const satisfiedList = ratingList.filter((item) => item.satisfied === 1);
+  const ratingPoint = Math.round((satisfiedList.length / rateNums) * 100) / 10;
+  await updateUser(req.body.sellerid, { rating: ratingPoint });
+
   const url = req.headers.referer || '/';
   res.redirect(url);
 });

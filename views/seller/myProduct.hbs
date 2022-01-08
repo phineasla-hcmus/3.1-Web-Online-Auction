@@ -51,14 +51,15 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#ratingBidderModal"
                                 >Rate</a></li>
-                                {{/unless}}
-                            <li><a
+                                <li><a
                             style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
                                 role="button"
                                 data-id="{{item.bidderId}} {{item.proId}}"
                                 class="btn btn-danger cancelTransaction"
                                 ><i class="fa fa-times"></i></a></li>    
+                                {{/unless}}
                             </ul>
+                            
                         </td>
                         </tr>
                     {{/each}}
@@ -142,8 +143,11 @@
 </div>
 {{#section "scripts"}}
   <script>
-    $('.rateBidder').on('click', function() { const id = $(this).data('id');
-    const parts = id.split(' '); $('#txtBidder').val(parts[0]);
+    $('.rateBidder').on('click', function() { 
+    const id = $(this).data('id');
+    const parts = id.split(' ');
+    console.log(parts); 
+    $('#txtBidder').val(parts[0]);
     $('#txtProduct').val(parts[1])})
     $('.cancelTransaction').on('click', function() {
         const id = $(this).data('id');

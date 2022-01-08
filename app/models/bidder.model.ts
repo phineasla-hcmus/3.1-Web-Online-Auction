@@ -4,10 +4,10 @@ import moment from 'moment';
 export default {
   async getRatingList(userId: number) {
     return db('ratingHistory')
+      .where('ratingHistory.rateId', userId)
       .join('products as p', { 'ratingHistory.proId': 'p.proId' })
       .join('categories as cat', { 'p.catId': 'cat.catId' })
-      .join('users as u', { 'p.sellerId': 'u.userId' })
-      .where('ratingHistory.rateId', userId)
+      .join('users as u', { 'ratingHistory.userId': 'u.userId' })
       .select(
         'ratingHistory.*',
         'p.proName',
