@@ -70,16 +70,25 @@ export default {
    * The first image of each product in `productImages`
    * @param One or multiple URL(s)
    */
-  async findThumbnail(productId: any | any[]) {},
+  async findThumbnail(productId: any | any[]) {
+    return db('productimages')
+      .join('products', { imgId: 'thumbnailId' })
+      .where(productId);
+  },
 
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .join('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'secureUrl AS thumbnailUrl'
+      )
       .where('isDisable', 1);
   },
 
@@ -87,18 +96,30 @@ export default {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname')
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'secureUrl AS thumbnailUrl'
+      )
       .where('isDisable', 1);
   },
   async findHighestPriceProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname')
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'secureUrl AS thumbnailUrl'
+      )
       .where('isDisable', 1);
   },
   async getCurrentBidder(proId: number) {
@@ -110,6 +131,7 @@ export default {
   async findProductbyCategory(catid: string | number | Readonly<any> | null) {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date());
   },
@@ -138,6 +160,7 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .limit(limit)
@@ -150,6 +173,7 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .limit(limit)
