@@ -10,6 +10,7 @@ import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
 import { getSubcategoryList, getCategoryList, findParentCategoryByKeyword } from './models/category.model';
+import { getExpiredSeller ,downgradeSellerAuto} from './models/user.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
@@ -158,6 +159,17 @@ setTimeout(async function run() {
         //sellerId : sản phẩm proName đấu giá kết thúc và không có người đấu giá nào cả :(((
     }
     productModel.removeActiveProduct(listExpireProduct[i].proId)
+  }
+
+  const listExpiredSeller = await getExpiredSeller();
+
+  for(let i = 0;i<listExpiredSeller.length;i++){
+    const sellerId =listExpiredSeller[i].bidderId;
+
+    //TODO PhineasLa Mailing
+    //Tới:
+    //sellerId : Bạn vừa bị hạ cấp xuống thành bidder do hết thời hạn 7 ngày
+    downgradeSellerAuto(listExpiredSeller[i].bidderId);
   }
 
   

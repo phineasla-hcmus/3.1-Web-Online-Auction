@@ -86,5 +86,5 @@ insert into upgradelist values(10, '2022-01-04 10:15:37', -1, null);
 insert into ratingHistory values (1, 2, 1, '2021-12-19 15:07', true , 'Fast transaction!');
 insert into ratingHistory values (1, 2, 2, '2021-12-19 15:07', false , 'Angry!');
 
-
+update products set bidderId = 1 where proid = 13;
 update products set expiredDate = "2022-01-08 17:56:00" where proId = 13 ;

@@ -200,7 +200,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
     const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
       proId,bidderId
     );
-  
+
     const highestUserHistory = highestUserInHistoryList[0]? highestUserInHistoryList[0].bidderId:0;
     const secondHighestUserHistory = highestUserInHistoryList[1]
       ? highestUserInHistoryList[1].bidderId
