@@ -99,12 +99,7 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
-      .select(
-        'products.*',
-        'users.firstname',
-        'users.lastname',
-        'secureUrl AS thumbnailUrl'
-      )
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
   },
   async findHighestPriceProducts() {
@@ -114,12 +109,7 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
-      .select(
-        'products.*',
-        'users.firstname',
-        'users.lastname',
-        'secureUrl AS thumbnailUrl'
-      )
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
   },
   async getCurrentBidder(proId: number) {
@@ -163,6 +153,7 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
   },
@@ -176,13 +167,17 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
   },
   async findProductbyId(proId: any) {
     return db('products')
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .where('proId', proId)
+      .leftJoin('productimages', {
+        'products.thumbnailId': 'productimages.imgId',
+      })
+      .where('products.proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname');
   },
   async getSellerName(sellerId: any) {

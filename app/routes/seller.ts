@@ -3,6 +3,7 @@ import sellerModel from '../models/seller.model';
 import auctionModel from '../models/auction.model';
 import productModel from '../models/product.model';
 import bidderModel from '../models/bidder.model';
+import { updateUser } from '../models/user.model';
 import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
@@ -53,6 +54,14 @@ sellerRouter.post('/rateBidder', async function (req, res) {
   };
 
   await bidderModel.rate(rating);
+
+  // update rating point for seller
+  const ratingList = await bidderModel.getRatingList(bidder);
+  const rateNums = ratingList.length;
+  const satisfiedList = ratingList.filter((item) => item.satisfied === 1);
+  const ratingPoint = Math.round((satisfiedList.length / rateNums) * 100) / 10;
+  await updateUser(req.body.bidderid, { rating: ratingPoint });
+
   const url = req.headers.referer || '/';
   res.redirect(url);
 });
