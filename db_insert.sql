@@ -30,9 +30,9 @@ insert into users values(8, 'hoho4@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSN
 insert into users values(9, 'hoho5@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
 insert into users values(10, 'hoho6@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', null, 2);
 
-insert into products values(1, 'Laptop Lenovo Ideapad 3', 4,"500","5000", "500", "100","This is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 0, 0, 2, 0,1,1);
-insert into products values(2, 'Laptop HP', 4, "550", "5500", "550", "100","This is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00",0 , 0, 2, 0,1,1);
-insert into products values(3, 'Laptop ASUS Vivobook', 4,"700","7000", "700", "100","This is a product", "2021-11-30 08:20:30", "2022-01-16 09:30:00", 0, 0, 2, 0,1,1);
+insert into products values(1, 'Laptop Lenovo Ideapad 3', 4,"500","5000", "500", "100","This is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 0, 0, 2, 0, 1, 1, 'product/agai9qbgxv97t5iftqly');
+insert into products values(2, 'Laptop HP', 4, "550", "5500", "550", "100","This is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00",0 , 0, 2, 0, 1, 1, 'product/hav2jd8fakluchw6onit');
+insert into products values(3, 'Laptop ASUS Vivobook', 4,"700","7000", "700", "100","This is a product", "2021-11-30 08:20:30", "2022-01-16 09:30:00", 0, 0, 2, 0, 1, 1, 'product/c7pwfrpkiqqdlbbb1fb6');
 insert into products values(4, 'Laptop Acer Aspire 3', 4,"650","6500", "650", "100","This is a product", "2021-11-30 08:20:30", "2022-01-16 09:30:00", 0, 0, 2, 0,1,1);
 insert into products values(5, 'Laptop ASUS Gaming ROG', 4,"1000","1000", "1000", "100","This is a product", "2021-11-30 08:20:30", "2022-01-16 09:30:00", 0, 0, 2, 1,1,1);
 insert into products values(6, 'Surface Pro 7', 4,"900","9000", "900", "150","This is a product", "2021-11-30 08:20:30", "2022-01-16 09:30:00", 0, 0, 2, 1,1,1);

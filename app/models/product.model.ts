@@ -10,6 +10,7 @@ interface ProductInsert {
   stepPrice: number;
   expiredDate: Date;
   isAllowRating: boolean;
+  thumbnailId: string;
   isExtendLimit?: boolean;
   buyNowPrice?: number;
 }
@@ -66,11 +67,10 @@ export default {
   },
 
   /**
-   * The first image of each product in `product
-   * @param productId 
+   * The first image of each product in `productImages`
+   * @param One or multiple URL(s)
    */
-  async findThumbnail(productId: any | any[]) {
-  },
+  async findThumbnail(productId: any | any[]) {},
 
   async findNearEndProducts() {
     return db('products')
