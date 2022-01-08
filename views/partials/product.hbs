@@ -1,208 +1,129 @@
 {{#if (isDisableProduct this.isDisable)}}
-  <div class="products__item">
-    <div class="products__item--content">
-      <figure class="products__item--img">
-        <a
-          href="/product?proId={{this.proId}}"
-          class="popover-test"
-          title="Popover title"
-          data-content="Popover body content is set in this attribute."
-          data-trigger="hover"
-        ><img
-            src="/public/images/product/{{this.proId}}/1.jpg"
-            class="img-fluid"
-            alt=""
-          />
-        </a>
-        <div
-          class="products__item--price text-primary"
-          style="margin-bottom: 10px;"
-        >
-          <span><i class="fa fa-usd" aria-hidden="true"></i>
-            {{this.currentPrice}}</span>
-        </div>
-
-        <div class="products__item--img--preview">
-          <a href="/product?proId={{this.proId}}">Quick view</a>
-        </div>
-        {{#if (isRecentlyUploaded this)}}
-          <span class="products__item--new">New</span>
-        {{/if}}
-      </figure>
-
-      <div class="products__item--wrapper">
-        <div>
-          <h3 class="hide-overflow">
-            {{this.proName}}
-          </h3>
-          <small><i class="fa fa-calendar" aria-hidden="true"></i>
-            {{parseDate postDate}}</small>
-          <p style="font-size: 0.6rem;" class="text-danger"><i
-              class="fa fa-clock-o"
-              aria-hidden="true"
-            ></i>
-            {{getRemainingTime expiredDate}}
-          </p>
-          <p class="d-flex justify-content-between">
-            <i
-              class="fa fa-trophy text-warning"
-              aria-hidden="true"
-            >{{maskBidderName bidderName}}</i>
-            {{#if (isSellerOfThis this.sellerId user.userId)}}
-            {{else}}
-            
-            {{#if (isBidderOrSeller user.roleId)}}
-              {{#if (isFavorite proId FavoriteProduct)}}
-                <form method="post" style="text-align: end;" action="/product">
-                  <button
-                    class="likebtn"
-                    type="submit"
-                    id="unlikeButton{{proId}}"
-                    onclick="buttonLikeV2({{proId}})"
-                    style="color: red; background-color: transparent;
-              background-repeat: no-repeat;
-              border: none;"
-                  >
-                    <span class="fa fa-heart" id="like"></span>
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="unlike"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="{{proId}}"
-                      name="proId"
-                    />
-                  </button>
-                </form>
-
-                <form method="post" style="text-align: end;" action="/product">
-                  <button
-                    class="likebtn"
-                    type="submit"
-                    id="likeButton{{proId}}"
-                    onclick="buttonLikeV2({{proId}})"
-                    style="color: red; background-color: transparent;
-              background-repeat: no-repeat;
-              border: none;"
-                    hidden
-                  >
-                    <span class="fa fa-heart-o" id="like"></span>
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="like"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="{{proId}}"
-                      name="proId"
-                    />
-                  </button>
-                </form>
-              {{else}}
-                <form method="post" style="text-align: end;" action="/product">
-                  <button
-                    class="likebtn"
-                    type="submit"
-                    id="likeButton{{proId}}"
-                    onclick="buttonLikeV1({{proId}})"
-                    style="color: red;background-color: transparent;
-              background-repeat: no-repeat;
-              border: none;"
-                  >
-                    <span class="fa fa-heart-o" id="like"></span>
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="like"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="{{proId}}"
-                      name="proId"
-                    />
-                  </button>
-                </form>
-                <form method="post" style="text-align: end;" action="/product">
-                  <button
-                    class="likebtn"
-                    type="submit"
-                    id="unlikeButton{{proId}}"
-                    onclick="buttonLikeV1({{proId}})"
-                    style="color: red;background-color: transparent;
-              background-repeat: no-repeat;
-              border: none;"
-                    hidden
-                  >
-                    <span class="fa fa-heart" id="like"></span>
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="unlike"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-                      id="like"
-                      value="{{proId}}"
-                      name="proId"
-                    />
-                  </button>
-                </form>
-              {{/if}}
-            {{/if}}
-          {{/if}}
-          </p>
-        </div>
-        <ul>
-          <li><i class="fa fa-gavel text-danger" aria-hidden="true"></i>
-            {{this.numberOfBids}}
-          </li>
-          {{#if (isBidderOrSeller user.roleId)}}
-            <li><a
-                href="/product?proId={{this.proId}}"
-                style="font-size:xx-small;"
-              >Bid now</a></li>
-          {{/if}}
-
-          {{#if (isAdmin user.roleId)}}
-            <form method="post" action="/admin/deleteProduct">
-              <input type="hidden" value="disableProduct" name="content" />
-              <input type="hidden" value={{this.proId}} name="proId" />
-              <button
-                type="submit"
-                class="btn btn-danger"
-                style="font-size: 15px;"
-              > <i class="fa fa-trash-o" aria-hidden="true"></i></button>
-            </form>
-
-          {{/if}}
-        </ul>
+<div class="products__item">
+  <div class="products__item--content">
+    <figure class="products__item--img">
+      <a href="/product?proId={{this.proId}}" class="popover-test" title="Popover title"
+        data-content="Popover body content is set in this attribute." data-trigger="hover"><img
+          src="/public/images/product/{{this.proId}}/1.jpg" class="img-fluid" alt="" />
+      </a>
+      <div class="products__item--price text-primary" style="margin-bottom: 10px;">
+        <span><i class="fa fa-usd" aria-hidden="true"></i>
+          {{this.currentPrice}}</span>
       </div>
+
+      <div class="products__item--img--preview">
+        <a href="/product?proId={{this.proId}}">Quick view</a>
+      </div>
+      {{#if (isRecentlyUploaded this)}}
+      <span class="products__item--new">New</span>
+      {{/if}}
+    </figure>
+
+    <div class="products__item--wrapper">
+      <div>
+        <h3 class="hide-overflow">
+          {{this.proName}}
+        </h3>
+        <small><i class="fa fa-calendar" aria-hidden="true"></i>
+          {{parseDate postDate}}</small>
+        <p style="font-size: 0.6rem;" class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i>
+          {{getRemainingTime expiredDate}}
+        </p>
+        <p class="d-flex justify-content-between">
+          <i class="fa fa-trophy text-warning" aria-hidden="true">{{maskBidderName bidderName}}</i>
+          {{#if (isSellerOfThis this.sellerId user.userId)}}
+          {{else}}
+
+          {{#if (isBidderOrSeller user.roleId)}}
+          {{#if (isFavorite proId FavoriteProduct)}}
+        <form method="post" style="text-align: end;" action="/product">
+          <button class="likebtn" type="submit" id="unlikeButton{{proId}}" onclick="buttonLikeV2({{proId}})" style="color: red; background-color: transparent;
+              background-repeat: no-repeat;
+              border: none;">
+            <span class="fa fa-heart" id="like"></span>
+            <input type="hidden" id="like" value="unlike" name="content" />
+            <input type="hidden" id="like" value="{{proId}}" name="proId" />
+          </button>
+        </form>
+
+        <form method="post" style="text-align: end;" action="/product">
+          <button class="likebtn" type="submit" id="likeButton{{proId}}" onclick="buttonLikeV2({{proId}})" style="color: red; background-color: transparent;
+              background-repeat: no-repeat;
+              border: none;" hidden>
+            <span class="fa fa-heart-o" id="like"></span>
+            <input type="hidden" id="like" value="like" name="content" />
+            <input type="hidden" id="like" value="{{proId}}" name="proId" />
+          </button>
+        </form>
+        {{else}}
+        <form method="post" style="text-align: end;" action="/product">
+          <button class="likebtn" type="submit" id="likeButton{{proId}}" onclick="buttonLikeV1({{proId}})" style="color: red;background-color: transparent;
+              background-repeat: no-repeat;
+              border: none;">
+            <span class="fa fa-heart-o" id="like"></span>
+            <input type="hidden" id="like" value="like" name="content" />
+            <input type="hidden" id="like" value="{{proId}}" name="proId" />
+          </button>
+        </form>
+        <form method="post" style="text-align: end;" action="/product">
+          <button class="likebtn" type="submit" id="unlikeButton{{proId}}" onclick="buttonLikeV1({{proId}})" style="color: red;background-color: transparent;
+              background-repeat: no-repeat;
+              border: none;" hidden>
+            <span class="fa fa-heart" id="like"></span>
+            <input type="hidden" id="like" value="unlike" name="content" />
+            <input type="hidden" id="like" value="{{proId}}" name="proId" />
+          </button>
+        </form>
+        {{/if}}
+        {{/if}}
+        {{/if}}
+        </p>
+      </div>
+      <ul>
+        <li><i class="fa fa-gavel text-danger" aria-hidden="true"></i>
+          {{this.numberOfBids}}
+        </li>
+        {{#if (isBidderOrSeller user.roleId)}}
+        <li><a href="/product?proId={{this.proId}}" style="font-size:xx-small;">Bid now</a></li>
+        {{/if}}
+
+        {{#if (isAdmin user.roleId)}}
+        <form method="post" action="/admin/deleteProduct">
+          <input type="hidden" value="disableProduct" name="content" />
+          <input type="hidden" value={{this.proId}} name="proId" />
+          <button type="submit" class="btn btn-danger" style="font-size: 15px;"> <i class="fa fa-trash-o"
+              aria-hidden="true"></i></button>
+        </form>
+
+        {{/if}}
+      </ul>
     </div>
-    <script>
-      function buttonLikeV2(id) { let likeButton =
-      document.getElementById(`likeButton${id}`); let unlikeButton =
-      document.getElementById(`unlikeButton${id}`); if
-      (unlikeButton.getAttribute('hidden')) {
-      unlikeButton.removeAttribute('hidden'); likeButton.setAttribute('hidden',
-      'hidden'); } else { likeButton.removeAttribute('hidden');
-      unlikeButton.setAttribute('hidden', 'hidden'); } } function
-      buttonLikeV1(id) { let likeButton =
-      document.getElementById(`likeButton${id}`); let unlikeButton =
-      document.getElementById(`unlikeButton${id}`); if
-      (likeButton.getAttribute('hidden')) {
-      likeButton.removeAttribute('hidden'); unlikeButton.setAttribute('hidden',
-      'hidden'); } else { unlikeButton.removeAttribute('hidden');
-      likeButton.setAttribute('hidden', 'hidden'); } }
-    </script>
   </div>
+  <script>
+    function buttonLikeV2(id) {
+      let likeButton =
+        document.getElementById(`likeButton${id}`); let unlikeButton =
+          document.getElementById(`unlikeButton${id}`); if
+        (unlikeButton.getAttribute('hidden')) {
+        unlikeButton.removeAttribute('hidden'); likeButton.setAttribute('hidden',
+          'hidden');
+      } else {
+        likeButton.removeAttribute('hidden');
+        unlikeButton.setAttribute('hidden', 'hidden');
+      }
+    } function
+      buttonLikeV1(id) {
+        let likeButton =
+          document.getElementById(`likeButton${id}`); let unlikeButton =
+            document.getElementById(`unlikeButton${id}`); if
+        (likeButton.getAttribute('hidden')) {
+        likeButton.removeAttribute('hidden'); unlikeButton.setAttribute('hidden',
+          'hidden');
+      } else {
+        unlikeButton.removeAttribute('hidden');
+        likeButton.setAttribute('hidden', 'hidden');
+      }
+    }
+  </script>
+</div>
 {{/if}}

@@ -105,6 +105,14 @@ export default {
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
+  async findExpiredProductInTime() {
+    return db('activeProducts')
+      .join('products', { 'activeProducts.proId': 'products.proId' })
+      .where('products.expiredDate', '<', new Date());
+  },
+  async removeActiveProduct(proId: any){
+    return db('activeProducts').where('proId',"=",proId).del().then();
+  },
   // perform full-text search
   async findProductByKeyword(
     keyword: string | any,

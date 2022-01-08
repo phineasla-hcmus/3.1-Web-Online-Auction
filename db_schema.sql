@@ -86,6 +86,16 @@ CREATE TABLE `products` (
 
 
 -- ----------------------------
+-- Table structure for activeProducts ( for mailing if expired)
+-- ----------------------------
+DROP TABLE IF EXISTS `activeProducts`;
+CREATE TABLE `activeProducts`(
+	`proId` int unsigned NOT NULL,
+    PRIMARY KEY(`proId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- ----------------------------
 -- Table structure for watchlist
 -- ----------------------------
 DROP TABLE IF EXISTS `watchlist`;

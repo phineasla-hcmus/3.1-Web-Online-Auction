@@ -1,4 +1,5 @@
 import compression from 'compression';
+import e from 'express';
 import express, { NextFunction, Request, Response } from 'express';
 import mySqlSessionStore from 'express-mysql-session';
 import session from 'express-session';
@@ -10,6 +11,7 @@ import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
 import { getSubcategoryList, getCategoryList, findParentCategoryByKeyword } from './models/category.model';
+import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -19,6 +21,9 @@ import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
 import sellerRouter from './routes/seller';
 import hbs from './utils/hbs';
+
+
+const DELAY = 10000; //10 second
 
 const app = express();
 const MySqlSession = mySqlSessionStore(session as any);
@@ -93,6 +98,8 @@ app.use(async function (req, res, next) {
   next();
 });
 
+
+
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   if (req.isUnauthenticated()) return res.redirect('/auth/login');
   next();
@@ -130,5 +137,32 @@ async function test() {
 }
 test();
 
+setTimeout(async function run() {
+  const listExpireProduct = await productModel.findExpiredProductInTime();
+
+  for(let i = 0 ;i<listExpireProduct.length;i++){
+    console.log(listExpireProduct[i].proName);
+    const sellerId=listExpireProduct[i].sellerId;
+    const winBidder= listExpireProduct[i].bidderId;
+    const winPrice = listExpireProduct[i].currentPrice;
+    const proName = listExpireProduct[i].proName;
+
+    if(listExpireProduct[i].bidderId!=0)
+      {
+        //TODO PhineasLa Mailing
+        //Tới:
+        //sellerId : sản phẩm proName đấu giá kết thúc với người thắng là winBidder với giá = winPrice
+        //winbidder : Đấu giá thành công sản phẩm proName với giá = winPrice
+      }
+    else{
+      //TODO PhineasLa Mailing
+        //Tới:
+        //sellerId : sản phẩm proName đấu giá kết thúc và không có người đấu giá nào cả :(((
+    }
+    productModel.removeActiveProduct(listExpireProduct[i].proId)
+  }
+
+  setTimeout(run, DELAY);
+}, DELAY)
 // Let server.ts handle 404 and 500
 export default app;
