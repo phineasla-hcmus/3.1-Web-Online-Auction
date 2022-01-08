@@ -70,7 +70,11 @@ export default {
    * The first image of each product in `productImages`
    * @param One or multiple URL(s)
    */
-  async findThumbnail(productId: any | any[]) {},
+  async findThumbnail(productId: any | any[]) {
+    return db('productimages')
+      .join('products', { imgId: 'thumbnailId' })
+      .where(productId);
+  },
 
   async findNearEndProducts() {
     return db('products')
@@ -79,7 +83,12 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'secureUrl AS thumbnailUrl'
+      )
       .where('isDisable', 1);
   },
 
@@ -90,7 +99,7 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname','secureUrl')
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
   },
   async findHighestPriceProducts() {
@@ -100,7 +109,7 @@ export default {
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname','secureUrl')
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
   },
   async getCurrentBidder(proId: number) {
@@ -141,6 +150,7 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
@@ -154,6 +164,7 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
@@ -163,7 +174,9 @@ export default {
   async findProductbyId(proId: any) {
     return db('products')
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'productimages.imgId' })
+      .leftJoin('productimages', {
+        'products.thumbnailId': 'productimages.imgId',
+      })
       .where('products.proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname');
   },
