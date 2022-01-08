@@ -5,7 +5,11 @@ import bidderModel from '../models/bidder.model';
 import { findUserById, getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
-import { findParentCategoryByKeyword } from '../models/category.model';
+import {
+  findParentCategoryByKeyword,
+  getChildCategories,
+  getParentCategories,
+} from '../models/category.model';
 
 const homeRouter = Router();
 
@@ -60,6 +64,26 @@ homeRouter.get('/', async (req, res) => {
 homeRouter.get('/category', async (req, res) => {
   const userId = res.locals.user ? 1 : 0;
   const catid = req.query.catId || 0;
+
+  const childs = await getChildCategories();
+  let parentId = 0;
+  childs.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+      parentId = element.parentId;
+    }
+  });
+  res.locals.childCategories = childs;
+
+  const parents = await getParentCategories();
+  parents.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+    } else if (element.catId === parentId) {
+      element.collapsed = true;
+    }
+  });
+  res.locals.parentCategories = parents;
 
   const amountPro: any = await productModel.countProductbyCategory(catid);
   const limitpage = 5;
@@ -385,7 +409,7 @@ homeRouter.get('/search', async (req, res) => {
     let amountPro: any = await productModel.countProductByKeyword(keyword);
     amountPro = amountPro.length;
 
-    const limitpage = 6;
+    const limitpage = 5;
 
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;

@@ -8,19 +8,18 @@
   <ul class="list-unstyled ps-0">
       {{#each parentCategories as |parent|}}
         <li class="mb-1">
-            <button
-                class="btn btn-toggle align-items-center rounded collapsed"
-                data-bs-toggle="collapse"
-                data-bs-target="#{{parent.catName}}-collapse"
-                aria-expanded="false"
+            <a
+                href="/category?catId={{parent.catId}}"
+                class="btn btn-toggle align-items-center rounded collapsed btnShowCategory {{#if parent.isActive}}active{{/if}}"
+                data-name="{{parent.catName}}"
             >
                 {{parent.catName}}
-            </button>
-            <div class="collapse" id="{{parent.catName}}-collapse">
+            </a>
+            <div class="collapse childCat {{#if parent.collapsed}}show{{/if}}" id="{{parent.catName}}-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     {{#each ../childCategories as |child|}}
                         {{#if (isChildOf child.parentId parent.catId)}}
-                            <li><a class="link-dark rounded" href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
+                            <li><a class="link-dark rounded {{#if child.isActive}}active{{/if}}" href="/category?catId={{child.catId}}">{{child.catName}}</a></li>
                         {{/if}}
                     {{/each}}
                 </ul>

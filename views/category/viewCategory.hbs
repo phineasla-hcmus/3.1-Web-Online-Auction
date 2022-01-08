@@ -1,12 +1,12 @@
 <section class="products">
     <div class="myContainer myContainer--py row">
-        {{>category}}
+        {{>category }}
         <div class="col-sm-12 col-md-10">
             <div class="products__near--end">
                 {{#if this.empty}}
                 <h1 style="text-align: center">Unavailable Items</h1>
                 {{else}}
-                <h1 class="products__title">{{this.cateName}} </h1>
+                <h1 class="products__title fw-bold">{{this.cateName}} </h1>
                 <div class="products__content">
                     {{#each this.listProductByCategory}}
                     {{>product product=this}}

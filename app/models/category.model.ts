@@ -36,3 +36,11 @@ export async function findParentCategoryByKeyword(keyword: string | any) {
   const raw = await knex.raw(sql);
   return raw[0];
 }
+
+export async function getParentCategories() {
+  return knex('categories').where('parentId', null);
+}
+
+export async function getChildCategories() {
+  return knex('categories').whereNot('parentId', null);
+}

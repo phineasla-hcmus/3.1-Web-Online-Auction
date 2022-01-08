@@ -75,3 +75,8 @@
 .lh-tight {
   line-height: 1.25;
 }
+
+.btnShowCategory.active,
+.childCat li a.active {
+  background-color: #eee;
+}
