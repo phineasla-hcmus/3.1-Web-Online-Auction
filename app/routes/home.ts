@@ -301,7 +301,8 @@ homeRouter.post('/product', async (req, res) => {
       const product = await productModel.findProductbyId(proId);
 
       const now = new Date();
-      const differentMinutes = (product[0].expiredDate.getTime() - now.getTime())/(1000*60);
+      const differentMinutes =
+        (product[0].expiredDate.getTime() - now.getTime()) / (1000 * 60);
       const newTimeafterExtend = moment(now).add(10, 'm').toDate();
 
       const sellerId = product[0].sellerId;
@@ -333,11 +334,10 @@ homeRouter.post('/product', async (req, res) => {
               minimumPrice,
               numberofbids
             ) === true
-          )
-          {
-           if(isExtendLimit ==1 && differentMinutes <=5){
-            auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
-           }
+          ) {
+            if (isExtendLimit == 1 && differentMinutes <= 5) {
+              auctionModel.updateProductExpiredDate(proId, newTimeafterExtend);
+            }
             //TODO Phineas Mail
             //Tới :
             // seller là sản phẩm này(Proid) giá được cập nhật = minimumPrice ,
@@ -348,8 +348,7 @@ homeRouter.post('/product', async (req, res) => {
               status: 'success',
               msg: 'Bid Successfully!!!',
             });
-          }
-          else {
+          } else {
             return res.json({
               status: 'error',
               msg: 'Error!!!',
@@ -357,7 +356,14 @@ homeRouter.post('/product', async (req, res) => {
           }
         } else {
           const maxPrice: number = UsermaxPrice[0].maxPrice;
-          const userwithMaxPrice = UsermaxPrice[0].bidderId;
+          const userwithMaxPrice = UsermaxPrice[0].userId;
+          if(userwithMaxPrice == userId){
+            return res.json({
+              status: 'error',
+              msg: `You are the highest bidder in this product with auction auto price =${maxPrice} !!!!<br> Please bid again if there is a bidder bid higher than you`,
+            });
+          }
+          else{
           if (maxPrice < price) {
             const newPrice = maxPrice + stepPrice;
             if (
@@ -369,10 +375,13 @@ homeRouter.post('/product', async (req, res) => {
                 newPrice,
                 numberofbids
               ) === true
-            ){
-              if(isExtendLimit ==1 && differentMinutes <=5){
-                auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
-               }
+            ) {
+              if (isExtendLimit == 1 && differentMinutes <= 5) {
+                auctionModel.updateProductExpiredDate(
+                  proId,
+                  newTimeafterExtend
+                );
+              }
               //TODO Phineas Mail
               //Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
@@ -380,14 +389,12 @@ homeRouter.post('/product', async (req, res) => {
               // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
 
               //TODO need to reload page
-        
-              
+
               return res.json({
                 status: 'success',
                 msg: 'Bid Successfully!!!',
               });
-            }
-            else {
+            } else {
               return res.json({
                 status: 'error',
                 msg: 'Error!!!',
@@ -403,10 +410,13 @@ homeRouter.post('/product', async (req, res) => {
                 price,
                 numberofbids
               ) === true
-            ){
-              if(isExtendLimit ==1 && differentMinutes <=5){
-                auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
-               }
+            ) {
+              if (isExtendLimit == 1 && differentMinutes <= 5) {
+                auctionModel.updateProductExpiredDate(
+                  proId,
+                  newTimeafterExtend
+                );
+              }
               //TODO Phineas Mail
               //Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = price ,
@@ -417,8 +427,7 @@ homeRouter.post('/product', async (req, res) => {
                 status: 'info',
                 msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
               });
-            }
-            else {
+            } else {
               return res.json({
                 status: 'error',
                 msg: 'Error!!!',
@@ -426,6 +435,7 @@ homeRouter.post('/product', async (req, res) => {
             }
           }
         }
+      }
       }
     }
     if (content === 'like') {
@@ -435,7 +445,7 @@ homeRouter.post('/product', async (req, res) => {
     }
     if (content === 'unlike') {
       productModel.removeFavoriteList(userId, req.body.proId);
-  
+
       res.redirect(url);
     }
   }
