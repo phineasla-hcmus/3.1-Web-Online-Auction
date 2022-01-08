@@ -621,6 +621,11 @@ ul.nav-pills li a:hover {
   line-height: 1.25;
 }
 
+.btnShowCategory.active,
+.childCat li a.active {
+  background-color: #eee;
+}
+
 .products-parent-categories > li {
   border-radius: 5px;
   background: white;
@@ -900,7 +905,7 @@ ul.nav-pills li a:hover {
 @media (min-width: 64em) {
   .products__search {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
   }
 }

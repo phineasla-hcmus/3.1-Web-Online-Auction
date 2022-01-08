@@ -5,7 +5,12 @@ import bidderModel from '../models/bidder.model';
 import { findUserById, getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
-import { findParentCategoryByKeyword } from '../models/category.model';
+import {
+  findCategory,
+  findParentCategoryByKeyword,
+  getChildCategories,
+  getParentCategories,
+} from '../models/category.model';
 
 const homeRouter = Router();
 
@@ -61,7 +66,35 @@ homeRouter.get('/category', async (req, res) => {
   const userId = res.locals.user ? 1 : 0;
   const catid = req.query.catId || 0;
 
-  const amountPro: any = await productModel.countProductbyCategory(catid);
+  const childs = await getChildCategories();
+  let parentId = 0;
+  childs.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+      parentId = element.parentId;
+    }
+  });
+  res.locals.childCategories = childs;
+
+  const parents = await getParentCategories();
+  parents.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+    } else if (element.catId === parentId) {
+      element.collapsed = true;
+    }
+  });
+  res.locals.parentCategories = parents;
+
+  let amountPro: any = 0;
+
+  const currentCat = await findCategory(catid);
+  if (currentCat !== undefined && currentCat.parentId === null) {
+    amountPro = await productModel.countProductbyParentCategory(catid);
+  } else {
+    amountPro = await productModel.countProductbyCategory(catid);
+  }
+
   const limitpage = 5;
 
   let numPage = Math.floor(amountPro / limitpage);
@@ -69,11 +102,22 @@ homeRouter.get('/category', async (req, res) => {
 
   const page: any = req.query.page || 1;
   const offset = (page - 1) * limitpage;
-  const list = await productModel.findProductbyCategoryPaging(
-    catid,
-    offset,
-    limitpage
-  );
+
+  let list = [];
+
+  if (currentCat !== undefined && currentCat.parentId === null) {
+    list = await productModel.findProductbyParentCategoryPaging(
+      catid,
+      offset,
+      limitpage
+    );
+  } else {
+    list = await productModel.findProductbyCategoryPaging(
+      catid,
+      offset,
+      limitpage
+    );
+  }
 
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
@@ -81,7 +125,7 @@ homeRouter.get('/category', async (req, res) => {
       prev: i - 1 == 0 ? i : i - 1,
       next: i + 1 > numPage ? i : i + 1,
       value: i,
-      cateId: list.length === 0 ? 0 : list[0].catId,
+      cateId: currentCat?.catId,
       isCurrent: +page === i,
     });
   }
@@ -109,7 +153,7 @@ homeRouter.get('/category', async (req, res) => {
 
   res.render('category/viewCategory', {
     pages: listofPage,
-    cateName: list.length === 0 ? 0 : list[0].catName,
+    cateName: currentCat?.catName,
     listProductByCategory: list,
     empty: list.length === 0,
   });
@@ -184,8 +228,8 @@ homeRouter.get('/product', async (req, res) => {
   // const bidderRating = await getRatingUser(bidderId);
   // const sellerRating = await getRatingUser(sellerId);
 
-  const  bidderRating  = (await findUserById(bidderId, ['rating']))?.rating;
-  const  sellerRating  = (await findUserById(sellerId, ['rating']))?.rating;
+  const bidderRating = (await findUserById(bidderId, ['rating']))?.rating;
+  const sellerRating = (await findUserById(sellerId, ['rating']))?.rating;
 
   detailedProduct[0].bidderRating = bidderRating || 'x';
   detailedProduct[0].sellerRating = sellerRating || 'x';
@@ -380,8 +424,12 @@ homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
   const sortby = req.query.sortby;
   if (keyword) {
+    let list = [];
+
     let amountPro: any = await productModel.countProductByKeyword(keyword);
-    const limitpage = 6;
+    amountPro = amountPro.length;
+
+    const limitpage = 5;
 
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;
@@ -390,7 +438,6 @@ homeRouter.get('/search', async (req, res) => {
     let offset = (page - 1) * limitpage;
     let listofPage = [];
 
-    let list = [];
     if (sortby === 'date') {
       list = await productModel.findProductByExpiredDate(
         keyword,
@@ -413,6 +460,8 @@ homeRouter.get('/search', async (req, res) => {
         keyword,
         category[0].catId
       );
+      amountPro = amountPro.length;
+
       numPage = Math.floor(amountPro / limitpage);
       if (amountPro % limitpage != 0) numPage++;
 

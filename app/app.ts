@@ -6,7 +6,6 @@ import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
-import knex from './config/database';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
@@ -133,8 +132,7 @@ app.use('/bidder', mustLoggedIn, bidderRouter);
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);
 
-async function test() {  
-}
+async function test() {}
 test();
 
 setTimeout(async function run() {

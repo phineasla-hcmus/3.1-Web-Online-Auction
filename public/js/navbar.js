@@ -37,3 +37,11 @@ menu_item.forEach(function (element, index) {
     }
   });
 });
+
+$('.btnShowCategory').mouseenter(function () {
+  let catName = $(this).data('name');
+  $(`#${catName}-collapse`).collapse('show');
+});
+$('.childCat').mouseleave(function () {
+  $('.childCat').collapse('hide');
+});

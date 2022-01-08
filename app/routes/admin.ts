@@ -226,6 +226,8 @@ adminRouter.get('/manage/users', async function (req, res) {
     emptyList: pagingUserList.length === 0,
     pagesUser: listofPageUser,
     pagesRequest: listofPageRequest,
+    nPagesUser: listofPageUser.length,
+    nPagesRequest: listofPageRequest.length,
   });
 });
 
@@ -252,21 +254,20 @@ adminRouter.get('/manage/requestsByPaging', async function (req, res) {
 });
 
 adminRouter.get('/manage/users/:id', async function (req, res) {
-  const id = +req.params.id;
+  const id = req.params.id;
   const user = await findUserById(id, [
     ...USER_BASIC,
     'dob',
     'address',
     'rating',
   ]);
-  const stars = (user?.rating / 10) * 5;
+  if (!user) {
+    return res.redirect(req.url);
+  }
+  const stars = (user.rating / 10) * 5;
   const rate = [];
   for (let i = 1; i <= 5; i++) {
-    if (stars >= i) {
-      rate.push('full');
-    } else {
-      rate.push('empty');
-    }
+    rate.push(stars >= i ? 'full' : 'empty');
   }
   res.render('admin/userDetail', { layout: 'admin', user, rate });
 });

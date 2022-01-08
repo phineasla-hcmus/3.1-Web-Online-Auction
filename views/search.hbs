@@ -1,6 +1,8 @@
 <section class="products">
-    <div class="myContainer myContainer--py products__wrapper">
-        <div class="mt-3">
+    <div class="myContainer myContainer--py row">
+        {{>category}}
+        <div style="padding-left: 50px;" class="col-sm-10 col-md-10">
+            <div class="mt-3">
             <p>
                 <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 {{numberOfProducts}} products found for the keyword '<span class="text-danger">{{keyword}}</span>'</p>
@@ -51,6 +53,7 @@
             </ul>
         </nav>
         {{/if}}
+        </div>
     </div>
 </section>
 
