@@ -5,7 +5,11 @@ import bidderModel from '../models/bidder.model';
 import { findUserById, getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
-import { findParentCategoryByKeyword } from '../models/category.model';
+import {
+  findParentCategoryByKeyword,
+  getChildCategories,
+  getParentCategories,
+} from '../models/category.model';
 
 const homeRouter = Router();
 
@@ -60,6 +64,26 @@ homeRouter.get('/', async (req, res) => {
 homeRouter.get('/category', async (req, res) => {
   const userId = res.locals.user ? 1 : 0;
   const catid = req.query.catId || 0;
+
+  const childs = await getChildCategories();
+  let parentId = 0;
+  childs.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+      parentId = element.parentId;
+    }
+  });
+  res.locals.childCategories = childs;
+
+  const parents = await getParentCategories();
+  parents.forEach((element) => {
+    if (element.catId === +catid) {
+      element.isActive = true;
+    } else if (element.catId === parentId) {
+      element.collapsed = true;
+    }
+  });
+  res.locals.parentCategories = parents;
 
   const amountPro: any = await productModel.countProductbyCategory(catid);
   const limitpage = 5;
@@ -380,8 +404,12 @@ homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
   const sortby = req.query.sortby;
   if (keyword) {
+    let list = [];
+
     let amountPro: any = await productModel.countProductByKeyword(keyword);
-    const limitpage = 6;
+    amountPro = amountPro.length;
+
+    const limitpage = 5;
 
     let numPage = Math.floor(amountPro / limitpage);
     if (amountPro % limitpage != 0) numPage++;
@@ -390,7 +418,6 @@ homeRouter.get('/search', async (req, res) => {
     let offset = (page - 1) * limitpage;
     let listofPage = [];
 
-    let list = [];
     if (sortby === 'date') {
       list = await productModel.findProductByExpiredDate(
         keyword,
@@ -413,6 +440,8 @@ homeRouter.get('/search', async (req, res) => {
         keyword,
         category[0].catId
       );
+      amountPro = amountPro.length;
+
       numPage = Math.floor(amountPro / limitpage);
       if (amountPro % limitpage != 0) numPage++;
 

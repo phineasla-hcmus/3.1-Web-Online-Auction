@@ -226,6 +226,8 @@ adminRouter.get('/manage/users', async function (req, res) {
     emptyList: pagingUserList.length === 0,
     pagesUser: listofPageUser,
     pagesRequest: listofPageRequest,
+    nPagesUser: listofPageUser.length,
+    nPagesRequest: listofPageRequest.length,
   });
 });
 

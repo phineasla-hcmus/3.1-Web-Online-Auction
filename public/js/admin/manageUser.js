@@ -81,7 +81,7 @@ $(document).on('click', '.downgrade', function (e) {
 });
 
 $(document).on('click', '#paginatorUser a', function () {
-  var page = $(this).text();
+  let page = $(this).text();
   $.getJSON(`/admin/manage/usersByPaging?page=${page}`, function (data) {
     if (data.length != 0) {
       $('#list-user').text('');

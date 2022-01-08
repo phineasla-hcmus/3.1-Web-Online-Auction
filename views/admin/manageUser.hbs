@@ -16,6 +16,18 @@
       <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
         <input type="hidden" id="txtUserDowngrade" name="downid" />
       </form>
+      <input
+        id="pagesUser"
+        type="hidden"
+        name="pagesUser"
+        value="{{nPagesUser}}"
+      />
+      <input
+        id="pagesRequest"
+        type="hidden"
+        name="pagesRequest"
+        value="{{nPagesRequest}}"
+      />
       <h2 class="h4">List of users</h2>
       <div class="row m-0">
         <div class="col-md-12 px-0">
@@ -69,12 +81,13 @@
                 aria-label="..."
               >
                 <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1"><i
-                        class="fa fa-chevron-left"
-                        aria-hidden="true"
-                      ></i></a>
-                  </li>
+                  {{! <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="javascript:;"
+                      data-value="Previous"
+                    ><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                  </li> }}
                   {{#each pagesUser}}
                     <li class="page-item"><a
                         role="button"
@@ -82,12 +95,14 @@
                         href="javascript:;"
                       >{{value}}</a></li>
                   {{/each}}
-                  <li class="page-item">
-                    <a class="page-link" href="#"><i
-                        class="fa fa-chevron-right"
-                        aria-hidden="true"
-                      ></i></a>
-                  </li>
+                  {{! <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="javascript:;"
+                      data-id="2"
+                      data-value="Next"
+                    ><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                  </li> }}
                 </ul>
               </nav>
             </div>
@@ -165,12 +180,12 @@
                 aria-label="..."
               >
                 <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1"><i
+                  {{! <li class="page-item">
+                    <a class="page-link" href="javascript:;"><i
                         class="fa fa-chevron-left"
                         aria-hidden="true"
                       ></i></a>
-                  </li>
+                  </li> }}
                   {{#each pagesRequest}}
                     <li class="page-item"><a
                         role="button"
@@ -178,12 +193,12 @@
                         href="javascript:;"
                       >{{value}}</a></li>
                   {{/each}}
-                  <li class="page-item">
-                    <a class="page-link" href="#"><i
+                  {{! <li class="page-item">
+                    <a class="page-link" href="javascript:;" data-id="2"><i
                         class="fa fa-chevron-right"
                         aria-hidden="true"
                       ></i></a>
-                  </li>
+                  </li> }}
                 </ul>
               </nav>
             </div>

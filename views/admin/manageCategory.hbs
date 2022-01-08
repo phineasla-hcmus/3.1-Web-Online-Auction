@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/public/css/admin/manageCategory.css">
 {{/section}}
 
-<div>
+<div style="background-color: white;" class="rounded-3 p-3">
     <h1 class="text-center fw-bold h3">Manage categories</h1>
     <button id="addRootButton" class="btn btn-primary" role="button" onclick="actionAddRoot()">
         Add new root category
@@ -23,7 +23,7 @@
     </form>
     <ul class="list-group list-group-flush products-root mt-3">
         {{#each parentCategories as |parent|}}
-        <li class="list-group-item list-group-item-action" id="parentCat{{parent.catId}}">
+        <li class="list-group-item list-group-item-action border border-2 rounded-2" id="parentCat{{parent.catId}}">
             <a href="javascript:;">
                 <p class="d-flex flex-row justify-content-between">
                     <span>

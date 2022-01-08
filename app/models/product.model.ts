@@ -18,7 +18,7 @@ interface ProductInsert {
  * Return object ready to be inserted into `productimage`
  * @param res
  */
-function unpackResponse(productId: any, res: UploadApiResponse) {
+function unpackCloudinaryResponse(productId: any, res: UploadApiResponse) {
   const { public_id, secure_url, ...extra } = res;
   return {
     proId: productId,
@@ -47,17 +47,17 @@ export default {
     let pending;
     if (Array.isArray(cloudinaryRespond)) {
       pending = cloudinaryRespond.map((res) =>
-        unpackResponse(productId, res)
+        unpackCloudinaryResponse(productId, res)
       );
     } else {
-      pending = unpackResponse(productId, cloudinaryRespond);
+      pending = unpackCloudinaryResponse(productId, cloudinaryRespond);
     }
     return db('productimages').insert(pending);
   },
 
   async findNearEndProducts() {
     return db('products')
-      .where('expiredDate', '>=', db.fn.now())
+      .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
@@ -137,16 +137,29 @@ export default {
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },
+
   // perform full-text search
   async findProductByKeyword(
     keyword: string | any,
     offset: number,
     limit: number
   ) {
-    // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname, c.catId from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('products')
+      .where('products.expiredDate', '>=', new Date())
+      .join('categories', {
+        'products.catId': 'categories.catId',
+      })
+      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .limit(limit)
+      .offset(offset)
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'categories.catId'
+      );
   },
   async findProductByKeywordAndParentCat(
     keyword: string | any,
@@ -154,21 +167,38 @@ export default {
     offset: number,
     limit: number
   ) {
-    // still looking for match against in knex
-    const sql = `select * from categories left join products p on categories.catId = p.catId where parentId = ${catId} and p.expiredDate >= sysdate() or match(p.proName) against('${keyword}') limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('categories')
+      .where('categories.parentId', catId)
+      .leftJoin('products', {
+        'categories.catId': 'products.catId',
+      })
+      .where('products.expiredDate', '>=', new Date())
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .limit(limit)
+      .offset(offset);
   },
-  // perform full-text search
   async findProductByExpiredDate(
     keyword: string | any,
     offset: number,
     limit: number
   ) {
-    // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by expiredDate DESC limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('products')
+      .where('products.expiredDate', '>=', new Date())
+      .join('categories', {
+        'products.catId': 'categories.catId',
+      })
+      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .orderBy('expiredDate', 'desc')
+      .limit(limit)
+      .offset(offset)
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'categories.catId'
+      );
   },
   async findProductByExpiredDateAndParentCat(
     keyword: string | any,
@@ -176,21 +206,39 @@ export default {
     limit: number,
     catId: number
   ) {
-    // still looking for match against in knex
-    const sql = `select * from categories left join products p on categories.catId = p.catId where parentId = ${catId} and p.expiredDate >= sysdate() or match(p.proName) against('${keyword}') order by expiredDate DESC limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('categories')
+      .where('categories.parentId', catId)
+      .leftJoin('products', {
+        'categories.catId': 'products.catId',
+      })
+      .where('products.expiredDate', '>=', new Date())
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .orderBy('expiredDate', 'desc')
+      .limit(limit)
+      .offset(offset);
   },
-  // perform full-text search
   async findProductByPrice(
     keyword: string | any,
     offset: number,
     limit: number
   ) {
-    // still looking for match against in knex
-    const sql = `select p.*, users.firstname, users.lastname from products p join categories c on p.catId = c.catId left join users on p.bidderId = users.userId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}')) order by currentPrice ASC limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('products')
+      .where('products.expiredDate', '>=', new Date())
+      .join('categories', {
+        'products.catId': 'categories.catId',
+      })
+      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .orderBy('currentPrice', 'asc')
+      .limit(limit)
+      .offset(offset)
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'categories.catId'
+      );
   },
   async findProductByPriceAndParentCat(
     keyword: string | any,
@@ -198,25 +246,44 @@ export default {
     limit: number,
     catId: number
   ) {
-    // still looking for match against in knex
-    const sql = `select * from categories left join products p on categories.catId = p.catId where parentId = ${catId} and p.expiredDate >= sysdate() or match(p.proName) against('${keyword}') order by currentPrice ASC limit ${limit} offset ${offset}`;
-    const raw = await db.raw(sql);
-    return raw[0];
+    return db('categories')
+      .where('categories.parentId', catId)
+      .leftJoin('products', {
+        'categories.catId': 'products.catId',
+      })
+      .where('products.expiredDate', '>=', new Date())
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .orderBy('currentPrice', 'asc')
+      .limit(limit)
+      .offset(offset);
   },
   async countProductByKeyword(keyword: string | any) {
-    // still looking for match against in knex
-    const sql = `select count(*) as amount from products p join categories c on p.catId = c.catId where p.expiredDate >= sysdate() and (match(p.proName) against('${keyword}') or match(c.catName) against('${keyword}'))`;
-    const raw = await db.raw(sql);
-    return raw[0][0].amount;
+    return db('products')
+      .where('products.expiredDate', '>=', new Date())
+      .join('categories', {
+        'products.catId': 'categories.catId',
+      })
+      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .select(
+        'products.*',
+        'users.firstname',
+        'users.lastname',
+        'categories.catId'
+      );
   },
   async countProductByKeywordAndParentCat(
     keyword: string | any,
     catId: number
   ) {
-    // still looking for match against in knex
-    const sql = `select count(*) as amount from categories left join products p on categories.catId = p.catId where parentId = ${catId} and p.expiredDate >= sysdate() or match(p.proName) against('${keyword}')`;
-    const raw = await db.raw(sql);
-    return raw[0][0].amount;
+    return db('categories')
+      .where('categories.parentId', catId)
+      .leftJoin('products', {
+        'categories.catId': 'products.catId',
+      })
+      .where('products.expiredDate', '>=', new Date())
+      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
   },
   async getAuctionHistory(proId: any) {
     return db('auctionhistory')
