@@ -6,6 +6,7 @@ import { findUserById, getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
 import {
+  findCategory,
   findParentCategoryByKeyword,
   getChildCategories,
   getParentCategories,
@@ -85,7 +86,15 @@ homeRouter.get('/category', async (req, res) => {
   });
   res.locals.parentCategories = parents;
 
-  const amountPro: any = await productModel.countProductbyCategory(catid);
+  let amountPro: any = 0;
+
+  const currentCat = await findCategory(catid);
+  if (currentCat !== undefined && currentCat.parentId === null) {
+    amountPro = await productModel.countProductbyParentCategory(catid);
+  } else {
+    amountPro = await productModel.countProductbyCategory(catid);
+  }
+
   const limitpage = 5;
 
   let numPage = Math.floor(amountPro / limitpage);
@@ -93,11 +102,22 @@ homeRouter.get('/category', async (req, res) => {
 
   const page: any = req.query.page || 1;
   const offset = (page - 1) * limitpage;
-  const list = await productModel.findProductbyCategoryPaging(
-    catid,
-    offset,
-    limitpage
-  );
+
+  let list = [];
+
+  if (currentCat !== undefined && currentCat.parentId === null) {
+    list = await productModel.findProductbyParentCategoryPaging(
+      catid,
+      offset,
+      limitpage
+    );
+  } else {
+    list = await productModel.findProductbyCategoryPaging(
+      catid,
+      offset,
+      limitpage
+    );
+  }
 
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
@@ -105,7 +125,7 @@ homeRouter.get('/category', async (req, res) => {
       prev: i - 1 == 0 ? i : i - 1,
       next: i + 1 > numPage ? i : i + 1,
       value: i,
-      cateId: list.length === 0 ? 0 : list[0].catId,
+      cateId: currentCat?.catId,
       isCurrent: +page === i,
     });
   }
@@ -133,7 +153,7 @@ homeRouter.get('/category', async (req, res) => {
 
   res.render('category/viewCategory', {
     pages: listofPage,
-    cateName: list.length === 0 ? 0 : list[0].catName,
+    cateName: currentCat?.catName,
     listProductByCategory: list,
     empty: list.length === 0,
   });

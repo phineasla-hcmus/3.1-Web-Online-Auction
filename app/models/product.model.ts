@@ -64,6 +64,16 @@ export default {
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date());
   },
+  async countProductbyParentCategory(
+    catid: string | number | Readonly<any> | null
+  ) {
+    const list = await db('products')
+      .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .where('cat.parentId', catid)
+      .andWhere('products.expiredDate', '>=', new Date())
+      .count({ amount: 'proId' });
+    return list[0].amount;
+  },
   async countProductbyCategory(catid: string | number | Readonly<any> | null) {
     const list = await db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
@@ -71,6 +81,18 @@ export default {
       .andWhere('products.expiredDate', '>=', new Date())
       .count({ amount: 'proId' });
     return list[0].amount;
+  },
+  async findProductbyParentCategoryPaging(
+    catid: string | number | Readonly<any> | null,
+    offset: number,
+    limit: number
+  ): Promise<any[]> {
+    return db('products')
+      .join('categories AS cat', { 'products.catId': 'cat.catId' })
+      .where('cat.parentId', catid)
+      .andWhere('products.expiredDate', '>=', new Date())
+      .limit(limit)
+      .offset(offset);
   },
   async findProductbyCategoryPaging(
     catid: string | number | Readonly<any> | null,
