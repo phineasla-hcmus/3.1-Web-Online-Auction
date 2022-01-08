@@ -4,6 +4,16 @@
 
 <div style="background-color: white;" class="rounded-3 p-3">
     <h1 class="text-center fw-bold h3">Manage categories</h1>
+    {{#if HaveChildCat}}
+    <h4 style="color: red;"> This root category have child category</h4>
+    <h4 style="color: red;"> Please delete child category first</h4>
+    {{/if}}
+
+    {{#if childCatHaveProduct}}
+    <h4 style="color: red;"> This category have products</h4>
+    <h4 style="color: red;"> Please delete all products in this category</h4>
+    {{/if}}
+
     <button id="addRootButton" class="btn btn-primary" role="button" onclick="actionAddRoot()">
         Add new root category
     </button>

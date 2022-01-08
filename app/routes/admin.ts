@@ -27,7 +27,7 @@ adminRouter.post('/manage/categories', async function (req, res) {
         res.redirect('/admin/manage/categories');
       } else {
         //TODO: ALERT THAT THIS ROOT HAVE CHILD
-        res.redirect('/admin/manage/categories');
+        res.render('admin/manageCategory', { layout: 'admin', category: true ,HaveChildCat:true });
       }
       break;
     }
@@ -50,8 +50,7 @@ adminRouter.post('/manage/categories', async function (req, res) {
         adminModel.deleteCategory(req.body.childCateId);
         res.redirect('/admin/manage/categories');
       } else {
-        //TODO: ALERT THAT THIS CATE HAVE PRODUCT
-        res.redirect('/admin/manage/categories');
+        res.render('admin/manageCategory', { layout: 'admin', category: true ,childCatHaveProduct:true });
       }
       break;
     }
