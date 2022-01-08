@@ -9,8 +9,12 @@ import path from 'path';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
-import { getSubcategoryList, getCategoryList, findParentCategoryByKeyword } from './models/category.model';
-import { getExpiredSeller ,downgradeSellerAuto} from './models/user.model';
+import {
+  getSubcategoryList,
+  getCategoryList,
+  findParentCategoryByKeyword,
+} from './models/category.model';
+import { getExpiredSeller, downgradeSellerAuto } from './models/user.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
@@ -21,7 +25,6 @@ import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
 import sellerRouter from './routes/seller';
 import hbs from './utils/hbs';
-
 
 const DELAY = 10000; //10 second
 
@@ -98,8 +101,6 @@ app.use(async function (req, res, next) {
   next();
 });
 
-
-
 const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   if (req.isUnauthenticated()) return res.redirect('/auth/login');
   next();
@@ -139,32 +140,30 @@ test();
 setTimeout(async function run() {
   const listExpireProduct = await productModel.findExpiredProductInTime();
 
-  for(let i = 0 ;i<listExpireProduct.length;i++){
+  for (let i = 0; i < listExpireProduct.length; i++) {
     console.log(listExpireProduct[i].proName);
-    const sellerId=listExpireProduct[i].sellerId;
-    const winBidder= listExpireProduct[i].bidderId;
+    const sellerId = listExpireProduct[i].sellerId;
+    const winBidder = listExpireProduct[i].bidderId;
     const winPrice = listExpireProduct[i].currentPrice;
     const proName = listExpireProduct[i].proName;
 
-    if(listExpireProduct[i].bidderId!=0)
-      {
-        //TODO PhineasLa Mailing
-        //Tới:
-        //sellerId : sản phẩm proName đấu giá kết thúc với người thắng là winBidder với giá = winPrice
-        //winbidder : Đấu giá thành công sản phẩm proName với giá = winPrice
-      }
-    else{
+    if (listExpireProduct[i].bidderId != 0) {
       //TODO PhineasLa Mailing
-        //Tới:
-        //sellerId : sản phẩm proName đấu giá kết thúc và không có người đấu giá nào cả :(((
+      //Tới:
+      //sellerId : sản phẩm proName đấu giá kết thúc với người thắng là winBidder với giá = winPrice
+      //winbidder : Đấu giá thành công sản phẩm proName với giá = winPrice
+    } else {
+      //TODO PhineasLa Mailing
+      //Tới:
+      //sellerId : sản phẩm proName đấu giá kết thúc và không có người đấu giá nào cả :(((
     }
-    productModel.removeActiveProduct(listExpireProduct[i].proId)
+    productModel.removeActiveProduct(listExpireProduct[i].proId);
   }
 
   const listExpiredSeller = await getExpiredSeller();
 
-  for(let i = 0;i<listExpiredSeller.length;i++){
-    const sellerId =listExpiredSeller[i].bidderId;
+  for (let i = 0; i < listExpiredSeller.length; i++) {
+    const sellerId = listExpiredSeller[i].bidderId;
 
     //TODO PhineasLa Mailing
     //Tới:
@@ -172,8 +171,7 @@ setTimeout(async function run() {
     downgradeSellerAuto(listExpiredSeller[i].bidderId);
   }
 
-  
   setTimeout(run, DELAY);
-}, DELAY)
+}, DELAY);
 // Let server.ts handle 404 and 500
 export default app;
