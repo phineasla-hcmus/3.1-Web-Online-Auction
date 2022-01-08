@@ -135,7 +135,7 @@ sellerRouter.post(
 
     const files = req.files as Express.Multer.File[];
     const buffers = files.map((file) => file.buffer);
-    const result = await Promise.all<UploadApiResponse | number>([
+    const result = await Promise.all<number | UploadApiResponse>([
       productModel.addProduct({
         proName: name,
         sellerId: userId,
@@ -150,27 +150,12 @@ sellerRouter.post(
       }),
       ...bulkUpload(buffers, { folder: '/product' }),
     ]);
-    // const result = await singleUpload(buffers[0]);
-    console.log(result);
-    res.json(JSON.stringify(result));
 
-    // const productId = await productModel.addProduct({});
-
-    // [Node] [Object: null prototype] {
-    //   [Node]   name: 'abcd',
-    //   [Node]   category: '5',
-    //   [Node]   basePrice: '12345',
-    //   [Node]   stepPrice: '4321',
-    //   [Node]   buyNowPrice: '123',
-    //   [Node]   timeNum: '23',
-    //   [Node]   timeType: 'hour',
-    //   [Node]   isAllow: 'on',
-    //   [Node]   isAuto: 'on',
-    //   [Node]   description: '<p>Something something&nbsp;</p>\r\n' +
-    //   [Node]     '<p><strong>BLABLABLA</strong></p>\r\n' +
-    //   [Node]     '<p style="text-align: center;"><strong>LAMEEEEEEEEEEEEEEEE</strong></p>',
-    //   [Node]   images: [ '', '', '', '', '', '' ]
-    //   [Node] }
+    const productId = result.shift();
+    await productModel.addProductImage(
+      productId,
+      result as UploadApiResponse[]
+    );
   }
 );
 sellerRouter.post(`/add-description`, async function (req, res) {

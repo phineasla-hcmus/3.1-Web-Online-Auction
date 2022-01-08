@@ -1,6 +1,11 @@
-import { UploadApiOptions, UploadApiResponse, v2 } from 'cloudinary';
+import {
+  DeliveryType,
+  ResourceType,
+  UploadApiOptions,
+  UploadApiResponse,
+  v2,
+} from 'cloudinary';
 import { Readable } from 'stream';
-import { promisify } from 'util';
 
 /**
  * Upload multiple file buffers asynchronously.
@@ -39,5 +44,38 @@ export function singleUpload(buffer: Buffer, options?: UploadApiOptions) {
       res ? resolve(res) : reject(err);
     });
     Readable.from(buffer).pipe(upload_stream);
+  });
+}
+
+export interface DestroyOptions {
+  resource_type?: ResourceType;
+  type?: DeliveryType;
+  invalidate?: boolean;
+}
+
+export function bulkDestroy(
+  publicIds: string[],
+  options?: DestroyOptions | DestroyOptions[]
+) {
+  return Array.isArray(options)
+    ? publicIds.map((id, i) => {
+        return singleDestroy(id, options[i]);
+      })
+    : publicIds.map((id, i) => {
+        return singleDestroy(id, options);
+      });
+}
+
+/**
+ * https://cloudinary.com/documentation/image_upload_api_reference#destroy
+ * @param publicId
+ * @param options
+ * @returns
+ */
+export function singleDestroy(publicId: string, options?: DestroyOptions) {
+  return new Promise<any>((resolve, reject) => {
+    v2.uploader.destroy(publicId, options, (err, res) => {
+      res ? resolve(res) : reject(err);
+    });
   });
 }

@@ -3,7 +3,7 @@ $(document).ready(function (e) {
     FilePondPluginImagePreview,
     FilePondPluginImageValidateSize,
     FilePondPluginFileValidateType,
-    FilePondPluginFileValidateSize,
+    FilePondPluginFileValidateSize
   );
   pond = FilePond.create(document.querySelector('#images'), {
     acceptedFileTypes: ['image/*'],
@@ -23,7 +23,7 @@ $(document).ready(function (e) {
     // append FilePond files into the form data
     pondFiles = pond.getFiles();
     for (var i = 0; i < pondFiles.length; i++) {
-      // append the blob file
+      // append the blob files
       formdata.append('images', pondFiles[i].file);
     }
 
@@ -34,8 +34,9 @@ $(document).ready(function (e) {
       processData: false,
       contentType: false,
       method: $(this).attr('method'),
-    }).done(function (response) {
-      // todo
+    }).done(function (res) {
+      const resJson = await res.json();
+      resJson.forEach((err) => toastr.error(err.msg));
     });
   });
 });
