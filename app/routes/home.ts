@@ -5,6 +5,7 @@ import bidderModel from '../models/bidder.model';
 import { findUserById, getRatingUser } from '../models/user.model';
 import path from 'path';
 import fs from 'fs';
+import moment from 'moment';
 import {
   findCategory,
   findParentCategoryByKeyword,
@@ -298,9 +299,14 @@ homeRouter.post('/product', async (req, res) => {
       const stepPrice = parseInt(req.body.stepPrice);
 
       const product = await productModel.findProductbyId(proId);
-      
+
+      const now = new Date();
+      const differentMinutes = (product[0].expiredDate.getTime() - now.getTime())/(1000*60);
+      const newTimeafterExtend = moment(now).add(10, 'm').toDate();
+
       const sellerId = product[0].sellerId;
       const numberofbids = product[0].numberOfBids + 1;
+      const isExtendLimit = product[0].isExtendLimit;
 
       if ((price - (minimumPrice - stepPrice)) % stepPrice != 0) {
         return res.json({
@@ -328,6 +334,10 @@ homeRouter.post('/product', async (req, res) => {
               numberofbids
             ) === true
           )
+          {
+           if(isExtendLimit ==1 && differentMinutes <=5){
+            auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
+           }
             //TODO Phineas Mail
             //Tới :
             // seller là sản phẩm này(Proid) giá được cập nhật = minimumPrice ,
@@ -338,6 +348,7 @@ homeRouter.post('/product', async (req, res) => {
               status: 'success',
               msg: 'Bid Successfully!!!',
             });
+          }
           else {
             return res.json({
               status: 'error',
@@ -358,7 +369,10 @@ homeRouter.post('/product', async (req, res) => {
                 newPrice,
                 numberofbids
               ) === true
-            )
+            ){
+              if(isExtendLimit ==1 && differentMinutes <=5){
+                auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
+               }
               //TODO Phineas Mail
               //Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
@@ -372,6 +386,7 @@ homeRouter.post('/product', async (req, res) => {
                 status: 'success',
                 msg: 'Bid Successfully!!!',
               });
+            }
             else {
               return res.json({
                 status: 'error',
@@ -388,7 +403,10 @@ homeRouter.post('/product', async (req, res) => {
                 price,
                 numberofbids
               ) === true
-            )
+            ){
+              if(isExtendLimit ==1 && differentMinutes <=5){
+                auctionModel.updateProductExpiredDate(proId,newTimeafterExtend);
+               }
               //TODO Phineas Mail
               //Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = price ,
@@ -399,6 +417,7 @@ homeRouter.post('/product', async (req, res) => {
                 status: 'info',
                 msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
               });
+            }
             else {
               return res.json({
                 status: 'error',

@@ -80,5 +80,9 @@ export default {
           });
       });
       return true;
+  },
+
+  updateProductExpiredDate(proId : any,newExpiredDate : any){
+    return db('products').where('proId',"=",proId).update({expiredDate :newExpiredDate }).then();
   }
 };
