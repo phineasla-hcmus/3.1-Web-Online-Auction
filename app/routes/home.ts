@@ -51,7 +51,11 @@ homeRouter.get('/', async (req, res) => {
 
     for (let i = 0; i < nearEndList.length; i++) {
       nearEndList[i].FavoriteProduct = FavoriteProduct;
+    }
+    for (let i = 0; i < mostBidsList.length; i++) {
       mostBidsList[i].FavoriteProduct = FavoriteProduct;
+    }
+    for (let i = 0; i < highestPriceList.length; i++) {
       highestPriceList[i].FavoriteProduct = FavoriteProduct;
     }
   }
