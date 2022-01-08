@@ -380,7 +380,11 @@ homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
   const sortby = req.query.sortby;
   if (keyword) {
+    let list = [];
+
     let amountPro: any = await productModel.countProductByKeyword(keyword);
+    amountPro = amountPro.length;
+
     const limitpage = 6;
 
     let numPage = Math.floor(amountPro / limitpage);
@@ -390,7 +394,6 @@ homeRouter.get('/search', async (req, res) => {
     let offset = (page - 1) * limitpage;
     let listofPage = [];
 
-    let list = [];
     if (sortby === 'date') {
       list = await productModel.findProductByExpiredDate(
         keyword,
@@ -413,6 +416,8 @@ homeRouter.get('/search', async (req, res) => {
         keyword,
         category[0].catId
       );
+      amountPro = amountPro.length;
+
       numPage = Math.floor(amountPro / limitpage);
       if (amountPro % limitpage != 0) numPage++;
 
