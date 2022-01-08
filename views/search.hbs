@@ -1,58 +1,57 @@
 <section class="products">
     <div class="myContainer myContainer--py row">
         {{>category}}
-        <div style="padding-left: 50px;" class="col-sm-10 col-md-10">
-            <div class="mt-3">
-            <p>
-                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                {{numberOfProducts}} products found for the keyword '<span class="text-danger">{{keyword}}</span>'</p>
-            <div style="background-color: #eee; padding: 10px">
-                Sort by:
-                <form id="sortOption" action="/search" method="get">
-                    <input type="hidden" name="keyword" value="{{keyword}}">
-                    <input id="sortby" type="hidden" name="sortby">
-                    <input id="currentpage" type="hidden" name="page" value="1">
-                </form>
+        <div style=" padding-left: 50px;" class=" col-sm-10 col-md-10">
+            <div style="background-color: white;" class="rounded-3 p-3">
                 <div class="mt-3">
-                    <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
-                    <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
-                </div>
-            </div> 
-        </div>  
-        <div class="mt-5">
-            <input id="nPages" type="hidden" value={{pages.length}}>
-            {{#if this.empty}}
-            <h1 style="text-align: center">Unavailable Items</h1>
-            {{else}}
-
-            {{!-- <h1 class="products__title">{{this.catName}} </h1> --}}
-            <div id="products-search-result" class="products__search">
-                {{#each this.listProductByKeyword as |product|}}
-                    {{>product product=product user=../user}}
-                {{/each}}
+                <p>
+                    <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                    {{numberOfProducts}} products found for the keyword '<span class="text-danger">{{keyword}}</span>'</p>
             </div>
-        </div>
-        <input id="prevpage" type="hidden" name="prevpage" value={{prev}}>
-        <input id="nextpage" type="hidden" name="nextpage" value={{next}}>
-        <nav id="paginator" class="products__pagination" aria-label="...">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link page-prev" href="javascript:;" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                </li>
-                {{#each pages}}
-                    {{#if isCurrent}}
-                        <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
-                    {{else}}
-                        <li class="page-item"><a class="page-link"
-                                href="javascript:;">{{value}}</a></li>
-                    {{/if}}
-                {{/each}}
-                <li class="page-item">
-                    <a class="page-link page-next" href="javascript:;"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                </li>
-            </ul>
-        </nav>
-        {{/if}}
+            {{#unless this.empty}}
+                <div style="background-color: #eee; padding: 10px">
+                    Sort by:
+                    <form id="sortOption" action="/search" method="get">
+                        <input type="hidden" name="keyword" value="{{keyword}}">
+                        <input id="sortby" type="hidden" name="sortby">
+                        <input id="currentpage" type="hidden" name="page" value="1">
+                    </form>
+                    <div class="mt-3">
+                        <button id="sortByDate" class="btn btnSort {{#if sortByDate}}active{{/if}}">Descending expired date</button>
+                        <button id="sortByPrice" class="btn btnSort {{#if sortByPrice}}active{{/if}}">Ascending Price</button>
+                    </div>
+                </div> 
+                <div class="mt-5">
+                    <input id="nPages" type="hidden" value={{pages.length}}>
+                    {{!-- <h1 class="products__title">{{this.catName}} </h1> --}}
+                    <div id="products-search-result" class="products__search">
+                        {{#each this.listProductByKeyword as |product|}}
+                            {{>product product=product user=../user}}
+                        {{/each}}
+                    </div>
+                </div>
+                <input id="prevpage" type="hidden" name="prevpage" value={{prev}}>
+                <input id="nextpage" type="hidden" name="nextpage" value={{next}}>
+                <nav id="paginator" class="products__pagination" aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link page-prev" href="javascript:;" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                        </li>
+                        {{#each pages}}
+                            {{#if isCurrent}}
+                                <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
+                            {{else}}
+                                <li class="page-item"><a class="page-link"
+                                        href="javascript:;">{{value}}</a></li>
+                            {{/if}}
+                        {{/each}}
+                        <li class="page-item">
+                            <a class="page-link page-next" href="javascript:;"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            {{/unless}}  
+            </div>
         </div>
     </div>
 </section>

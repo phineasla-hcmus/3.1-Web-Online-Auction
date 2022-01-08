@@ -458,38 +458,40 @@ homeRouter.get('/search', async (req, res) => {
     // parent categories
     if (list[0] === undefined) {
       const category = await findParentCategoryByKeyword(keyword);
-      amountPro = await productModel.countProductByKeywordAndParentCat(
-        keyword,
-        category[0].catId
-      );
-      amountPro = amountPro.length;
-
-      numPage = Math.floor(amountPro / limitpage);
-      if (amountPro % limitpage != 0) numPage++;
-
-      offset = (page - 1) * limitpage;
-
-      if (sortby === 'date') {
-        list = await productModel.findProductByExpiredDateAndParentCat(
+      if (category[0] !== undefined) {
+        amountPro = await productModel.countProductByKeywordAndParentCat(
           keyword,
-          offset,
-          limitpage,
           category[0].catId
         );
-      } else if (sortby === 'price') {
-        list = await productModel.findProductByPriceAndParentCat(
-          keyword,
-          offset,
-          limitpage,
-          category[0].catId
-        );
-      } else {
-        list = await productModel.findProductByKeywordAndParentCat(
-          keyword,
-          category[0].catId,
-          offset,
-          limitpage
-        );
+        amountPro = amountPro.length;
+
+        numPage = Math.floor(amountPro / limitpage);
+        if (amountPro % limitpage != 0) numPage++;
+
+        offset = (page - 1) * limitpage;
+
+        if (sortby === 'date') {
+          list = await productModel.findProductByExpiredDateAndParentCat(
+            keyword,
+            offset,
+            limitpage,
+            category[0].catId
+          );
+        } else if (sortby === 'price') {
+          list = await productModel.findProductByPriceAndParentCat(
+            keyword,
+            offset,
+            limitpage,
+            category[0].catId
+          );
+        } else {
+          list = await productModel.findProductByKeywordAndParentCat(
+            keyword,
+            category[0].catId,
+            offset,
+            limitpage
+          );
+        }
       }
     }
 
