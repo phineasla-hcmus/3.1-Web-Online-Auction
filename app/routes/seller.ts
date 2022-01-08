@@ -180,7 +180,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
   const proId = req.body.proId;
   const bidderId = req.body.bidderId;
   const stepPrice = req.body.stepPrice;
-
+  const url = req.headers.referer || '/';
   const maxPriceOfUserInHistory =
     await auctionModel.findMaxPriceOfUserInHistory(proId, bidderId);
 
@@ -198,14 +198,15 @@ sellerRouter.post('/denyBidder', async function (req, res) {
     res.redirect(url);
   } else {
     const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
-      proId
+      proId,bidderId
     );
-    const highestUserHistory = highestUserInHistoryList[0].bidderId;
+  
+    const highestUserHistory = highestUserInHistoryList[0]? highestUserInHistoryList[0].bidderId:0;
     const secondHighestUserHistory = highestUserInHistoryList[1]
       ? highestUserInHistoryList[1].bidderId
       : 0;
 
-    if (highestUserHistory != highestBidder) {
+    if (highestUserHistory != highestBidder && highestUserHistory!=0) {
       //TODO Phineas Mail
       //Tới:
       //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) , sẽ được không được đấu giá nữa.
@@ -215,10 +216,12 @@ sellerRouter.post('/denyBidder', async function (req, res) {
         highestUserInHistoryList[0].auctionPrice,
         highestUserHistory
       );
-      const url = req.headers.referer || '/';
+     
       res.redirect(url);
+
     } else {
       if (secondHighestUserHistory != 0) {
+      
         //TODO Phineas Mail
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
@@ -228,14 +231,15 @@ sellerRouter.post('/denyBidder', async function (req, res) {
           highestUserInHistoryList[1].auctionPrice,
           secondHighestUserHistory
         );
-        const url = req.headers.referer || '/';
+        
         res.redirect(url);
       } else {
+        console.log(basePrice);
         //TODO Phineas Mail
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
         sellerModel.denyHighestBidder(proId, bidderId, basePrice, 0);
-        const url = req.headers.referer || '/';
+
         res.redirect(url);
       }
     }

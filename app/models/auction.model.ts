@@ -7,9 +7,10 @@ export default {
       .where('proId', '=', proId)
       .orderBy('maxPrice', 'DESC');
   },
-  async findMaxPriceInHistory(proId: any){
+  async findMaxPriceInHistory(proId: any, userId : any){
     return db('auctionHistory')
     .where('proId', '=', proId)
+    .where('bidderId',"<>",userId)
     .orderBy('auctionPrice', 'DESC').where({isDenied:1});
   },
   async findMaxPriceOfUserInHistory(proId: any,bidderId: any){
