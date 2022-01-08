@@ -76,9 +76,10 @@ export default {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
+      .join('productimages', { 'products.thumbnailId': 'imgId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname')
+      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
   },
 
