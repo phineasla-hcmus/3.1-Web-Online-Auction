@@ -184,8 +184,8 @@ homeRouter.get('/product', async (req, res) => {
   // const bidderRating = await getRatingUser(bidderId);
   // const sellerRating = await getRatingUser(sellerId);
 
-  const { bidderRating } = (await findUserById(bidderId, ['rating']))?.rating;
-  const { sellerRating } = (await findUserById(sellerId, ['rating']))?.rating;
+  const bidderRating = (await findUserById(bidderId, ['rating']))?.rating;
+  const sellerRating = (await findUserById(sellerId, ['rating']))?.rating;
 
   detailedProduct[0].bidderRating = bidderRating || 'x';
   detailedProduct[0].sellerRating = sellerRating || 'x';

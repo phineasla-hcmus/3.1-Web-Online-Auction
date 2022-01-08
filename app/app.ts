@@ -5,11 +5,12 @@ import session from 'express-session';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
-import knex from './config/database';
 import './config/nodemailer';
 import './config/passport';
 import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
-import { getSubcategoryList, getCategoryList, findParentCategoryByKeyword } from './models/category.model';
+import {
+  getCategoryList, getSubcategoryList
+} from './models/category.model';
 import { RoleType } from './models/role.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -126,8 +127,7 @@ app.use('/bidder', mustLoggedIn, bidderRouter);
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);
 
-async function test() {  
-}
+async function test() {}
 test();
 
 // Let server.ts handle 404 and 500

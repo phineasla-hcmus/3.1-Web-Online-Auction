@@ -6,8 +6,9 @@ import bidderModel from '../models/bidder.model';
 import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
-import cloudinary from 'cloudinary';
+import cloudinary, { UploadApiResponse } from 'cloudinary';
 import { validationResult } from 'express-validator';
+import { bulkUpload, singleUpload } from '../utils/cloudinary';
 
 const sellerRouter = Router();
 
@@ -89,14 +90,70 @@ sellerRouter.post(
   upload.array('images'),
   ...addProductValidator,
   async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   return res.json(errors.array());
-    // }
-    // const { name, category, basePrice, stepPrice, timeNum, timeType } =
-    //   req.body;
-    console.log(req.body);
-    console.log(req.files?.length)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors.array());
+    }
+    // Required fields
+    const {
+      name,
+      category,
+      basePrice,
+      stepPrice,
+      description,
+      timeNum,
+      timeType,
+    } = req.body;
+
+    const userId = req.user?.userId;
+
+    // Optional fields
+    const buyNowPrice = req.body.buyNowPrice || null;
+    const isAllow = req.body.isAllow ? true : false;
+    const isAuto = req.body.isAuto ? true : false;
+
+    const expiredDate = new Date();
+    const hour = expiredDate.getHours();
+    const date = expiredDate.getDate();
+    const month = expiredDate.getMonth();
+    switch (timeType) {
+      case 'hour':
+        expiredDate.setHours(hour + timeNum);
+        break;
+      case 'date':
+        expiredDate.setDate(date + timeNum);
+        break;
+      case 'week':
+        expiredDate.setDate(date + timeNum * 7);
+        break;
+      case 'month':
+        expiredDate.setMonth(month + timeNum);
+        break;
+      default:
+        break;
+    }
+
+    const files = req.files as Express.Multer.File[];
+    const buffers = files.map((file) => file.buffer);
+    const result = await Promise.all<UploadApiResponse | number>([
+      productModel.addProduct({
+        proName: name,
+        sellerId: userId,
+        catId: category,
+        basePrice,
+        stepPrice,
+        description,
+        expiredDate,
+        buyNowPrice,
+        isAllowRating: isAllow,
+        isExtendLimit: isAuto,
+      }),
+      ...bulkUpload(buffers, { folder: '/product' }),
+    ]);
+    // const result = await singleUpload(buffers[0]);
+    console.log(result);
+    res.json(JSON.stringify(result));
+
     // const productId = await productModel.addProduct({});
 
     // [Node] [Object: null prototype] {

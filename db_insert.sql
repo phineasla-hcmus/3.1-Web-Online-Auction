@@ -56,7 +56,6 @@ insert into watchlist values(1, 3);
 insert into watchlist values(1, 4);
 insert into watchlist values(1, 5);
 
-
 insert into upgradelist values(1, '2021-12-19 11:34:34', -1, '2021-12-21 11:34:34');
 insert into upgradelist values(5, '2022-01-04 10:15:37', -1, null);
 insert into upgradelist values(6, '2022-01-04 10:15:37', -1, null);

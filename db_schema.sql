@@ -65,22 +65,22 @@ CREATE TABLE `categories` (
 -- ----------------------------
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
-  `proId` int unsigned NOT NULL AUTO_INCREMENT,
-  `proName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `catId` int unsigned NOT NULL,
-  `basePrice` int unsigned NOT NULL,
-  `buynowPrice` int unsigned NOT NULL,
-  `currentPrice` int unsigned NOT NULL,
-  `stepPrice` int unsigned DEFAULT NULL,
-  `description` text not null ,
-  `postDate` datetime DEFAULT CURRENT_TIMESTAMP,
-  `expiredDate` datetime NOT NULL,
-  `numberOfBids` tinyint unsigned DEFAULT 0,
-  `bidderId` int DEFAULT NULL,
-  `sellerId` int unsigned NOT NULL,
-  `isAllowRating` int NOT NULL,  -- 1 is allow to bid for user who don't have Rating , 0 is not allow
-  `isDisable` int default 1,  -- 1 is active , 0 is disable // for admin add to deleting product,
-  `isExtendLimit` int null, -- 1 is extend, 0 is not
+  `proId` 			int unsigned 	NOT NULL AUTO_INCREMENT,
+  `proName` 		varchar(50) 	COLLATE utf8mb4_general_ci NOT NULL,
+  `catId` 			int unsigned 	NOT NULL,
+  `basePrice` 		int unsigned 	NOT NULL,
+  `buyNowPrice` 	int unsigned 	DEFAULT NULL,
+  `currentPrice` 	int unsigned 	NOT NULL,
+  `stepPrice` 		int unsigned	NOT NULL,
+  `description` 	text			NOT NULL,
+  `postDate` 		datetime 		DEFAULT CURRENT_TIMESTAMP,
+  `expiredDate` 	datetime 		NOT NULL,
+  `numberOfBids` 	tinyint unsigned DEFAULT 0,
+  `bidderId` 		int 			DEFAULT NULL,
+  `sellerId` 		int unsigned 	NOT NULL,
+  `isAllowRating` 	int 			NOT NULL,	-- 1 is allow to bid for user who don't have Rating , 0 is not allow
+  `isDisable` 		int 			DEFAULT 1,  -- 1 is active , 0 is disable // for admin add to deleting product,
+  `isExtendLimit` 	int 			DEFAULT 0, 	-- 1 is extend, 0 is not
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -1,7 +1,6 @@
 import db from '../config/database';
 
 interface ProductInsert {
-  proId: number;
   proName: string;
   catId: number;
   sellerId: any;
@@ -10,6 +9,7 @@ interface ProductInsert {
   stepPrice: number;
   expiredDate: Date;
   isAllowRating: boolean;
+  isExtendLimit? : boolean;
   buyNowPrice?: number;
 }
 
@@ -26,7 +26,7 @@ export default {
   },
   async findNearEndProducts() {
     return db('products')
-      .where('expiredDate', '>=', new Date())
+      .where('expiredDate', '>=', db.fn.now())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
