@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import adminModel from '../models/admin.model';
+import productModel from '../models/product.model';
 import { updateBidderToSeller, findUserById } from '../models/user.model';
 
 const adminRouter = Router();
@@ -85,7 +86,6 @@ adminRouter.get('/manage/categories/editCat', async function (req, res) {
   });
 });
 
-// TODO
 adminRouter.get('/manage/products', async function (req, res) {
   const listDisable = await adminModel.getDisableProduct();
 
@@ -93,11 +93,50 @@ adminRouter.get('/manage/products', async function (req, res) {
     listDisable[i].isDisable = 1;
   }
 
+  const listProduct = await adminModel.getListProduct();
+
+  const limitpage = 5;
+  const page = 1;
+  const offset = (page - 1) * limitpage;
+
+  const amountProduct = listProduct.length;
+
+  let numPageProduct = Math.floor(amountProduct / limitpage);
+  if (amountProduct % limitpage != 0) numPageProduct++;
+
+  const listofPageProduct = [];
+
+  const pagingProductList = await adminModel.getListProductsByPaging(
+    offset,
+    limitpage
+  );
+
+  for (let i = 1; i <= numPageProduct; i++) {
+    listofPageProduct.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+
   res.render('admin/manageProduct', {
     layout: 'admin',
     product: true,
     listDisable,
+    emptyDisable: listDisable.length === 0,
+    pagesProduct: listofPageProduct,
+    pagingProductList,
   });
+});
+
+adminRouter.get('/manage/productsByPaging', async function (req, res) {
+  const limitpage = 5;
+  const page: any = req.query.page || 1;
+  const offset = (page - 1) * limitpage;
+  const pagingProductList = await adminModel.getListProductsByPaging(
+    offset,
+    limitpage
+  );
+  res.json(pagingProductList);
 });
 
 adminRouter.post('/deleteProduct', async function (req, res) {
@@ -110,18 +149,18 @@ adminRouter.post('/deleteProduct', async function (req, res) {
     res.redirect(url);
   } else {
     if (content == 'recovery') {
-      const productList = req.body.productList;
-      for (let i = 0; i < productList.length; i++) {
-        adminModel.recoveryProduct(productList[i]);
+      const listDisable = await adminModel.getDisableProduct();
+      for (let i = 0; i < listDisable.length; i++) {
+        adminModel.recoveryProduct(listDisable[i].proId);
       }
 
       const url = req.headers.referer || '/';
       res.redirect(url);
     } else {
       if (content == 'delete') {
-        const productList = req.body.productList;
-        for (let i = 0; i < productList.length; i++) {
-          adminModel.deleteProduct(productList[i]);
+        const listDisable = await adminModel.getDisableProduct();
+        for (let i = 0; i < listDisable.length; i++) {
+          adminModel.deleteProduct(listDisable[i].proId);
         }
 
         const url = req.headers.referer || '/';
