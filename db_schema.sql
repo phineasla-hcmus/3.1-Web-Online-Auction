@@ -84,16 +84,20 @@ CREATE TABLE `products` (
   PRIMARY KEY (`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `productImages`;
+CREATE TABLE `productImages` (
+	`proId` 		int unsigned 	NOT NULL,
+    `imgId`			char(30)		NOT NULL,
+    `secureUrl`		varchar(256)	NOT NULL,
+    `extra`			json			NOT NULL,
+    PRIMARY KEY (`proId`, `imgId`)
+);
 
--- ----------------------------
--- Table structure for activeProducts ( for mailing if expired)
--- ----------------------------
 DROP TABLE IF EXISTS `activeProducts`;
 CREATE TABLE `activeProducts`(
 	`proId` int unsigned NOT NULL,
     PRIMARY KEY(`proId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 -- ----------------------------
 -- Table structure for watchlist

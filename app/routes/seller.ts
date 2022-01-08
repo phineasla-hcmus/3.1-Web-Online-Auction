@@ -120,7 +120,7 @@ sellerRouter.post(
       case 'hour':
         expiredDate.setHours(hour + timeNum);
         break;
-      case 'date':
+      case 'day':
         expiredDate.setDate(date + timeNum);
         break;
       case 'week':
@@ -156,6 +156,8 @@ sellerRouter.post(
       productId,
       result as UploadApiResponse[]
     );
+
+    res.redirect('/seller/add-product');
   }
 );
 sellerRouter.post(`/add-description`, async function (req, res) {
@@ -198,15 +200,18 @@ sellerRouter.post('/denyBidder', async function (req, res) {
     res.redirect(url);
   } else {
     const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
-      proId,bidderId
+      proId,
+      bidderId
     );
-  
-    const highestUserHistory = highestUserInHistoryList[0]? highestUserInHistoryList[0].bidderId:0;
+
+    const highestUserHistory = highestUserInHistoryList[0]
+      ? highestUserInHistoryList[0].bidderId
+      : 0;
     const secondHighestUserHistory = highestUserInHistoryList[1]
       ? highestUserInHistoryList[1].bidderId
       : 0;
 
-    if (highestUserHistory != highestBidder && highestUserHistory!=0) {
+    if (highestUserHistory != highestBidder && highestUserHistory != 0) {
       //TODO Phineas Mail
       //Tới:
       //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) , sẽ được không được đấu giá nữa.
@@ -216,12 +221,10 @@ sellerRouter.post('/denyBidder', async function (req, res) {
         highestUserInHistoryList[0].auctionPrice,
         highestUserHistory
       );
-     
-      res.redirect(url);
 
+      res.redirect(url);
     } else {
       if (secondHighestUserHistory != 0) {
-      
         //TODO Phineas Mail
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
@@ -231,7 +234,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
           highestUserInHistoryList[1].auctionPrice,
           secondHighestUserHistory
         );
-        
+
         res.redirect(url);
       } else {
         console.log(basePrice);

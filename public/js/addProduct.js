@@ -34,9 +34,16 @@ $(document).ready(function (e) {
       processData: false,
       contentType: false,
       method: $(this).attr('method'),
-    }).done(function (res) {
-      const resJson = await res.json();
-      resJson.forEach((err) => toastr.error(err.msg));
+      success: function (data, textStatus) {
+        console.log(data);
+        console.log(textStatus);
+        if (data.redirect) {
+          window.location.href = data.redirect;
+        } else {
+          // const resJson = await res.json();
+          // resJson.forEach((err) => toastr.error(err.msg));
+        }
+      },
     });
   });
 });

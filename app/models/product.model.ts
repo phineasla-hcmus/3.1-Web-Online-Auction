@@ -30,14 +30,24 @@ function unpackCloudinaryResponse(productId: any, res: UploadApiResponse) {
 
 export default {
   /**
-   * Insert new user into `products` table
+   * Insert new product into `products` table, if `active`, insert into `activeProducts`
    * @param product
    * @returns product ID
    */
-  async addProduct(product: ProductInsert) {
+  async addProduct(
+    product: ProductInsert,
+    options = { active: true } || undefined
+  ) {
     return db('products')
       .insert({ ...product, currentPrice: product.basePrice })
-      .then((value) => value[0]);
+      .then(async (res) => {
+        const proId = res[0];
+        return options.active
+          ? db('activeProducts')
+              .insert({ proId })
+              .then((_) => proId)
+          : proId;
+      });
   },
 
   async addProductImage(
@@ -52,7 +62,14 @@ export default {
     } else {
       pending = unpackCloudinaryResponse(productId, cloudinaryRespond);
     }
-    return db('productimages').insert(pending);
+    return db('productImages').insert(pending);
+  },
+
+  /**
+   * The first image of each product in `product
+   * @param productId 
+   */
+  async findThumbnail(productId: any | any[]) {
   },
 
   async findNearEndProducts() {
@@ -164,8 +181,8 @@ export default {
       .join('products', { 'activeProducts.proId': 'products.proId' })
       .where('products.expiredDate', '<', new Date());
   },
-  async removeActiveProduct(proId: any){
-    return db('activeProducts').where('proId',"=",proId).del().then();
+  async removeActiveProduct(proId: any) {
+    return db('activeProducts').where('proId', '=', proId).del().then();
   },
   // perform full-text search
   async findProductByKeyword(

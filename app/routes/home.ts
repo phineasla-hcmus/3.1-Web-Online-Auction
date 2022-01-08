@@ -357,85 +357,84 @@ homeRouter.post('/product', async (req, res) => {
         } else {
           const maxPrice: number = UsermaxPrice[0].maxPrice;
           const userwithMaxPrice = UsermaxPrice[0].userId;
-          if(userwithMaxPrice == userId){
+          if (userwithMaxPrice == userId) {
             return res.json({
               status: 'error',
               msg: `You are the highest bidder in this product with auction auto price =${maxPrice} !!!!<br> Please bid again if there is a bidder bid higher than you`,
             });
-          }
-          else{
-          if (maxPrice < price) {
-            const newPrice = maxPrice + stepPrice;
-            if (
-              auctionModel.bidProductwithPriceLarger(
-                proId,
-                userId,
-                biddername,
-                price,
-                newPrice,
-                numberofbids
-              ) === true
-            ) {
-              if (isExtendLimit == 1 && differentMinutes <= 5) {
-                auctionModel.updateProductExpiredDate(
-                  proId,
-                  newTimeafterExtend
-                );
-              }
-              //TODO Phineas Mail
-              //Tới :
-              // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
-              // userId là đấu giá thành công sản phẩm này với giá = price
-              // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
-
-              //TODO need to reload page
-
-              return res.json({
-                status: 'success',
-                msg: 'Bid Successfully!!!',
-              });
-            } else {
-              return res.json({
-                status: 'error',
-                msg: 'Error!!!',
-              });
-            }
           } else {
-            if (
-              auctionModel.bidProductWithPriceSmaller(
-                proId,
-                userId,
-                biddername,
-                price,
-                price,
-                numberofbids
-              ) === true
-            ) {
-              if (isExtendLimit == 1 && differentMinutes <= 5) {
-                auctionModel.updateProductExpiredDate(
+            if (maxPrice < price) {
+              const newPrice = maxPrice + stepPrice;
+              if (
+                auctionModel.bidProductwithPriceLarger(
                   proId,
-                  newTimeafterExtend
-                );
-              }
-              //TODO Phineas Mail
-              //Tới :
-              // seller là sản phẩm này(Proid) giá được cập nhật = price ,
-              // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
+                  userId,
+                  biddername,
+                  price,
+                  newPrice,
+                  numberofbids
+                ) === true
+              ) {
+                if (isExtendLimit == 1 && differentMinutes <= 5) {
+                  auctionModel.updateProductExpiredDate(
+                    proId,
+                    newTimeafterExtend
+                  );
+                }
+                //TODO Phineas Mail
+                //Tới :
+                // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
+                // userId là đấu giá thành công sản phẩm này với giá = price
+                // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
 
-              //TODO need to reload page
-              return res.json({
-                status: 'info',
-                msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
-              });
+                //TODO need to reload page
+
+                return res.json({
+                  status: 'success',
+                  msg: 'Bid Successfully!!!',
+                });
+              } else {
+                return res.json({
+                  status: 'error',
+                  msg: 'Error!!!',
+                });
+              }
             } else {
-              return res.json({
-                status: 'error',
-                msg: 'Error!!!',
-              });
+              if (
+                auctionModel.bidProductWithPriceSmaller(
+                  proId,
+                  userId,
+                  biddername,
+                  price,
+                  price,
+                  numberofbids
+                ) === true
+              ) {
+                if (isExtendLimit == 1 && differentMinutes <= 5) {
+                  auctionModel.updateProductExpiredDate(
+                    proId,
+                    newTimeafterExtend
+                  );
+                }
+                //TODO Phineas Mail
+                //Tới :
+                // seller là sản phẩm này(Proid) giá được cập nhật = price ,
+                // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
+
+                //TODO need to reload page
+                return res.json({
+                  status: 'info',
+                  msg: 'Bid Successfully BUT your price is not high enough to beat a highest bidder',
+                });
+              } else {
+                return res.json({
+                  status: 'error',
+                  msg: 'Error!!!',
+                });
+              }
             }
           }
         }
-      }
       }
     }
     if (content === 'like') {
