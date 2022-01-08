@@ -193,6 +193,7 @@ export default {
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
+      .leftJoin('productimages', { 'products.thumbnailId': 'productimages.imgId' })
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname');
   },

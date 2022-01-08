@@ -85,13 +85,15 @@ export default {
   async getBiddingProducts(sellerId: number) {
     return db('products')
       .where('sellerId', sellerId)
-      .andWhere('expiredDate', '>=', new Date());
+      .andWhere('expiredDate', '>=', new Date())
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
   },
   async getWinningProducts(sellerId: number) {
     return db('products')
       .where('sellerId', sellerId)
       .andWhere('expiredDate', '<', new Date())
-      .andWhereNot('bidderId', null);
+      .andWhereNot('bidderId', null)
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
   },
   async isAlreadyRated(sellerId: number, proId: number) {
     const ratingList = await db('ratingHistory')
