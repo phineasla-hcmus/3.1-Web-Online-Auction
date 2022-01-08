@@ -163,8 +163,8 @@ export default {
   async findProductbyId(proId: any) {
     return db('products')
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
-      .where('proId', proId)
+      .leftJoin('productimages', { 'products.thumbnailId': 'productimages.imgId' })
+      .where('products.proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname');
   },
   async getSellerName(sellerId: any) {
