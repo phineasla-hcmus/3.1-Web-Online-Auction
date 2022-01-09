@@ -117,6 +117,8 @@ export default {
     return db('products').where('proId', proId).update({ isDisable: 1 });
   },
   async deleteProduct(proId: any) {
-    return db('products').where('proId', proId).del();
+    db('products').where('proId', proId).del().then(function (result){
+      return db('productimages').where('proId',proId).del();
+    });
   },
 };
