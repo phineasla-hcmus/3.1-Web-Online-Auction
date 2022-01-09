@@ -17,7 +17,8 @@ export default {
       .where('expiredDate', '>=', new Date())
       .andWhere('isDisable', 1)
       .limit(limit)
-      .offset(offset);
+      .offset(offset)
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
   },
   async getUpgradeRequests() {
     return db('upgradelist')
@@ -102,12 +103,14 @@ export default {
     return db('products').where('proId', proId).update({ isDisable: 0 });
   },
   async getDisableProduct() {
-    return db('products').where('isDisable', 0);
+    return db('products').where('isDisable', 0)
+    .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
   },
   async getListProduct() {
     return db('products')
       .where('expiredDate', '>=', new Date())
-      .andWhere('isDisable', 1);
+      .andWhere('isDisable', 1)
+      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
   },
   async recoveryProduct(proId: any) {
     return db('products').where('proId', proId).update({ isDisable: 1 });

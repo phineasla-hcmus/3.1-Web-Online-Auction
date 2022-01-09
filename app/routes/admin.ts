@@ -109,6 +109,7 @@ adminRouter.get('/manage/products', async function (req, res) {
     limitpage
   );
 
+
   for (let i = 1; i <= numPageProduct; i++) {
     listofPageProduct.push({
       value: i,

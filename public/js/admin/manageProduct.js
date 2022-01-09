@@ -33,7 +33,7 @@ function parseProductHTML(element) {
   return ` <tr>
     <td style="min-width: 7rem;">
         <img
-        src="/public/images/product/${element.proId}/1.jpg"
+        src="${element.secureUrl}"
         class="img-fluid"
         alt=""
     /></td>
