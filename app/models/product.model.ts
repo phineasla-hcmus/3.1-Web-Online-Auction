@@ -373,17 +373,17 @@ export default {
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
   },
   async getAuctionHistory(proId: any) {
-    return db('auctionhistory')
-      .join('products AS pro', { 'auctionhistory.proId': 'pro.proId' })
+    return db('auctionHistory')
+      .join('products AS pro', { 'auctionHistory.proId': 'pro.proId' })
       .join('users as u', { 'pro.bidderId': 'u.userId' })
       .where('pro.proId', proId)
-      .select('auctionhistory.*', 'u.firstname', 'u.lastname');
+      .select('auctionHistory.*', 'u.firstname', 'u.lastname');
   },
   async getListBidder(proId: any) {
-    return db('auctionhistory')
+    return db('auctionHistory')
       .where('proId', proId)
       .where('isDenied', 1)
-      .join('users', { 'auctionhistory.bidderId': 'users.userId' })
+      .join('users', { 'auctionHistory.bidderId': 'users.userId' })
       .distinct('bidderId', 'users.firstname', 'users.lastname');
   },
   async checkIfLike_or_Unlike(bidderId: number, proId: any) {
@@ -402,6 +402,6 @@ export default {
     return db('watchlist').where('bidderId', bidderId);
   },
   async getDeniedBidder(proId: number) {
-    return db('deniedbidder').where({ proId: proId });
+    return db('deniedBidder').where({ proId: proId });
   },
 };

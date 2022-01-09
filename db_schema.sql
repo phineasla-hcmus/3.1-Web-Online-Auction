@@ -187,7 +187,7 @@ CREATE TABLE `auctionAuto`(
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
--- Table structure for waitingList ( list of bidder which doesn't have rating score , waiting for seller allow)
+-- Table structure for waitingList (list of bidder which doesn't have rating score , waiting for seller allow)
 -- ----------------------------
 -- DROP TABLE IF EXISTS `waitingList`;
 -- CREATE TABLE `waitingList`(

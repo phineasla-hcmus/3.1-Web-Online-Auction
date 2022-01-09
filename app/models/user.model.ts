@@ -94,7 +94,7 @@ export async function getRatingUser(userId: any) {
 }
 
 export async function getExpiredSeller() {
-  return knex('upgradelist')
+  return knex('upgradeList')
     .where('status', '=', 1)
     .andWhere('expiredDate', '<', new Date());
 }
@@ -106,6 +106,6 @@ export async function downgradeSellerAuto(sellerId: number) {
       roleId: 2,
     })
     .then(function (result) {
-      return knex('upgradelist').where('bidderId', '=', sellerId).del();
+      return knex('upgradeList').where('bidderId', '=', sellerId).del();
     });
 }

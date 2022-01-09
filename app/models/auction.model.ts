@@ -3,7 +3,7 @@ import db from '../config/database';
 
 export default {
   async findMaxPrice(proId: any) {
-    return db('auctionauto')
+    return db('auctionAuto')
       .where('proId', '=', proId)
       .orderBy('maxPrice', 'DESC');
   },
@@ -45,10 +45,10 @@ export default {
       auctionPrice: cPrice,
     };
 
-    db('auctionauto')
+    db('auctionAuto')
       .insert(insertauctionAuto)
       .then(function (result) {
-        db('auctionhistory')
+        db('auctionHistory')
           .insert(insertauctionHistory)
           .then(function (result) {
             db('products')
@@ -87,10 +87,10 @@ export default {
       auctionPrice: cPrice,
     };
 
-    db('auctionauto')
+    db('auctionAuto')
       .insert(insertauctionAuto)
       .then(function (result) {
-        db('auctionhistory')
+        db('auctionHistory')
           .insert(insertauctionHistory)
           .then(function (result) {
             db('products')

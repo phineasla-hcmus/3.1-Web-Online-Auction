@@ -21,8 +21,8 @@ export default {
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async getUpgradeRequests() {
-    return db('upgradelist')
-      .join('users as u', { 'upgradelist.bidderId': 'u.userId' })
+    return db('upgradeList')
+      .join('users as u', { 'upgradeList.bidderId': 'u.userId' })
       .where('status', -1)
       .select(
         'u.userId',
@@ -31,12 +31,12 @@ export default {
         'u.firstname',
         'u.lastname',
         'u.rating',
-        'upgradelist.registerTime'
+        'upgradeList.registerTime'
       );
   },
   async getUpgradeRequestsByPaging(offset: number, limit: number) {
-    return db('upgradelist')
-      .join('users as u', { 'upgradelist.bidderId': 'u.userId' })
+    return db('upgradeList')
+      .join('users as u', { 'upgradeList.bidderId': 'u.userId' })
       .where('status', -1)
       .select(
         'u.userId',
@@ -45,13 +45,13 @@ export default {
         'u.firstname',
         'u.lastname',
         'u.rating',
-        'upgradelist.registerTime'
+        'upgradeList.registerTime'
       )
       .limit(limit)
       .offset(offset);
   },
   async approveRequest(bidderId: number) {
-    return db('upgradelist')
+    return db('upgradeList')
       .where('bidderId', bidderId)
       .andWhere('status', -1)
       .update({
@@ -60,7 +60,7 @@ export default {
       });
   },
   async declineRequest(bidderId: number) {
-    return db('upgradelist')
+    return db('upgradeList')
       .where('bidderId', bidderId)
       .andWhere('status', -1)
       .update({

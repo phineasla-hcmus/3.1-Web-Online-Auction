@@ -40,11 +40,11 @@ export default {
     return true;
   },
   async getCurrentBids(bidderId: number) {
-    return db('auctionhistory')
-      .join('products as pro', { 'auctionhistory.proId': 'pro.proId' })
-      .where('auctionhistory.bidderId', bidderId)
+    return db('auctionHistory')
+      .join('products as pro', { 'auctionHistory.proId': 'pro.proId' })
+      .where('auctionHistory.bidderId', bidderId)
       .andWhere('pro.expiredDate', '>=', new Date())
-      .groupBy('auctionhistory.proId');
+      .groupBy('auctionHistory.proId');
   },
   async upgradeToSeller(bidderId: number) {
     const upgradeRequest = {

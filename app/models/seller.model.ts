@@ -8,14 +8,14 @@ export default {
   //     bidderSecond: any,
   //     secondPrice: any
   //   ) {
-  //     return db('deniedbidder')
+  //     return db('deniedBidder')
   //       .insert({ proId: proId, bidderId: bidderId })
   //       .then(function (result) {
-  //         db('auctionauto')
+  //         db('auctionAuto')
   //           .where({ proId: proId, bidderId: bidderId })
   //           .del()
   //           .then(function (result) {
-  //             db('auctionhistory')
+  //             db('auctionHistory')
   //               .where({ proId: proId, auctionPrice: highestMoneyInHistory })
   //               .del()
   //               .then(function (result) {
@@ -28,14 +28,14 @@ export default {
   //       });
   //   },
   async denyBidder(proId: any, bidderId: any, priceUpdate: any) {
-    return db('deniedbidder')
+    return db('deniedBidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
-        db('auctionauto')
+        db('auctionAuto')
           .where({ proId: proId, userId: bidderId })
           .del()
           .then(function (result) {
-            db('auctionhistory')
+            db('auctionHistory')
               .where({ proId: proId, bidderId: bidderId })
               .update({ isDenied: 0 })
               .then(function (result) {
@@ -54,14 +54,14 @@ export default {
     secondHighestBidder: any
   ) {
     console.log(secondHighestBidder);
-    return db('deniedbidder')
+    return db('deniedBidder')
       .insert({ proId: proId, bidderId: bidderId })
       .then(function (result) {
-        db('auctionauto')
+        db('auctionAuto')
           .where({ proId: proId, userId: bidderId })
           .del()
           .then(function (result) {
-            db('auctionhistory')
+            db('auctionHistory')
               .where({ proId: proId, bidderId: bidderId })
               .update({ isDenied: 0 })
               .then(function (result) {
