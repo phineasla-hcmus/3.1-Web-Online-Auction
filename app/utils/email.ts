@@ -68,7 +68,7 @@ export async function sendSellerAuctionEnded(
 }
 
 export async function sendWinner(to: string, product: EmailProduct) {
-  return sendTemplate('./email/product.html', to, 'Auction closed', {
+  return sendTemplate('./emails/product.html', to, 'Auction closed', {
     title: "You've won",
     body: `Congratulations on winning the ${product.name}. Please process to pay and claim your product within 72 hours`,
     productId: product.id,
