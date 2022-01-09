@@ -156,7 +156,6 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
@@ -170,7 +169,6 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
