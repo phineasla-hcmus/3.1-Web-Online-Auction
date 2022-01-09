@@ -1,12 +1,12 @@
-<h1 class='h3 fw-bold'>My favorite list</h1>
-{{#if empty}}
-    <div class="alert alert-info">You don't have any favorite products</div>
-{{else}}
-    <div style="background-color: white;" class="rounded-3 pt-5 p-4">
+<div style="background-color: white;" class="rounded-3 p-4">
+    <h1 class='h3 fw-bold'>My favorite list</h1>
+    {{#if empty}}
+        <div class="alert alert-info">You don't have any favorite products</div>
+    {{else}}
         <div class="products__favorite">
             {{#each this.favoriteList}}
                 {{>product product=this user=../user}}
             {{/each}}
         </div> 
-    </div>
-{{/if}}
+    {{/if}}
+</div>

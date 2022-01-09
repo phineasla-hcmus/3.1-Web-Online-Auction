@@ -1,16 +1,16 @@
-<h1 class="h3 fw-bold">My winning products</h1>
-{{#if empty}}
-  <div class="alert alert-info">You have not won any products yet</div>
-{{else}}
-  <div style="background-color: white;" class="rounded-3 pt-5 p-4">
+<div style="background-color: white;" class="rounded-3 p-4">
+  <h1 class="h3 fw-bold">My winning products</h1>
+  {{#if empty}}
+    <div class="alert alert-info">You have not won any products yet</div>
+  {{else}}
     <div class="winning__content py-3">
       {{#each this.winningList as |winItem|}}
         <div class="winning__item bg-light p-4 mb-3">
           <div class="winning__item--content d-flex">
             <img
               style="max-height: 5rem;"
-              src="/public/images/product/{{winItem.proId}}/1.jpg"
-              alt="Winning Product"
+              src="{{this.secureUrl}}"
+              alt="{{winItem.proName}}"
             />
             <div class="ps-3">
               <p class="m-0 fw-bold">{{winItem.proName}}</p>
@@ -101,8 +101,9 @@
         </div>
       </div>
     </div>
-  </div>
-{{/if}}
+  {{/if}}
+
+</div>
 
 {{#section "scripts"}}
   <script>
