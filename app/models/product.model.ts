@@ -84,9 +84,8 @@ export default {
   async findProductImage(
     productId: string | number
   ): Promise<{ secureUrl: string }[]> {
-    return db('productimages').select('secureUrl').where(productId);
+    return db('productimages').select('secureUrl').where("proId","=",productId);
   },
-
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
@@ -156,7 +155,6 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
@@ -170,7 +168,6 @@ export default {
   ): Promise<any[]> {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
@@ -200,10 +197,10 @@ export default {
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
       .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+        'relatedProduct.thumbnailId': 'productimages.imgId',
       })
       .limit(5)
-      .select('relatedProduct.*', 'users.firstname', 'users.lastname');
+      .select('relatedProduct.*', 'users.firstname', 'users.lastname','secureUrl');
   },
   async findExpiredProductInTime() {
     return db('activeProducts')
