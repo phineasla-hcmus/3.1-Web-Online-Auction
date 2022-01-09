@@ -118,7 +118,7 @@ export default {
   },
   async deleteProduct(proId: any) {
     db('products').where('proId', proId).del().then(function (result){
-      return db('productimages').where('proId',proId).del();
+      return db('productImages').where('proId',proId).del();
     });
   },
 };
