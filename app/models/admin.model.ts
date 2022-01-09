@@ -18,7 +18,7 @@ export default {
       .andWhere('isDisable', 1)
       .limit(limit)
       .offset(offset)
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async getUpgradeRequests() {
     return db('upgradelist')
@@ -104,14 +104,14 @@ export default {
   },
   async getDisableProduct() {
     return db('products').where('isDisable', 0)
-    .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+    .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
     .select('products.*','secureUrl');
   },
   async getListProduct() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .andWhere('isDisable', 1)
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async recoveryProduct(proId: any) {
     return db('products').where('proId', proId).update({ isDisable: 1 });

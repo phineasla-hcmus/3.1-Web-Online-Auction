@@ -71,10 +71,10 @@ export default {
    * @return array of `{ secureUrl }`
    */
   async findThumbnail(productId: any[]): Promise<{ secureUrl: string }[]> {
-    return db('productimages')
+    return db('productImages')
       .select('secureUrl')
       .join('products', { imgId: 'thumbnailId' })
-      .whereIn('productimages.proId', productId);
+      .whereIn('productImages.proId', productId);
   },
 
   /**
@@ -84,13 +84,13 @@ export default {
   async findProductImage(
     productId: string | number
   ): Promise<{ secureUrl: string }[]> {
-    return db('productimages').select('secureUrl').where("proId","=",productId);
+    return db('productImages').select('secureUrl').where("proId","=",productId);
   },
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('expiredDate', 'asc')
       .limit(5)
       .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
@@ -101,7 +101,7 @@ export default {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
       .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
@@ -111,7 +111,7 @@ export default {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
       .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
@@ -126,7 +126,7 @@ export default {
   async findProductbyCategory(catid: string | number | Readonly<any> | null) {
     return db('products')
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date());
   },
@@ -157,7 +157,7 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
   },
@@ -170,15 +170,15 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
   },
   async findProductbyId(proId: any) {
     return db('products')
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .where('products.proId', proId)
       .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl');
@@ -196,8 +196,8 @@ export default {
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
       .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
-      .leftJoin('productimages', {
-        'relatedProduct.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'relatedProduct.thumbnailId': 'productImages.imgId',
       })
       .limit(5)
       .select('relatedProduct.*', 'users.firstname', 'users.lastname','secureUrl');
@@ -205,7 +205,7 @@ export default {
   async findExpiredProductInTime() {
     return db('activeProducts')
       .join('products', { 'activeProducts.proId': 'products.proId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .where('products.expiredDate', '<', new Date());
   },
   async removeActiveProduct(proId: any) {
@@ -219,8 +219,8 @@ export default {
   ) {
     return db('products')
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
@@ -250,8 +250,8 @@ export default {
         'categories.catId': 'products.catId',
       })
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .limit(limit)
@@ -264,8 +264,8 @@ export default {
   ) {
     return db('products')
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
@@ -296,8 +296,8 @@ export default {
         'categories.catId': 'products.catId',
       })
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .orderBy('expiredDate', 'desc')
@@ -311,8 +311,8 @@ export default {
   ) {
     return db('products')
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
@@ -343,8 +343,8 @@ export default {
         'categories.catId': 'products.catId',
       })
       .where('products.expiredDate', '>=', new Date())
-      .leftJoin('productimages', {
-        'products.thumbnailId': 'productimages.imgId',
+      .leftJoin('productImages', {
+        'products.thumbnailId': 'productImages.imgId',
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .orderBy('currentPrice', 'asc')
