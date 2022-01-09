@@ -39,8 +39,7 @@ $(document).ready(function (e) {
         if (res.redirect) {
           window.location.replace(res.url);
         } else {
-          // const resJson = await res.json();
-          // resJson.forEach((err) => toastr.error(err.msg));
+          res.forEach((err) => toastr.error(err.msg));
         }
       },
     });

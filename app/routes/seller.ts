@@ -3,13 +3,14 @@ import sellerModel from '../models/seller.model';
 import auctionModel from '../models/auction.model';
 import productModel from '../models/product.model';
 import bidderModel from '../models/bidder.model';
-import { updateUser } from '../models/user.model';
+import { findUserById, updateUser } from '../models/user.model';
 import { getSubcategoryList } from '../models/category.model';
 import { upload } from '../config/multer';
 import { addProductValidator } from '../validators/product.validator';
 import cloudinary, { UploadApiResponse } from 'cloudinary';
 import { validationResult } from 'express-validator';
 import { bulkUpload, singleUpload } from '../utils/cloudinary';
+import { sendDenyBidder } from '../utils/email';
 
 const sellerRouter = Router();
 
@@ -84,7 +85,6 @@ sellerRouter.post('/cancelTransaction', async function (req, res) {
   res.redirect(url);
 });
 
-//TODO PhineasLa
 sellerRouter.get('/add-product', async function (req, res) {
   const listSubCategory = await getSubcategoryList();
   res.render('seller/addProduct', {
@@ -145,11 +145,9 @@ sellerRouter.post(
     const files = req.files as Express.Multer.File[];
     const buffers = files.map((file) => file.buffer);
 
-    // const uploadResponse = await Promise.all(
-    //   bulkUpload(buffers, { folder: '/product' })
-    // );
-
-    const uploadResponse = ['a', 'b'];
+    const uploadResponse = await Promise.all(
+      bulkUpload(buffers, { folder: '/product' })
+    );
 
     const productId = await productModel.addProduct({
       proName: name,
@@ -162,8 +160,12 @@ sellerRouter.post(
       buyNowPrice,
       isAllowRating: isAllow,
       isExtendLimit: isAuto,
-      thumbnailId: uploadResponse[0],
+      thumbnailId: uploadResponse[0].public_id,
     });
+
+    await productModel.addProductImage(productId, uploadResponse);
+
+    // const uploadResponse = ['a', 'b'];
 
     // const productId = await productModel.addProduct({
     //   proName: name,
@@ -176,14 +178,11 @@ sellerRouter.post(
     //   buyNowPrice,
     //   isAllowRating: isAllow,
     //   isExtendLimit: isAuto,
-    //   thumbnailId: uploadResponse[0].public_id,
+    //   thumbnailId: uploadResponse[0],
     // });
-
-    // await productModel.addProductImage(productId, uploadResponse);
 
     // jQuery ajax cannot understand res.redirect
     // res.redirect('/seller/add-product');
-    // res.contentType('json');
     res
       .status(200)
       .send({ url: '/seller/add-product', msg: 'success', redirect: true });
@@ -240,10 +239,19 @@ sellerRouter.post('/denyBidder', async function (req, res) {
       ? highestUserInHistoryList[1].bidderId
       : 0;
 
+    const bidderEmail = (await findUserById(bidderId, ['email']))!.email;
+    const product = productDetail[0];
+    // Mail chung cho cả 3 trường hợp
+    sendDenyBidder(bidderEmail, {
+      id: proId,
+      name: product.proName,
+      price: product.currentPrice,
+      thumbnailUrl: product.secureUrl,
+    });
+
     if (highestUserHistory != highestBidder && highestUserHistory != 0) {
-      //TODO Phineas Mail
       //Tới:
-      //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) , sẽ được không được đấu giá nữa.
+      //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId), sẽ được không được đấu giá nữa.
       sellerModel.denyHighestBidder(
         proId,
         bidderId,
@@ -254,7 +262,6 @@ sellerRouter.post('/denyBidder', async function (req, res) {
       res.redirect(url);
     } else {
       if (secondHighestUserHistory != 0) {
-        //TODO Phineas Mail
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
         sellerModel.denyHighestBidder(
@@ -267,7 +274,6 @@ sellerRouter.post('/denyBidder', async function (req, res) {
         res.redirect(url);
       } else {
         console.log(basePrice);
-        //TODO Phineas Mail
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
         sellerModel.denyHighestBidder(proId, bidderId, basePrice, 0);

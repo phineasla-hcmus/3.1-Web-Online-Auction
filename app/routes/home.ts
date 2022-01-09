@@ -341,9 +341,9 @@ homeRouter.post('/product', async (req, res, next) => {
         msg: 'Not enough money',
       });
     } else {
-      const UsermaxPrice = await auctionModel.findMaxPrice(proId);
+      const userMaxPrice = await auctionModel.findMaxPrice(proId);
 
-      if (UsermaxPrice.length === 0) {
+      if (userMaxPrice.length === 0) {
         if (
           auctionModel.bidProductwithPriceLarger(
             proId,
@@ -374,9 +374,9 @@ homeRouter.post('/product', async (req, res, next) => {
           });
         }
       } else {
-        const maxPrice: number = UsermaxPrice[0].maxPrice;
-        const userwithMaxPrice = UsermaxPrice[0].userId;
-        if (userwithMaxPrice == userId) {
+        const maxPrice: number = userMaxPrice[0].maxPrice;
+        const userWithMaxPrice = userMaxPrice[0].userId;
+        if (userWithMaxPrice == userId) {
           return res.json({
             status: 'error',
             msg: `You are the highest bidder in this product with auction auto price =${maxPrice} !!!!<br> Please bid again if there is a bidder bid higher than you`,
@@ -400,12 +400,18 @@ homeRouter.post('/product', async (req, res, next) => {
                   newTimeafterExtend
                 );
               }
-              //TODO Phineas Mail
+
+              const userMaxPriceEmail = (await findUserById(userWithMaxPrice, [
+                'email',
+              ]))!.email;
               //Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = newPrice ,
               // userId là đấu giá thành công sản phẩm này với giá = price
               // userwithMaxPrice là sản phẩm này bạn không còn là người giữ giá cao nhất do có tg UserId đấu giá cao hơn
-              sendUpdate([sellerEmail, userEmail], productEmail);
+              sendUpdate(
+                [sellerEmail, userEmail, userMaxPriceEmail],
+                productEmail
+              );
               //TODO need to reload page
 
               return res.json({
@@ -435,11 +441,10 @@ homeRouter.post('/product', async (req, res, next) => {
                   newTimeafterExtend
                 );
               }
-              //TODO Phineas Mail
-              //Tới :
+              // Tới :
               // seller là sản phẩm này(Proid) giá được cập nhật = price ,
               // userId nó đấu giá thành công nhưng giá của nó vẫn chưa = giá cao nhất của tg khác nên nó ko giữ giá.
-
+              sendUpdate([sellerEmail, userEmail], productEmail);
               //TODO need to reload page
               return res.json({
                 status: 'info',

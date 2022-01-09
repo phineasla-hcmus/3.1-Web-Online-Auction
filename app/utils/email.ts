@@ -36,6 +36,18 @@ export async function sendUpdate(to: string | string[], product: EmailProduct) {
   });
 }
 
+export async function sendDenyBidder(to: string, product: EmailProduct) {
+  return sendTemplate('./emails/product.html', to, 'Auction denied', {
+    title: 'Auction denied',
+    body: `This email is to notify you that your bidding has been rejected by the seller`,
+    productId: product.id,
+    productName: product.name,
+    thumbnailUrl: product.thumbnailUrl,
+    productPrice: `\$ ${product.price}`,
+    date: new Date().toDateString(),
+  });
+}
+
 /**
  * Send to Seller that no one buy his/her product
  * @param to
