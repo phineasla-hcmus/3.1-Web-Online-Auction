@@ -1,27 +1,56 @@
-$(document).on('submit', '#frmChangeEmail', function (e) {
+document.getElementById('frmChangeEmail').onsubmit = async function (e) {
   e.preventDefault();
-  const email = $('#email').val();
-  $.getJSON(`/bidder/changeEmail?email=${email}`, function (data) {
-    if (data) {
-      $('#emailError').text('Already in used');
-      $('#emailError').addClass('d-block');
-    }
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(formData),
   });
-});
+  if (res.redirected) {
+    window.location.href = res.url;
+  } else {
+    const resJson = await res.json();
+    resJson.forEach((err) => toastr.error(err.msg));
+  }
+};
 
-$(document).on('submit', '#frmChangePassword', function (e) {
+document.getElementById('frmChangeName').onsubmit = async function (e) {
   e.preventDefault();
-  const oldpass = $('#oldpass').val();
-  const newpass = $('#newpass').val();
-  const confirmpass = $('#confirmpass').val();
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(formData),
+  });
+  if (res.redirected) {
+    window.location.href = res.url;
+  } else {
+    const resJson = await res.json();
+    resJson.forEach((err) => toastr.error(err.msg));
+  }
+};
 
-  $.getJSON(
-    `/bidder/changePassword?old=${oldpass}&new=${newpass}&confirm=${confirmpass}`,
-    function (data) {
-      if (data) {
-        $('#passError').text('Already in used');
-        $('#passError').addClass('d-block');
-      }
-    }
-  );
-});
+document.getElementById('frmChangePassword').onsubmit = async function (e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(formData),
+  });
+  if (res.redirected) {
+    window.location.href = res.url;
+  } else {
+    const resJson = await res.json();
+    resJson.forEach((err) => toastr.error(err.msg));
+  }
+};

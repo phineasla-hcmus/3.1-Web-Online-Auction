@@ -18,6 +18,10 @@
     integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/public/css/style.css" />
+   <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
   <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
   {{{section.stylesheets}}}
@@ -28,9 +32,6 @@
   <div class="myContainer myContainer--py pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
     <div class="row m-0 flex-grow-sm-1 flex-grow-0 pt-1 w-100">
       <aside class="col-sm-3 flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0 pb-3">
-        <div>
-          {{user.firstname}} {{user.lastname}}
-        </div>
         <div class="bg-light px-0 h-100 sticky-top">
           <ul class="nav nav-pills flex-sm-column flex-row mb-auto justify-content-between text-truncate">
             <li class="{{#if info}}nav-active{{/if}}">
@@ -103,6 +104,9 @@
       },
     });
   </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+  ></script>
   {{{section.scripts}}}
 </body>
 

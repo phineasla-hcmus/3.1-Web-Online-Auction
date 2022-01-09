@@ -23,7 +23,7 @@ export default {
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
       .leftJoin('productimages', { 'p.thumbnailId': 'imgId' })
-      .select('p.*', 'users.firstname', 'users.lastname','secureUrl');
+      .select('p.*', 'users.firstname', 'users.lastname', 'secureUrl');
   },
   async getWinningList(bidderId: number) {
     return db('products')
@@ -37,13 +37,6 @@ export default {
       .where('userId', bidderId)
       .andWhere('proId', proId);
     if (ratingList.length === 0) return false;
-    return true;
-  },
-  async isAlreadyUsed(email: string, userId: number) {
-    const usedList = await db('users')
-      .whereNot('userId', userId)
-      .andWhere('email', email);
-    if (usedList.length === 0) return false;
     return true;
   },
   async getCurrentBids(bidderId: number) {

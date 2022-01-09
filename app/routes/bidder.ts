@@ -1,11 +1,24 @@
 import { Router } from 'express';
 import bidderModel from '../models/bidder.model';
 import { findUserById, updateUser } from '../models/user.model';
+import { validationResult } from 'express-validator';
+import {
+  firstNameValidator,
+  lastNameValidator,
+  dobValidator,
+  newEmailValidator,
+  passwordValidator,
+  confirmPasswordValidator,
+} from '../validators/user.validator';
+import bcrypt from 'bcrypt';
+import moment from 'moment';
 
 const bidderRouter = Router();
 
 bidderRouter.get('/info', async function (req, res) {
-  let status = await bidderModel.getBidderStatus(res.locals.user.userId);
+  const userId = res.locals.user.userId;
+  let status = await bidderModel.getBidderStatus(userId);
+  const currentuser = await findUserById(userId);
 
   let request = -2;
   if (status.length !== 0) {
@@ -16,29 +29,80 @@ bidderRouter.get('/info', async function (req, res) {
     layout: 'bidder',
     info: true,
     request,
+    currentuser,
   });
 });
 
-bidderRouter.get('/changeEmail', async function (req, res) {
-  const newEmail: any = req.query.email;
-  const userId = res.locals.user.userId;
-  const alreadyUsed = await bidderModel.isAlreadyUsed(newEmail, userId);
-  if (alreadyUsed) res.json(alreadyUsed);
-  else {
+bidderRouter.post('/changeEmail', newEmailValidator, async function (req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(errors.array());
+  } else {
+    const userId = res.locals.user.userId;
+    const newEmail: any = req.body.email;
     await updateUser(userId, { email: newEmail });
     const url = req.headers.referer || '/';
     res.redirect(url);
   }
 });
 
-bidderRouter.post('/changeName', async function (req, res) {
-  const firstName = req.body.firstname;
-  const lastName = req.body.lastname;
-  const userId = res.locals.user.userId;
-  await updateUser(userId, { firstName, lastName });
-  const url = req.headers.referer || '/';
-  res.redirect(url);
+bidderRouter.post(
+  '/changeName',
+  firstNameValidator,
+  lastNameValidator,
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors.array());
+    } else {
+      const firstName = req.body.firstname;
+      const lastName = req.body.lastname;
+      const userId = res.locals.user.userId;
+      await updateUser(userId, { firstName, lastName });
+      const url = req.headers.referer || '/';
+      res.redirect(url);
+    }
+  }
+);
+
+bidderRouter.post('/changeDob', dobValidator, async function (req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(errors.array());
+  } else {
+    const dob = req.body.dob;
+    const formatDob = new Date(moment(dob).format('YYYY-MM-DD'));
+    const userId = res.locals.user.userId;
+    await updateUser(userId, { dob: formatDob });
+    const url = req.headers.referer || '/';
+    res.redirect(url);
+  }
 });
+
+bidderRouter.post(
+  '/changePassword',
+  passwordValidator,
+  confirmPasswordValidator,
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors.array());
+    } else {
+      const oldPassword = req.body.oldPassword;
+      const hashedOldPassword = await bcrypt.hash(oldPassword, 10);
+      const userId = res.locals.user.userId;
+      const user = await findUserById(userId);
+      if (hashedOldPassword !== user?.password) {
+        return res.json('Please check your password again');
+      }
+      const password = req.body.password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await updateUser(userId, { password: hashedPassword });
+      const url = req.headers.referer || '/';
+      res.redirect(url);
+    }
+  }
+);
 
 bidderRouter.post('/upgrade', async function (req, res) {
   const userId = req.body.userId;
