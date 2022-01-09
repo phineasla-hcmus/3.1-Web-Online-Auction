@@ -1,5 +1,31 @@
+document.getElementById("prevBidAction").onclick =  function (e) {
+  const prevPrice = document.getElementById("prevPrice");
 
-document.getElementById("bidAction").onsubmit = async function (e) {
+  const afterPrice = document.getElementById("surePrice");
+
+  const bidForm = document.getElementById("bidAction");
+
+  const sureBid = document.getElementById("sureBid");
+  afterPrice.value=prevPrice.value;
+
+  bidForm.setAttribute("hidden","hidden");
+  sureBid.removeAttribute("hidden");
+};
+
+
+document.getElementById("backBid").onclick =  function (e) {
+  const bidForm = document.getElementById("bidAction");
+
+  const sureBid = document.getElementById("sureBid");
+
+
+  sureBid.setAttribute("hidden","hidden");
+  bidForm.removeAttribute("hidden");
+};
+
+
+
+document.getElementById("BidForm").onsubmit = async function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const res = await fetch(e.target.getAttribute('action'), {
