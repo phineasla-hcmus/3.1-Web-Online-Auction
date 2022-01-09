@@ -14,6 +14,6 @@ document.getElementsByTagName('form')[0].onsubmit = async function (e) {
     // grecaptcha.reset();
     toastr.error('Invalid username or password');
   } else if (res.redirected) {
-    window.location.href = res.url;
+    window.location.replace(res.url);
   }
 };
