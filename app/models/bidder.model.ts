@@ -22,7 +22,7 @@ export default {
       .leftJoin('users', { 'p.bidderId': 'users.userId' })
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
-      .leftJoin('productimages', { 'p.thumbnailId': 'imgId' })
+      .leftJoin('productImages', { 'p.thumbnailId': 'imgId' })
       .select('p.*', 'users.firstname', 'users.lastname', 'secureUrl');
   },
   async getWinningList(bidderId: number) {
@@ -30,7 +30,7 @@ export default {
       .where('bidderId', bidderId)
       .andWhere('expiredDate', '<', new Date())
       .leftJoin('users as u', { 'products.sellerId': 'u.userId' })
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async isAlreadyRated(bidderId: number, proId: number) {
     const ratingList = await db('ratingHistory')

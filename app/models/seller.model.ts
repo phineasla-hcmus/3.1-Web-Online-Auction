@@ -86,14 +86,14 @@ export default {
     return db('products')
       .where('sellerId', sellerId)
       .andWhere('expiredDate', '>=', new Date())
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async getWinningProducts(sellerId: number) {
     return db('products')
       .where('sellerId', sellerId)
       .andWhere('expiredDate', '<', new Date())
       .andWhereNot('bidderId', null)
-      .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
   async isAlreadyRated(sellerId: number, proId: number) {
     const ratingList = await db('ratingHistory')
