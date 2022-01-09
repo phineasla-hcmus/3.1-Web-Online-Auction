@@ -66,13 +66,13 @@ CREATE TABLE `categories` (
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `proId` 			int unsigned 	NOT NULL AUTO_INCREMENT,
-  `proName` 		varchar(50) 	COLLATE utf8mb4_general_ci NOT NULL,
+  `proName` 		varchar(256) 	COLLATE utf8mb4_general_ci NOT NULL,
   `catId` 			int unsigned 	NOT NULL,
   `basePrice` 		int unsigned 	NOT NULL,
   `buyNowPrice` 	int unsigned 	DEFAULT NULL,
   `currentPrice` 	int unsigned 	NOT NULL,
   `stepPrice` 		int unsigned	NOT NULL,
-  `description` 	text			NOT NULL,
+  `description` 	varchar(65535)	NOT NULL,
   `postDate` 		datetime 		DEFAULT CURRENT_TIMESTAMP,
   `expiredDate` 	datetime 		NOT NULL,
   `numberOfBids` 	tinyint unsigned DEFAULT 0,
