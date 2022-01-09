@@ -163,9 +163,9 @@ setTimeout(async function run() {
     const seller = await findUserById(sellerId, ['email']);
     const sellerEmail = seller!.email;
 
-    if (listExpireProduct[i].bidderId != 0) {
+    if (product.bidderId) {
       // Winner
-      const winner = await findUserById(winId, ['email']);
+      const winner = await findUserById(winId, ['email']);      
       const winnerEmail = winner!.email;
       sendSellerAuctionEnded(sellerEmail, productEmail);
       sendWinner(winnerEmail, productEmail);
