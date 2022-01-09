@@ -65,6 +65,9 @@ recoveryRouter.get('/request-email', (req, res) => {
   renderRequestEmail(res);
 });
 
+/**
+ * Call from unauthorized user
+ */
 recoveryRouter.post('/request-email', async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -78,6 +81,17 @@ recoveryRouter.post('/request-email', async (req, res) => {
   } else {
     renderRequestEmail(res, alert.emailNotFound);
   }
+});
+
+/**
+ * Call from authorized user (user's profile)
+ */
+recoveryRouter.post('/request-verify', async (req, res) => {
+  if (!req.user) return res.redirect('/auth/login');
+  const { userId, email } = req.user;
+  const token = await addOtp(userId, OtpType.Recovery);
+  sendRecovery(email, token);
+  res.redirect('/auth/recovery/' + userId);
 });
 
 function renderVerifyRecovery(res: Response, userId: any, alert?: Alert) {

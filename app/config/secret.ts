@@ -36,8 +36,8 @@ export const RECAPTCHA_SECRET = getEnv('RECAPTCHA_SECRET');
 export const RECAPTCHA_SITE = getEnv('RECAPTCHA_SITE');
 
 export const MAIL_SENDER = getEnv('MAIL_SENDER');
-export const MAIL_CLIENT_ID = getEnv('MAIL_CLIENT_ID');
-export const MAIL_CLIENT_SECRET = getEnv('MAIL_CLIENT_SECRET');
+export const GOOGLE_CLIENT_ID = getEnv('GOOGLE_CLIENT_ID');
+export const GOOGLE_CLIENT_SECRET = getEnv('GOOGLE_CLIENT_SECRET');
 export const MAIL_REFRESH_TOKEN = getEnv('MAIL_REFRESH_TOKEN');
 
 const MINUTE = 60 * 1000;

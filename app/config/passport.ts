@@ -1,15 +1,16 @@
 import { compare } from 'bcrypt';
 import passport from 'passport';
-import passportFacebook from 'passport-facebook';
 import passportLocal from 'passport-local';
+import passportGoogle from 'passport-google-oauth20';
 import {
   findUserByEmail,
   findUserById,
   USER_BASIC,
 } from '../models/user.model';
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from './secret';
 
 const LocalStrategy = passportLocal.Strategy;
-const FacebookStrategy = passportFacebook.Strategy;
+const GoogleStrategy = passportGoogle.Strategy;
 
 passport.serializeUser<any, any>((req, user, done) => {
   // Only save id to session
@@ -42,6 +43,19 @@ passport.use(
       return isMatch
         ? done(undefined, user)
         : done(undefined, false, { message: 'Invalid password' });
+    }
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: '/auth/google/callback',
+    },
+    function (accessToken, refreshToken, profile, done) {
+      // profile.id
     }
   )
 );
