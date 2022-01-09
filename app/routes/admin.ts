@@ -149,6 +149,7 @@ adminRouter.post('/deleteProduct', async function (req, res) {
   } else {
     if (content == 'recovery') {
       const listDisable = await adminModel.getDisableProduct();
+      console.log(listDisable);
       for (let i = 0; i < listDisable.length; i++) {
         adminModel.recoveryProduct(listDisable[i].proId);
       }

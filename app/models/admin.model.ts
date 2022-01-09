@@ -104,7 +104,8 @@ export default {
   },
   async getDisableProduct() {
     return db('products').where('isDisable', 0)
-    .leftJoin('productimages', { 'products.thumbnailId': 'imgId' });
+    .leftJoin('productimages', { 'products.thumbnailId': 'imgId' })
+    .select('products.*','secureUrl');
   },
   async getListProduct() {
     return db('products')
