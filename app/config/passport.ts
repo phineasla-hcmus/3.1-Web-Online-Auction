@@ -47,6 +47,9 @@ passport.use(
   )
 );
 
+/**
+ * http://www.passportjs.org/packages/passport-google-oauth20/
+ */
 passport.use(
   new GoogleStrategy(
     {
@@ -55,7 +58,14 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     function (accessToken, refreshToken, profile, done) {
-      // profile.id
+      console.log(accessToken, refreshToken, profile);
+      done(null, {
+        userId: 1,
+        email: 'nguyenngocthanhtam9b@gmail.com',
+        firstName: 'Tam',
+        lastName: 'Nguyen',
+        roleId: 2,
+      });
     }
   )
 );

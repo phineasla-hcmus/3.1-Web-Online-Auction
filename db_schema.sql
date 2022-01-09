@@ -36,6 +36,15 @@ CREATE TABLE `users` (
   PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `socials`;
+CREATE TABLE `socials` (
+	`userId` 		int unsigned NOT NULL,
+    `socialId` 		varchar(255) NOT NULL,
+    `refreshToken` 	varchar(255) NOT NULL,
+    `provider` 		tinyint,
+    PRIMARY KEY (`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- ----------------------------
 -- Table structure for OTP
 -- Each user can only have one token
@@ -66,7 +75,7 @@ CREATE TABLE `categories` (
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `proId` 			int unsigned 	NOT NULL AUTO_INCREMENT,
-  `proName` 		varchar(256) 	COLLATE utf8mb4_general_ci NOT NULL,
+  `proName` 		varchar(255) 	COLLATE utf8mb4_general_ci NOT NULL,
   `catId` 			int unsigned 	NOT NULL,
   `basePrice` 		int unsigned 	NOT NULL,
   `buyNowPrice` 	int unsigned 	DEFAULT NULL,

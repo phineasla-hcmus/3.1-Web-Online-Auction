@@ -24,6 +24,13 @@ export type UserColumn =
 /** Type hinting for req.user */
 export type User = Express.User;
 
+export type Social = {
+  userId: string | number;
+  socialId: string;
+  refreshToken: string;
+  provider: number;
+};
+
 /**
  * @default ```SELECT * FROM users WHERE email=?```
  * @param email
@@ -50,6 +57,14 @@ export async function findUserById(userId: any, columns?: UserColumn[]) {
       ? knex.column(columns).select().from<User>('users')
       : knex<User>('users');
   return query.where('userId', userId).first();
+}
+
+export async function findSocialById(socialId: string) {
+  return knex<Social>('socials').where('socialId', socialId).first();
+}
+
+export async function findSocialByUserId(userId: any) {
+  return knex<Social>('socials').where('userId', userId).first();
 }
 
 /**

@@ -130,6 +130,21 @@ const mustbeAdmin = (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/', homeRouter);
 
+// https://developers.google.com/identity/protocols/oauth2/scopes#oauth2
+app.get(
+  '/auth/google',
+  mustLoggedOut,
+  passport.authenticate('google', { scope: ['email', 'profile'] })
+);
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/auth/signup' }),
+  (req, res) => {
+    res.redirect(req.session.returnTo || '/');
+  }
+);
+
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/auth/verify', mustLoggedIn, verifyRouter);
@@ -165,7 +180,7 @@ setTimeout(async function run() {
 
     if (product.bidderId) {
       // Winner
-      const winner = await findUserById(winId, ['email']);      
+      const winner = await findUserById(winId, ['email']);
       const winnerEmail = winner!.email;
       sendSellerAuctionEnded(sellerEmail, productEmail);
       sendWinner(winnerEmail, productEmail);
