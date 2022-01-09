@@ -6,8 +6,8 @@ export const addProductValidator = [
   body('stepPrice', 'Missing step price').exists().toFloat(),
   body('buyNowPrice').optional({ nullable: true, checkFalsy: true }).toFloat(),
   body('description', 'Missing description').notEmpty(),
-  body('category', 'Missing category').exists(),
-  body('timeNum', 'Missing expired time').exists().toInt(),
+  body('category', 'Missing category').notEmpty(),
+  body('timeNum', 'Missing expired time').notEmpty().toInt(),
   body('timeType', 'Missing expired time')
     .toLowerCase()
     .isIn(['hour', 'day', 'week', 'month']),
