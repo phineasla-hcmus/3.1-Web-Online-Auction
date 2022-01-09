@@ -259,19 +259,16 @@ homeRouter.get('/product', async (req, res) => {
     });
   }
 
-  //get path to root
-  let rootProject = path.join(__dirname, '../../');
 
-  //count number of file in folder
-  const filelength = fs.readdirSync(
-    rootProject + `/public/images/product/${productID}/`
-  ).length;
+
+  const listImage =  await productModel.findProductImage(+productID);
 
   //create a temp array to pass into hbs
   const numberofPic = [];
-  for (let i = 1; i < filelength + 1; i++) {
+  for (let i = 1; i < listImage.length; i++) {
     numberofPic.push({
       value: i,
+      secureUrl : listImage[i].secureUrl 
     });
   }
 
