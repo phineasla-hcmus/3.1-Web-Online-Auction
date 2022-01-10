@@ -105,14 +105,11 @@ bidderRouter.post(
     }
     const isMatch = await compare(oldPassword, user.password);
     if (!isMatch) {
-      console.log('NOT MATCH');
-
       return res.json([{ msg: 'Invalid password' }]);
     }
     const hashedPassword = await hash(newPassword, 10);
     await updateUser(userId, { password: hashedPassword });
     const url = req.headers.referer || '/';
-    console.log('DONE');
 
     res.redirect(url);
   }

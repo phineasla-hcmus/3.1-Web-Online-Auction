@@ -1,0 +1,25 @@
+<div class="myContainer myContainer--py">
+  <div >
+    <div style="background-color: white;" class="rounded-3 p-4">
+      <p class="h4">
+        {{#if empty}}
+          <div class="alert alert-info">{{maskBidderName name}} have not received any rates yet </div>
+        {{else}}
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          {{maskBidderName name}}'s rating:
+          {{ratingPoint}}
+          ({{rateNums}}
+          reviews)
+        {{/if}}
+      </p>
+      <div class="rating__content">
+        {{#each ratingList as |ratingItem|}}
+          {{>ratingbox rating=ratingItem}}
+          {{#unless ratingItem.last}}
+            <hr />
+          {{/unless}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

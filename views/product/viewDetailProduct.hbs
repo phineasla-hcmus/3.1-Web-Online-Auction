@@ -67,7 +67,7 @@
 
                                     </th>
                                     <td>
-                                        {{maskBidderName sellerName}} &nbsp; {{sellerRating}}/10
+                                        <a href="/product/rating?userId={{sellerId}}">{{maskBidderName sellerName}}</a> &nbsp; {{sellerRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
@@ -81,7 +81,7 @@
                                     </th>
 
                                     <td>
-                                        {{maskBidderName bidderName}} &nbsp; {{bidderRating}}/10
+                                        <a href="/product/rating?userId={{bidderId}}">{{maskBidderName bidderName}}</a> &nbsp; {{bidderRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
                                     </td>
 
@@ -284,17 +284,17 @@
                     <div class="alert alert-info fw-bold">Current bidder list is empty!</div>
                 {{else}}
                 <div class="description-content">
-                    <div class="container">
+                    <div class="container p-0">
                         <ul class="responsive-table">
-                            <li class="table-header">
+                            {{!-- <li class="table-header">
                                 <div class="col col-1"> Bidder Name</div>
 
-                            </li>
+                            </li> --}}
                             {{#each ../listBidder as |listbidder|}}
                             <li class="table-row">
-                                <div class="d-flex justify-content-between col col-1">{{maskBidderName
-                                    listbidder.bidderName}}
-
+                                <div class="d-flex justify-content-between col col-1">
+                                     <a href="/product/rating?userId={{listbidder.bidderId}}">{{maskBidderName
+                                    listbidder.bidderName}}</a>
                                 </div>
                                 <form method="post" action="/seller/denyBidder">
                                     <input type="hidden" value="{{listbidder.bidderId}}" name="bidderId">
