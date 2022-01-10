@@ -165,6 +165,7 @@
                                 Buy now
                             </button>
                             <form id="buyForm" method="post" action="/product" hidden>
+                            <div id="buyAction">
                                 <table class="table table-sm table-borderless mb-0">
                                     <tbody>
                                         <tr>
@@ -198,7 +199,7 @@
                                 <input type="hidden" name="proId" value={{proId}} />
                                 <input type="hidden" class="bid btn btn-default" value="buyNow" name="content">
                                 <input type="submit" class="bid btn btn-default" value="Submit">
-                         
+                            </div>
                             </form>
                             {{/if}}
                             <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">

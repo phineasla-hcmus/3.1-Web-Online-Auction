@@ -1,4 +1,7 @@
-document.getElementById('prevBidAction').onclick = function (e) {
+
+const prevBidAction = document.getElementById('prevBidAction');
+if(prevBidAction){
+  prevBidAction.onclick = function (e) {
   const prevPrice = document.getElementById('prevPrice');
 
   const afterPrice = document.getElementById('surePrice');
@@ -11,19 +14,42 @@ document.getElementById('prevBidAction').onclick = function (e) {
   bidForm.setAttribute('hidden', 'hidden');
   sureBid.removeAttribute('hidden');
 };
+}
+const backBid = document.getElementById('backBid');
+if (backBid) {
+  backBid.onclick = function (e) {
+    const bidForm = document.getElementById('bidAction');
 
+    const sureBid = document.getElementById('sureBid');
 
-document.getElementById('backBid').onclick = function (e) {
-  const bidForm = document.getElementById('bidAction');
+    sureBid.setAttribute('hidden', 'hidden');
+    bidForm.removeAttribute('hidden');
+  };
+}
 
-  const sureBid = document.getElementById('sureBid');
+const buyForm = document.getElementById('buyForm');
+if (buyForm) {
+  buyForm.onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'info') toastr.info(resJson.msg);
+  };
+}
 
-  sureBid.setAttribute('hidden', 'hidden');
-  bidForm.removeAttribute('hidden');
-};
-
-
-document.getElementById('buyForm').onsubmit = async function (e) {
+const bidForm = document.getElementById('bidForm');
+if(bidForm){
+  bidForm.onsubmit = async function (e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const res = await fetch(e.target.getAttribute('action'), {
@@ -39,39 +65,8 @@ document.getElementById('buyForm').onsubmit = async function (e) {
   if (resJson.status === 'success') toastr.success(resJson.msg);
   if (resJson.status === 'info') toastr.info(resJson.msg);
 };
+}
 
-document.getElementById('bidForm').onsubmit = async function (e) {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const res = await fetch(e.target.getAttribute('action'), {
-    method: e.target.getAttribute('method'),
-    redirect: 'follow',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(formData),
-  });
-  const resJson = await res.json();
-  if (resJson.status === 'error') toastr.error(resJson.msg);
-  if (resJson.status === 'success') toastr.success(resJson.msg);
-  if (resJson.status === 'info') toastr.info(resJson.msg);
-};
-
-document.getElementById('likeAction').onsubmit = async function (e) {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const res = await fetch(e.target.getAttribute('action'), {
-    method: e.target.getAttribute('method'),
-    redirect: 'follow',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(formData),
-  });
-  const resJson = await res.json();
-  if (resJson.status === 'like') toastr.success(resJson.msg);
-  if (resJson.status === 'unlike') toastr.success(resJson.msg);
-};
 
 // $('#bidAction').submit(function (e) {
 //   e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -101,10 +96,13 @@ function showbid() {
   let bidLog = document.getElementById('bidAction');
   let bidButton = document.getElementById('bidButton');
   let buyButton = document.getElementById('buynowButton');
-  
+
   bidLog.removeAttribute('hidden');
   bidButton.setAttribute('hidden', 'hidden');
-  buyButton.setAttribute('hidden', 'hidden');
+  if(buyButton){
+    buyButton.setAttribute('hidden', 'hidden');
+  }
+  
 }
 
 function showbuy() {

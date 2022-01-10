@@ -317,7 +317,7 @@ homeRouter.post('/product', async (req, res, next) => {
 
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
-
+  console.log(req.body);
   if(content ==='buyNow'){
     const buynowPrice = req.body.buyNowPrice;
     const proId = req.body.proId;
