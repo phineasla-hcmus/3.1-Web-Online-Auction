@@ -39,10 +39,10 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `socials`;
 CREATE TABLE `socials` (
 	`userId` 		int unsigned NOT NULL,
-    `socialId` 		varchar(255) NOT NULL,
-    `refreshToken` 	varchar(255) NOT NULL,
-    `provider` 		tinyint,
-    PRIMARY KEY (`userId`)
+	`socialId` 		varchar(255) NOT NULL,
+	`provider` 		tinyint NOT NULL,
+    `refreshToken` 	varchar(255),
+    PRIMARY KEY (`userId`, `provider`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------

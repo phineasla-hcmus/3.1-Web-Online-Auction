@@ -12,9 +12,9 @@ import { getCategoryList, getSubcategoryList } from './models/category.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import {
-  downgradeSellerAuto,
+  downgradeSeller,
   findUserById,
-  getExpiredSeller,
+  findExpiredSeller,
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -180,12 +180,12 @@ setTimeout(async function run() {
     productModel.removeActiveProduct(listExpireProduct[i].proId);
   }
 
-  const listExpiredSeller = await getExpiredSeller();
+  const listExpiredSeller = await findExpiredSeller();
 
   for (let i = 0; i < listExpiredSeller.length; i++) {
     const sellerId = listExpiredSeller[i].bidderId;
     // KHÔNG CẦN GỬI MAIL
-    downgradeSellerAuto(listExpiredSeller[i].bidderId);
+    downgradeSeller(listExpiredSeller[i].bidderId);
   }
   setTimeout(run, DELAY);
 }, DELAY);

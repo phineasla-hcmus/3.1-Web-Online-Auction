@@ -1,8 +1,10 @@
 import { compare } from 'bcrypt';
 import passport from 'passport';
-import passportLocal from 'passport-local';
 import passportGoogle from 'passport-google-oauth20';
+import passportLocal from 'passport-local';
+import { RoleType } from '../models/role.model';
 import {
+  addSocial,
   addUser,
   findSocialById,
   findUserByEmail,
@@ -62,41 +64,43 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
-      // It seems like profile.username always undefined
-      const { id, emails, username, name } = profile;
+      // It seems like `profile.username` and `refreshToken` always undefined
+      // I also don't know what `accessToken` is used for
+      const { id, emails, name } = profile;
       if (!emails || !name?.givenName) {
         return done(undefined, undefined, { message: 'No email found' });
       }
       const email = emails[0].value;
 
       const result = await Promise.all<any>([
-        findUserByEmail(email),
+        findUserByEmail(email, USER_BASIC),
         findSocialById(id),
       ]);
 
-      const user: User = result[0];
-      const social: Social = result[1];
+      let user: Partial<User> | undefined = result[0];
+      const social: Social | undefined = result[1];
+
+      let userId = user?.userId;
+      const firstName = name?.givenName;
+      const lastName = name?.familyName || '';
 
       if (!user) {
         // Create new account with info from `profile`
-        const firstName = name?.givenName;
-        const lastName = name?.familyName || '';
-        const userId = await addUser({
-          email,
-          firstName,
-          lastName,
-        });
-        
+        // Also skip verification because Google is trustworthy, right?
+        user = { email, firstName, lastName, roleId: RoleType.Bidder };
+        userId = await addUser(user);
+        user.userId = userId;
       }
-
-      // console.log(accessToken + ' . REFRESH: ' + refreshToken, profile);
-      // done(null, {
-      //   userId: 1,
-      //   email: 'nguyenngocthanhtam9b@gmail.com',
-      //   firstName: 'Tam',
-      //   lastName: 'Nguyen',
-      //   roleId: 2,
-      // });
+      // `userId` should be valid from now
+      if (!social) {
+        // User already exist, or just created above, merge with main account
+        const socialResult = await addSocial({
+          userId: userId!,
+          socialId: id,
+          provider: 1,
+        });
+      }
+      return done(undefined, user as User);
     }
   )
 );

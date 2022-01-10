@@ -27,7 +27,7 @@ export type User = Express.User;
 export type Social = {
   userId: string | number;
   socialId: string;
-  refreshToken: string | null;
+  refreshToken?: string;
   provider: number;
 };
 
@@ -91,7 +91,12 @@ export async function addUser(
     .then((value) => value[0]);
 }
 
-export async function addSocial(social: Partial<Social>) {
+/**
+ *
+ * @param social
+ * @returns [0] if succeed, I don't know why, maybe because MySQL with 2-column primary keys
+ */
+export async function addSocial(social: Social) {
   return knex('socials').insert(social);
 }
 
@@ -108,13 +113,20 @@ export async function updateUser(
   return knex('users').where({ userId }).update(user);
 }
 
-export async function getExpiredSeller() {
+export async function deleteSocial(userId: any, socialId: string) {
+  return knex('socials')
+    .where('userId', userId)
+    .andWhere('socialId', socialId)
+    .del();
+}
+
+export async function findExpiredSeller() {
   return knex('upgradeList')
     .where('status', '=', 1)
     .andWhere('expiredDate', '<', new Date());
 }
 
-export async function downgradeSellerAuto(sellerId: number) {
+export async function downgradeSeller(sellerId: number) {
   knex('users')
     .where('userId', sellerId)
     .update({
