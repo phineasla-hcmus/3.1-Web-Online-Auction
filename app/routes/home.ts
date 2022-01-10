@@ -281,6 +281,30 @@ homeRouter.get('/product', async (req, res) => {
   });
 });
 
+homeRouter.get('/product/rating', async (req, res) => {
+  const userId = req.query.userId ? +req.query.userId : 0;
+  const ratingList = await bidderModel.getRatingList(userId);
+  ratingList.forEach((element, index) => {
+    element.rateName = element.firstname + ' ' + element.lastname;
+    if (index === ratingList.length - 1) {
+      element.last = true;
+    }
+  });
+  const rateNums = ratingList.length;
+  const user = await findUserById(userId);
+  const ratingPoint = user?.rating;
+  const name = user?.firstname + ' ' + user?.lastname;
+  res.render('rating', {
+    ratingList,
+    rating: true,
+    empty: ratingList.length === 0,
+    rateNums,
+    ratingPoint,
+    myRating: true,
+    name,
+  });
+});
+
 homeRouter.post('/product', async (req, res, next) => {
   const user = req.user;
   const content = req.body.content;

@@ -75,7 +75,9 @@
     text-transform: capitalize;
     // text-align: center;
     margin-bottom: 2rem;
-    padding-left: 3.125rem;
+    @include breakpoint-up(medium) {
+      padding-left: 3.125rem;
+    }
   }
 
   &__content {
@@ -119,6 +121,12 @@
       -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
       box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
       max-width: 10.375rem;
+      @include breakpoint-down(small) {
+        max-width: 10rem;
+      }
+      @include breakpoint-down(verysmall) {
+        max-width: 100%;
+      }
     }
 
     &--price {
@@ -155,6 +163,9 @@
       overflow: hidden;
       position: relative;
       text-align: center;
+      // @include breakpoint-down(small) {
+      //   max-width: 9.375rem;
+      // }
 
       &--preview {
         position: absolute;
@@ -213,10 +224,11 @@
           transition: all 0.3s ease-in-out;
           backface-visibility: hidden;
           width: 23rem;
-          // min-height: 10.8125rem;
-          @include breakpoint-up(medium) {
-            height: 10.8125rem;
-          }
+          min-height: 10.8125rem;
+
+          // @include breakpoint-up(medium) {
+          //   height: 10.8125rem;
+          // }
         }
 
         &:hover {

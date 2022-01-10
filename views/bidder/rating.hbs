@@ -13,31 +13,11 @@
   </p>
   <div class="rating__content">
     {{#each ratingList as |ratingItem|}}
-      <div class="rating__item p-3 mb-3">
-        <div style="gap: 1.25rem" class="d-flex">
-          <div>
-            <p class="mb-0 fw-bold">{{ratingItem.rateName}}</p>
-            {{#if ratingItem.satisfied}}
-              <p class="text-success">Satisfied
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i></p>
-            {{else}}
-              <p class="text-danger">Dissatisfied
-                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-              </p>
-            {{/if}}
-            <p class="text-secondary mb-0"><span>[{{ratingItem.catName}}]</span>
-              {{ratingItem.proName}}</p>
-
-            <p class="mb-0">{{ratingItem.comment}}</p>
-            <small style="font-size: 0.7rem;" class="text-secondary">{{parseDate
-                ratingItem.ratingTime
-              }}</small>
-          </div>
-        </div>
-      </div>
+      {{>ratingbox rating=ratingItem}}
       {{#unless ratingItem.last}}
         <hr />
       {{/unless}}
     {{/each}}
   </div>
 </div>
+
