@@ -1,17 +1,15 @@
 import { Router } from 'express';
-import productModel from '../models/product.model';
+import moment from 'moment';
 import auctionModel from '../models/auction.model';
 import bidderModel from '../models/bidder.model';
-import { findUserById, getRatingUser } from '../models/user.model';
-import path from 'path';
-import fs from 'fs';
-import moment from 'moment';
 import {
   findCategory,
   findParentCategoryByKeyword,
   getChildCategories,
   getParentCategories,
 } from '../models/category.model';
+import productModel from '../models/product.model';
+import { findUserById } from '../models/user.model';
 import { sendUpdate } from '../utils/email';
 
 const homeRouter = Router();
