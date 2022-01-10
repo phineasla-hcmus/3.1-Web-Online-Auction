@@ -13,16 +13,16 @@ import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import {
   downgradeSeller,
-  findUserById,
   findExpiredSeller,
+  findUserById,
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
 import { recoveryRouter, verifyRouter } from './routes/auth/otp';
 import signUpRouter from './routes/auth/signup';
-import bidderRouter from './routes/bidder';
 import homeRouter from './routes/home';
 import sellerRouter from './routes/seller';
+import userRouter from './routes/user';
 import {
   sendSellerAuctionEnded,
   sendSellerNoSale,
@@ -138,7 +138,7 @@ app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
-app.use('/user', mustLoggedIn, bidderRouter);
+app.use('/user', mustLoggedIn, userRouter);
 
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);

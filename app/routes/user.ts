@@ -12,9 +12,9 @@ import {
   passwordValidator,
 } from '../validators/user.validator';
 
-const bidderRouter = Router();
+const userRouter = Router();
 
-bidderRouter.get('/info', async function (req, res) {
+userRouter.get('/info', async function (req, res) {
   const userId = res.locals.user.userId;
   let status = await bidderModel.getBidderStatus(userId);
   const currentuser = await findUserById(userId);
@@ -32,7 +32,7 @@ bidderRouter.get('/info', async function (req, res) {
   });
 });
 
-bidderRouter.post(
+userRouter.post(
   '/change-email',
   newEmailValidator,
   async function (req, res) {
@@ -49,7 +49,7 @@ bidderRouter.post(
   }
 );
 
-bidderRouter.post(
+userRouter.post(
   '/change-name',
   firstNameValidator,
   lastNameValidator,
@@ -68,7 +68,7 @@ bidderRouter.post(
   }
 );
 
-bidderRouter.post('/change-dob', dobValidator, async function (req, res) {
+userRouter.post('/change-dob', dobValidator, async function (req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json(errors.array());
@@ -82,7 +82,7 @@ bidderRouter.post('/change-dob', dobValidator, async function (req, res) {
   res.redirect(url);
 });
 
-bidderRouter.post(
+userRouter.post(
   '/change-password',
   passwordValidator,
   confirmPasswordValidator,
@@ -115,7 +115,7 @@ bidderRouter.post(
   }
 );
 
-bidderRouter.post('/upgrade', async function (req, res) {
+userRouter.post('/upgrade', async function (req, res) {
   const userId = req.body.userId;
   await bidderModel.upgradeToSeller(userId);
 
@@ -123,7 +123,7 @@ bidderRouter.post('/upgrade', async function (req, res) {
   res.redirect(url);
 });
 
-bidderRouter.get('/favorite', async function (req, res) {
+userRouter.get('/favorite', async function (req, res) {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const favoriteList = await bidderModel.getFavoriteList(
     res.locals.user.userId
@@ -157,7 +157,7 @@ bidderRouter.get('/favorite', async function (req, res) {
   });
 });
 
-bidderRouter.get('/currentbids', async function (req, res) {
+userRouter.get('/currentbids', async function (req, res) {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const currentBidsList = await bidderModel.getCurrentBids(userId);
 
@@ -189,7 +189,7 @@ bidderRouter.get('/currentbids', async function (req, res) {
   });
 });
 
-bidderRouter.get('/rating', async function (req, res) {
+userRouter.get('/rating', async function (req, res) {
   const userId = res.locals.user.userId;
   const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
@@ -212,7 +212,7 @@ bidderRouter.get('/rating', async function (req, res) {
   });
 });
 
-bidderRouter.get('/win', async function (req, res) {
+userRouter.get('/win', async function (req, res) {
   const bidderId = res.locals.user.userId;
   const winningList = await bidderModel.getWinningList(bidderId);
   winningList.forEach(async function (element) {
@@ -232,7 +232,7 @@ bidderRouter.get('/win', async function (req, res) {
   });
 });
 
-bidderRouter.post('/rateSeller', async function (req, res) {
+userRouter.post('/rateSeller', async function (req, res) {
   const opinion = req.body.opinion;
   let satisfied = false;
   if (opinion === 'satisfied') {
@@ -264,4 +264,4 @@ bidderRouter.post('/rateSeller', async function (req, res) {
   res.redirect(url);
 });
 
-export default bidderRouter;
+export default userRouter;
