@@ -293,7 +293,7 @@ homeRouter.get('/product/rating', async (req, res) => {
   const rateNums = ratingList.length;
   const user = await findUserById(userId);
   const ratingPoint = user?.rating;
-  const name = user?.firstname + ' ' + user?.lastname;
+  const name = user?.firstName + ' ' + user?.lastName;
   res.render('rating', {
     ratingList,
     rating: true,
