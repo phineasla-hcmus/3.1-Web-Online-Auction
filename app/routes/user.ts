@@ -2,7 +2,12 @@ import { compare, hash } from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import bidderModel from '../models/bidder.model';
-import { findUserById, updateUser } from '../models/user.model';
+import { addOtp, OtpType } from '../models/otp.model';
+import {
+  addPendingEmail,
+  findUserById,
+  updateUser,
+} from '../models/user.model';
 import {
   confirmPasswordValidator,
   dobValidator,
@@ -24,7 +29,7 @@ userRouter.get('/info', async function (req, res) {
     request = status[0].status;
   }
 
-  res.render('bidder/info', {
+  res.render('user/info', {
     layout: 'bidder',
     info: true,
     request,
@@ -32,22 +37,22 @@ userRouter.get('/info', async function (req, res) {
   });
 });
 
-userRouter.post(
-  '/change-email',
-  newEmailValidator,
-  async function (req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.json(errors.array());
-    } else {
-      const userId = res.locals.user.userId;
-      const newEmail: any = req.body.email;
-      await updateUser(userId, { email: newEmail });
-      const url = req.headers.referer || '/';
-      res.redirect(url);
-    }
+userRouter.post('/change-email', newEmailValidator, async function (req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(errors.array());
+  } else {
+    const userId = req.user!.userId;
+    const newEmail: string = req.body.email;
+    Promise.all([
+      addPendingEmail(userId, newEmail),
+      addOtp(userId, OtpType.Verify),
+    ]);
+    // await updateUser(userId, { email: newEmail });
+    const url = req.headers.referer || '/';
+    res.redirect(url);
   }
-);
+});
 
 userRouter.post(
   '/change-name',
@@ -149,7 +154,7 @@ userRouter.get('/favorite', async function (req, res) {
       }
     }
   }
-  res.render('bidder/favorite', {
+  res.render('user/favorite', {
     layout: 'bidder',
     favoriteList,
     favorite: true,
@@ -181,7 +186,7 @@ userRouter.get('/currentbids', async function (req, res) {
       currentBidsList[i].FavoriteProduct = FavoriteProduct;
     }
   }
-  res.render('bidder/currentBid', {
+  res.render('user/currentBid', {
     layout: 'bidder',
     currentBidsList,
     currentBids: true,
@@ -202,7 +207,7 @@ userRouter.get('/rating', async function (req, res) {
   const user = await findUserById(userId);
   const ratingPoint = user?.rating;
 
-  res.render('bidder/rating', {
+  res.render('user/rating', {
     layout: 'bidder',
     ratingList,
     rating: true,
@@ -224,7 +229,7 @@ userRouter.get('/win', async function (req, res) {
     }
     element.sellerName = element.firstname + ' ' + element.lastname;
   });
-  res.render('bidder/win', {
+  res.render('user/win', {
     layout: 'bidder',
     winningList,
     win: true,

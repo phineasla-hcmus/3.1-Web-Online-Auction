@@ -36,6 +36,16 @@ CREATE TABLE `users` (
   PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- ----------------------------
+-- Hold email pending for verification, use for change email
+-- ----------------------------
+DROP TABLE IF EXISTS `pendingEmails`;
+CREATE TABLE `pendingEmails` (
+	`userId` 	int unsigned NOT NULL,
+    `email`		varchar(60) NOT NULL,
+    PRIMARY KEY (`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 DROP TABLE IF EXISTS `socials`;
 CREATE TABLE `socials` (
 	`userId` 		int unsigned NOT NULL,
