@@ -9,7 +9,7 @@
           class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="emailFormWrapper">
-      <form id="frmChangeEmail" action="/bidder/changeEmail" method="post">
+      <form id="frmChangeEmail" action="/bidder/change-email" method="post">
         <div class="mb-3">
           <label for="email" class="col-form-label">New email</label>
           <input value="{{currentuser.email}}" type="email" name="email" class="form-control" id="email" required />
@@ -29,7 +29,7 @@
           class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="nameFormWrapper">
-      <form action="/bidder/changeName" id="frmChangeName" method="post">
+      <form action="/bidder/change-name" id="frmChangeName" method="post">
         <div class="mb-3">
           <label for="firstName" class="col-form-label">First Name</label>
           <input value="{{currentuser.firstname}}" name="firstName" type="text" class="form-control" id="firstName"
@@ -56,7 +56,7 @@
           class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="dobFormWrapper">
-      <form action="/bidder/changeDob" id="frmChangeDob" method="post">
+      <form action="/bidder/change-dob" id="frmChangeDob" method="post">
         <div class="mb-3">
           <input id="dob" type="text" name="dob" placeholder="Date of Birth "
             class="form-control border-left-0 border-md" data-provide="datepicker" required />
@@ -78,7 +78,7 @@
       <button type="submit" class="btn btn-link px-0">Forgot Password</button>
     </form>
     <div style="display: none;" id="passFormWrapper">
-      <form id="frmChangePassword" action="/bidder/changePassword" method="post">
+      <form id="frmChangePassword" action="/bidder/change-password" method="post">
         <div class="mb-3">
           <label for="oldPassword" class="col-form-label">Enter your old
             password</label>

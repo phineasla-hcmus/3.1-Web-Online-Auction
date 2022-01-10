@@ -1,68 +1,58 @@
-document.getElementById("prevBidAction").onclick =  function (e) {
-  const prevPrice = document.getElementById("prevPrice");
+document.getElementById('prevBidAction').onclick = function (e) {
+  const prevPrice = document.getElementById('prevPrice');
 
-  const afterPrice = document.getElementById("surePrice");
+  const afterPrice = document.getElementById('surePrice');
 
-  const bidForm = document.getElementById("bidAction");
+  const bidForm = document.getElementById('bidAction');
 
-  const sureBid = document.getElementById("sureBid");
-  afterPrice.value=prevPrice.value;
+  const sureBid = document.getElementById('sureBid');
+  afterPrice.value = prevPrice.value;
 
-  bidForm.setAttribute("hidden","hidden");
-  sureBid.removeAttribute("hidden");
+  bidForm.setAttribute('hidden', 'hidden');
+  sureBid.removeAttribute('hidden');
 };
 
+document.getElementById('backBid').onclick = function (e) {
+  const bidForm = document.getElementById('bidAction');
 
-document.getElementById("backBid").onclick =  function (e) {
-  const bidForm = document.getElementById("bidAction");
+  const sureBid = document.getElementById('sureBid');
 
-  const sureBid = document.getElementById("sureBid");
-
-
-  sureBid.setAttribute("hidden","hidden");
-  bidForm.removeAttribute("hidden");
+  sureBid.setAttribute('hidden', 'hidden');
+  bidForm.removeAttribute('hidden');
 };
 
-
-
-document.getElementById("BidForm").onsubmit = async function (e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const res = await fetch(e.target.getAttribute('action'), {
-        method: e.target.getAttribute('method'),
-        redirect: 'follow',
-        headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData),
-    });
-    const resJson = await res.json();
-    if(resJson.status === "error")
-        toastr.error(resJson.msg);
-    if(resJson.status==="success")
-        toastr.success(resJson.msg);
-    if(resJson.status==="info")
-        toastr.info(resJson.msg);
-};
-
-document.getElementById("likeAction").onsubmit = async function (e) {
+document.getElementById('bidForm').onsubmit = async function (e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const res = await fetch(e.target.getAttribute('action'), {
-      method: e.target.getAttribute('method'),
-      redirect: 'follow',
-      headers: {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams(formData),
+    },
+    body: new URLSearchParams(formData),
   });
   const resJson = await res.json();
-  if(resJson.status === "like")
-      toastr.success(resJson.msg);
-  if(resJson.status==="unlike")
-      toastr.success(resJson.msg);
+  if (resJson.status === 'error') toastr.error(resJson.msg);
+  if (resJson.status === 'success') toastr.success(resJson.msg);
+  if (resJson.status === 'info') toastr.info(resJson.msg);
 };
 
+document.getElementById('likeAction').onsubmit = async function (e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(formData),
+  });
+  const resJson = await res.json();
+  if (resJson.status === 'like') toastr.success(resJson.msg);
+  if (resJson.status === 'unlike') toastr.success(resJson.msg);
+};
 
 // $('#bidAction').submit(function (e) {
 //   e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -138,10 +128,10 @@ function changeImg(pic) {
   subPic.src = tmp;
 }
 
-function showUpdateField(){
+function showUpdateField() {
   var updateField = document.getElementById('updateField');
-  var updateButton = document.getElementById("updateDesButton");
+  var updateButton = document.getElementById('updateDesButton');
 
-  updateField.removeAttribute("hidden");
-  updateButton.setAttribute("hidden","hidden");
+  updateField.removeAttribute('hidden');
+  updateButton.setAttribute('hidden', 'hidden');
 }

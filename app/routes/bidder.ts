@@ -1,17 +1,18 @@
+import { compare, hash } from 'bcrypt';
 import { Router } from 'express';
+import { validationResult } from 'express-validator';
+import moment from 'moment';
 import bidderModel from '../models/bidder.model';
 import { findUserById, updateUser } from '../models/user.model';
-import { validationResult } from 'express-validator';
+import { mustLoggedIn } from '../utils/middleware';
 import {
+  confirmPasswordValidator,
+  dobValidator,
   firstNameValidator,
   lastNameValidator,
-  dobValidator,
   newEmailValidator,
   passwordValidator,
-  confirmPasswordValidator,
 } from '../validators/user.validator';
-import bcrypt from 'bcrypt';
-import moment from 'moment';
 
 const bidderRouter = Router();
 
@@ -33,21 +34,25 @@ bidderRouter.get('/info', async function (req, res) {
   });
 });
 
-bidderRouter.post('/changeEmail', newEmailValidator, async function (req, res) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.json(errors.array());
-  } else {
-    const userId = res.locals.user.userId;
-    const newEmail: any = req.body.email;
-    await updateUser(userId, { email: newEmail });
-    const url = req.headers.referer || '/';
-    res.redirect(url);
+bidderRouter.post(
+  '/change-email',
+  newEmailValidator,
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors.array());
+    } else {
+      const userId = res.locals.user.userId;
+      const newEmail: any = req.body.email;
+      await updateUser(userId, { email: newEmail });
+      const url = req.headers.referer || '/';
+      res.redirect(url);
+    }
   }
-});
+);
 
 bidderRouter.post(
-  '/changeName',
+  '/change-name',
   firstNameValidator,
   lastNameValidator,
   async function (req, res) {
@@ -55,9 +60,9 @@ bidderRouter.post(
     if (!errors.isEmpty()) {
       return res.json(errors.array());
     } else {
+      const userId = req.user!.userId;
       const firstName = req.body.firstname;
       const lastName = req.body.lastname;
-      const userId = res.locals.user.userId;
       await updateUser(userId, { firstName, lastName });
       const url = req.headers.referer || '/';
       res.redirect(url);
@@ -65,48 +70,55 @@ bidderRouter.post(
   }
 );
 
-bidderRouter.post('/changeDob', dobValidator, async function (req, res) {
+bidderRouter.post('/change-dob', dobValidator, async function (req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json(errors.array());
-  } else {
-    const dob = req.body.dob;
-    const formatDob = new Date(moment(dob).format('YYYY-MM-DD'));
-    const userId = res.locals.user.userId;
-    await updateUser(userId, { dob: formatDob });
-    const url = req.headers.referer || '/';
-    res.redirect(url);
   }
+  const dob = req.body.dob;
+  console.log(dob);
+  const formatDob = new Date(dob);
+  const userId = res.locals.user.userId;
+  await updateUser(userId, { dob: formatDob });
+
+  const url = req.headers.referer || '/';
+  res.redirect(url);
 });
 
 bidderRouter.post(
-  '/changePassword',
+  '/change-password',
   passwordValidator,
   confirmPasswordValidator,
   async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json(errors.array());
-    } else {
-      const oldPassword = req.body.oldPassword;
-      const hashedOldPassword = await bcrypt.hash(oldPassword, 10);
-      const userId = res.locals.user.userId;
-      const user = await findUserById(userId);
-      if (hashedOldPassword !== user?.password) {
-        return res.json('Please check your password again');
-      }
-      const password = req.body.password;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      await updateUser(userId, { password: hashedPassword });
-      const url = req.headers.referer || '/';
-      res.redirect(url);
     }
+    const userId = req.user!.userId;
+    const user = await findUserById(userId, ['password']);
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.password;
+    if (!oldPassword || !newPassword || !user?.password) {
+      const msg =
+        'You are using 3rd party authentication, please set your password by using Forgot password';
+      // If user?.password is null/undefined, user must be using social authentication
+      return res.json([{ msg }]);
+    }
+    const isMatch = await compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.json([{ msg: 'Invalid password' }]);
+    }
+    const hashedPassword = await hash(newPassword, 10);
+    await updateUser(userId, { password: hashedPassword });
+    const url = req.headers.referer || '/';
+    res.redirect(url);
   }
 );
 
 bidderRouter.post('/upgrade', async function (req, res) {
   const userId = req.body.userId;
   await bidderModel.upgradeToSeller(userId);
+
   const url = req.headers.referer || '/';
   res.redirect(url);
 });

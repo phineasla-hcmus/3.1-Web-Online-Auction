@@ -1,5 +1,5 @@
 import compression from 'compression';
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import mySqlSessionStore from 'express-mysql-session';
 import session from 'express-session';
 import morgan from 'morgan';
@@ -29,7 +29,12 @@ import {
   sendWinner,
 } from './utils/email';
 import hbs from './utils/hbs';
-import logger from './utils/logger';
+import {
+  mustbeAdmin,
+  mustbeSeller,
+  mustLoggedIn,
+  mustLoggedOut,
+} from './utils/middleware';
 
 const DELAY = 10000; //10 second
 
@@ -106,28 +111,6 @@ app.use(async function (req, res, next) {
   next();
 });
 
-const mustLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isUnauthenticated()) return res.redirect('/auth/login');
-  next();
-};
-
-const mustLoggedOut = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated()) return res.redirect(req.session.returnTo || '/');
-  next();
-};
-
-const mustbeSeller = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.roleId !== RoleType.Seller)
-    return res.redirect(req.session.returnTo || '/');
-  next();
-};
-
-const mustbeAdmin = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.roleId !== RoleType.Admin)
-    return res.redirect(req.session.returnTo || '/');
-  next();
-};
-
 app.use('/', homeRouter);
 
 // https://developers.google.com/identity/protocols/oauth2/scopes#oauth2
@@ -151,6 +134,7 @@ app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
 app.use('/bidder', mustLoggedIn, bidderRouter);
+
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);
 
