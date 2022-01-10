@@ -161,11 +161,15 @@ bidderRouter.get('/favorite', async function (req, res) {
 });
 
 bidderRouter.get('/currentbids', async function (req, res) {
-  const currentBidsList = await bidderModel.getCurrentBids(
-    res.locals.user.userId
-  );
-
   const userId = res.locals.user ? res.locals.user.userId : 0;
+  const currentBidsList = await bidderModel.getCurrentBids(userId);
+
+  currentBidsList.forEach((element) => {
+    if (element.bidderId === userId) {
+      element.win = true;
+    }
+  });
+
   if (userId != 0) {
     const listFavorite = await bidderModel.getFavoriteList(userId);
 
@@ -218,7 +222,9 @@ bidderRouter.get('/win', async function (req, res) {
     const rated = await bidderModel.isAlreadyRated(bidderId, element.proId);
     if (rated) {
       element.rated = true;
-    } else element.rated = false;
+    } else {
+      element.rated = false;
+    }
     element.sellerName = element.firstname + ' ' + element.lastname;
   });
   res.render('bidder/win', {

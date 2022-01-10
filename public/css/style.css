@@ -710,7 +710,7 @@ ul.nav-pills li a:hover {
   flex: 1 0 auto;
   height: 100%;
 }
-.products__item--new {
+.products__item--new, .products__item--win {
   background: #fdb03d;
   color: white;
   position: absolute;

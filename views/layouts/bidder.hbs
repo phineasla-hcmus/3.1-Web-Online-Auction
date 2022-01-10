@@ -59,21 +59,21 @@
             <li class="{{#if win}}nav-active{{/if}}">
               <a href="/user/win" class="nav-link align-middle">
                 <i class="fa fa-archive" aria-hidden="true"></i>
-                <span class="ms-1 d-none d-sm-inline">Winning products</span>
+                <span class="ms-1 d-none d-sm-inline">Won list</span>
               </a>
             </li>
             {{#if (isSeller user.roleId)}}
             <li class="{{#if postedProduct}}nav-active{{/if}}">
               <a href="/seller/my-product" class="nav-link align-middle">
                 <i class="fa fa-eye" aria-hidden="true"></i>
-                <span class="ms-1 d-none d-sm-inline">Posted Products</span>
+                <span class="ms-1 d-none d-sm-inline">Posted products</span>
               </a>
             </li>
 
             <li class="{{#if uploadProduct}}nav-active{{/if}}">
               <a href="/seller/add-product" class="nav-link align-middle">
                 <i class="fa fa-upload" aria-hidden="true"></i>
-                <span class="ms-1 d-none d-sm-inline">Upload Product</span>
+                <span class="ms-1 d-none d-sm-inline">Upload product</span>
               </a>
             </li>
             {{/if}}
