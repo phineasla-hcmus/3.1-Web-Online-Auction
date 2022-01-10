@@ -1,22 +1,7 @@
-body,
-div,
-form,
-input,
-select,
-textarea,
-label {
-  padding: 0;
-  margin: 0;
-  outline: none;
-  font-size: 14px;
-  line-height: 22px;
-}
-
 h1 {
   position: absolute;
   margin: 0;
   font-size: 40px;
-  color: #fff;
   z-index: 2;
   line-height: 83px;
 }
@@ -39,35 +24,6 @@ textarea {
 textarea {
   width: calc(100% - 12px);
   padding: 5px;
-}
-
-.item:hover p,
-.item:hover i {
-  color: #cc7a00;
-}
-
-.question:hover p,
-.question label:hover {
-  color: #cc7a00;
-}
-
-input:hover::placeholder {
-  color: #cc7a00;
-}
-
-.item {
-  position: relative;
-  margin: 10px 0;
-}
-.item input:hover,
-.item select:hover,
-.item textarea:hover {
-  border: 1px solid transparent;
-  box-shadow: 0 0 3px 0 #cc7a00;
-  color: #cc7a00;
-}
-.item span {
-  color: red;
 }
 
 input[type=date]::-webkit-inner-spin-button {

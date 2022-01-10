@@ -251,10 +251,13 @@
             </div>
             {{#if (isSellerOfThis this.sellerId this.userId)}}
 
-            <div class=" ">
-                <h1 class="products__title fw-bold">
+            <div >
+                <h2 class="products__title fw-bold">
                     List Bidder
-                </h1>
+                </h2>
+                {{#if ../emptyBidderList}}
+                    <div class="alert alert-info fw-bold">Current bidder list is empty!</div>
+                {{else}}
                 <div class="description-content">
                     <div class="container">
                         <ul class="responsive-table">
@@ -280,6 +283,7 @@
                         </ul>
                     </div>
                 </div>
+                {{/if}}
             </div>
 
             {{/if}}
