@@ -80,3 +80,9 @@
 .childCat li a.active {
   background-color: #eee;
 }
+
+.category-wrapper {
+  @include breakpoint-up(medium) {
+    margin-top: 1rem;
+  }
+}
