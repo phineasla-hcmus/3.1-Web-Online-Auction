@@ -3,8 +3,11 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportGoogle from 'passport-google-oauth20';
 import {
+  findSocialById,
   findUserByEmail,
   findUserById,
+  Social,
+  User,
   USER_BASIC,
 } from '../models/user.model';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from './secret';
@@ -57,15 +60,34 @@ passport.use(
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: '/auth/google/callback',
     },
-    function (accessToken, refreshToken, profile, done) {
-      console.log(accessToken, refreshToken, profile);
-      done(null, {
-        userId: 1,
-        email: 'nguyenngocthanhtam9b@gmail.com',
-        firstName: 'Tam',
-        lastName: 'Nguyen',
-        roleId: 2,
-      });
+    async (accessToken, refreshToken, profile, done) => {
+      // It seems like profile.username always undefined
+      const { id, emails, username, name } = profile;
+      if (!emails) {
+        return done(undefined, undefined, { message: 'No email found' });
+      }
+      const email = emails[0].value;
+
+      const result = await Promise.all<any>([
+        findUserByEmail(email),
+        findSocialById(id),
+      ]);
+
+      const user: User = result[0];
+      const social: Social = result[1];
+
+      if (!user) {
+        // Create new account with info from `profile`
+      }
+
+      // console.log(accessToken + ' . REFRESH: ' + refreshToken, profile);
+      // done(null, {
+      //   userId: 1,
+      //   email: 'nguyenngocthanhtam9b@gmail.com',
+      //   firstName: 'Tam',
+      //   lastName: 'Nguyen',
+      //   roleId: 2,
+      // });
     }
   )
 );

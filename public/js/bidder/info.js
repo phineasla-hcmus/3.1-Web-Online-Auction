@@ -10,7 +10,7 @@ async function fetchAjax(e) {
     body: new URLSearchParams(formData),
   });
   if (res.redirected) {
-    window.location.href = res.url;
+    window.location.replace(res.url);
   } else {
     const resJson = await res.json();
     resJson.forEach((err) => toastr.error(err.msg));
