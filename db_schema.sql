@@ -81,7 +81,7 @@ CREATE TABLE `products` (
   `buyNowPrice` 	int unsigned 	DEFAULT NULL,
   `currentPrice` 	int unsigned 	NOT NULL,
   `stepPrice` 		int unsigned	NOT NULL,
-  `description` 	varchar(65535)	NOT NULL,
+  `description` 	varchar(16000)	NOT NULL,
   `postDate` 		datetime 		DEFAULT CURRENT_TIMESTAMP,
   `expiredDate` 	datetime 		NOT NULL,
   `numberOfBids` 	tinyint unsigned DEFAULT 0,

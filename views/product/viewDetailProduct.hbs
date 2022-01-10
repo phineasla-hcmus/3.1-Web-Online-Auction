@@ -150,7 +150,9 @@
                             </form>
                             {{/if}}
 
-
+                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
+                                Bid now
+                            </button>
                             {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
                             <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
                                 You are denied to bid this product.
@@ -166,7 +168,7 @@
                                     <div></div>
                                     <strong>Your Price: </strong>
                                     <input id="prevPrice" type="number" name="price" />
-                            
+                                
                                     <div style="font-size: smaller;">This is using Auto Bid. You just need to enter your max
                                         price(Largest price you can pay for this product). The system will calculate and
                                         auto bid to give you a best price</div>
@@ -178,37 +180,34 @@
                                     <div></div>
                                     <input id="prevBidAction" type="button" class="bid btn btn-default" value="Accept" name="content">
                                 </div>
+                                
                                 <div id="sureBid" hidden>
-                                    <strong>Your auto auction price is : <input  id="surePrice" type="number" readonly></strong>
+                                    <strong>Your auto auction price is : <input id="surePrice" type="number" readonly></strong>
                                     <div></div>
                                     <div style="font-size: small;">Are you sure to bid this cost?</div>
-                                    <input id="backBid" class="bid btn btn-default" type="button" value="Back"> 
+                                    <input id="backBid" class="bid btn btn-default" type="button" value="Back">
                                     <input type="submit" class="bid btn btn-default" value="Submit">
-                                    
+                                
                                 </div>
                                 </p>
                                 {{/if}}
-                            
+                                
                                 {{#if (getRatingType userRating 2)}}
                                 <br>
                                 <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
                                 </h5>
                                 {{/if}}
-                            
+                                
                                 {{#if (getRatingType userRating 3)}}
                                 <br>
                                 <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!
                                 </h5>
                                 {{/if}}
                             </form>
-
-                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
-                                Bid now
-                            </button>
                             {{/if}}
 
                         </div>
-                        {{/if}}
+                            {{/if}}
                         {{/if}}
                     </div>
                 </div>
