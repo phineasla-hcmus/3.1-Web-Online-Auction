@@ -75,6 +75,9 @@
     text-transform: capitalize;
     // text-align: center;
     margin-bottom: 2rem;
+    @include breakpoint-down(small) {
+      font-size: 1.1rem;
+    }
     @include breakpoint-up(medium) {
       padding-left: 3.125rem;
     }
@@ -355,6 +358,17 @@
   @include breakpoint-down(small) {
     &:last-child {
       margin-top: 0.5rem;
+    }
+  }
+}
+
+#products-search-result {
+  &.products__content {
+    gap: 0.25rem;
+  }
+  .products__item--content {
+    @include breakpoint-down(small) {
+      max-width: 10rem;
     }
   }
 }
