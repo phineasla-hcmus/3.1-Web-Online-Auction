@@ -11,7 +11,7 @@ import {
 import productModel from '../models/product.model';
 import { findUserById } from '../models/user.model';
 import { sendUpdate } from '../utils/email';
-
+import bcrypt from 'bcrypt';
 const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
@@ -317,14 +317,24 @@ homeRouter.post('/product', async (req, res, next) => {
 
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
+
+  
   if (content === 'Submit') {
+    const password = req.body.password;
     const proId = req.body.proId;
     const price = parseInt(req.body.price);
     const minimumPrice = parseInt(req.body.minimumPrice);
     const stepPrice = parseInt(req.body.stepPrice);
 
     const product = (await productModel.findProductbyId(proId))[0];
+    const bidderPassword = (await findUserById(userId, ['password']))!.password;
 
+    if(await bcrypt.compare(req.body.password,bidderPassword as string)==false){
+      return res.json({
+        status: 'error',
+        msg: 'Your password is incorrect',
+      });
+    }
     const now = new Date();
     const differentMinutes =
       (product.expiredDate.getTime() - now.getTime()) / (1000 * 60);

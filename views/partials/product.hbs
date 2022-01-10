@@ -35,150 +35,140 @@
 
       <div class="products__item--wrapper">
         <div>
-          <h3 class="hide-overflow">
+          <h3 class="hide-overflow mb-0">
             {{this.proName}}
           </h3>
-          <small><i class="fa fa-calendar" aria-hidden="true"></i>
-            {{parseDate postDate}}</small>
-          <p style="font-size: 0.6rem;" class="text-danger"><i
+          <p style="font-size: 0.7rem; margin-bottom: 0"><i
+              class="fa fa-calendar"
+              aria-hidden="true"
+            ></i>
+            {{parseDate postDate}}</p>
+          <p style="font-size: 0.6rem;" class="text-danger mb-0"><i
               class="fa fa-clock-o"
               aria-hidden="true"
             ></i>
             {{getRemainingTime expiredDate}}
           </p>
-          <p class="d-flex justify-content-between">
+          <p
+            style="font-size: 0.6rem;"
+            class="d-flex justify-content-between mb-0"
+          >
             <i
               class="fa fa-trophy text-warning"
               aria-hidden="true"
             >{{maskBidderName bidderName}}</i>
-            {{#if (isSellerOfThis this.sellerId user.userId)}}{{else}}
+          </p>
+          {{#if (isSellerOfThis this.sellerId user.userId)}}{{else}}
 
-              {{#if (isBidderOrSeller user.roleId)}}
-                {{#if (isFavorite proId FavoriteProduct)}}
-                  <form
-                    method="post"
-                    style="text-align: end;"
-                    action="/product"
-                  >
-                    <button
-                      class="likebtn"
-                      type="submit"
-                      id="unlikeButton{{proId}}"
-                      onclick="buttonLikeV2({{proId}})"
-                      style="color: red; background-color: transparent;
+            {{#if (isBidderOrSeller user.roleId)}}
+              {{#if (isFavorite proId FavoriteProduct)}}
+                <form method="post" style="text-align: end;" action="/product">
+                  <button
+                    class="likebtn"
+                    type="submit"
+                    id="unlikeButton{{proId}}"
+                    onclick="buttonLikeV2({{proId}})"
+                    style="color: red; background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
-                    >
-                      <span class="fa fa-heart" id="like"></span>
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="unlike"
-                        name="content"
-                      />
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="{{proId}}"
-                        name="proId"
-                      />
-                    </button>
-                  </form>
+                  >
+                    <span class="fa fa-heart" id="like"></span>
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="unlike"
+                      name="content"
+                    />
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="{{proId}}"
+                      name="proId"
+                    />
+                  </button>
+                </form>
 
-                  <form
-                    method="post"
-                    style="text-align: end;"
-                    action="/product"
-                  >
-                    <button
-                      class="likebtn"
-                      type="submit"
-                      id="likeButton{{proId}}"
-                      onclick="buttonLikeV2({{proId}})"
-                      style="color: red; background-color: transparent;
+                <form method="post" style="text-align: end;" action="/product">
+                  <button
+                    class="likebtn"
+                    type="submit"
+                    id="likeButton{{proId}}"
+                    onclick="buttonLikeV2({{proId}})"
+                    style="color: red; background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
-                      hidden
-                    >
-                      <span class="fa fa-heart-o" id="like"></span>
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="like"
-                        name="content"
-                      />
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="{{proId}}"
-                        name="proId"
-                      />
-                    </button>
-                  </form>
-                {{else}}
-                  <form
-                    method="post"
-                    style="text-align: end;"
-                    action="/product"
+                    hidden
                   >
-                    <button
-                      class="likebtn"
-                      type="submit"
-                      id="likeButton{{proId}}"
-                      onclick="buttonLikeV1({{proId}})"
-                      style="color: red;background-color: transparent;
+                    <span class="fa fa-heart-o" id="like"></span>
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="like"
+                      name="content"
+                    />
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="{{proId}}"
+                      name="proId"
+                    />
+                  </button>
+                </form>
+              {{else}}
+                <form method="post" style="text-align: end;" action="/product">
+                  <button
+                    class="likebtn"
+                    type="submit"
+                    id="likeButton{{proId}}"
+                    onclick="buttonLikeV1({{proId}})"
+                    style="color: red;background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
-                    >
-                      <span class="fa fa-heart-o" id="like"></span>
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="like"
-                        name="content"
-                      />
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="{{proId}}"
-                        name="proId"
-                      />
-                    </button>
-                  </form>
-                  <form
-                    method="post"
-                    style="text-align: end;"
-                    action="/product"
                   >
-                    <button
-                      class="likebtn"
-                      type="submit"
-                      id="unlikeButton{{proId}}"
-                      onclick="buttonLikeV1({{proId}})"
-                      style="color: red;background-color: transparent;
+                    <span class="fa fa-heart-o" id="like"></span>
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="like"
+                      name="content"
+                    />
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="{{proId}}"
+                      name="proId"
+                    />
+                  </button>
+                </form>
+                <form method="post" style="text-align: end;" action="/product">
+                  <button
+                    class="likebtn"
+                    type="submit"
+                    id="unlikeButton{{proId}}"
+                    onclick="buttonLikeV1({{proId}})"
+                    style="color: red;background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
-                      hidden
-                    >
-                      <span class="fa fa-heart" id="like"></span>
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="unlike"
-                        name="content"
-                      />
-                      <input
-                        type="hidden"
-                        id="like"
-                        value="{{proId}}"
-                        name="proId"
-                      />
-                    </button>
-                  </form>
-                {{/if}}
+                    hidden
+                  >
+                    <span class="fa fa-heart" id="like"></span>
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="unlike"
+                      name="content"
+                    />
+                    <input
+                      type="hidden"
+                      id="like"
+                      value="{{proId}}"
+                      name="proId"
+                    />
+                  </button>
+                </form>
               {{/if}}
             {{/if}}
-          </p>
+          {{/if}}
         </div>
         <ul>
           <li><i class="fa fa-gavel text-danger" aria-hidden="true"></i>
