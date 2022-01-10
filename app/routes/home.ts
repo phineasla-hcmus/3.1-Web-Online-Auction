@@ -18,22 +18,22 @@ homeRouter.get('/', async (req, res) => {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const nearEndList = await productModel.findNearEndProducts();
   nearEndList.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastName != null) {
+      element.bidderName = element.firstname + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
   const mostBidsList = await productModel.findMostBidsProducts();
   mostBidsList.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastName != null) {
+      element.bidderName = element.firstname + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
   const highestPriceList = await productModel.findHighestPriceProducts();
   highestPriceList.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastName != null) {
+      element.bidderName = element.firstname + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
@@ -173,8 +173,8 @@ homeRouter.get('/product', async (req, res) => {
   );
 
   detailedProduct.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastName != null) {
+      element.bidderName = element.firstname + ' ' + element.lastName;
     } else element.bidderName = '';
     element.userId = userId;
   });
@@ -184,13 +184,13 @@ homeRouter.get('/product', async (req, res) => {
   );
 
   detailedProduct.forEach((element) => {
-    element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastname;
+    element.sellerName = sellerName[0].firstname + ' ' + sellerName[0].lastName;
   });
 
   const listRelatedProduct = await productModel.findRelatedProduct(productID);
   listRelatedProduct.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstname != null && element.lastName != null) {
+      element.bidderName = element.firstname + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
@@ -199,7 +199,7 @@ homeRouter.get('/product', async (req, res) => {
   const listBidder = await productModel.getListBidder(productID);
 
   listBidder.forEach((element) => {
-    element.bidderName = element.firstname + ' ' + element.lastname;
+    element.bidderName = element.firstname + ' ' + element.lastName;
   });
 
   const listFavorite = await productModel.checkIfLike_or_Unlike(
@@ -285,7 +285,7 @@ homeRouter.get('/product/rating', async (req, res) => {
   const userId = req.query.userId ? +req.query.userId : 0;
   const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
-    element.rateName = element.firstname + ' ' + element.lastname;
+    element.rateName = element.firstname + ' ' + element.lastName;
     if (index === ratingList.length - 1) {
       element.last = true;
     }
@@ -589,8 +589,8 @@ homeRouter.get('/search', async (req, res) => {
       }
     }
     list.forEach((element: any) => {
-      if (element.firstname != null && element.lastname != null) {
-        element.bidderName = element.firstname + ' ' + element.lastname;
+      if (element.firstname != null && element.lastName != null) {
+        element.bidderName = element.firstname + ' ' + element.lastName;
       } else element.bidderName = '';
     });
     for (let i = 1; i <= numPage; i++) {

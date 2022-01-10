@@ -28,8 +28,8 @@ export default {
         'u.userId',
         'u.email',
         'u.roleId',
-        'u.firstname',
-        'u.lastname',
+        'u.firstName',
+        'u.lastName',
         'u.rating',
         'upgradeList.registerTime'
       );
@@ -42,8 +42,8 @@ export default {
         'u.userId',
         'u.email',
         'u.roleId',
-        'u.firstname',
-        'u.lastname',
+        'u.firstName',
+        'u.lastName',
         'u.rating',
         'upgradeList.registerTime'
       )

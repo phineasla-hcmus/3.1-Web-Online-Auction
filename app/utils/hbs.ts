@@ -74,9 +74,9 @@ function getRemainingTime(date: string) {
 
 function maskBidderName(bidderName: string) {
   if (bidderName != undefined && bidderName.length != 0) {
-    const lastname = bidderName.substring(4);
+    const lastName = bidderName.substring(4);
     const mask = '*'.repeat(4);
-    return mask + lastname;
+    return mask + lastName;
   }
   return '';
 }

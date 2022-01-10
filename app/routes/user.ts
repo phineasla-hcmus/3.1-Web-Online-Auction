@@ -64,8 +64,8 @@ userRouter.post(
       return res.json(errors.array());
     } else {
       const userId = req.user!.userId;
-      const firstName = req.body.firstname;
-      const lastName = req.body.lastname;
+      const firstName = req.body.firstName;
+      const lastName = req.body.lastName;
       await updateUser(userId, { firstName, lastName });
       const url = req.headers.referer || '/';
       res.redirect(url);
@@ -135,8 +135,8 @@ userRouter.get('/favorite', async function (req, res) {
   );
 
   favoriteList.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstName != null && element.lastName != null) {
+      element.bidderName = element.firstName + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
@@ -198,7 +198,7 @@ userRouter.get('/rating', async function (req, res) {
   const userId = res.locals.user.userId;
   const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
-    element.rateName = element.firstname + ' ' + element.lastname;
+    element.rateName = element.firstName + ' ' + element.lastName;
     if (index === ratingList.length - 1) {
       element.last = true;
     }
@@ -227,7 +227,7 @@ userRouter.get('/win', async function (req, res) {
     } else {
       element.rated = false;
     }
-    element.sellerName = element.firstname + ' ' + element.lastname;
+    element.sellerName = element.firstName + ' ' + element.lastName;
   });
   res.render('user/win', {
     layout: 'bidder',
