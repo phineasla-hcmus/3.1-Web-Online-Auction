@@ -14,7 +14,7 @@ import { RoleType } from './models/role.model';
 import {
   downgradeSellerAuto,
   findUserById,
-  getExpiredSeller,
+  getExpiredSeller
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -26,14 +26,14 @@ import sellerRouter from './routes/seller';
 import {
   sendSellerAuctionEnded,
   sendSellerNoSale,
-  sendWinner,
+  sendWinner
 } from './utils/email';
 import hbs from './utils/hbs';
 import {
   mustbeAdmin,
   mustbeSeller,
   mustLoggedIn,
-  mustLoggedOut,
+  mustLoggedOut
 } from './utils/middleware';
 
 const DELAY = 10000; //10 second
@@ -73,8 +73,12 @@ app.use(passport.session());
 
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
-  if (!req.path.match(/^\/auth/)) {
-    req.session.returnTo = req.originalUrl;
+  const session = req.session;
+  if (session.returnTo === req.originalUrl) {
+    // Recursion detected
+    session.returnTo = '/';
+  } else if (req.isUnauthenticated() && !req.path.match(/^\/auth/)) {
+    session.returnTo = req.originalUrl;
   }
   next();
 });
@@ -130,6 +134,7 @@ app.get(
 
 app.use('/auth/login', mustLoggedOut, loginRouter);
 app.use('/auth/signup', mustLoggedOut, signUpRouter);
+
 app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
