@@ -74,7 +74,7 @@ app.use(passport.session());
 // After successful login, redirect back to the intended page
 app.use((req, res, next) => {
   const session = req.session;
-  if (session.returnTo === req.originalUrl) {
+  if (session.returnTo == req.originalUrl) {
     // Recursion detected
     session.returnTo = '/';
   } else if (req.isUnauthenticated() && !req.path.match(/^\/auth/)) {
