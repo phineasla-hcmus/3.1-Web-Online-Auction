@@ -11,8 +11,8 @@ export default {
       .select(
         'ratingHistory.*',
         'p.proName',
-        'u.firstname',
-        'u.lastname',
+        'u.firstName',
+        'u.lastName',
         'cat.catName'
       );
   },
@@ -23,7 +23,7 @@ export default {
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
       .leftJoin('productImages', { 'p.thumbnailId': 'imgId' })
-      .select('p.*', 'users.firstname', 'users.lastname', 'secureUrl');
+      .select('p.*', 'users.firstName', 'users.lastName', 'secureUrl');
   },
   async getWinningList(bidderId: number) {
     return db('products')

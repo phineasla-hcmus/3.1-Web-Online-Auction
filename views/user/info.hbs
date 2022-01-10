@@ -28,14 +28,36 @@
             required
           />
         </div>
+        <p class="text-danger">
+          Note: You will need to verify your email address first, 
+          and all 3rd party authentication will be unlinked
+        </p>
         <div
           style="display: none;"
           id="emailError"
           class="alert alert-danger"
         ></div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Send verify</button>
         <button
           id="btnCloseEmail"
+          type="button"
+          class="btn btn-secondary"
+        >Close</button>
+      </form>
+      <form id="frmVerifyChangeEmail" action="/user/verify-change-email" method="post">
+        <div class="mb-3">
+          <label for="token" class="col-form-label">Verification code</label>
+          <input
+            type="text"
+            name="token"
+            class="form-control"
+            id="token"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button
+          id="btnCloseVerifyEmail"
           type="button"
           class="btn btn-secondary"
         >Close</button>
@@ -44,8 +66,8 @@
     <div class="d-flex align-items-center mt-2 justify-content-between">
       <p class="h6 me-2">
         <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
-        <span style="font-size: 14px;" class="h6">{{currentuser.firstname}}
-          {{currentuser.lastname}}</span>
+        <span style="font-size: 14px;" class="h6">{{currentuser.firstName}}
+          {{currentuser.lastName}}</span>
       </p>
       <button
         style="padding: 0.25rem 0.3rem"
@@ -59,7 +81,7 @@
         <div class="mb-3">
           <label for="firstName" class="col-form-label">First Name</label>
           <input
-            value="{{currentuser.firstname}}"
+            value="{{currentuser.firstName}}"
             name="firstName"
             type="text"
             class="form-control"
@@ -68,9 +90,9 @@
           />
         </div>
         <div class="mb-3">
-          <label for="lastname" class="col-form-label">Last Name</label>
+          <label for="lastName" class="col-form-label">Last Name</label>
           <input
-            value="{{currentuser.lastname}}"
+            value="{{currentuser.lastName}}"
             name="lastName"
             type="text"
             class="form-control"

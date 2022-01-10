@@ -68,6 +68,20 @@ export async function findSocialByUserId(userId: any) {
 }
 
 /**
+ *
+ * @param userId
+ * @returns email or undefined
+ */
+export async function findPendingEmailByUserId(userId: any) {
+  return knex
+    .select('email')
+    .from('pendingEmails')
+    .where('userId', userId)
+    .first()
+    .then((value?: { email: string }) => value?.email);
+}
+
+/**
  * Insert new user into `users` table
  * @note
  * - Default `roleId = 1` (Unverified user)
@@ -101,6 +115,19 @@ export async function addSocial(social: Social) {
 }
 
 /**
+ * Insert email into `pendingEmail` table, if `userId` is already existed, overwrite the old email
+ * @param userId
+ * @param email
+ * @returns 🤷
+ */
+export async function addPendingEmail(userId: any, email: string) {
+  return knex('pendingEmails')
+    .insert({ userId, email })
+    .onConflict('userId')
+    .merge();
+}
+
+/**
  *
  * @param userId
  * @param user one or multiple `users` columns, except `userId`
@@ -113,11 +140,23 @@ export async function updateUser(
   return knex('users').where({ userId }).update(user);
 }
 
-export async function deleteSocial(userId: any, socialId: string) {
+/**
+ * Unlink one or multiple 3rd party accounts
+ * @param userId
+ * @param socialId
+ * @returns
+ */
+export async function deleteSocial(userId: any, socialId?: string) {
   return knex('socials')
     .where('userId', userId)
-    .andWhere('socialId', socialId)
+    .modify((queryBuilder) => {
+      if (socialId) queryBuilder.andWhere('socialId', socialId);
+    })
     .del();
+}
+
+export async function deletePendingEmail(userId: any) {
+  return knex('pendingEmails').where('userId', userId).del();
 }
 
 export async function findExpiredSeller() {

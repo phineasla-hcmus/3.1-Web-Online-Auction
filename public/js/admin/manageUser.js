@@ -12,8 +12,8 @@ function parseUserHTML(element) {
     return ` <tr>
         <td>${element.userId}</td>
         <td class="hide-overflow email-content">${element.email}</td>
-        <td class="hide-overflow">${element.firstname}</td>
-        <td>${element.lastname}</td>
+        <td class="hide-overflow">${element.firstName}</td>
+        <td>${element.lastName}</td>
         <td class="rating-content">${parseRating(element.rating)}</td>
         <td><a href="/admin/manage/users/${
           element.userId
@@ -28,8 +28,8 @@ function parseUserHTML(element) {
     return ` <tr>
     <td>${element.userId}</td>
     <td class="hide-overflow email-content">${element.email}</td>
-    <td class="hide-overflow">${element.firstname}</td>
-    <td>${element.lastname}</td>
+    <td class="hide-overflow">${element.firstName}</td>
+    <td>${element.lastName}</td>
     <td class="rating-content">${parseRating(element.rating)}</td>
     <td><a href="/admin/manage/users/${
       element.userId
@@ -42,8 +42,8 @@ function parseRequestHTML(element) {
   return `<tr>
   <td>${element.userId}</td>
   <td class="hide-overflow email-content">${element.email}</td>
-  <td class="hide-overflow">${element.firstname}</td>
-  <td>${element.lastname}</td>
+  <td class="hide-overflow">${element.firstName}</td>
+  <td>${element.lastName}</td>
   <td class="time-content">${parseDate(element.registerTime)}</td>
   <td class="hide-overflow">${parseRating(element.rating)}</td>
   <td style="min-width: 100px;">

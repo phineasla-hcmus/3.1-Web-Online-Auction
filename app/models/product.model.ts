@@ -95,7 +95,7 @@ export default {
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('expiredDate', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
+      .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl')
       .where('isDisable', 1);
   },
 
@@ -106,7 +106,7 @@ export default {
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('numberOfBids', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
+      .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl')
       .where('isDisable', 1);
   },
   async findHighestPriceProducts() {
@@ -116,14 +116,14 @@ export default {
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .orderBy('currentPrice', 'desc')
       .limit(5)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
+      .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl')
       .where('isDisable', 1);
   },
   async getCurrentBidder(proId: number) {
     return db('products')
       .join('users', { 'products.bidderId': 'users.userId' })
       .where('products.proId', proId)
-      .select('firstname');
+      .select('firstName');
   },
   async findProductbyCategory(catid: string | number | Readonly<any> | null) {
     return db('products')
@@ -183,7 +183,7 @@ export default {
         'products.thumbnailId': 'productImages.imgId',
       })
       .where('products.proId', proId)
-      .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl');
+      .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl');
   },
   async getSellerName(sellerId: any) {
     return db('users').where('userId', sellerId);
@@ -204,8 +204,8 @@ export default {
       .limit(5)
       .select(
         'relatedProduct.*',
-        'users.firstname',
-        'users.lastname',
+        'users.firstName',
+        'users.lastName',
         'secureUrl'
       );
   },
@@ -239,8 +239,8 @@ export default {
       .offset(offset)
       .select(
         'products.*',
-        'users.firstname',
-        'users.lastname',
+        'users.firstName',
+        'users.lastName',
         'categories.catId',
         'secureUrl'
       );
@@ -285,8 +285,8 @@ export default {
       .offset(offset)
       .select(
         'products.*',
-        'users.firstname',
-        'users.lastname',
+        'users.firstName',
+        'users.lastName',
         'categories.catId',
         'secureUrl'
       );
@@ -332,8 +332,8 @@ export default {
       .offset(offset)
       .select(
         'products.*',
-        'users.firstname',
-        'users.lastname',
+        'users.firstName',
+        'users.lastName',
         'categories.catId',
         'secureUrl'
       );
@@ -384,14 +384,14 @@ export default {
       .join('products AS pro', { 'auctionHistory.proId': 'pro.proId' })
       .join('users as u', { 'pro.bidderId': 'u.userId' })
       .where('pro.proId', proId)
-      .select('auctionHistory.*', 'u.firstname', 'u.lastname');
+      .select('auctionHistory.*', 'u.firstName', 'u.lastName');
   },
   async getListBidder(proId: any) {
     return db('auctionHistory')
       .where('proId', proId)
       .where('isDenied', 1)
       .join('users', { 'auctionHistory.bidderId': 'users.userId' })
-      .distinct('bidderId', 'users.firstname', 'users.lastname');
+      .distinct('bidderId', 'users.firstName', 'users.lastName');
   },
   async checkIfLike_or_Unlike(bidderId: number, proId: any) {
     const list = await db('watchlist')

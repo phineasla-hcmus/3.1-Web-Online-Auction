@@ -27,13 +27,23 @@ CREATE TABLE `users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(60) NOT NULL UNIQUE,
   `password` char(60),
-  `firstname` varchar(40),
-  `lastname` varchar(40),
+  `firstName` varchar(40),
+  `lastName` varchar(40),
   `dob` date,
   `address` varchar(100),
   `rating` double DEFAULT NULL,
   `roleId` tinyint unsigned DEFAULT 1,
   PRIMARY KEY (`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Hold email pending for verification, use for change email
+-- ----------------------------
+DROP TABLE IF EXISTS `pendingEmails`;
+CREATE TABLE `pendingEmails` (
+	`userId` 	int unsigned NOT NULL,
+    `email`		varchar(60) NOT NULL,
+    PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `socials`;

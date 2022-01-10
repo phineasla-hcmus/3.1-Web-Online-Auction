@@ -2,7 +2,16 @@ import { compare, hash } from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import bidderModel from '../models/bidder.model';
-import { findUserById, updateUser } from '../models/user.model';
+import { addOtp, findOtp, OtpType } from '../models/otp.model';
+import {
+  addPendingEmail,
+  deletePendingEmail,
+  deleteSocial,
+  findPendingEmailByUserId,
+  findUserById,
+  updateUser,
+} from '../models/user.model';
+import { sendVerify } from '../utils/email';
 import {
   confirmPasswordValidator,
   dobValidator,
@@ -24,7 +33,7 @@ userRouter.get('/info', async function (req, res) {
     request = status[0].status;
   }
 
-  res.render('bidder/info', {
+  res.render('user/info', {
     layout: 'bidder',
     info: true,
     request,
@@ -32,22 +41,40 @@ userRouter.get('/info', async function (req, res) {
   });
 });
 
-userRouter.post(
-  '/change-email',
-  newEmailValidator,
-  async function (req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.json(errors.array());
-    } else {
-      const userId = res.locals.user.userId;
-      const newEmail: any = req.body.email;
-      await updateUser(userId, { email: newEmail });
-      const url = req.headers.referer || '/';
-      res.redirect(url);
-    }
+userRouter.post('/change-email', newEmailValidator, async function (req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json(errors.array());
   }
-);
+  const userId = req.user!.userId;
+  const newEmail: string = req.body.email;
+  const result = await Promise.all([
+    addPendingEmail(userId, newEmail),
+    addOtp(userId, OtpType.Verify),
+  ]);
+
+  const token = result[1];
+  sendVerify(newEmail, token);
+
+  // Send 204 to notify client to show verify input field
+  res.status(204).send();
+});
+
+userRouter.post('/verify-change-email', async function (req, res) {
+  const { userId } = req.user!;
+  const { token } = req.body;
+  const otp = await findOtp(userId, OtpType.Verify);
+  if (!token || otp?.token !== token) {
+    return res.json([{ msg: 'Invalid token' }]);
+  }
+  const email = await findPendingEmailByUserId(userId);
+  updateUser(userId, { email });
+  deletePendingEmail(userId);
+  deleteSocial(userId);
+
+  const url = req.headers.referer || '/';
+  res.redirect(url);
+});
 
 userRouter.post(
   '/change-name',
@@ -59,8 +86,8 @@ userRouter.post(
       return res.json(errors.array());
     } else {
       const userId = req.user!.userId;
-      const firstName = req.body.firstname;
-      const lastName = req.body.lastname;
+      const firstName = req.body.firstName;
+      const lastName = req.body.lastName;
       await updateUser(userId, { firstName, lastName });
       const url = req.headers.referer || '/';
       res.redirect(url);
@@ -130,8 +157,8 @@ userRouter.get('/favorite', async function (req, res) {
   );
 
   favoriteList.forEach((element) => {
-    if (element.firstname != null && element.lastname != null) {
-      element.bidderName = element.firstname + ' ' + element.lastname;
+    if (element.firstName != null && element.lastName != null) {
+      element.bidderName = element.firstName + ' ' + element.lastName;
     } else element.bidderName = '';
   });
 
@@ -149,7 +176,7 @@ userRouter.get('/favorite', async function (req, res) {
       }
     }
   }
-  res.render('bidder/favorite', {
+  res.render('user/favorite', {
     layout: 'bidder',
     favoriteList,
     favorite: true,
@@ -181,7 +208,7 @@ userRouter.get('/currentbids', async function (req, res) {
       currentBidsList[i].FavoriteProduct = FavoriteProduct;
     }
   }
-  res.render('bidder/currentBid', {
+  res.render('user/currentBid', {
     layout: 'bidder',
     currentBidsList,
     currentBids: true,
@@ -193,7 +220,7 @@ userRouter.get('/rating', async function (req, res) {
   const userId = res.locals.user.userId;
   const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
-    element.rateName = element.firstname + ' ' + element.lastname;
+    element.rateName = element.firstName + ' ' + element.lastName;
     if (index === ratingList.length - 1) {
       element.last = true;
     }
@@ -202,7 +229,7 @@ userRouter.get('/rating', async function (req, res) {
   const user = await findUserById(userId);
   const ratingPoint = user?.rating;
 
-  res.render('bidder/rating', {
+  res.render('user/rating', {
     layout: 'bidder',
     ratingList,
     rating: true,
@@ -222,9 +249,9 @@ userRouter.get('/win', async function (req, res) {
     } else {
       element.rated = false;
     }
-    element.sellerName = element.firstname + ' ' + element.lastname;
+    element.sellerName = element.firstName + ' ' + element.lastName;
   });
-  res.render('bidder/win', {
+  res.render('user/win', {
     layout: 'bidder',
     winningList,
     win: true,

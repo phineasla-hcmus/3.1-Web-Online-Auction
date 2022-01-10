@@ -45,6 +45,7 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
 export const COOKIE_MAX_AGE = 2 * DAY;
+export const SCHEDULER_DELAY = MINUTE;
 
 const KB = 1024;
 const MB = 1024 * KB;
