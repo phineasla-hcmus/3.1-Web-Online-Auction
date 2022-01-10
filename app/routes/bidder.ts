@@ -1,17 +1,15 @@
 import { compare, hash } from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
-import moment from 'moment';
 import bidderModel from '../models/bidder.model';
 import { findUserById, updateUser } from '../models/user.model';
-import { mustLoggedIn } from '../utils/middleware';
 import {
   confirmPasswordValidator,
   dobValidator,
   firstNameValidator,
   lastNameValidator,
   newEmailValidator,
-  passwordValidator,
+  passwordValidator
 } from '../validators/user.validator';
 
 const bidderRouter = Router();
