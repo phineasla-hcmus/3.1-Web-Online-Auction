@@ -7,14 +7,14 @@ import passport from 'passport';
 import path from 'path';
 import './config/nodemailer';
 import './config/passport';
-import { COOKIE_MAX_AGE, DB_CONFIG, SESSION_SECRET } from './config/secret';
+import { COOKIE_MAX_AGE, DB_CONFIG, SCHEDULER_DELAY, SESSION_SECRET } from './config/secret';
 import { getCategoryList, getSubcategoryList } from './models/category.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import {
   downgradeSeller,
   findExpiredSeller,
-  findUserById,
+  findUserById
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -26,17 +26,15 @@ import userRouter from './routes/user';
 import {
   sendSellerAuctionEnded,
   sendSellerNoSale,
-  sendWinner,
+  sendWinner
 } from './utils/email';
 import hbs from './utils/hbs';
 import {
   mustbeAdmin,
   mustbeSeller,
   mustLoggedIn,
-  mustLoggedOut,
+  mustLoggedOut
 } from './utils/middleware';
-
-const DELAY = 10000; //10 second
 
 const app = express();
 const MySqlSession = mySqlSessionStore(session as any);
@@ -187,8 +185,8 @@ setTimeout(async function run() {
     // KHÔNG CẦN GỬI MAIL
     downgradeSeller(listExpiredSeller[i].bidderId);
   }
-  setTimeout(run, DELAY);
-}, DELAY);
+  setTimeout(run, SCHEDULER_DELAY);
+}, SCHEDULER_DELAY);
 
 // Let server.ts handle 404 and 500
 export default app;

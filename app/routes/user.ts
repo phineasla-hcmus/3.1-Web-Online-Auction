@@ -2,12 +2,16 @@ import { compare, hash } from 'bcrypt';
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import bidderModel from '../models/bidder.model';
-import { addOtp, OtpType } from '../models/otp.model';
+import { addOtp, findOtp, OtpType } from '../models/otp.model';
 import {
   addPendingEmail,
+  deletePendingEmail,
+  deleteSocial,
+  findPendingEmailByUserId,
   findUserById,
   updateUser,
 } from '../models/user.model';
+import { sendVerify } from '../utils/email';
 import {
   confirmPasswordValidator,
   dobValidator,
@@ -41,17 +45,35 @@ userRouter.post('/change-email', newEmailValidator, async function (req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json(errors.array());
-  } else {
-    const userId = req.user!.userId;
-    const newEmail: string = req.body.email;
-    Promise.all([
-      addPendingEmail(userId, newEmail),
-      addOtp(userId, OtpType.Verify),
-    ]);
-    // await updateUser(userId, { email: newEmail });
-    const url = req.headers.referer || '/';
-    res.redirect(url);
   }
+  const userId = req.user!.userId;
+  const newEmail: string = req.body.email;
+  const result = await Promise.all([
+    addPendingEmail(userId, newEmail),
+    addOtp(userId, OtpType.Verify),
+  ]);
+
+  const token = result[1];
+  sendVerify(newEmail, token);
+
+  // Send 204 to notify client to show verify input field
+  res.status(204).send();
+});
+
+userRouter.post('/verify-change-email', async function (req, res) {
+  const { userId } = req.user!;
+  const { token } = req.body;
+  const otp = await findOtp(userId, OtpType.Verify);
+  if (!token || otp?.token !== token) {
+    return res.json([{ msg: 'Invalid token' }]);
+  }
+  const email = await findPendingEmailByUserId(userId);
+  updateUser(userId, { email });
+  deletePendingEmail(userId);
+  deleteSocial(userId);
+
+  const url = req.headers.referer || '/';
+  res.redirect(url);
 });
 
 userRouter.post(

@@ -72,14 +72,13 @@ export async function findSocialByUserId(userId: any) {
  * @param userId
  * @returns email or undefined
  */
-export async function findPendingEmailByUserId(
-  userId: any
-): Promise<string | undefined> {
+export async function findPendingEmailByUserId(userId: any) {
   return knex
     .select('email')
     .from('pendingEmails')
     .where('userId', userId)
-    .first();
+    .first()
+    .then((value?: { email: string }) => value?.email);
 }
 
 /**
@@ -143,9 +142,9 @@ export async function updateUser(
 
 /**
  * Unlink one or multiple 3rd party accounts
- * @param userId 
- * @param socialId 
- * @returns 
+ * @param userId
+ * @param socialId
+ * @returns
  */
 export async function deleteSocial(userId: any, socialId?: string) {
   return knex('socials')
