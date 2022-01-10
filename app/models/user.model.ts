@@ -27,7 +27,7 @@ export type User = Express.User;
 export type Social = {
   userId: string | number;
   socialId: string;
-  refreshToken: string;
+  refreshToken: string | null;
   provider: number;
 };
 
@@ -91,6 +91,10 @@ export async function addUser(
     .then((value) => value[0]);
 }
 
+export async function addSocial(social: Partial<Social>) {
+  return knex('socials').insert(social);
+}
+
 /**
  *
  * @param userId
@@ -102,10 +106,6 @@ export async function updateUser(
   user: Partial<Omit<User, 'userId'>>
 ) {
   return knex('users').where({ userId }).update(user);
-}
-
-export async function getRatingUser(userId: any) {
-  return knex('users').where({ userId });
 }
 
 export async function getExpiredSeller() {

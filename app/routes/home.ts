@@ -241,14 +241,13 @@ homeRouter.get('/product', async (req, res) => {
   detailedProduct[0].sellerRating = sellerRating || 'x';
 
   if (userId != 0) {
-    const userRating = await getRatingUser(userId);
-
-    if (userRating[0].rating === null) {
+    const user = await findUserById(userId, ['rating']);
+    if (user?.rating === null) {
       if (detailedProduct[0].isAllowRating == '1')
         detailedProduct[0].userRating = 1;
       else detailedProduct[0].userRating = 3;
     } else {
-      detailedProduct[0].userRating = userRating[0].rating >= 8 ? 1 : 2;
+      detailedProduct[0].userRating = user?.rating >= 8 ? 1 : 2;
     }
   }
   //get favorite list

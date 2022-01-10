@@ -3,6 +3,7 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportGoogle from 'passport-google-oauth20';
 import {
+  addUser,
   findSocialById,
   findUserByEmail,
   findUserById,
@@ -63,7 +64,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       // It seems like profile.username always undefined
       const { id, emails, username, name } = profile;
-      if (!emails) {
+      if (!emails || !name?.givenName) {
         return done(undefined, undefined, { message: 'No email found' });
       }
       const email = emails[0].value;
@@ -78,6 +79,14 @@ passport.use(
 
       if (!user) {
         // Create new account with info from `profile`
+        const firstName = name?.givenName;
+        const lastName = name?.familyName || '';
+        const userId = await addUser({
+          email,
+          firstName,
+          lastName,
+        });
+        
       }
 
       // console.log(accessToken + ' . REFRESH: ' + refreshToken, profile);
