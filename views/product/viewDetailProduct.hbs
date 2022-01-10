@@ -213,6 +213,32 @@
                 </div>
             </div>
             <div>&nbsp;</div>
+            <div class="">
+                <h2 class="products__title fw-bold">
+                    Description
+                </h2>
+                <div class="description-content">
+                    {{{description}}}
+                </div>
+                {{#if (isSellerOfThis this.sellerId this.userId)}}
+                <div style="text-align: center;">
+                    <button id="updateDesButton" class="bid btn btn-default" type="button" onclick="showUpdateField()">
+                        Update
+                    </button>
+                </div>
+
+                <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
+                    <input type="hidden" value={{proId}} name="proId">
+                    <div>&nbsp;</div>
+                    <textarea id="tinymce-input" name="description"></textarea>
+                    <div style="text-align: center;">
+                        <button class="bid btn btn-default" type="submit" onclick="">
+                            Save
+                        </button>
+                    </div>
+                </form>
+                {{/if}}
+            </div>
             <div class="auction-history">
                 <h2 class="products__title fw-bold">Auction history</h2>
                 {{#if ../empty}}
@@ -286,35 +312,6 @@
             </div>
 
             {{/if}}
-
-            <div class="">
-                <h2 class="products__title fw-bold">
-                    Description
-                </h2>
-                <div class="description-content">
-                    {{{description}}}
-                </div>
-                {{#if (isSellerOfThis this.sellerId this.userId)}}
-                <div style="text-align: center;">
-                    <button id="updateDesButton" class="bid btn btn-default" type="button" onclick="showUpdateField()">
-                        Update
-                    </button>
-                </div>
-
-                <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
-                    <input type="hidden" value={{proId}} name="proId">
-                    <div>&nbsp;</div>
-                    <textarea id="tinymce-input" name="description"></textarea>
-                    <div style="text-align: center;">
-                        <button class="bid btn btn-default" type="submit" onclick="">
-                            Save
-                        </button>
-                    </div>
-                </form>
-                {{/if}}
-            </div>
-
-
 
             {{/each}}
             <div class="">

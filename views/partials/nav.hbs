@@ -53,8 +53,8 @@
           <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
           <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
           <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
-          <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
-          <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+          <li><a class="dropdown-item" href="/bidder/currentbids">Bidding list</a></li>
+          <li><a class="dropdown-item" href="/bidder/win">Won list</a></li>
           {{#if (isSeller user.roleId)}}
             <li><a class="dropdown-item" href="/seller/my-product">Posted product</a></li>
             <li><a class="dropdown-item" href="/seller/add-product">Upload product</a></li>
@@ -124,10 +124,10 @@
               <a href="/bidder/favorite">Favorites</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/currentbids">Bidding List</a>
+              <a href="/bidder/currentbids">Bidding list</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/win">Winning Products</a>
+              <a href="/bidder/win">Won list</a>
             </li>
             {{#if (isSeller user.roleId)}}
               <li><a class="header__menu--item" href="/seller/my-product">Posted product</a></li>

@@ -7,11 +7,13 @@
       {{#each this.winningList as |winItem|}}
         <div class="winning__item bg-light p-4 mb-3">
           <div class="winning__item--content d-flex">
-            <img
-              style="max-height: 5rem;"
-              src="{{this.secureUrl}}"
-              alt="{{winItem.proName}}"
-            />
+            <a href="/product?proId={{winItem.proId}}">
+              <img
+                style="max-height: 5rem;"
+                src="{{this.secureUrl}}"
+                alt="{{winItem.proName}}"
+              />
+            </a>
             <div class="ps-3">
               <p class="m-0 fw-bold">{{winItem.proName}}</p>
               <p class="m-0 text-danger"><i
