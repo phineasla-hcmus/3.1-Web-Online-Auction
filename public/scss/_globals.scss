@@ -31,8 +31,11 @@ ul {
   &--pall {
     padding-top: 4.375rem;
     padding-bottom: 4.375rem;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
+    @include breakpoint-down(medium) {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
     @include breakpoint-up(large) {
       padding-top: 6rem;
       padding-bottom: 6rem;
@@ -43,8 +46,10 @@ ul {
     padding-bottom: 3.5rem;
   }
   &--px {
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
+    @include breakpoint-up(medium) {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
   }
   &--pt {
     padding-top: 5.5rem;
@@ -332,4 +337,12 @@ ul.nav-pills li a:hover {
 
 .owl-carousel .owl-stage .owl-item:last-child {
   margin-right: 0 !important;
+}
+
+.owl-carousel .owl-stage .owl-item {
+  @include breakpoint-down(small) {
+    // width: 9.8rem !important;
+
+    // margin-right: 1.25rem !important;
+  }
 }
