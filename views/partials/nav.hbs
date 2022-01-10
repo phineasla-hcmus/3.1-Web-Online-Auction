@@ -50,11 +50,11 @@
         </a>
         
         <ul style="min-width: 100%" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="/bidder/info">Edit info</a></li>
-          <li><a class="dropdown-item" href="/bidder/rating">Rating</a></li>
-          <li><a class="dropdown-item" href="/bidder/favorite">Favorites</a></li>
-          <li><a class="dropdown-item" href="/bidder/currentbids">Bidding List</a></li>
-          <li><a class="dropdown-item" href="/bidder/win">Winning Products</a></li>
+          <li><a class="dropdown-item" href="/user/info">Edit info</a></li>
+          <li><a class="dropdown-item" href="/user/rating">Rating</a></li>
+          <li><a class="dropdown-item" href="/user/favorite">Favorites</a></li>
+          <li><a class="dropdown-item" href="/user/currentbids">Bidding list</a></li>
+          <li><a class="dropdown-item" href="/user/win">Won list</a></li>
           {{#if (isSeller user.roleId)}}
             <li><a class="dropdown-item" href="/seller/my-product">Posted product</a></li>
             <li><a class="dropdown-item" href="/seller/add-product">Upload product</a></li>
@@ -115,19 +115,19 @@
             <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
           <ul class="header__dropdown">
             <li class="header__menu--item">
-              <a href="/bidder/info">Edit info</a>
+              <a href="/user/info">Edit info</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/rating">Rating</a>
+              <a href="/user/rating">Rating</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/favorite">Favorites</a>
+              <a href="/user/favorite">Favorites</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/currentbids">Bidding List</a>
+              <a href="/user/currentbids">Bidding list</a>
             </li>
             <li class="header__menu--item">
-              <a href="/bidder/win">Winning Products</a>
+              <a href="/user/win">Won list</a>
             </li>
             {{#if (isSeller user.roleId)}}
               <li><a class="header__menu--item" href="/seller/my-product">Posted product</a></li>

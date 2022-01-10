@@ -39,7 +39,7 @@ VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM
 INSERT INTO users
 VALUES (2, 'popcorn.software.engineering@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', 5, 3);
 INSERT INTO users
-VALUES (3, 'leesuby@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', 7, 3);
+VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', 7, 3);
 INSERT INTO users
 VALUES (4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', 8, 4);
 -- sample data used for [admin] manage usersINSERT INTO users

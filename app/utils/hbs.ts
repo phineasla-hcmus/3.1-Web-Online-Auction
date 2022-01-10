@@ -49,7 +49,7 @@ function parseDob(date: string) {
 function getRemainingTime(date: string) {
   let expiredDate: any = new Date(date);
   let dateNow: any = new Date();
-
+  if (expiredDate <= dateNow) return '0 days';
   let seconds = Math.floor((expiredDate - dateNow) / 1000);
   let minutes = Math.floor(seconds / 60);
   let hours = Math.floor(minutes / 60);

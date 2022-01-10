@@ -14,7 +14,7 @@ import { RoleType } from './models/role.model';
 import {
   downgradeSellerAuto,
   findUserById,
-  getExpiredSeller
+  getExpiredSeller,
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -26,14 +26,14 @@ import sellerRouter from './routes/seller';
 import {
   sendSellerAuctionEnded,
   sendSellerNoSale,
-  sendWinner
+  sendWinner,
 } from './utils/email';
 import hbs from './utils/hbs';
 import {
   mustbeAdmin,
   mustbeSeller,
   mustLoggedIn,
-  mustLoggedOut
+  mustLoggedOut,
 } from './utils/middleware';
 
 const DELAY = 10000; //10 second
@@ -138,7 +138,7 @@ app.use('/auth/signup', mustLoggedOut, signUpRouter);
 app.use('/auth/verify', mustLoggedIn, verifyRouter);
 app.use('/auth/recovery', recoveryRouter);
 
-app.use('/bidder', mustLoggedIn, bidderRouter);
+app.use('/user', mustLoggedIn, bidderRouter);
 
 app.use('/admin', mustLoggedIn, mustbeAdmin, adminRouter);
 app.use('/seller', mustLoggedIn, mustbeSeller, sellerRouter);

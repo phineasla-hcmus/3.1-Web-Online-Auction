@@ -42,6 +42,7 @@ export default {
   async getCurrentBids(bidderId: number) {
     return db('auctionHistory')
       .join('products as pro', { 'auctionHistory.proId': 'pro.proId' })
+      .leftJoin('productImages', { 'pro.thumbnailId': 'imgId' })
       .where('auctionHistory.bidderId', bidderId)
       .andWhere('pro.expiredDate', '>=', new Date())
       .groupBy('auctionHistory.proId');

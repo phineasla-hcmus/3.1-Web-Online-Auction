@@ -84,14 +84,16 @@ export default {
   async findProductImage(
     productId: string | number
   ): Promise<{ secureUrl: string }[]> {
-    return db('productImages').select('secureUrl').where("proId","=",productId);
+    return db('productImages')
+      .select('secureUrl')
+      .where('proId', '=', productId);
   },
   async findNearEndProducts() {
     return db('products')
       .where('expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
-      .orderBy('expiredDate', 'asc')
+      .orderBy('expiredDate', 'desc')
       .limit(5)
       .select('products.*', 'users.firstname', 'users.lastname', 'secureUrl')
       .where('isDisable', 1);
@@ -200,7 +202,12 @@ export default {
         'relatedProduct.thumbnailId': 'productImages.imgId',
       })
       .limit(5)
-      .select('relatedProduct.*', 'users.firstname', 'users.lastname','secureUrl');
+      .select(
+        'relatedProduct.*',
+        'users.firstname',
+        'users.lastname',
+        'secureUrl'
+      );
   },
   async findExpiredProductInTime() {
     return db('activeProducts')
