@@ -9,7 +9,7 @@ import {
   firstNameValidator,
   lastNameValidator,
   newEmailValidator,
-  passwordValidator
+  passwordValidator,
 } from '../validators/user.validator';
 
 const bidderRouter = Router();
@@ -74,7 +74,6 @@ bidderRouter.post('/change-dob', dobValidator, async function (req, res) {
     return res.json(errors.array());
   }
   const dob = req.body.dob;
-  console.log(dob);
   const formatDob = new Date(dob);
   const userId = res.locals.user.userId;
   await updateUser(userId, { dob: formatDob });
@@ -96,6 +95,8 @@ bidderRouter.post(
     const user = await findUserById(userId, ['password']);
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.password;
+    console.log(oldPassword, newPassword);
+
     if (!oldPassword || !newPassword || !user?.password) {
       const msg =
         'You are using 3rd party authentication, please set your password by using Forgot password';
@@ -104,11 +105,15 @@ bidderRouter.post(
     }
     const isMatch = await compare(oldPassword, user.password);
     if (!isMatch) {
+      console.log('NOT MATCH');
+
       return res.json([{ msg: 'Invalid password' }]);
     }
     const hashedPassword = await hash(newPassword, 10);
     await updateUser(userId, { password: hashedPassword });
     const url = req.headers.referer || '/';
+    console.log('DONE');
+
     res.redirect(url);
   }
 );

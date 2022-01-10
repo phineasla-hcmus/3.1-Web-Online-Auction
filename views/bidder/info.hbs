@@ -16,7 +16,7 @@
       ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="emailFormWrapper">
-      <form id="frmChangeEmail" action="/bidder/change-email" method="post">
+      <form id="frmChangeEmail" action="/user/change-email" method="post">
         <div class="mb-3">
           <label for="email" class="col-form-label">New email</label>
           <input
@@ -55,7 +55,7 @@
       ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="nameFormWrapper">
-      <form action="/bidder/change-name" id="frmChangeName" method="post">
+      <form action="/user/change-name" id="frmChangeName" method="post">
         <div class="mb-3">
           <label for="firstName" class="col-form-label">First Name</label>
           <input
@@ -102,7 +102,7 @@
       ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="dobFormWrapper">
-      <form action="/bidder/change-dob" id="frmChangeDob" method="post">
+      <form action="/user/change-dob" id="frmChangeDob" method="post">
         <div class="mb-3">
           <input
             id="dob"
@@ -130,8 +130,6 @@
           class="form-control"
           value="123456"
           type="password"
-          name="password"
-          id="password"
           readonly
         />
       </div>
@@ -143,7 +141,7 @@
       ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="passFormWrapper">
-      <form id="frmChangePassword" action="/bidder/change-password" method="post">
+      <form id="frmChangePassword" action="/user/change-password" method="post">
         <div class="mb-3">
           <label for="oldPassword" class="col-form-label">Enter your old
             password</label>
@@ -198,7 +196,7 @@
           pending!
         </p>
       {{else}}
-        <form id="frmUpgrade" action="/bidder/upgrade" method="post">
+        <form id="frmUpgrade" action="/user/upgrade" method="post">
           <input
             type="hidden"
             name="currentuserId"
@@ -241,10 +239,12 @@
     $('#emailFormWrapper').removeClass('d-block'); })
     $('#btnCloseName').on('click', function (e) {
     $('#nameFormWrapper').removeClass('d-block'); })
+    $('#btnCloseDob').on('click', function (e) {
+    $('#dobFormWrapper').removeClass('d-block'); })
     $('#btnClosePass').on('click', function (e) {
     $('#passFormWrapper').removeClass('d-block'); })
     $('#btnEditPass').on('click', function (e) {
     $('#passFormWrapper').addClass('d-block'); })
   </script>
-  <script src="/public/js/bidder/info.js"></script>
+  <script src="/public/js/user/info.js"></script>
 {{/section}}
