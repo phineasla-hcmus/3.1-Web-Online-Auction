@@ -61,8 +61,7 @@ export default {
               .then(function (result) {});
           });
       });
-    // RETURN TRUE CHI VẬY? PROMISE LÚC NÀO CHẢ CHẠY ĐƯỢC, CHỈ KHI NÓ FAIL THÌ MỚI CATCH
-    return true;
+      return true;
   },
   bidProductWithPriceSmaller(
     productId: any,
@@ -99,7 +98,7 @@ export default {
               .then(function (result) {});
           });
       });
-    return true;
+      return true;
   },
 
   updateProductExpiredDate(proId: any, newExpiredDate: any) {
@@ -108,4 +107,10 @@ export default {
       .update({ expiredDate: newExpiredDate })
       .then();
   },
+  buyNowProduct(userId: number,proId: number , price: number){
+    return db('products')
+      .where('proId', '=', proId)
+      .update({ expiredDate: new Date() , bidderId : userId, currentPrice:price})
+      .then();
+  }
 };

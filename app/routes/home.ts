@@ -318,7 +318,26 @@ homeRouter.post('/product', async (req, res, next) => {
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
 
-  
+  if(content ==='buyNow'){
+    const buynowPrice = req.body.buyNowPrice;
+    const proId = req.body.proId;
+
+    const bidderPassword = (await findUserById(userId, ['password']))!.password;
+
+    if(await bcrypt.compare(req.body.password,bidderPassword as string)==false){
+      return res.json({
+        status: 'error',
+        msg: 'Your password is incorrect',
+      });
+    }
+
+    auctionModel.buyNowProduct(userId,proId,buynowPrice);
+    return res.json({
+      status: 'success',
+      msg: `Buy now product successfully with price =${buynowPrice}`,
+    });
+  }
+
   if (content === 'Submit') {
     const password = req.body.password;
     const proId = req.body.proId;

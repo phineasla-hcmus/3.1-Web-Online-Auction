@@ -12,6 +12,7 @@ document.getElementById('prevBidAction').onclick = function (e) {
   sureBid.removeAttribute('hidden');
 };
 
+
 document.getElementById('backBid').onclick = function (e) {
   const bidForm = document.getElementById('bidAction');
 
@@ -19,6 +20,24 @@ document.getElementById('backBid').onclick = function (e) {
 
   sureBid.setAttribute('hidden', 'hidden');
   bidForm.removeAttribute('hidden');
+};
+
+
+document.getElementById('buyForm').onsubmit = async function (e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch(e.target.getAttribute('action'), {
+    method: e.target.getAttribute('method'),
+    redirect: 'follow',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(formData),
+  });
+  const resJson = await res.json();
+  if (resJson.status === 'error') toastr.error(resJson.msg);
+  if (resJson.status === 'success') toastr.success(resJson.msg);
+  if (resJson.status === 'info') toastr.info(resJson.msg);
 };
 
 document.getElementById('bidForm').onsubmit = async function (e) {
@@ -81,7 +100,20 @@ document.getElementById('likeAction').onsubmit = async function (e) {
 function showbid() {
   let bidLog = document.getElementById('bidAction');
   let bidButton = document.getElementById('bidButton');
+  let buyButton = document.getElementById('buynowButton');
+  
   bidLog.removeAttribute('hidden');
+  bidButton.setAttribute('hidden', 'hidden');
+  buyButton.setAttribute('hidden', 'hidden');
+}
+
+function showbuy() {
+  let buyLog = document.getElementById('buyForm');
+  let buyButton = document.getElementById('buynowButton');
+  let bidButton = document.getElementById('bidButton');
+
+  buyLog.removeAttribute('hidden');
+  buyButton.setAttribute('hidden', 'hidden');
   bidButton.setAttribute('hidden', 'hidden');
 }
 function changeColor(id, color) {

@@ -49,6 +49,7 @@
                                         {{stepPrice}}$
                                     </td>
                                 </tr>
+                                {{#if (isBuyNowPrice buyNowPrice)}}
                                 <tr>
                                     <th class="pl-0" scope="row">
                                         <strong>
@@ -59,6 +60,7 @@
                                         {{buyNowPrice}}$
                                     </td>
                                 </tr>
+                                {{/if}}
                                 <tr>
                                     <th class="pl-0" scope="row">
                                         <strong>
@@ -152,15 +154,56 @@
                             </form>
                             {{/if}}
 
-                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
-                                Bid now
-                            </button>
                             {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
+
                             <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
                                 You are denied to bid this product.
                             </p>
-                            {{!-- <h3>You are denied to bid this product.</h3> --}}
                             {{else}}
+                            {{#if (isBuyNowPrice buyNowPrice)}}
+                            <button id="buynowButton" class="bid btn btn-default" type="button" onclick="showbuy()">
+                                Buy now
+                            </button>
+                            <form id="buyForm" method="post" action="/product" hidden>
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th class="pl-0" scope="row">
+                                                <strong>
+                                                    Buy Now Price:
+                                                </strong>
+                                            </th>
+                                            <td>
+                                                <input class="form-control" type="number"
+                                                    value="{{buyNowPrice}}" name="buyNowPrice" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-0" scope="row">
+                                                <strong>
+                                                    Password:
+                                                </strong>
+                                            </th>
+                                            <td>
+                                                <input class="form-control" type="password" name="password" required>
+                                            </td>
+                                        </tr>
+                                </table>
+
+                                <div></div>
+
+
+                                <div style="font-size: small;">Please input password again to make sure you buy this
+                                    product.</div>
+                                <input type="hidden" name="proId" value={{proId}} />
+                                <input type="hidden" class="bid btn btn-default" value="buyNow" name="content">
+                                <input type="submit" class="bid btn btn-default" value="Submit">
+                         
+                            </form>
+                            {{/if}}
+                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
+                                Bid now
+                            </button>
                             <form id="bidForm" method="post" action="/product">
                                 <div id="bidAction" hidden>
                                     {{#if (getRatingType userRating 1)}}
@@ -198,8 +241,7 @@
                                     <input type="hidden" name="proId" value={{proId}} />
                                     <input type="hidden" name="stepPrice" value={{stepPrice}} />
                                     <div></div>
-                                    <input id="prevBidAction" type="button" class="bid btn btn-default" value="Accept"
-                                        name="content">
+                                    <input id="prevBidAction" type="button" class="bid btn btn-default" value="Accept">
                                 </div>
 
                                 <div id="sureBid" hidden>
@@ -222,7 +264,7 @@
                                                     </strong>
                                                 </th>
                                                 <td>
-                                                    <input class="form-control" type="password" name="password">
+                                                    <input class="form-control" type="password" name="password" required>
                                                 </td>
                                             </tr>
                                     </table>

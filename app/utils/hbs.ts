@@ -27,10 +27,14 @@ const hbs = create({
     isDisableProduct,
     isSellerOfThis,
     isDeniedUser,
+    isBuyNowPrice
   },
 });
 
 export default hbs;
+function isBuyNowPrice(price : number){
+  return price != null;
+}
 
 function isChildOf(parentId: string, catId: string) {
   return parentId === catId;
