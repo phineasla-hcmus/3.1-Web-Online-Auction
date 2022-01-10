@@ -259,16 +259,14 @@ homeRouter.get('/product', async (req, res) => {
     });
   }
 
-
-
-  const listImage =  await productModel.findProductImage(+productID);
+  const listImage = await productModel.findProductImage(+productID);
 
   //create a temp array to pass into hbs
   const numberofPic = [];
   for (let i = 1; i < listImage.length; i++) {
     numberofPic.push({
       value: i,
-      secureUrl : listImage[i].secureUrl 
+      secureUrl: listImage[i].secureUrl,
     });
   }
 
@@ -282,6 +280,7 @@ homeRouter.get('/product', async (req, res) => {
     isUserId: isUserId,
     listBidder: listBidder,
     listofDeniedBidder: listofDeniedBidder,
+    emptyBidderList: listBidder.length === 0,
   });
 });
 

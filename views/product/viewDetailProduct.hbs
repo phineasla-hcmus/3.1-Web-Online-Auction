@@ -211,50 +211,53 @@
                         {{/if}}
                         {{/if}}
                     </div>
-                    <div class="auction-history">
-                        <h2 class="products__title fw-bold">Auction history</h2>
-                        {{#if ../empty}}
-                        <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
-                        {{else}}
-                        <div class="panel">
-                            <div class="panel-body table-responsive">
-                                <table class="table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Time</th>
-                                            <th scope="col">Bidder</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{#each ../auctionHistory as |history|}}
-                                        <tr>
-                                            <td style="min-width: 12rem;">{{parseDate history.auctionTime}}</td>
-                                            <td>{{maskBidderName history.bidderName}}</td>
-                                            <td>{{history.auctionPrice}} USD</td>
-                                            {{#if history.isDenied}}
-                                            <td> Accept</td>
-                                            {{else}}
-                                            <td> Denied</td>
-                                            {{/if}}
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        {{/if}}
-                    </div>
                 </div>
             </div>
             <div>&nbsp;</div>
+            <div class="auction-history">
+                <h2 class="products__title fw-bold">Auction history</h2>
+                {{#if ../empty}}
+                <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
+                {{else}}
+                <div class="panel">
+                    <div class="panel-body table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Bidder</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each ../auctionHistory as |history|}}
+                                <tr>
+                                    <td style="min-width: 12rem;">{{parseDate history.auctionTime}}</td>
+                                    <td>{{maskBidderName history.bidderName}}</td>
+                                    <td>{{history.auctionPrice}} USD</td>
+                                    {{#if history.isDenied}}
+                                    <td> Accept</td>
+                                    {{else}}
+                                    <td> Denied</td>
+                                    {{/if}}
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
             {{#if (isSellerOfThis this.sellerId this.userId)}}
 
-            <div class=" ">
-                <h1 class="products__title fw-bold">
+            <div >
+                <h2 class="products__title fw-bold">
                     List Bidder
-                </h1>
+                </h2>
+                {{#if ../emptyBidderList}}
+                    <div class="alert alert-info fw-bold">Current bidder list is empty!</div>
+                {{else}}
                 <div class="description-content">
                     <div class="container">
                         <ul class="responsive-table">
@@ -280,6 +283,7 @@
                         </ul>
                     </div>
                 </div>
+                {{/if}}
             </div>
 
             {{/if}}

@@ -1,22 +1,22 @@
-body,
-div,
-form,
-input,
-select,
-textarea,
-label {
-  padding: 0;
-  margin: 0;
-  outline: none;
-  font-size: 14px;
-  line-height: 22px;
-}
+// body,
+// div,
+// form,
+// input,
+// select,
+// textarea,
+// label {
+//   padding: 0;
+//   margin: 0;
+//   outline: none;
+//   font-size: 14px;
+//   line-height: 22px;
+// }
 
 h1 {
   position: absolute;
   margin: 0;
   font-size: 40px;
-  color: #fff;
+  // color: #fff;
   z-index: 2;
   line-height: 83px;
 }
@@ -41,40 +41,40 @@ textarea {
   padding: 5px;
 }
 
-.item:hover {
-  p,
-  i {
-    color: #cc7a00;
-  }
-}
+// .item:hover {
+//   p,
+//   i {
+//     color: #cc7a00;
+//   }
+// }
 
-.question {
-  &:hover p,
-  label:hover {
-    color: #cc7a00;
-  }
-}
+// .question {
+//   &:hover p,
+//   label:hover {
+//     color: #cc7a00;
+//   }
+// }
 
-input:hover::placeholder {
-  color: #cc7a00;
-}
+// input:hover::placeholder {
+//   color: #cc7a00;
+// }
 
-.item {
-  input:hover,
-  select:hover,
-  textarea:hover {
-    border: 1px solid transparent;
-    box-shadow: 0 0 3px 0 #cc7a00;
-    color: #cc7a00;
-  }
+// .item {
+//   input:hover,
+//   select:hover,
+//   textarea:hover {
+//     border: 1px solid transparent;
+//     box-shadow: 0 0 3px 0 #cc7a00;
+//     color: #cc7a00;
+//   }
 
-  position: relative;
-  margin: 10px 0;
+//   position: relative;
+//   margin: 10px 0;
 
-  span {
-    color: red;
-  }
-}
+//   span {
+//     color: red;
+//   }
+// }
 
 input[type='date']::-webkit-inner-spin-button {
   display: none;

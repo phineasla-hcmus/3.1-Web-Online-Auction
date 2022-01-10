@@ -2,21 +2,43 @@
   <h1 class="fw-bold h3">Edit personal information</h1>
   <div class="info__wrapper p-0">
     <div class="d-flex align-items-center justify-content-between">
-      <p class="h6 me-2"><i class="fa fa-envelope pe-2 text-warning" aria-hidden="true"></i>
+      <p class="h6 me-2"><i
+          class="fa fa-envelope pe-2 text-warning"
+          aria-hidden="true"
+        ></i>
         <span style="font-size: 14px;" class="h6">{{currentuser.email}}</span>
       </p>
-      <button style="padding: 0.25rem 0.3rem" id="btnEditEmail" type="button" class="btn btn-primary"><i
-          class="fa fa-pencil" aria-hidden="true"></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditEmail"
+        type="button"
+        class="btn btn-primary"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="emailFormWrapper">
       <form id="frmChangeEmail" action="/bidder/change-email" method="post">
         <div class="mb-3">
           <label for="email" class="col-form-label">New email</label>
-          <input value="{{currentuser.email}}" type="email" name="email" class="form-control" id="email" required />
+          <input
+            value="{{currentuser.email}}"
+            type="email"
+            name="email"
+            class="form-control"
+            id="email"
+            required
+          />
         </div>
-        <div style="display: none;" id="emailError" class="alert alert-danger"></div>
+        <div
+          style="display: none;"
+          id="emailError"
+          class="alert alert-danger"
+        ></div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <button id="btnCloseEmail" type="button" class="btn btn-secondary">Close</button>
+        <button
+          id="btnCloseEmail"
+          type="button"
+          class="btn btn-secondary"
+        >Close</button>
       </form>
     </div>
     <div class="d-flex align-items-center mt-2 justify-content-between">
@@ -25,23 +47,43 @@
         <span style="font-size: 14px;" class="h6">{{currentuser.firstname}}
           {{currentuser.lastname}}</span>
       </p>
-      <button style="padding: 0.25rem 0.3rem" id="btnEditName" type="button" class="btn btn-primary"><i
-          class="fa fa-pencil" aria-hidden="true"></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditName"
+        type="button"
+        class="btn btn-primary"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="nameFormWrapper">
       <form action="/bidder/change-name" id="frmChangeName" method="post">
         <div class="mb-3">
           <label for="firstName" class="col-form-label">First Name</label>
-          <input value="{{currentuser.firstname}}" name="firstName" type="text" class="form-control" id="firstName"
-            required />
+          <input
+            value="{{currentuser.firstname}}"
+            name="firstName"
+            type="text"
+            class="form-control"
+            id="firstName"
+            required
+          />
         </div>
         <div class="mb-3">
           <label for="lastname" class="col-form-label">Last Name</label>
-          <input value="{{currentuser.lastname}}" name="lastName" type="text" class="form-control" id="lastName"
-            required />
+          <input
+            value="{{currentuser.lastname}}"
+            name="lastName"
+            type="text"
+            class="form-control"
+            id="lastName"
+            required
+          />
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <button id="btnCloseName" type="button" class="btn btn-secondary">Close</button>
+        <button
+          id="btnCloseName"
+          type="button"
+          class="btn btn-secondary"
+        >Close</button>
 
       </form>
     </div>
@@ -52,100 +94,157 @@
             currentuser.dob
           }}</span>
       </p>
-      <button style="padding: 0.25rem 0.3rem" id="btnEditDob" type="button" class="btn btn-primary"><i
-          class="fa fa-pencil" aria-hidden="true"></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditDob"
+        type="button"
+        class="btn btn-primary"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div style="display: none;" id="dobFormWrapper">
       <form action="/bidder/change-dob" id="frmChangeDob" method="post">
         <div class="mb-3">
-          <input id="dob" type="text" name="dob" placeholder="Date of Birth "
-            class="form-control border-left-0 border-md" data-provide="datepicker" required />
+          <input
+            id="dob"
+            type="text"
+            name="dob"
+            placeholder="Date of Birth "
+            class="form-control border-left-0 border-md"
+            data-provide="datepicker"
+            required
+          />
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <button id="btnCloseDob" type="button" class="btn btn-secondary">Close</button>
+        <button
+          id="btnCloseDob"
+          type="button"
+          class="btn btn-secondary"
+        >Close</button>
       </form>
     </div>
     <div class="d-flex h4 mt-2 justify-content-between">
       <div>
         <i class="h6 fa fa-lock pe-2 text-warning" aria-hidden="true"></i>
-        <input style="background: none; display: inline-block; width: fit-content; padding: 0.25rem 0.3rem"
-          class="form-control" value="123456" type="password" name="password" id="password" readonly />
+        <input
+          style="background: none; display: inline-block; width: fit-content; padding: 0.25rem 0.3rem"
+          class="form-control"
+          value="123456"
+          type="password"
+          name="password"
+          id="password"
+          readonly
+        />
       </div>
-      <button style="padding: 0.25rem 0.3rem" id="btnEditPass" class="btn btn-primary" type="button"><i
-          class="fa fa-pencil" aria-hidden="true"></i></button>
+      <button
+        style="padding: 0.25rem 0.3rem"
+        id="btnEditPass"
+        class="btn btn-primary"
+        type="button"
+      ><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
-    <form class="my-0 py-0" action="/auth/recovery/request-verify" method="post">
-      <button type="submit" class="btn btn-link px-0">Forgot Password</button>
-    </form>
     <div style="display: none;" id="passFormWrapper">
       <form id="frmChangePassword" action="/bidder/change-password" method="post">
         <div class="mb-3">
           <label for="oldPassword" class="col-form-label">Enter your old
             password</label>
-          <input name="oldPassword" type="password" class="form-control" id="oldpass" required />
+          <input
+            name="oldPassword"
+            type="password"
+            class="form-control"
+            id="oldpass"
+            required
+          />
         </div>
         <div class="mb-3">
           <label for="password" class="col-form-label">Enter your new password</label>
-          <input name="password" type="password" class="form-control" id="newpass" required />
+          <input
+            name="password"
+            type="password"
+            class="form-control"
+            id="newpass"
+            required
+          />
         </div>
         <div class="mb-3">
           <label for="passwordConfirmation" class="col-form-label">Confirm your
             new password</label>
-          <input name="passwordConfirmation" type="password" class="form-control" id="confirmpass" required />
+          <input
+            name="passwordConfirmation"
+            type="password"
+            class="form-control"
+            id="confirmpass"
+            required
+          />
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <button id="btnClosePass" type="button" class="btn btn-secondary">Close</button>
+        <button
+          id="btnClosePass"
+          type="button"
+          class="btn btn-secondary"
+        >Close</button>
       </form>
     </div>
+    <form
+      class="my-0 py-0"
+      action="/auth/recovery/request-verify"
+      method="post"
+    >
+      <button type="submit" class="btn btn-link px-0">Forgot Password</button>
+    </form>
 
     {{#if (isBidder currentuser.roleId)}}
-    {{#if (isPendingRequest request)}}
-    <p class="alert alert-info mt-3">Your request for upgrading to seller is
-      pending!
-    </p>
-    {{else}}
-    <form id="frmUpgrade" action="/bidder/upgrade" method="post">
-      <input type="hidden" name="currentuserId" value="{{currentuser.userId}}" />
-      <button id="btnUpgrade" style="margin: 0 auto;" class="btn header__btn d-block mt-3" type="submit">Upgrade to
-        seller</button>
-    </form>
-    {{/if}}
+      {{#if (isPendingRequest request)}}
+        <p class="alert alert-info mt-3">Your request for upgrading to seller is
+          pending!
+        </p>
+      {{else}}
+        <form id="frmUpgrade" action="/bidder/upgrade" method="post">
+          <input
+            type="hidden"
+            name="currentuserId"
+            value="{{currentuser.userId}}"
+          />
+          <button
+            id="btnUpgrade"
+            style="margin: 0 auto;"
+            class="btn header__btn d-block mt-3"
+            type="submit"
+          >Upgrade to seller</button>
+        </form>
+      {{/if}}
     {{/if}}
   </div>
 </div>
 {{#section "stylesheets"}}
-<link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
-  integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
-  crossorigin="anonymous" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+    crossorigin="anonymous"
+  />
 {{/section}}
 {{#section "scripts"}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
-  integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
-  crossorigin="anonymous"></script>
-<script>
-  $('#btnUpgrade').on('click', function (e) { $('#frmUpgrade').submit(); })
-  $('#btnEditEmail').on('click', function (e) {
-    $('#emailFormWrapper').addClass('d-block');
-  });
-  $('#btnEditName').on('click', function (e) {
-    $('#nameFormWrapper').addClass('d-block');
-  }); /////////////
-  $('#btnEditDob').on('click', function (e) {
-    $('#dobFormWrapper').addClass('d-block');
-  });
-  $('#btnCloseEmail').on('click', function (e) {
-    $('#emailFormWrapper').removeClass('d-block');
-  })
-  $('#btnCloseName').on('click', function (e) {
-    $('#nameFormWrapper').removeClass('d-block');
-  })
-  $('#btnClosePass').on('click', function (e) {
-    $('#passFormWrapper').removeClass('d-block');
-  })
-  $('#btnEditPass').on('click', function (e) {
-    $('#passFormWrapper').addClass('d-block');
-  })
-</script>
-<script src="/public/js/bidder/info.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+    integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $('#btnUpgrade').on('click', function (e) { $('#frmUpgrade').submit(); })
+    $('#btnEditEmail').on('click', function (e) {
+    $('#emailFormWrapper').addClass('d-block'); });
+    $('#btnEditName').on('click', function (e) {
+    $('#nameFormWrapper').addClass('d-block'); }); /////////////
+    $('#btnEditDob').on('click', function (e) {
+    $('#dobFormWrapper').addClass('d-block'); });
+    $('#btnCloseEmail').on('click', function (e) {
+    $('#emailFormWrapper').removeClass('d-block'); })
+    $('#btnCloseName').on('click', function (e) {
+    $('#nameFormWrapper').removeClass('d-block'); })
+    $('#btnClosePass').on('click', function (e) {
+    $('#passFormWrapper').removeClass('d-block'); })
+    $('#btnEditPass').on('click', function (e) {
+    $('#passFormWrapper').addClass('d-block'); })
+  </script>
+  <script src="/public/js/bidder/info.js"></script>
 {{/section}}

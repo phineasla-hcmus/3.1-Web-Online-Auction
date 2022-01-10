@@ -687,8 +687,8 @@ ul.nav-pills li a:hover {
 .products__title {
   font-size: 1.5rem;
   text-transform: capitalize;
-  text-align: center;
   margin-bottom: 2rem;
+  padding-left: 3.125rem;
 }
 .products__content {
   padding-left: 0;
