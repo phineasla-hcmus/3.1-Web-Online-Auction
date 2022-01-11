@@ -16,6 +16,9 @@
       <form action="/admin/downgradeSeller" method="post" id="frmDowngrade">
         <input type="hidden" id="txtUserDowngrade" name="downid" />
       </form>
+      <form action="/admin/deleteUser" method="post" id="frmDeleteUser">
+        <input type="hidden" id="txtUserDelete" name="deleteid" />
+      </form>
       <input
         id="pagesUser"
         type="hidden"
@@ -41,7 +44,7 @@
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th class="rating-title">Rating</th>
-                    <th colspan="2">Action</th>
+                    <th colspan="3">Action</th>
                   </tr>
                 </thead>
                 <tbody id="list-user">
@@ -60,6 +63,11 @@
                           href="/admin/manage/users/{{item.userId}}"
                           class="btn btn-sm btn-warning text-white"
                         ><i class="fa fa-search"></i></a></td>
+                      <td><a
+                          data-id="{{item.userId}}"
+                          href="javascript:;"
+                          class="btn btn-danger deleteUser"
+                        ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                       {{#if (isSeller item.roleId)}}
                         <td class="downgrade-wrapper">
                           <a

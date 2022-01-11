@@ -3,12 +3,12 @@ import moment from 'moment';
 
 export default {
   async getListUsers() {
-    return db('users').where('roleId', 2).orWhere('roleId', 3);
+    return db('users').whereIn('roleId', [2, 3]).andWhere('banned', false);
   },
   async getListUsersByPaging(offset: number, limit: number) {
     return db('users')
-      .where('roleId', 2)
-      .orWhere('roleId', 3)
+      .whereIn('roleId', [2, 3])
+      .andWhere('banned', false)
       .limit(limit)
       .offset(offset);
   },
@@ -72,6 +72,30 @@ export default {
       roleId: 2,
     });
   },
+  async deleteUser(userId: number) {
+    return db('users').where('userId', userId).update({ banned: 1 });
+  },
+  async removeHighestBids(userId: number) {
+    return db('products')
+      .where('products.bidderId', userId)
+      .join('auctionHistory', { 'products.proId': 'auctionHistory.proId' })
+      .orderBy([{ column: 'auctionPrice', order: 'desc' }, 'auctionTime']);
+  },
+  // async updateHighestBidder(proId: number) {},
+  async removeCurrentBids(userId: number) {
+    return db('auctionHistory').where('bidderId', userId).del();
+  },
+  async endProducts(userId: number) {
+    return db('products')
+      .where('sellerId', userId)
+      .update({ expiredDate: new Date() });
+  },
+  async removeActiveProducts(userId: number) {
+    return db('activeProducts')
+      .join('products', { 'activeProducts.proId': 'products.proId' })
+      .where('sellerId', userId)
+      .del();
+  },
   async addRootCategory(cateName: any) {
     return db('categories')
       .insert({ catName: cateName, parentId: null })
@@ -103,9 +127,10 @@ export default {
     return db('products').where('proId', proId).update({ isDisable: 0 });
   },
   async getDisableProduct() {
-    return db('products').where('isDisable', 0)
-    .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
-    .select('products.*','secureUrl');
+    return db('products')
+      .where('isDisable', 0)
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
+      .select('products.*', 'secureUrl');
   },
   async getListProduct() {
     return db('products')
@@ -117,8 +142,11 @@ export default {
     return db('products').where('proId', proId).update({ isDisable: 1 });
   },
   async deleteProduct(proId: any) {
-    db('products').where('proId', proId).del().then(function (result){
-      return db('productImages').where('proId',proId).del();
-    });
+    db('products')
+      .where('proId', proId)
+      .del()
+      .then(function (result) {
+        return db('productImages').where('proId', proId).del();
+      });
   },
 };

@@ -284,14 +284,20 @@
 
                                 {{#if (getRatingType userRating 2)}}
                                 <br>
-                                <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
-                                </h5>
+                                <div class="alert alert-warning">
+                                    Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
+                                </div>
+                                {{!-- <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
+                                </h5> --}}
                                 {{/if}}
 
                                 {{#if (getRatingType userRating 3)}}
                                 <br>
-                                <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!
-                                </h5>
+                                <div class="alert alert-warning">
+                                    Seller of this product is not allow user which doesn't have rating score to bid!!!
+                                </div>
+                                {{!-- <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!
+                                </h5> --}}
                                 {{/if}}
                             </form>
                             {{/if}}
