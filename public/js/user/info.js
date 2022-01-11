@@ -37,8 +37,8 @@ document.getElementById('frmChangeEmail').onsubmit = async function (e) {
     window.location.replace(res.url);
   } else if (res.status == 204) {
     console.log('OK GOOD, NOW I NEED TOKEN');
-    // Hide 'frmChangeEmail'
-    // Show 'frmVerifyChangeEmail'
+    document.getElementById('emailFormWrapper').removeClass('d-block');
+    document.getElementById('verifyFormWrapper').addClass('d-block');
   } else {
     const resJson = await res.json();
     resJson.forEach((err) => toastr.error(err.msg));
