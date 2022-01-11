@@ -1,5 +1,6 @@
 import { UploadApiResponse } from 'cloudinary';
 import db from '../config/database';
+import moment from 'moment';
 
 interface ProductInsert {
   proName: string;
@@ -130,7 +131,8 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .where('cat.catId', catid)
-      .andWhere('products.expiredDate', '>=', new Date());
+      .andWhere('products.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1);
   },
   async countProductbyParentCategory(
     catid: string | number | Readonly<any> | null
@@ -139,6 +141,7 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1)
       .count({ amount: 'proId' });
     return list[0].amount;
   },
@@ -147,6 +150,7 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1)
       .count({ amount: 'proId' });
     return list[0].amount;
   },
@@ -159,6 +163,7 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.parentId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1)
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
@@ -172,6 +177,7 @@ export default {
       .join('categories AS cat', { 'products.catId': 'cat.catId' })
       .where('cat.catId', catid)
       .andWhere('products.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1)
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
       .limit(limit)
       .offset(offset);
@@ -197,6 +203,7 @@ export default {
       })
       .where('relatedProduct.proId', '<>', proID)
       .andWhere('relatedProduct.expiredDate', '>=', new Date())
+      .andWhere('products.isDisable', 1)
       .leftJoin('users', { 'relatedProduct.bidderId': 'users.userId' })
       .leftJoin('productImages', {
         'relatedProduct.thumbnailId': 'productImages.imgId',
@@ -225,15 +232,18 @@ export default {
     limit: number
   ) {
     return db('products')
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
       })
-      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .where(function () {
+        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
+          db.raw('match(proName) against(?)', [`${keyword}`])
+        );
+      })
+      .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .limit(limit)
       .offset(offset)
@@ -360,12 +370,15 @@ export default {
   },
   async countProductByKeyword(keyword: string | any) {
     return db('products')
-      .where('products.expiredDate', '>=', new Date())
       .join('categories', {
         'products.catId': 'categories.catId',
       })
-      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
+      .where(function () {
+        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
+          db.raw('match(proName) against(?)', [`${keyword}`])
+        );
+      })
+      .andWhere('products.expiredDate', '>=', new Date());
   },
   async countProductByKeywordAndParentCat(
     keyword: string | any,

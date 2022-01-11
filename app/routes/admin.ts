@@ -11,7 +11,6 @@ adminRouter.get('/manage/categories', async function (req, res) {
 
 adminRouter.post('/manage/categories', async function (req, res) {
   const content = req.body.content; // type of action
-  console.log(req.body);
   switch (content) {
     case 'addRootCate': {
       adminModel.addRootCategory(req.body.rootCateName);
@@ -26,7 +25,11 @@ adminRouter.post('/manage/categories', async function (req, res) {
         adminModel.deleteCategory(req.body.rootCateId);
         res.redirect('/admin/manage/categories');
       } else {
-        res.render('admin/manageCategory', { layout: 'admin', category: true ,HaveChildCat:true });
+        res.render('admin/manageCategory', {
+          layout: 'admin',
+          category: true,
+          HaveChildCat: true,
+        });
       }
       break;
     }
@@ -44,12 +47,15 @@ adminRouter.post('/manage/categories', async function (req, res) {
       const listProduct = await adminModel.checkCategoryHaveProduct(
         req.body.childCateId
       );
-      console.log(listProduct.length);
       if (listProduct.length == 0) {
         adminModel.deleteCategory(req.body.childCateId);
         res.redirect('/admin/manage/categories');
       } else {
-        res.render('admin/manageCategory', { layout: 'admin', category: true ,childCatHaveProduct:true });
+        res.render('admin/manageCategory', {
+          layout: 'admin',
+          category: true,
+          childCatHaveProduct: true,
+        });
       }
       break;
     }
@@ -109,7 +115,6 @@ adminRouter.get('/manage/products', async function (req, res) {
     limitpage
   );
 
-
   for (let i = 1; i <= numPageProduct; i++) {
     listofPageProduct.push({
       value: i,
@@ -149,7 +154,6 @@ adminRouter.post('/deleteProduct', async function (req, res) {
   } else {
     if (content == 'recovery') {
       const listDisable = await adminModel.getDisableProduct();
-      console.log(listDisable);
       for (let i = 0; i < listDisable.length; i++) {
         adminModel.recoveryProduct(listDisable[i].proId);
       }
@@ -282,9 +286,23 @@ adminRouter.post('/declineRequest', async function (req, res) {
   adminModel.declineRequest(req.body.declineid);
   res.redirect('/admin/manage/users');
 });
+
 adminRouter.post('/downgradeSeller', async function (req, res) {
   adminModel.downgradeSeller(req.body.downid);
   res.redirect('/admin/manage/users');
 });
 
+adminRouter.post('/deleteUser', async function (req, res) {
+  const userId = req.body.deleteid;
+  // banned
+  const result = await adminModel.removeHighestBids(userId);
+  console.log(result);
+  await adminModel.removeCurrentBids(userId);
+  // await adminModel.updateHighestBidder();
+  await adminModel.endProducts(userId);
+  await adminModel.removeActiveProducts(userId);
+  await adminModel.deleteUser(userId);
+
+  res.redirect('/admin/manage/users');
+});
 export default adminRouter;

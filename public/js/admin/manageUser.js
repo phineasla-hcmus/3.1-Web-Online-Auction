@@ -18,6 +18,11 @@ function parseUserHTML(element) {
         <td><a href="/admin/manage/users/${
           element.userId
         }" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
+        <td><a
+        data-id="${element.userId}"
+        href="javascript:;"
+        class="btn btn-danger deleteUser"
+      ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             <td>
                 <a data-id="${
                   element.userId
@@ -34,6 +39,11 @@ function parseUserHTML(element) {
     <td><a href="/admin/manage/users/${
       element.userId
     }" class="btn btn-sm btn-warning text-white"><i class="fa fa-search"></i></a></td>
+    <td><a
+        data-id="${element.userId}"
+        href="javascript:;"
+        class="btn btn-danger deleteUser"
+      ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 </tr>`;
   }
 }
@@ -78,6 +88,13 @@ $(document).on('click', '.downgrade', function (e) {
   const id = $(this).data('id');
   $('#txtUserDowngrade').val(id);
   $('#frmDowngrade').submit();
+});
+
+$(document).on('click', '.deleteUser', function (e) {
+  e.preventDefault();
+  const id = $(this).data('id');
+  $('#txtUserDelete').val(id);
+  $('#frmDeleteUser').submit();
 });
 
 $(document).on('click', '#paginatorUser a', function () {

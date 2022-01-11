@@ -632,12 +632,6 @@ ul.nav-pills li a:hover {
   background-color: #eee;
 }
 
-@media (min-width: 40em) {
-  .category-wrapper {
-    margin-top: 1rem;
-  }
-}
-
 .products-parent-categories > li {
   border-radius: 5px;
   background: white;

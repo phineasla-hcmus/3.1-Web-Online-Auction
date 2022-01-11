@@ -35,26 +35,26 @@ INSERT INTO categories
 VALUES (12, 'Baking dish', 3);
 
 INSERT INTO users
-VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 2);
+VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 2, 0);
 INSERT INTO users
-VALUES (2, 'popcorn.software.engineering@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', 5, 3);
+VALUES (2, 'popcorn.software.engineering@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', 5, 3, 0);
 INSERT INTO users
-VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', 7, 3);
+VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', 7, 3, 0);
 INSERT INTO users
-VALUES (4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', 8, 4);
+VALUES (4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', 8, 4, 0);
 -- sample data used for [admin] manage usersINSERT INTO users
 INSERT INTO users
-VALUES (5, 'hoho1@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (5, 'hoho1@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
-VALUES (6, 'hoho2@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (6, 'hoho2@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
-VALUES (7, 'hoho3@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (7, 'hoho3@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
-VALUES (8, 'hoho4@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (8, 'hoho4@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
-VALUES (9, 'hoho5@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (9, 'hoho5@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
-VALUES (10, 'hoho6@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2);
+VALUES (10, 'hoho6@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 
 INSERT INTO `products` VALUES (1,'Laptop Lenovo Ideapad 3',4,500,5000,500,100,'Laptop mỏng nhẹ cực mạnh mại dô mại dô','2021-11-30 08:20:30','2022-01-25 09:30:00',0,NULL,2,0,1,1,'product/agai9qbgxv97t5iftqly');
 INSERT INTO `products` VALUES (2,'Laptop HP',4,550,5500,550,100,'Chip Intel Celeron, siêu tiết kiệm năng lượng, 1 năm mới sạc pin','2021-11-30 08:20:30','2022-01-25 09:30:00',0,NULL,2,0,1,1,'product/hav2jd8fakluchw6onit');

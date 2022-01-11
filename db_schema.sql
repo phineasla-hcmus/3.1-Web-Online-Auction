@@ -33,6 +33,7 @@ CREATE TABLE `users` (
   `address` varchar(100),
   `rating` double DEFAULT NULL,
   `roleId` tinyint unsigned DEFAULT 1,
+  `banned` boolean DEFAULT FALSE,
   PRIMARY KEY (`userId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

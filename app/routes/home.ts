@@ -321,20 +321,23 @@ homeRouter.post('/product', async (req, res, next) => {
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
   console.log(req.body);
-  if(content ==='buyNow'){
+  if (content === 'buyNow') {
     const buynowPrice = req.body.buyNowPrice;
     const proId = req.body.proId;
 
     const bidderPassword = (await findUserById(userId, ['password']))!.password;
 
-    if(await bcrypt.compare(req.body.password,bidderPassword as string)==false){
+    if (
+      (await bcrypt.compare(req.body.password, bidderPassword as string)) ==
+      false
+    ) {
       return res.json({
         status: 'error',
         msg: 'Your password is incorrect',
       });
     }
 
-    auctionModel.buyNowProduct(userId,proId,buynowPrice);
+    auctionModel.buyNowProduct(userId, proId, buynowPrice);
     return res.json({
       status: 'success',
       msg: `Buy now product successfully with price =${buynowPrice}`,
@@ -351,7 +354,10 @@ homeRouter.post('/product', async (req, res, next) => {
     const product = (await productModel.findProductbyId(proId))[0];
     const bidderPassword = (await findUserById(userId, ['password']))!.password;
 
-    if(await bcrypt.compare(req.body.password,bidderPassword as string)==false){
+    if (
+      (await bcrypt.compare(req.body.password, bidderPassword as string)) ==
+      false
+    ) {
       return res.json({
         status: 'error',
         msg: 'Your password is incorrect',
