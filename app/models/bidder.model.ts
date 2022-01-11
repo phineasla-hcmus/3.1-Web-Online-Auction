@@ -45,7 +45,7 @@ export default {
       .leftJoin('productImages', { 'pro.thumbnailId': 'imgId' })
       .where('auctionHistory.bidderId', bidderId)
       .andWhere('pro.expiredDate', '>=', new Date())
-      .groupBy('auctionHistory.proId');
+      .distinct('auctionHistory.proId');
   },
   async upgradeToSeller(bidderId: number) {
     const upgradeRequest = {

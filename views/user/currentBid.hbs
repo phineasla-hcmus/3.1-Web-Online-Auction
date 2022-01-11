@@ -4,7 +4,7 @@
         <div class="alert alert-info">You have not bid for any products yet</div>
     {{else}}
         <div class="products__bidding">
-            {{#each this.currentBidsList}}
+            {{#each this.productList}}
                 {{>product product=this user=../user}}
             {{/each}}
         </div>    

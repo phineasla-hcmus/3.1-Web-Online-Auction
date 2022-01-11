@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import bidderModel from '../models/bidder.model';
 import { addOtp, findOtp, OtpType } from '../models/otp.model';
+import productModel from '../models/product.model';
 import {
   addPendingEmail,
   deletePendingEmail,
@@ -122,7 +123,6 @@ userRouter.post(
     const user = await findUserById(userId, ['password']);
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.password;
-    console.log(oldPassword, newPassword);
 
     if (!oldPassword || !newPassword || !user?.password) {
       const msg =
@@ -187,11 +187,20 @@ userRouter.get('/favorite', async function (req, res) {
 userRouter.get('/currentbids', async function (req, res) {
   const userId = res.locals.user ? res.locals.user.userId : 0;
   const currentBidsList = await bidderModel.getCurrentBids(userId);
+  let productList: any = [];
 
-  currentBidsList.forEach((element) => {
+  for (let i = 0; i < currentBidsList.length; i++) {
+    const product = await productModel.findProductbyId(
+      currentBidsList[i].proId
+    );
+    productList.push(product[0]);
+  }
+
+  productList.forEach((element: any) => {
     if (element.bidderId === userId) {
       element.win = true;
     }
+    element.bidderName = element.firstName + ' ' + element.lastName;
   });
 
   if (userId != 0) {
@@ -204,15 +213,15 @@ userRouter.get('/currentbids', async function (req, res) {
       });
     }
 
-    for (let i = 0; i < currentBidsList.length; i++) {
-      currentBidsList[i].FavoriteProduct = FavoriteProduct;
+    for (let i = 0; i < productList.length; i++) {
+      productList[i].FavoriteProduct = FavoriteProduct;
     }
   }
   res.render('user/currentBid', {
     layout: 'bidder',
-    currentBidsList,
+    productList,
     currentBids: true,
-    empty: currentBidsList.length === 0,
+    empty: productList.length === 0,
   });
 });
 
