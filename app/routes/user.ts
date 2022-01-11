@@ -143,7 +143,7 @@ userRouter.post(
 );
 
 userRouter.post('/upgrade', async function (req, res) {
-  const userId = req.body.userId;
+  const userId = req.body.currentuserId;
   await bidderModel.upgradeToSeller(userId);
 
   const url = req.headers.referer || '/';
