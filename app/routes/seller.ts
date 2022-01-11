@@ -23,6 +23,7 @@ sellerRouter.get('/my-product', async function (req, res) {
     if (rated) {
       element.rated = true;
     } else element.rated = false;
+    element.winner = element.firstName + ' ' + element.lastName;
   });
 
   res.render('seller/myProduct', {

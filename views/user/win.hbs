@@ -4,38 +4,55 @@
     <div class="alert alert-info">You have not won any products yet</div>
   {{else}}
     <div class="winning__content py-3">
-      {{#each this.winningList as |winItem|}}
-        <div class="winning__item bg-light p-4 mb-3">
-          <div class="winning__item--content d-flex">
-            <a href="/product?proId={{winItem.proId}}">
-              <img
-                style="max-height: 5rem;"
-                src="{{this.secureUrl}}"
-                alt="{{winItem.proName}}"
-              />
-            </a>
-            <div class="ps-3">
-              <p class="m-0 fw-bold">{{winItem.proName}}</p>
-              <p class="m-0 text-danger"><i
-                  class="fa fa-usd"
-                ></i>{{winItem.currentPrice}}
-              </p>
-              <p class="m-0"><i class="fa fa-user" aria-hidden="true"></i>
-                {{winItem.sellerName}}</p>
+        <div class="row m-0">
+          <div class="col-md-12 px-0">
+            <div class="panel">
+                <div class="panel-body table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Seller</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list-request">
+                    {{#each this.winningList as |item|}}
+                        <tr>
+                        <td style="min-width: 7rem;">
+                          <a href="/product?proId={{item.proId}}">
+                           <img
+                            src="{{this.secureUrl}}"
+                            class="img-fluid"
+                            alt=""
+                        />
+                          </a>
+                        </td>
+                        <td style="min-width: 15rem;" class="hide-overflow"
+                        >{{item.proName}}</td>
+                        <td style="min-width: 6rem;">{{item.currentPrice}}$</td>
+                        <td style="min-width: 8rem;" class="hide-overflow">{{item.sellerName}}</td>
+                        <td style="min-width: 7rem;">
+                          {{#unless item.rated}}
+                            <button
+                              class="btn header__btn mt-2 btn__rate"
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#ratingModal"
+                              data-id="{{item.sellerId}} {{item.proId}}"
+                            >Rate</button>
+                          {{/unless}}
+                            
+                        </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                </div>
             </div>
-          </div>
-          {{#unless winItem.rated}}
-            <button
-              class="btn header__btn mt-2 btn__rate"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#ratingModal"
-              data-id="{{winItem.sellerId}} {{winItem.proId}}"
-            >Rate</button>
-          {{/unless}}
-
         </div>
-      {{/each}}
       <div
         style="margin-top: 5.5rem;"
         class="modal fade"
@@ -57,7 +74,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form action="/bidder/rateSeller" id="frmComment" method="post">
+              <form action="/user/rateSeller" id="frmComment" method="post">
                 <div class="mb-3">
                   <input id="txtSeller" type="hidden" name="sellerid" />
                   <input id="txtProduct" type="hidden" name="proid" />

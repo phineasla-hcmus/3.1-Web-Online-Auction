@@ -10,7 +10,7 @@
           {{/each}}
       </div>
   {{/if}}
-  <h2 class="h4">List of winning products</h2>
+  <h2 class="h4">List of won products</h2>
   {{#if emptyWinning}}
       <div class="alert alert-info">You don't have any winning products</div>
   {{else}}
@@ -25,6 +25,7 @@
                           <th></th>
                           <th>Name</th>
                           <th>Price</th>
+                          <th>Winner</th>
                           <th>Action</th>
                       </tr>
                       </thead>
@@ -32,14 +33,16 @@
                       {{#each this.winningList as |item|}}
                           <tr>
                           <td style="min-width: 7rem;">
-                              <img
+                            <a href="/product?proId={{item.proId}}"><img
                               src="{{this.secureUrl}}"
                               class="img-fluid"
-                              alt=""
-                          /></td>
+                              alt="{{item.proName}}"/>
+                            </a>
+                          </td>
                           <td style="min-width: 15rem;" class="hide-overflow"
                           >{{item.proName}}</td>
                           <td style="min-width: 6rem;">{{item.currentPrice}}$</td>
+                          <td style="min-width: 8rem;" class="hide-overflow">{{item.winner}}</td>
                           <td style="min-width: 7rem;">
                               <ul class="action-list">
                                   {{#unless item.rated}}

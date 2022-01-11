@@ -93,7 +93,8 @@ export default {
       .where('sellerId', sellerId)
       .andWhere('expiredDate', '<', new Date())
       .andWhereNot('bidderId', null)
-      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
+      .join('users', { 'products.bidderId': 'users.userId' });
   },
   async isAlreadyRated(sellerId: number, proId: number) {
     const ratingList = await db('ratingHistory')
