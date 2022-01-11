@@ -27,7 +27,8 @@ const hbs = create({
     isDisableProduct,
     isSellerOfThis,
     isDeniedUser,
-    isBuyNowPrice
+    isBuyNowPrice,
+    isNotExpired
   },
 });
 
@@ -151,6 +152,11 @@ function isDeniedUser(listDenied: any, userId: any) {
   return false;
 }
 
+function isNotExpired(ExpiredDate : string){
+  var exDate = new Date(ExpiredDate);
+  var curDate = new Date();
+  return  exDate >= curDate;
+}
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
  * @note
