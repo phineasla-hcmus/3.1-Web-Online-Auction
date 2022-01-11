@@ -83,30 +83,52 @@ export default {
   async deleteUser(userId: number) {
     return db('users').where('userId', userId).update({ banned: 1 });
   },
-  // từ những sản phẩm highest bid -> cập nhật giá hiện tại và người thắng
-  async removeHighestBids(userId: number) {
-    return db('products')
-      .where('products.bidderId', userId)
-      .then(function (result) {
-        return result.forEach(
-          (item) =>
-            async function () {
-              const secondHighest = await db('auctionHistory')
-                .where('auctionHistory.proId', item.proId)
-                .limit(1)
-                .offset(1);
-              console.log('hello', secondHighest);
-            }
-        );
-      });
-  },
-  // async updateHighestBidder(proId: number) {},
   async removeCurrentBids(userId: number) {
-    return db('auctionHistory').where('bidderId', userId).del();
+    return db('auctionHistory')
+      .join('products', { 'auctionHistory.proId': 'products.proId' })
+      .where('auctionHistory.bidderId', userId)
+      .andWhere('products.expiredDate', '>=', new Date())
+      .del();
+  },
+  async removeAuctionAuto(userId: number) {
+    return db('auctionAuto')
+      .join('products', { 'auctionAuto.proId': 'products.proId' })
+      .where('auctionAuto.userId', userId)
+      .andWhere('products.expiredDate', '>=', new Date())
+      .del();
+  },
+  async getHighestBid(proId: number) {
+    return db('auctionAuto')
+      .where('auctionAuto.proId', proId)
+      .orderBy([{ column: 'maxPrice', order: 'desc' }, 'time'])
+      .limit(1);
+  },
+  async getCurrentPrice(proId: number) {
+    return db('auctionHistory')
+      .where('auctionHistory.proId', proId)
+      .orderBy([{ column: 'auctionPrice', order: 'desc' }, 'auctionTime'])
+      .limit(1);
+  },
+  async getNumberOfBids(proId: number) {
+    const result = await db('auctionHistory')
+      .where('proId', proId)
+      .count('*', { as: 'bids' });
+    return result[0].bids;
+  },
+  async updateProduct(
+    proId: number,
+    currentPrice: number,
+    numberOfBids: number,
+    bidderId: number
+  ) {
+    return db('products')
+      .where('proId', proId)
+      .update({ currentPrice, numberOfBids, bidderId });
   },
   async endProducts(userId: number) {
     return db('products')
       .where('sellerId', userId)
+      .andWhere('expiredDate', '>=', new Date())
       .update({ expiredDate: new Date() });
   },
   async removeActiveProducts(userId: number) {

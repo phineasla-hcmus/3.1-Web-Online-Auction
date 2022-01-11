@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import adminModel from '../models/admin.model';
+import bidderModel from '../models/bidder.model';
 import { RoleType } from '../models/role.model';
 import { findUserById, updateUser, USER_BASIC } from '../models/user.model';
 
@@ -71,7 +72,7 @@ adminRouter.get('/manage/categories/addChildCat', async function (req, res) {
   };
   res.render('admin/ManageCategory/addChildCategory', {
     layout: 'admin',
-    product: true,
+    category: true,
     parentCategory,
   });
 });
@@ -85,7 +86,7 @@ adminRouter.get('/manage/categories/editCat', async function (req, res) {
   };
   res.render('admin/ManageCategory/editCategory', {
     layout: 'admin',
-    product: true,
+    category: true,
     Category,
   });
 });
@@ -314,7 +315,7 @@ adminRouter.get('/manage/users/:id', async function (req, res) {
   for (let i = 1; i <= 5; i++) {
     rate.push(stars >= i ? 'full' : 'empty');
   }
-  res.render('admin/userDetail', { layout: 'admin', user, rate });
+  res.render('admin/userDetail', { layout: 'admin', user, rate, users: true });
 });
 
 adminRouter.post('/approveRequest', async function (req, res) {
@@ -335,14 +336,32 @@ adminRouter.post('/downgradeSeller', async function (req, res) {
 
 adminRouter.post('/deleteUser', async function (req, res) {
   const userId = req.body.deleteid;
-  // banned
-  const result = await adminModel.removeHighestBids(userId);
-  // console.log(result);
-  // await adminModel.removeCurrentBids(userId);
-  // // await adminModel.updateHighestBidder();
-  // await adminModel.endProducts(userId);
-  // await adminModel.removeActiveProducts(userId);
-  // await adminModel.deleteUser(userId);
+  // lấy danh sách list product đang bid
+  const biddingList = await bidderModel.getCurrentBids(userId);
+  //  xoá auction history, auction auto(?) của bidder đó trong các product đang diễn ra
+  await adminModel.removeCurrentBids(userId);
+  await adminModel.removeAuctionAuto(userId);
+  //cập nhật người đang giữ giá cao nhất của từng product
+  //-> cập nhật currentPrice, numberOfBids và bidderId
+  for (let i = 0; i < biddingList.length; i++) {
+    const highestBid = await adminModel.getHighestBid(biddingList[i].proId);
+    const bidderId = highestBid[0].userId;
+    const currentBid = await adminModel.getCurrentPrice(biddingList[i].proId);
+    const currentPrice = currentBid[0].auctionPrice;
+    const numberOfBids = await adminModel.getNumberOfBids(biddingList[i].proId);
+    await adminModel.updateProduct(
+      biddingList[i].proId,
+      currentPrice,
+      +numberOfBids,
+      bidderId
+    );
+  }
+  // kết thúc các sản phẩm mà bidder đó đăng bán
+  await adminModel.endProducts(userId);
+  // xoá các product đó khỏi active product
+  await adminModel.removeActiveProducts(userId);
+  // cập nhật banned cho user đó
+  await adminModel.deleteUser(userId);
 
   res.redirect('/admin/manage/users');
 });
