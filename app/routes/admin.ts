@@ -91,17 +91,35 @@ adminRouter.get('/manage/categories/editCat', async function (req, res) {
 });
 
 adminRouter.get('/manage/products', async function (req, res) {
+  const limitpage = 5;
+  const page = 1;
+  const offset = (page - 1) * limitpage;
+
   const listDisable = await adminModel.getDisableProduct();
 
   for (let i = 0; i < listDisable.length; i++) {
     listDisable[i].isDisable = 1;
   }
 
+  const amountDisable = listDisable.length;
+  let numPageDisable = Math.floor(amountDisable / limitpage);
+  if (amountDisable % limitpage != 0) numPageDisable++;
+
+  const listofPageDisable = [];
+
   const listProduct = await adminModel.getListProduct();
 
-  const limitpage = 5;
-  const page = 1;
-  const offset = (page - 1) * limitpage;
+  const pagingDisableList = await adminModel.getListDisableByPaging(
+    offset,
+    limitpage
+  );
+
+  for (let i = 1; i <= numPageDisable; i++) {
+    listofPageDisable.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
 
   const amountProduct = listProduct.length;
 
@@ -128,7 +146,9 @@ adminRouter.get('/manage/products', async function (req, res) {
     listDisable,
     emptyDisable: listDisable.length === 0,
     pagesProduct: listofPageProduct,
+    pagesDisable: listofPageDisable,
     pagingProductList,
+    pagingDisableList,
   });
 });
 
@@ -143,12 +163,33 @@ adminRouter.get('/manage/productsByPaging', async function (req, res) {
   res.json(pagingProductList);
 });
 
+adminRouter.get('/manage/disablesByPaging', async function (req, res) {
+  const limitpage = 5;
+  const page: any = req.query.page || 1;
+  const offset = (page - 1) * limitpage;
+  const pagingDisableList = await adminModel.getListDisableByPaging(
+    offset,
+    limitpage
+  );
+  res.json(pagingDisableList);
+});
+
 adminRouter.post('/deleteProduct', async function (req, res) {
   const content = req.body.content;
 
   if (content == 'disableProduct') {
     const proId = req.body.proId;
     adminModel.disableProduct(proId);
+    const url = req.headers.referer || '/';
+    res.redirect(url);
+  } else if (content == 'deleteProduct') {
+    const proId = req.body.proId;
+    adminModel.deleteProduct(proId);
+    const url = req.headers.referer || '/';
+    res.redirect(url);
+  } else if (content == 'recoveryProduct') {
+    const proId = req.body.proId;
+    adminModel.recoveryProduct(proId);
     const url = req.headers.referer || '/';
     res.redirect(url);
   } else {
@@ -296,12 +337,12 @@ adminRouter.post('/deleteUser', async function (req, res) {
   const userId = req.body.deleteid;
   // banned
   const result = await adminModel.removeHighestBids(userId);
-  console.log(result);
-  await adminModel.removeCurrentBids(userId);
-  // await adminModel.updateHighestBidder();
-  await adminModel.endProducts(userId);
-  await adminModel.removeActiveProducts(userId);
-  await adminModel.deleteUser(userId);
+  // console.log(result);
+  // await adminModel.removeCurrentBids(userId);
+  // // await adminModel.updateHighestBidder();
+  // await adminModel.endProducts(userId);
+  // await adminModel.removeActiveProducts(userId);
+  // await adminModel.deleteUser(userId);
 
   res.redirect('/admin/manage/users');
 });

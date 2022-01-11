@@ -1,132 +1,209 @@
 {{#section "stylesheets"}}
-<link rel="stylesheet" href="/public/css/admin/manageCategory.css">
+  <link rel="stylesheet" href="/public/css/admin/manageCategory.css" />
 {{/section}}
 <div style="background-color: white;" class="rounded-3 p-3">
-    <h1 class="h3 fw-bold">Manage products</h1>
-    <h2 class='h4'>Disable Product List</h2>
-    {{#if emptyDisable}}
-        <div class="alert alert-info">No products have been disabled yet</div>
-    {{else}}
-        <div class="products__disable">
-            {{#each this.listDisable}}
-                {{>product product=this user=../user}}
-            {{/each}}
+  <h1 class="h3 fw-bold">Manage products</h1>
+  <form id="disableProduct" method="post" action="/admin/deleteProduct">
+    <input id="txtDisableProduct" type="hidden" name="proId" />
+    <input type="hidden" name="content" value="disableProduct" />
+  </form>
+  <h2 class="h4">List of products</h2>
+  <div class="row m-0">
+    <div class="col-md-12 px-0">
+      <div class="panel">
+        <div class="panel-body table-responsive">
+          <table class="table mb-0">
+            <thead>
+              <th></th>
+              <th>Name</th>
+              <th>Post date</th>
+              <th>Remaining time</th>
+              <th>Price</th>
+              <th>Action</th>
+            </thead>
+            <tbody id="list-product">
+              {{#each pagingProductList as |item|}}
+                <tr>
+                  <td style="min-width: 7rem;">
+                    <a href="/product?proId={{this.proId}}"><img
+                        src="{{secureUrl}}"
+                        class="img-fluid"
+                        alt="{{item.proName}}"
+                      /></a>
+                  </td>
+                  <td
+                    style="min-width: 13rem;"
+                    class="hide-overflow"
+                  >{{item.proName}}</td>
+                  <td style="min-width: 11rem;">{{parseDate item.postDate}}</td>
+                  <td style="min-width: 12rem;">{{getRemainingTime
+                      item.expiredDate
+                    }}</td>
+                  <td>{{item.currentPrice}}$</td>
+                  <td>
+                    <ul class="action-list">
+                      <li><a
+                          style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                          role="button"
+                          data-id="{{item.proId}}"
+                          class="btn btn-danger disableProduct"
+                        ><i class="fa fa-ban" aria-hidden="true"></i></a></li>
+                    </ul>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
-        <div class="d-flex justify-content-center">
-        <form method="post" action="/admin/deleteProduct">
-            {{#each this.listDisable as |list|}}
-            <input type="hidden" value="{{list.proId}}" name="productList">
-            {{/each}}
-
-            <input type="hidden" value="delete" name="content">
-            <button class="btn btn-danger" type="submit">
-            <i class="fa fa-trash-o" aria-hidden="true"> Delete</i>
-            </button>
-        </form>
-        <span>&nbsp; &nbsp;</span>
-
-        <form method="post" action="/admin/deleteProduct">
-            {{#each this.listDisable as |list|}}
-            <input type="hidden" value="{{list.proId}}" name="productList">
-            {{/each}}
-
-            <input type="hidden" value="recovery" name="content">
-            <button class="btn btn-success" type="submit">
-                <i class="fa fa-undo" aria-hidden="true"> Recovery</i>
-            </button>
-        </form>
+        <div class="panel-footer bg-secondary">
+          <nav
+            id="paginatorProduct"
+            class="products__pagination"
+            aria-label="..."
+          >
+            <ul class="pagination">
+              {{#each pagesProduct}}
+                <li class="page-item"><a
+                    role="button"
+                    class="page-link"
+                    href="javascript:;"
+                  >{{value}}</a></li>
+              {{/each}}
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
-    {{/if}}
-
-    <form id="disableProduct" method="post" action="/admin/deleteProduct">
-        <input id="txtDisableProduct" type="hidden" name="proId" />
-        <input type="hidden" name="content" value="disableProduct">
-    </form>
-    <h2 class="h4">List of products</h2>
+  </div>
+  <form id="deleteProduct" method="post" action="/admin/deleteProduct">
+    <input id="txtDeleteProduct" type="hidden" name="proId" />
+    <input type="hidden" name="content" value="deleteProduct" />
+  </form>
+  <form id="recoveryProduct" method="post" action="/admin/deleteProduct">
+    <input id="txtRecoveryProduct" type="hidden" name="proId" />
+    <input type="hidden" name="content" value="recoveryProduct" />
+  </form>
+  <h2 class="h4 mt-3">List of disabled products</h2>
+  {{#if emptyDisable}}
+    <div class="alert alert-info">No products have been disabled yet</div>
+  {{else}}
     <div class="row m-0">
-        <div class="col-md-12 px-0">
-            <div class="panel">
-                <div class="panel-body table-responsive">
-                    <table class="table mb-0">
-                    <thead>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Post date</th>
-                        <th>Remaining time</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody id="list-product">
-                        {{#each pagingProductList as |item|}}
-                        <tr>
-                            <td style="min-width: 7rem;">
-                                <a href="/product?proId={{this.proId}}"><img
-                                src="{{secureUrl}}"
-                                class="img-fluid"
-                                alt="{{item.proName}}"></a>
-                            </td>
-                            <td style="min-width: 13rem;" class="hide-overflow"
-                            >{{item.proName}}</td>
-                            <td style="min-width: 11rem;">{{parseDate item.postDate}}</td>
-                            <td style="min-width: 12rem;">{{getRemainingTime item.expiredDate}}</td>
-                            <td>{{item.currentPrice}}$</td>
-                            <td>
-                                <ul class="action-list">
-                                    <li><a
-                                    style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
-                                        role="button"
-                                        data-id="{{item.proId}}"
-                                        class="btn btn-danger disableProduct"
-                                        ><i class="fa fa-trash" aria-hidden="true"></i></a></li>    
-                                </ul>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                    </table>
-                </div>
-                <div class="panel-footer bg-secondary">
-                    <nav
-                    id="paginatorProduct"
-                    class="products__pagination"
-                    aria-label="..."
-                    >
-                        <ul class="pagination">
-                            {{!-- <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1"><i
-                                class="fa fa-chevron-left"
-                                aria-hidden="true"
-                                ></i></a>
-                            </li> --}}
-                            {{#each pagesProduct}}
-                            <li class="page-item"><a
-                                role="button"
-                                class="page-link"
-                                href="javascript:;"
-                                >{{value}}</a></li>
-                            {{/each}}
-                            {{!-- <li class="page-item">
-                            <a class="page-link" href="#"><i
-                                class="fa fa-chevron-right"
-                                aria-hidden="true"
-                                ></i></a>
-                            </li> --}}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+      <div class="col-md-12 px-0">
+        <div class="panel">
+          <div class="panel-body table-responsive">
+            <table class="table mb-0">
+              <thead>
+                <th></th>
+                <th>Name</th>
+                <th>Post date</th>
+                <th>Remaining time</th>
+                <th>Price</th>
+                <th>Action</th>
+              </thead>
+              <tbody id="list-disable">
+                {{#each pagingDisableList as |item|}}
+                  <tr>
+                    <td style="min-width: 7rem;">
+                      <a href="/product?proId={{this.proId}}"><img
+                          src="{{secureUrl}}"
+                          class="img-fluid"
+                          alt="{{item.proName}}"
+                        /></a>
+                    </td>
+                    <td
+                      style="min-width: 11rem;"
+                      class="hide-overflow"
+                    >{{item.proName}}</td>
+                    <td style="min-width: 11rem;">{{parseDate
+                        item.postDate
+                      }}</td>
+                    <td style="min-width: 12rem;">{{getRemainingTime
+                        item.expiredDate
+                      }}</td>
+                    <td>{{item.currentPrice}}$</td>
+                    <td style="min-width: 7rem;">
+                      <ul class="action-list">
+                        <li><a
+                            style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                            role="button"
+                            data-id="{{item.proId}}"
+                            class="btn btn-danger deleteProduct"
+                          ><i
+                              class="fa fa-trash"
+                              aria-hidden="true"
+                            ></i></a></li>
+                        <li><a
+                            style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                            role="button"
+                            data-id="{{item.proId}}"
+                            class="btn btn-success recoveryProduct"
+                          ><i
+                              class="fa fa-undo"
+                              aria-hidden="true"
+                            ></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer bg-secondary">
+            <nav
+              id="paginatorDisable"
+              class="products__pagination"
+              aria-label="..."
+            >
+              <ul class="pagination">
+                {{#each pagesDisable}}
+                  <li class="page-item"><a
+                      role="button"
+                      class="page-link"
+                      href="javascript:;"
+                    >{{value}}</a></li>
+                {{/each}}
+              </ul>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <form method="post" action="/admin/deleteProduct">
+        {{#each this.listDisable as |list|}}
+          <input type="hidden" value="{{list.proId}}" name="productList" />
+        {{/each}}
+
+        <input type="hidden" value="delete" name="content" />
+        <button class="btn btn-danger" type="submit">
+          <i class="fa fa-trash-o" aria-hidden="true"> Delete all</i>
+        </button>
+      </form>
+      <span>&nbsp; &nbsp;</span>
+
+      <form method="post" action="/admin/deleteProduct">
+        {{#each this.listDisable as |list|}}
+          <input type="hidden" value="{{list.proId}}" name="productList" />
+        {{/each}}
+
+        <input type="hidden" value="recovery" name="content" />
+        <button class="btn btn-success" type="submit">
+          <i class="fa fa-undo" aria-hidden="true"> Recovery all</i>
+        </button>
+      </form>
+    </div>
+  {{/if}}
 </div>
-{{#section 'scripts'}}
+{{#section "scripts"}}
 
-<script src="/public/js/likeAction.js"></script>
+  <script src="/public/js/likeAction.js"></script>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    ></script>
-    <script src="/public/js/admin/manageProduct.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="/public/js/admin/manageProduct.js"></script>
 {{/section}}

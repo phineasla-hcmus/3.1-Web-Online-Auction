@@ -32,11 +32,11 @@ function getRemainingTime(date) {
 function parseProductHTML(element) {
   return ` <tr>
     <td style="min-width: 7rem;">
-        <img
-        src="${element.secureUrl}"
-        class="img-fluid"
-        alt=""
-    /></td>
+    <a href="/product?proId=${element.proId}"><img
+    src="${element.secureUrl}"
+    class="img-fluid"
+    alt="${element.proName}"
+  /></a></td>
     <td style="min-width: 13rem;" class="hide-overflow"
     >${element.proName}</td>
     <td style="min-width: 11rem;">${parseDate(element.postDate)}</td>
@@ -49,7 +49,42 @@ function parseProductHTML(element) {
                 role="button"
                 data-id="${element.proId}"
                 class="btn btn-danger disableProduct"
-                ><i class="fa fa-trash" aria-hidden="true"></i></a></li>    
+                ><i class="fa fa-ban" aria-hidden="true"></i></a></li>    
+        </ul>
+    </td>
+</tr>`;
+}
+
+function parseDisableHTML(element) {
+  return ` <tr>
+    <td style="min-width: 7rem;">
+    <a href="/product?proId=${element.proId}"><img
+    src="${element.secureUrl}"
+    class="img-fluid"
+    alt="${element.proName}"
+  /></a></td>
+    <td style="min-width: 11rem;" class="hide-overflow"
+    >${element.proName}</td>
+    <td style="min-width: 11rem;">${parseDate(element.postDate)}</td>
+    <td style="min-width: 12rem;">${getRemainingTime(element.expiredDate)}</td>
+    <td>${element.currentPrice}$</td>
+    <td style="min-width: 7rem">
+        <ul class="action-list">
+            <li><a
+            style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                role="button"
+                data-id="${element.proId}"
+                class="btn btn-danger deleteProduct"
+                ><i class="fa fa-trash" aria-hidden="true"></i></a></li>
+                <li><a
+                style="font-size: 15px; padding: 0.3rem 0.5rem; line-height: inherit; width: fit-content; height: fit-content"
+                role="button"
+                data-id="${element.proId}"
+                class="btn btn-success recoveryProduct"
+              ><i
+                  class="fa fa-undo"
+                  aria-hidden="true"
+                ></i></a></li>    
         </ul>
     </td>
 </tr>`;
@@ -71,6 +106,34 @@ $(document).on('click', '#paginatorProduct a', function (e) {
       data.forEach((element) => {
         var fullhtml = parseProductHTML(element);
         $('#list-product').append(fullhtml);
+      });
+    }
+  });
+});
+
+$(document).on('click', '.deleteProduct', function (e) {
+  e.preventDefault();
+  const id = $(this).data('id');
+  $('#txtDeleteProduct').val(id);
+  $('#deleteProduct').submit();
+});
+
+$(document).on('click', '.recoveryProduct', function (e) {
+  e.preventDefault();
+  const id = $(this).data('id');
+  $('#txtRecoveryProduct').val(id);
+  $('#recoveryProduct').submit();
+});
+
+$(document).on('click', '#paginatorDisable a', function (e) {
+  e.preventDefault();
+  var page = $(this).text();
+  $.getJSON(`/admin/manage/disablesByPaging?page=${page}`, function (data) {
+    if (data.length != 0) {
+      $('#list-disable').text('');
+      data.forEach((element) => {
+        var fullhtml = parseDisableHTML(element);
+        $('#list-disable').append(fullhtml);
       });
     }
   });

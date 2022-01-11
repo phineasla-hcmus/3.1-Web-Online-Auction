@@ -20,6 +20,14 @@ export default {
       .offset(offset)
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
   },
+  async getListDisableByPaging(offset: number, limit: number) {
+    return db('products')
+      .where('expiredDate', '>=', new Date())
+      .andWhere('isDisable', 0)
+      .limit(limit)
+      .offset(offset)
+      .leftJoin('productImages', { 'products.thumbnailId': 'imgId' });
+  },
   async getUpgradeRequests() {
     return db('upgradeList')
       .join('users as u', { 'upgradeList.bidderId': 'u.userId' })
@@ -75,11 +83,22 @@ export default {
   async deleteUser(userId: number) {
     return db('users').where('userId', userId).update({ banned: 1 });
   },
+  // từ những sản phẩm highest bid -> cập nhật giá hiện tại và người thắng
   async removeHighestBids(userId: number) {
     return db('products')
       .where('products.bidderId', userId)
-      .join('auctionHistory', { 'products.proId': 'auctionHistory.proId' })
-      .orderBy([{ column: 'auctionPrice', order: 'desc' }, 'auctionTime']);
+      .then(function (result) {
+        return result.forEach(
+          (item) =>
+            async function () {
+              const secondHighest = await db('auctionHistory')
+                .where('auctionHistory.proId', item.proId)
+                .limit(1)
+                .offset(1);
+              console.log('hello', secondHighest);
+            }
+        );
+      });
   },
   // async updateHighestBidder(proId: number) {},
   async removeCurrentBids(userId: number) {
