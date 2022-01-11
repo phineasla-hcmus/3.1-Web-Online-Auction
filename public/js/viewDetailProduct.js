@@ -68,6 +68,87 @@ if(bidForm){
 }
 
 
+
+const likeForm1 = document.getElementById('like1');
+ if (likeForm1) {
+  likeForm1.onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'info') toastr.info(resJson.msg);
+  };
+}
+
+const likeForm2 = document.getElementById('like2');
+if (likeForm2) {
+  likeForm2.onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'info') toastr.info(resJson.msg);
+  };
+}
+
+const likeForm3 = document.getElementById('like3');
+if (likeForm3) {
+  likeForm3.onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'info') toastr.info(resJson.msg);
+  };
+}
+
+const likeForm4 = document.getElementById('like4');
+if (likeForm4) {
+  likeForm4.onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'info') toastr.info(resJson.msg);
+  };
+}
+
 // $('#bidAction').submit(function (e) {
 //   e.preventDefault(); // avoid to execute the actual submit of the form.
 //   console.log('ENTERING');

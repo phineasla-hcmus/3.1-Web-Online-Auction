@@ -119,37 +119,37 @@
                         <div class="action1" style="text-align: center;">
 
                             {{#if (isFavorite proId ../FavoriteProduct)}}
-                            <form method="post" style="text-align: end;">
+                            <form id ="like1" method="post" style="text-align: end;" action="/product">
                                 <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike2()"
                                     style="color: red">
-                                    <span class="fa fa-heart" id="like"></span>
-                                    <input type="hidden" id="like" value="unlike" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                    <span class="fa fa-heart" ></span>
+                                    <input type="hidden" value="unlike" name="content">
+                                    <input type="hidden"  value="{{proId}}" name="proId">
                                 </button>
                             </form>
-                            <form method="post" style="text-align: end;">
+                            <form id ="like2" method="post" style="text-align: end;" action="/product">
                                 <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike2()"
                                     style="color: black" hidden>
-                                    <span class="fa fa-heart-o" id="like"></span>
-                                    <input type="hidden" id="like" value="like" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                    <span class="fa fa-heart-o" ></span>
+                                    <input type="hidden"  value="like" name="content">
+                                    <input type="hidden"  value="{{proId}}" name="proId">
                                 </button>
                             </form>
                             {{else}}
-                            <form method="post" style="text-align: end;">
+                            <form id ="like3" method="post" style="text-align: end;" action="/product">
                                 <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike1()"
                                     style="color: black">
-                                    <span class="fa fa-heart-o" id="like"></span>
-                                    <input type="hidden" id="like" value="like" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                    <span class="fa fa-heart-o" ></span>
+                                    <input type="hidden"  value="like" name="content">
+                                    <input type="hidden"  value="{{proId}}" name="proId">
                                 </button>
                             </form>
-                            <form method="post" style="text-align: end;">
+                            <form id ="like4" method="post" style="text-align: end;" action="/product">
                                 <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike1()"
                                     style="color: red" hidden>
-                                    <span class="fa fa-heart" id="like"></span>
-                                    <input type="hidden" id="like" value="unlike" name="content">
-                                    <input type="hidden" id="like" value="{{proId}}" name="proId">
+                                    <span class="fa fa-heart" ></span>
+                                    <input type="hidden"  value="unlike" name="content">
+                                    <input type="hidden"  value="{{proId}}" name="proId">
                                 </button>
                             </form>
                             {{/if}}
@@ -419,6 +419,9 @@
 </section>
 
 {{#section "scripts"}}
+
+<script src="/public/js/likeAction.js"></script>
+
 <script type="application/javascript" src="/public/tinymce/tinymce.min.js"></script>
 <script type="application/javascript" src="/public/js/tinymce.config.js"></script>
 <script src="/public/js/viewDetailProduct.js"></script>

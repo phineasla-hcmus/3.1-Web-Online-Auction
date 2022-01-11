@@ -62,105 +62,103 @@
 
             {{#if (isBidderOrSeller user.roleId)}}
               {{#if (isFavorite proId FavoriteProduct)}}
-                <form method="post" style="text-align: end;" action="/product">
+                <form id="likebutton1{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product">
                   <button
                     class="likebtn"
                     type="submit"
-                    id="unlikeButton{{proId}}"
-                    onclick="buttonLikeV2({{proId}})"
+                    id="unlikeButton{{proId}}{{typeHome}}"
+                    onclick="buttonLikeV2({{proId}},{{typeHome}});likeAction1({{proId}},{{typeHome}});"
                     style="color: red; background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
                   >
-                    <span class="fa fa-heart" id="like"></span>
+                    <span class="fa fa-heart" ></span>
                     <input
                       type="hidden"
-                      id="like"
                       value="unlike"
                       name="content"
                     />
                     <input
                       type="hidden"
-                      id="like"
                       value="{{proId}}"
                       name="proId"
                     />
                   </button>
                 </form>
 
-                <form method="post" style="text-align: end;" action="/product">
+                <form id="likebutton2{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product" > 
                   <button
                     class="likebtn"
                     type="submit"
-                    id="likeButton{{proId}}"
-                    onclick="buttonLikeV2({{proId}})"
+                    id="likeButton{{proId}}{{typeHome}}"
+                    onclick="buttonLikeV2({{proId}},{{typeHome}});likeAction2({{proId}},{{typeHome}});"
                     style="color: red; background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
                     hidden
                   >
-                    <span class="fa fa-heart-o" id="like"></span>
+                    <span class="fa fa-heart-o"></span>
                     <input
                       type="hidden"
-                      id="like"
+     
                       value="like"
                       name="content"
                     />
                     <input
                       type="hidden"
-                      id="like"
+             
                       value="{{proId}}"
                       name="proId"
                     />
                   </button>
                 </form>
               {{else}}
-                <form method="post" style="text-align: end;" action="/product">
+                <form id="likebutton3{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product" >
                   <button
                     class="likebtn"
                     type="submit"
-                    id="likeButton{{proId}}"
-                    onclick="buttonLikeV1({{proId}})"
+                    id="likeButton{{proId}}{{typeHome}}"
+                    onclick="buttonLikeV1({{proId}},{{typeHome}});likeAction3({{proId}},{{typeHome}});"
                     style="color: red;background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
                   >
-                    <span class="fa fa-heart-o" id="like"></span>
+                    <span class="fa fa-heart-o" ></span>
                     <input
                       type="hidden"
-                      id="like"
+               
                       value="like"
                       name="content"
                     />
                     <input
                       type="hidden"
-                      id="like"
+            
                       value="{{proId}}"
                       name="proId"
                     />
                   </button>
                 </form>
-                <form method="post" style="text-align: end;" action="/product">
+                <form id="likebutton4{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product">
                   <button
                     class="likebtn"
                     type="submit"
-                    id="unlikeButton{{proId}}"
-                    onclick="buttonLikeV1({{proId}})"
+                    id="unlikeButton{{proId}}{{typeHome}}"
+                    onclick="buttonLikeV1({{proId}},{{typeHome}});likeAction4({{proId}},{{typeHome}});"
                     style="color: red;background-color: transparent;
               background-repeat: no-repeat;
               border: none;"
                     hidden
                   >
-                    <span class="fa fa-heart" id="like"></span>
+                    <span class="fa fa-heart" ></span>
                     <input
                       type="hidden"
-                      id="like"
+                     
                       value="unlike"
                       name="content"
                     />
                     <input
                       type="hidden"
-                      id="like"
+               
                       value="{{proId}}"
                       name="proId"
                     />
@@ -175,7 +173,7 @@
             {{this.numberOfBids}}
           </li>
           {{#if (isBidderOrSeller user.roleId)}}
-            <li><a
+            <li><a  
                 href="/product?proId={{this.proId}}"
                 style="font-size:xx-small;"
               >Bid now</a></li>
@@ -196,21 +194,5 @@
         </ul>
       </div>
     </div>
-    <script>
-      function buttonLikeV2(id) { let likeButton =
-      document.getElementById(`likeButton${id}`); let unlikeButton =
-      document.getElementById(`unlikeButton${id}`); if
-      (unlikeButton.getAttribute('hidden')) {
-      unlikeButton.removeAttribute('hidden'); likeButton.setAttribute('hidden',
-      'hidden'); } else { likeButton.removeAttribute('hidden');
-      unlikeButton.setAttribute('hidden', 'hidden'); } } function
-      buttonLikeV1(id) { let likeButton =
-      document.getElementById(`likeButton${id}`); let unlikeButton =
-      document.getElementById(`unlikeButton${id}`); if
-      (likeButton.getAttribute('hidden')) {
-      likeButton.removeAttribute('hidden'); unlikeButton.setAttribute('hidden',
-      'hidden'); } else { unlikeButton.removeAttribute('hidden');
-      likeButton.setAttribute('hidden', 'hidden'); } }
-    </script>
   </div>
 {{/if}}

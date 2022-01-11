@@ -21,6 +21,7 @@ homeRouter.get('/', async (req, res) => {
     if (element.firstName != null && element.lastName != null) {
       element.bidderName = element.firstName + ' ' + element.lastName;
     } else element.bidderName = '';
+    element.typeHome = 1;
   });
 
   const mostBidsList = await productModel.findMostBidsProducts();
@@ -28,6 +29,7 @@ homeRouter.get('/', async (req, res) => {
     if (element.firstName != null && element.lastName != null) {
       element.bidderName = element.firstName + ' ' + element.lastName;
     } else element.bidderName = '';
+    element.typeHome = 2;
   });
 
   const highestPriceList = await productModel.findHighestPriceProducts();
@@ -35,6 +37,7 @@ homeRouter.get('/', async (req, res) => {
     if (element.firstName != null && element.lastName != null) {
       element.bidderName = element.firstName + ' ' + element.lastName;
     } else element.bidderName = '';
+    element.typeHome = 3;
   });
 
   //get favorite Product
@@ -510,12 +513,18 @@ homeRouter.post('/product', async (req, res, next) => {
   if (content === 'like') {
     productModel.addFavoriteList(userId, req.body.proId);
 
-    res.redirect(url);
+    return res.json({
+      status: 'success',
+      msg: 'Add product to favorite successfully!!!',
+    });
   }
   if (content === 'unlike') {
     productModel.removeFavoriteList(userId, req.body.proId);
 
-    res.redirect(url);
+    return res.json({
+      status: 'success',
+      msg: 'Remove product from favorite successfully!!!',
+    });
   }
 });
 
