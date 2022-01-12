@@ -46,8 +46,8 @@ if (buyForm) {
       setTimeout(function(){
         location.reload();
     
-      }, 1500); }
-    if (resJson.status === 'info') toastr.info(resJson.msg);
+      }, 1500); 
+    }
   };
 }
 
@@ -71,7 +71,12 @@ if(bidForm){
       location.reload();
   
     }, 1500); }
-  if (resJson.status === 'info') toastr.info(resJson.msg);
+    if (resJson.status === 'info') {toastr.info(resJson.msg);
+      setTimeout(function(){
+        location.reload();
+    
+      }, 1500);
+    }
   
 };
 }
