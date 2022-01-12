@@ -75,6 +75,7 @@
                                     </td>
 
                                 </tr>
+                                {{#if (existBidder bidderId)}}
                                 <tr>
                                     <th class="pl-0" scope="row">
                                         <strong>
@@ -87,8 +88,8 @@
                                         &nbsp; {{product.bidderRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
                                     </td>
-
                                 </tr>
+                                {{/if}}
                                 <tr>
                                     <th class="pl-0" scope="row">
                                         <strong>
