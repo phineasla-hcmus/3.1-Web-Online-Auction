@@ -49,7 +49,11 @@
     }
     // width: 80%;
     & form {
-      width: 80%;
+      // width: 80%;
+      width: 65%;
+      @include breakpoint-up(medium) {
+        width: 80%;
+      }
     }
   }
   &__btn {
