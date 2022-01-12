@@ -263,7 +263,7 @@ homeRouter.get('/product', async (req, res) => {
 
   //create a temp array to pass into hbs
   const numberofPic = [];
-  for (let i = 1; i < listImage.length; i++) {
+  for (let i = 0; i < listImage.length; i++) {
     numberofPic.push({
       value: i,
       secureUrl: listImage[i].secureUrl,
@@ -320,7 +320,7 @@ homeRouter.post('/product', async (req, res, next) => {
 
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
-  console.log(req.body);
+  
   if (content === 'buyNow') {
     const buynowPrice = req.body.buyNowPrice;
     const proId = req.body.proId;

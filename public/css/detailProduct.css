@@ -21,6 +21,7 @@ img {
 }
 
 .preview-pic {
+  
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -57,7 +58,10 @@ img {
 
 .tab-content img {
   width: 100%;
-  animation-name: opacity;
+  -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s;
 }
 
 .card {

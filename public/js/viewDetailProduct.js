@@ -42,7 +42,11 @@ if (buyForm) {
     });
     const resJson = await res.json();
     if (resJson.status === 'error') toastr.error(resJson.msg);
-    if (resJson.status === 'success') toastr.success(resJson.msg);
+    if (resJson.status === 'success') { toastr.success(resJson.msg);
+      setTimeout(function(){
+        location.reload();
+    
+      }, 1500); }
     if (resJson.status === 'info') toastr.info(resJson.msg);
   };
 }
@@ -62,8 +66,13 @@ if(bidForm){
   });
   const resJson = await res.json();
   if (resJson.status === 'error') toastr.error(resJson.msg);
-  if (resJson.status === 'success') toastr.success(resJson.msg);
+  if (resJson.status === 'success') { toastr.success(resJson.msg);
+    setTimeout(function(){
+      location.reload();
+  
+    }, 1500); }
   if (resJson.status === 'info') toastr.info(resJson.msg);
+  
 };
 }
 
@@ -122,6 +131,7 @@ if (likeForm3) {
       },
       body: new URLSearchParams(formData),
     });
+    
     const resJson = await res.json();
     if (resJson.status === 'error') toastr.error(resJson.msg);
     if (resJson.status === 'success') toastr.success(resJson.msg);
