@@ -348,6 +348,7 @@ adminRouter.post('/deleteUser', async function (req, res) {
     const highestBid = await adminModel.getHighestBid(biddingList[i].proId);
     const bidderId = highestBid.length === 0 ? null : highestBid[0].userId;
     const currentBid = await adminModel.getCurrentPrice(biddingList[i].proId);
+    
     let currentPrice = 0;
     if (currentBid.length === 0) {
       const product = await productModel.findProductbyId(biddingList[i].proId);

@@ -32,6 +32,7 @@ export default {
     return db('upgradeList')
       .join('users as u', { 'upgradeList.bidderId': 'u.userId' })
       .where('status', -1)
+      .where('banned',false)
       .select(
         'u.userId',
         'u.email',
@@ -46,6 +47,7 @@ export default {
     return db('upgradeList')
       .join('users as u', { 'upgradeList.bidderId': 'u.userId' })
       .where('status', -1)
+      .where('banned',false)
       .select(
         'u.userId',
         'u.email',
@@ -88,7 +90,7 @@ export default {
       .join('products', { 'auctionHistory.proId': 'products.proId' })
       .where('auctionHistory.bidderId', userId)
       .andWhere('products.expiredDate', '>=', new Date())
-      .del();
+      .update({isDenied : 0}).then();
   },
   async removeAuctionAuto(userId: number) {
     return db('auctionAuto')
@@ -106,6 +108,7 @@ export default {
   async getCurrentPrice(proId: number) {
     return db('auctionHistory')
       .where('auctionHistory.proId', proId)
+      .where('isDenied','=',1)
       .orderBy([{ column: 'auctionPrice', order: 'desc' }, 'auctionTime'])
       .limit(1);
   },
