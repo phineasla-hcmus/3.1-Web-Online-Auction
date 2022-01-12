@@ -28,7 +28,13 @@
     <div id="loading"></div>
     <header class="header">{{>nav}}</header>
     {{{body}}}
-    
+    <button
+            type="button"
+            class="btn btn-lg"
+            id="btn-back-to-top"
+            >
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -43,6 +49,7 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/public/js/navbar.js"></script>
+    <script src="/public/js/backToTop.js"></script>
     <script>
       $(document).ready(function() {
           $('#loading').fadeOut(200);

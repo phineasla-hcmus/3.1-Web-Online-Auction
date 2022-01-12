@@ -75,6 +75,20 @@ body.noscroll {
   z-index: 9999;
 }
 
+#btn-back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: none;
+  z-index: 2;
+  border-radius: 50%;
+  padding: 10px;
+  line-height: 0;
+  background-color: #292560;
+  border-color: #292560;
+  color: white;
+}
+
 ul {
   list-style: none;
   padding: 0;
