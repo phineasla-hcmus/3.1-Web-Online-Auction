@@ -641,8 +641,8 @@ homeRouter.get('/search', async (req, res) => {
       numberOfProducts: amountPro,
       sortByDate: sortby === 'date',
       sortByPrice: sortby === 'price',
-      prev: +page - 1,
-      next: +page + 1,
+      prev: +page - 1 > 0 ? +page - 1 : 1,
+      next: +page + 1 <= listofPage.length ? +page + 1 : listofPage.length,
     });
   }
 });

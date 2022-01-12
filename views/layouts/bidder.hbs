@@ -23,11 +23,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     />
   <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
   {{{section.stylesheets}}}
 </head>
 
 <body class="bg-light">
+  <div id="loading"></div>
   <header class="header">{{>nav}}</header>
   <div class="myContainer myContainer--py pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
     <div class="row m-0 flex-grow-sm-1 flex-grow-0 pt-1 w-100">
@@ -80,11 +80,19 @@
           </ul>
         </div>
       </aside>
-      <main class="col">
+      <main class="col content__wrapper">
         {{{body}}}
       </main>
     </div>
   </div>
+  {{>footer}}
+  <button
+      type="button"
+      class="btn btn-lg"
+      id="btn-back-to-top"
+      >
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </button>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -107,6 +115,12 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
   ></script>
+  <script src="/public/js/backToTop.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#loading').fadeOut(200);
+    });
+  </script>
   {{{section.scripts}}}
 </body>
 

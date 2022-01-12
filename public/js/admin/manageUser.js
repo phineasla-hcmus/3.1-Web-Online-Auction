@@ -21,12 +21,12 @@ function parseUserHTML(element) {
         <td><a
         data-id="${element.userId}"
         href="javascript:;"
-        class="btn btn-danger deleteUser"
+        class="btn btn-sm btn-danger deleteUser"
       ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             <td>
                 <a data-id="${
                   element.userId
-                }" href="#" class="btn btn-danger downgrade">Downgrade</a>
+                }" href="#" class="btn btn-sm btn-danger downgrade">Downgrade</a>
             </td>
     </tr>`;
   } else {
@@ -42,7 +42,7 @@ function parseUserHTML(element) {
     <td><a
         data-id="${element.userId}"
         href="javascript:;"
-        class="btn btn-danger deleteUser"
+        class="btn btn-sm btn-danger deleteUser"
       ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 </tr>`;
   }
@@ -60,10 +60,10 @@ function parseRequestHTML(element) {
       <ul class="action-list">
           <li><a data-id="${
             element.userId
-          }" href="#" class="btn btn-success approveRequest"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+          }" href="#" class="btn btn-sm btn-success approveRequest"><i class="fa fa-check" aria-hidden="true"></i></a></li>
           <li><a data-id="${
             element.userId
-          }" href="#" class="btn btn-danger declineRequest"><i class="fa fa-times"></i></a></li>
+          }" href="#" class="btn btn-sm btn-danger declineRequest"><i class="fa fa-times"></i></a></li>
       </ul>
   </td>
 </tr>`;
@@ -88,13 +88,6 @@ $(document).on('click', '.downgrade', function (e) {
   const id = $(this).data('id');
   $('#txtUserDowngrade').val(id);
   $('#frmDowngrade').submit();
-});
-
-$(document).on('click', '.deleteUser', function (e) {
-  e.preventDefault();
-  const id = $(this).data('id');
-  $('#txtUserDelete').val(id);
-  $('#frmDeleteUser').submit();
 });
 
 $(document).on('click', '#paginatorUser a', function () {
@@ -122,3 +115,23 @@ $(document).on('click', '#paginatorRequest a', function () {
     }
   });
 });
+
+$(document).on('click', '.deleteUser', function (e) {
+  const id = $(this).data('id');
+  console.log(id);
+  $('#txtUserDelete').val(id);
+  confirmDialog('Are you sure you want to delete this user?', function () {
+    $('#frmDeleteUser').submit();
+  });
+});
+
+function confirmDialog(message, onConfirm) {
+  var fClose = function () {
+    modal.modal('hide');
+  };
+  var modal = $('#confirmModal');
+  modal.modal('show');
+  $('#confirmMessage').empty().append(message);
+  $('#confirmOk').unbind().one('click', onConfirm).one('click', fClose);
+  $('#confirmCancel').unbind().one('click', fClose);
+}

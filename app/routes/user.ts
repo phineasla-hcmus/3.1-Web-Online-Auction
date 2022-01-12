@@ -27,7 +27,11 @@ const userRouter = Router();
 userRouter.get('/info', async function (req, res) {
   const userId = res.locals.user.userId;
   let status = await bidderModel.getBidderStatus(userId);
-  const currentuser = await findUserById(userId);
+  let currentuser = await findUserById(userId);
+
+  if (currentuser !== undefined) {
+    if (currentuser.dob === null) currentuser.dob = new Date('1/1/1970');
+  }
 
   let request = -2;
   if (status.length !== 0) {

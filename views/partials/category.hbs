@@ -7,7 +7,7 @@
   </a>
   <ul class="list-unstyled ps-0">
       {{#each parentCategories as |parent|}}
-        <li class="mb-1">
+        <li class="mb-1 parent-cat" data-name="{{parent.catName}}">
             <a
                 href="/category?catId={{parent.catId}}"
                 class="p-0 btn btn-toggle align-items-center rounded collapsed btnShowCategory {{#if parent.isActive}}active{{/if}}"

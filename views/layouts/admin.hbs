@@ -18,10 +18,10 @@
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/public/css/style.css" />
     <link rel="stylesheet" href="/public/css/admin/index.css">
-
     {{{section.stylesheets}}}
   </head>
   <body class="bg-light">
+    <div id="loading"></div>
     <header class="header">{{>nav}}</header>
     <div
       class="myContainer myContainer--py pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto"
@@ -57,11 +57,19 @@
             </ul>
           </div>
         </aside>
-        <main class="col-sm-9">
+        <main class="col-sm-9 content__wrapper">
           {{{body}}}  
         </main>
       </div>
     </div>
+    {{>footer}}
+    <button
+      type="button"
+      class="btn btn-lg"
+      id="btn-back-to-top"
+      >
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -74,6 +82,12 @@
       integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/public/js/navbar.js"></script>
+    <script src="/public/js/backToTop.js"></script>
+    <script>
+      $(document).ready(function() {
+          $('#loading').fadeOut(200);
+      });
+    </script>
     {{{section.scripts}}}
   </body>
 </html>

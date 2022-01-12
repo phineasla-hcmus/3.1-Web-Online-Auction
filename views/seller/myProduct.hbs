@@ -1,10 +1,10 @@
-<div style="background-color: white;" class="rounded-3 p-4">
+<div style="background-color: white;" class="rounded-3 p-3">
   <h1 class="h3 fw-bold">Posted products</h1>
   <h2 class="h4">List of bidding products</h2>
   {{#if emptyBidding}}
     <div class="alert alert-info">You don't have any bidding products</div>
   {{else}}
-      <div class="products__bidding">
+      <div class="products__content">
           {{#each this.biddingList as |product|}}
               {{>product product=product user=../user}}
           {{/each}}

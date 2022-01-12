@@ -262,13 +262,18 @@ export default {
     limit: number
   ) {
     return db('categories')
-      .where('categories.parentId', catId)
       .leftJoin('products', {
         'categories.catId': 'products.catId',
       })
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
+      })
+      .where(function () {
+        this.where('categories.parentId', catId).andWhere(
+          'products.expiredDate',
+          '>=',
+          new Date()
+        );
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .limit(limit)
@@ -280,15 +285,18 @@ export default {
     limit: number
   ) {
     return db('products')
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
       })
-      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .where(function () {
+        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
+          db.raw('match(proName) against(?)', [`${keyword}`])
+        );
+      })
+      .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .orderBy('expiredDate', 'desc')
       .limit(limit)
@@ -308,13 +316,18 @@ export default {
     catId: number
   ) {
     return db('categories')
-      .where('categories.parentId', catId)
       .leftJoin('products', {
         'categories.catId': 'products.catId',
       })
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
+      })
+      .where(function () {
+        this.where('categories.parentId', catId).andWhere(
+          'products.expiredDate',
+          '>=',
+          new Date()
+        );
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .orderBy('expiredDate', 'desc')
@@ -327,15 +340,18 @@ export default {
     limit: number
   ) {
     return db('products')
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
       })
       .join('categories', {
         'products.catId': 'categories.catId',
       })
-      .where(db.raw('match(catName) against(?)', [`${keyword}`]))
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+      .where(function () {
+        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
+          db.raw('match(proName) against(?)', [`${keyword}`])
+        );
+      })
+      .andWhere('products.expiredDate', '>=', new Date())
       .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .orderBy('currentPrice', 'asc')
       .limit(limit)
@@ -355,13 +371,18 @@ export default {
     catId: number
   ) {
     return db('categories')
-      .where('categories.parentId', catId)
       .leftJoin('products', {
         'categories.catId': 'products.catId',
       })
-      .where('products.expiredDate', '>=', new Date())
       .leftJoin('productImages', {
         'products.thumbnailId': 'productImages.imgId',
+      })
+      .where(function () {
+        this.where('categories.parentId', catId).andWhere(
+          'products.expiredDate',
+          '>=',
+          new Date()
+        );
       })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
       .orderBy('currentPrice', 'asc')
@@ -385,11 +406,16 @@ export default {
     catId: number
   ) {
     return db('categories')
-      .where('categories.parentId', catId)
       .leftJoin('products', {
         'categories.catId': 'products.catId',
       })
-      .where('products.expiredDate', '>=', new Date())
+      .where(function () {
+        this.where('categories.parentId', catId).andWhere(
+          'products.expiredDate',
+          '>=',
+          new Date()
+        );
+      })
       .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
   },
   async getAuctionHistory(proId: any) {
