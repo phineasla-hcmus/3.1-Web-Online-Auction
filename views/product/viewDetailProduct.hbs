@@ -1,184 +1,262 @@
 <section class="myContainer myContainer--py row">
     {{>category}}
-    <div class="col-sm-10 col-md-10">
-        <div class="card">
-            {{#each this.product as |pro|}}
-            <div class="container-fluid">
-                <div class="wrapper row">
-                    <div class="preview col-md-6">
-                        <div class="preview-pic tab-content">
-                            <div class="tab-pane active mb-4">
-                                <img style="max-height: 19.875rem; height: 18rem; object-fit: contain;"
-                                    src="{{pro.secureUrl}}" id="mainPic" />
-                            </div>
-                            <div class="products__content owl-carousel owl-theme" style="padding-right:3em;">
-                                {{#each ../amountPic as |pics|}}
-                                <a data-target="#pic-1" data-toggle="tab">
-                                    <img style="max-width: 100px; margin: 0 auto; height: 2.625rem object-fit: contain;"
-                                        src="{{pics.secureUrl}}" id="subPic{{pics.value}}" 
-                                        onmouseover="changeImg('{{pics.value}}')" class="subPic" />
-                                </a>
-                                {{/each}}
-                            </div>
+    <div class="col">
+        <div style="background-color: white;"  class="content__wrapper rounded-3">
+        <div class="card-wrapper">
+            <div class="mycard p-3 rounded-3">
+                <div class="product-imgs">
+                    <div class="img-display">
+                        <div class="img-showcase">
+                            {{#each amountPic as |pics|}}
+                                <img src="{{pics.secureUrl}}">
+                            {{/each}}
                         </div>
-
                     </div>
-                    <div class="details col-md-6">
-                        <h1 class="product-title">
-                            {{proName}}
-                        </h1>
-                        <table class="table table-sm table-borderless mb-0">
-                            <tbody>
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Current Price:
-                                        </strong>
-                                    </th>
-                                    <td>
-                                        {{currentPrice}}$
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Step Price:
-                                        </strong>
-                                    </th>
-                                    <td>
-                                        {{stepPrice}}$
-                                    </td>
-                                </tr>
-                                {{#if (isBuyNowPrice buyNowPrice)}}
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Buy now Price:
-                                        </strong>
-                                    </th>
-                                    <td>
-                                        {{buyNowPrice}}$
-                                    </td>
-                                </tr>
-                                {{/if}}
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Seller:
-                                        </strong>
-
-                                    </th>
-                                    <td>
-                                        <a href="/product/rating?userId={{sellerId}}">{{maskBidderName sellerName}}</a>
-                                        &nbsp; {{sellerRating}}/10
-                                        <i class="fa fa-star checked" aria-hidden="true"></i>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Highest Bidder:
-                                        </strong>
-                                    </th>
-
-                                    <td>
-                                        <a href="/product/rating?userId={{bidderId}}">{{maskBidderName bidderName}}</a>
-                                        &nbsp; {{bidderRating}}/10
-                                        <i class="fa fa-star checked" aria-hidden="true"></i>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Post Date:
-                                        </strong>
-                                    </th>
-                                    <td>
-                                        {{parseDate postDate}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="pl-0" scope="row">
-                                        <strong>
-                                            Expired Date:
-                                        </strong>
-                                    </th>
-                                    <td>
-                                        {{getRemainingTime expiredDate}} left
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        {{#if ../isUserId}}
-                        {{#if (isSellerOfThis this.sellerId this.userId)}}
-                        {{else}}
-                        {{#if (isNotExpired expiredDate)}}
-                        
-                        <div></div>
-                        <div class="action1" style="text-align: center;">
-
-                            {{#if (isFavorite proId ../FavoriteProduct)}}
-                            <form id ="like1" method="post" style="text-align: end;" action="/product">
-                                <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike2()"
-                                    style="color: red">
-                                    <span class="fa fa-heart" ></span>
-                                    <input type="hidden" value="unlike" name="content">
-                                    <input type="hidden"  value="{{proId}}" name="proId">
-                                </button>
-                            </form>
-                            <form id ="like2" method="post" style="text-align: end;" action="/product">
-                                <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike2()"
-                                    style="color: black" hidden>
-                                    <span class="fa fa-heart-o" ></span>
-                                    <input type="hidden"  value="like" name="content">
-                                    <input type="hidden"  value="{{proId}}" name="proId">
-                                </button>
-                            </form>
-                            {{else}}
-                            <form id ="like3" method="post" style="text-align: end;" action="/product">
-                                <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike1()"
-                                    style="color: black">
-                                    <span class="fa fa-heart-o" ></span>
-                                    <input type="hidden"  value="like" name="content">
-                                    <input type="hidden"  value="{{proId}}" name="proId">
-                                </button>
-                            </form>
-                            <form id ="like4" method="post" style="text-align: end;" action="/product">
-                                <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike1()"
-                                    style="color: red" hidden>
-                                    <span class="fa fa-heart" ></span>
-                                    <input type="hidden"  value="unlike" name="content">
-                                    <input type="hidden"  value="{{proId}}" name="proId">
-                                </button>
-                            </form>
-                            {{/if}}
-
-                            {{#if (isDeniedUser ../listofDeniedBidder this.userId)}}
-
-                            <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
-                                You are denied to bid this product.
-                            </p>
-                            {{else}}
+                    <div class="img-select owl-carousel owl-theme">
+                        {{#each amountPic as |pics|}}
+                            <div class="img-item">
+                                <a href="#" data-id="{{pics.value}}">
+                                    <img src="{{pics.secureUrl}}">
+                                </a>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="details">
+                    <h1 class="product-title">
+                        {{product.proName}}
+                    </h1>
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Current Price:
+                                    </strong>
+                                </th>
+                                <td>
+                                    {{product.currentPrice}}$
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Step Price:
+                                    </strong>
+                                </th>
+                                <td>
+                                    {{product.stepPrice}}$
+                                </td>
+                            </tr>
                             {{#if (isBuyNowPrice buyNowPrice)}}
-                            <button id="buynowButton" class="bid btn btn-default" type="button" onclick="showbuy()">
-                                Buy now
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Buy now Price:
+                                    </strong>
+                                </th>
+                                <td>
+                                    {{product.buyNowPrice}}$
+                                </td>
+                            </tr>
+                            {{/if}}
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Seller:
+                                    </strong>
+
+                                </th>
+                                <td>
+                                    <a href="/product/rating?userId={{product.sellerId}}">{{maskBidderName product.sellerName}}</a>
+                                    &nbsp; {{product.sellerRating}}/10
+                                    <i class="fa fa-star checked" aria-hidden="true"></i>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Highest Bidder:
+                                    </strong>
+                                </th>
+
+                                <td>
+                                    <a href="/product/rating?userId={{product.bidderId}}">{{maskBidderName product.bidderName}}</a>
+                                    &nbsp; {{product.bidderRating}}/10
+                                    <i class="fa fa-star checked" aria-hidden="true"></i>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Post Date:
+                                    </strong>
+                                </th>
+                                <td>
+                                    {{parseDate product.postDate}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0" scope="row">
+                                    <strong>
+                                        Expired Date:
+                                    </strong>
+                                </th>
+                                <td>
+                                    {{getRemainingTime product.expiredDate}} left
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{#if isUserId}}
+                    {{#if (isSellerOfThis product.sellerId product.userId)}}
+                    {{else}}
+                    {{#if (isNotExpired product.expiredDate)}}
+                    
+                    <div></div>
+                    <div class="action1" style="text-align: center;">
+
+                        {{#if (isFavorite product.proId FavoriteProduct)}}
+                        <form id ="like1" method="post" style="text-align: end;" action="/product">
+                            <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike2()"
+                                style="color: red">
+                                <span class="fa fa-heart" ></span>
+                                <input type="hidden" value="unlike" name="content">
+                                <input type="hidden"  value="{{product.proId}}" name="proId">
                             </button>
-                            <form id="buyForm" method="post" action="/product" hidden>
-                            <div id="buyAction">
+                        </form>
+                        <form id ="like2" method="post" style="text-align: end;" action="/product">
+                            <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike2()"
+                                style="color: black" hidden>
+                                <span class="fa fa-heart-o" ></span>
+                                <input type="hidden"  value="like" name="content">
+                                <input type="hidden"  value="{{product.proId}}" name="proId">
+                            </button>
+                        </form>
+                        {{else}}
+                        <form id ="like3" method="post" style="text-align: end;" action="/product">
+                            <button class="likebtn" type="submit" id="likeButton" onclick="buttonLike1()"
+                                style="color: black">
+                                <span class="fa fa-heart-o" ></span>
+                                <input type="hidden"  value="like" name="content">
+                                <input type="hidden"  value="{{product.proId}}" name="proId">
+                            </button>
+                        </form>
+                        <form id ="like4" method="post" style="text-align: end;" action="/product">
+                            <button class="likebtn" type="submit" id="unlikeButton" onclick="buttonLike1()"
+                                style="color: red" hidden>
+                                <span class="fa fa-heart" ></span>
+                                <input type="hidden"  value="unlike" name="content">
+                                <input type="hidden"  value="{{product.proId}}" name="proId">
+                            </button>
+                        </form>
+                        {{/if}}
+
+                        {{#if (isDeniedUser listofDeniedBidder product.userId)}}
+
+                        <p style="text-align: left;" class="alert alert-danger fw-bold mt-2">
+                            You are denied to bid this product.
+                        </p>
+                        {{else}}
+                        {{#if (isBuyNowPrice product.buyNowPrice)}}
+                        <button id="buynowButton" class="bid btn btn-default" type="button" onclick="showbuy()">
+                            Buy now
+                        </button>
+                        <form id="buyForm" method="post" action="/product" hidden>
+                        <div id="buyAction">
+                            <table class="table table-sm table-borderless mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="pl-0" scope="row">
+                                            <strong>
+                                                Buy Now Price:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            <input class="form-control" type="number"
+                                                value="{{product.buyNowPrice}}" name="buyNowPrice" readonly>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pl-0" scope="row">
+                                            <strong>
+                                                Password:
+                                            </strong>
+                                        </th>
+                                        <td>
+                                            <input class="form-control" type="password" name="password" required>
+                                        </td>
+                                    </tr>
+                            </table>
+
+                            <div></div>
+
+
+                            <div style="font-size: small;">Please input password again to make sure you buy this
+                                product.</div>
+                            <input type="hidden" name="proId" value={{product.proId}} />
+                            <input type="hidden" class="bid btn btn-default" value="buyNow" name="content">
+                            <input type="submit" class="bid btn btn-default" value="Submit">
+                        </div>
+                        </form>
+                        {{/if}}
+                        <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
+                            Bid now
+                        </button>
+                        <form id="bidForm" method="post" action="/product">
+                            <div id="bidAction" hidden>
+                                {{#if (getRatingType product.userRating 1)}}
                                 <table class="table table-sm table-borderless mb-0">
                                     <tbody>
                                         <tr>
                                             <th class="pl-0" scope="row">
                                                 <strong>
-                                                    Buy Now Price:
+                                                    Minimum Bid Price:
                                                 </strong>
                                             </th>
                                             <td>
-                                                <input class="form-control" type="number"
-                                                    value="{{buyNowPrice}}" name="buyNowPrice" readonly>
+                                                {{product.minimumBidPrice}}$
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-0" scope="row">
+                                                <strong>
+                                                    Your Price:
+                                                </strong>
+                                            </th>
+                                            <td>
+                                                <input class="form-control" id="prevPrice" type="number"
+                                                    name="price" />
+                                            </td>
+                                        </tr>
+                                </table>
+                                <div style="font-size: smaller;">This is using Auto Bid. You just need to enter your
+                                    max
+                                    price(Largest price you can pay for this product). The system will calculate and
+                                    auto bid to give you a best price</div>
+                                {{!-- this field is used to pass value into javascript --}}
+                                <input type="hidden" name="minimumPrice" value={{product.minimumBidPrice}} />
+                                <input type="hidden" name="content" value="Submit" />
+                                <input type="hidden" name="proId" value={{product.proId}} />
+                                <input type="hidden" name="stepPrice" value={{product.stepPrice}} />
+                                <div></div>
+                                <input id="prevBidAction" type="button" class="bid btn btn-default" value="Accept">
+                            </div>
+
+                            <div id="sureBid" hidden>
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th class="pl-0" scope="row">
+                                                <strong>
+                                                    Auto Auction Price:
+                                                </strong>
+                                            </th>
+                                            <td>
+                                                <input class="form-control" id="surePrice" type="number" readonly>
                                             </td>
                                         </tr>
                                         <tr>
@@ -196,234 +274,143 @@
                                 <div></div>
 
 
-                                <div style="font-size: small;">Please input password again to make sure you buy this
+                                <div style="font-size: small;">Please input password again to make sure you bid this
                                     product.</div>
-                                <input type="hidden" name="proId" value={{proId}} />
-                                <input type="hidden" class="bid btn btn-default" value="buyNow" name="content">
+                                <input id="backBid" class="bid btn btn-default" type="button" value="Back">
                                 <input type="submit" class="bid btn btn-default" value="Submit">
+
                             </div>
-                            </form>
-                            {{/if}}
-                            <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
-                                Bid now
-                            </button>
-                            <form id="bidForm" method="post" action="/product">
-                                <div id="bidAction" hidden>
-                                    {{#if (getRatingType userRating 1)}}
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <th class="pl-0" scope="row">
-                                                    <strong>
-                                                        Minimum Bid Price:
-                                                    </strong>
-                                                </th>
-                                                <td>
-                                                    {{minimumBidPrice}}$
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="pl-0" scope="row">
-                                                    <strong>
-                                                        Your Price:
-                                                    </strong>
-                                                </th>
-                                                <td>
-                                                    <input class="form-control" id="prevPrice" type="number"
-                                                        name="price" />
-                                                </td>
-                                            </tr>
-                                    </table>
-                                    <div style="font-size: smaller;">This is using Auto Bid. You just need to enter your
-                                        max
-                                        price(Largest price you can pay for this product). The system will calculate and
-                                        auto bid to give you a best price</div>
-                                    {{!-- this field is used to pass value into javascript --}}
-                                    <input type="hidden" name="minimumPrice" value={{minimumBidPrice}} />
-                                    <input type="hidden" name="content" value="Submit" />
-                                    <input type="hidden" name="proId" value={{proId}} />
-                                    <input type="hidden" name="stepPrice" value={{stepPrice}} />
-                                    <div></div>
-                                    <input id="prevBidAction" type="button" class="bid btn btn-default" value="Accept">
-                                </div>
-
-                                <div id="sureBid" hidden>
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <th class="pl-0" scope="row">
-                                                    <strong>
-                                                        Auto Auction Price:
-                                                    </strong>
-                                                </th>
-                                                <td>
-                                                    <input class="form-control" id="surePrice" type="number" readonly>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="pl-0" scope="row">
-                                                    <strong>
-                                                        Password:
-                                                    </strong>
-                                                </th>
-                                                <td>
-                                                    <input class="form-control" type="password" name="password" required>
-                                                </td>
-                                            </tr>
-                                    </table>
-
-                                    <div></div>
-
-
-                                    <div style="font-size: small;">Please input password again to make sure you bid this
-                                        product.</div>
-                                    <input id="backBid" class="bid btn btn-default" type="button" value="Back">
-                                    <input type="submit" class="bid btn btn-default" value="Submit">
-
-                                </div>
-                                </p>
-                                {{/if}}
-
-                                {{#if (getRatingType userRating 2)}}
-                                <br>
-                                <div class="alert alert-warning">
-                                    Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
-                                </div>
-                                {{!-- <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
-                                </h5> --}}
-                                {{/if}}
-
-                                {{#if (getRatingType userRating 3)}}
-                                <br>
-                                <div class="alert alert-warning">
-                                    Seller of this product is not allow user which doesn't have rating score to bid!!!
-                                </div>
-                                {{!-- <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!
-                                </h5> --}}
-                                {{/if}}
-                            </form>
+                            </p>
                             {{/if}}
 
-                        </div>
+                            {{#if (getRatingType userRating 2)}}
+                            <br>
+                            <div class="alert alert-warning">
+                                Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
+                            </div>
+                            {{!-- <h5>Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
+                            </h5> --}}
                             {{/if}}
+
+                            {{#if (getRatingType userRating 3)}}
+                            <br>
+                            <div class="alert alert-warning">
+                                Seller of this product is not allow user which doesn't have rating score to bid!!!
+                            </div>
+                            {{!-- <h5>Seller of this product is not allow user which doesn't have rating score to bid!!!
+                            </h5> --}}
+                            {{/if}}
+                        </form>
+                        {{/if}}
+
+                    </div>
                         {{/if}}
                     {{/if}}
-                    </div>
-                </div>
-            </div>
-            <div>&nbsp;</div>
-            <div class="">
-                <h2 class="products__title fw-bold">
-                    Description
-                </h2>
-                <div class="description-content">
-                    {{{description}}}
-                </div>
-                {{#if (isSellerOfThis this.sellerId this.userId)}}
-                <div style="text-align: center;">
-                    <button id="updateDesButton" class="bid btn btn-default" type="button" onclick="showUpdateField()">
-                        Update
-                    </button>
-                </div>
-
-                <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
-                    <input type="hidden" value={{proId}} name="proId">
-                    <div>&nbsp;</div>
-                    <textarea id="tinymce-input" name="description"></textarea>
-                    <div style="text-align: center;">
-                        <button class="bid btn btn-default" type="submit" onclick="">
-                            Save
-                        </button>
-                    </div>
-                </form>
                 {{/if}}
-            </div>
-            <div class="auction-history">
-                <h2 class="products__title fw-bold">Auction history</h2>
-                {{#if ../empty}}
-                <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
-                {{else}}
-                <div class="panel">
-                    <div class="panel-body table-responsive">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Bidder</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each ../auctionHistory as |history|}}
-                                <tr>
-                                    <td style="min-width: 12rem;">{{parseDate history.auctionTime}}</td>
-                                    <td>{{maskBidderName history.bidderName}}</td>
-                                    <td>{{history.auctionPrice}} USD</td>
-                                    {{#if history.isDenied}}
-                                    <td> Accept</td>
-                                    {{else}}
-                                    <td> Denied</td>
-                                    {{/if}}
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                {{/if}}
-            </div>
-            {{#if (isSellerOfThis this.sellerId this.userId)}}
-
-            <div>
-                <h2 class="products__title fw-bold">
-                    List Bidder
-                </h2>
-                {{#if ../emptyBidderList}}
-                <div class="alert alert-info fw-bold">Current bidder list is empty!</div>
-                {{else}}
-                <div class="description-content">
-                    <div class="container p-0">
-                        <ul class="responsive-table">
-                            {{!-- <li class="table-header">
-                                <div class="col col-1"> Bidder Name</div>
-
-                            </li> --}}
-                            {{#each ../listBidder as |listbidder|}}
-                            <li class="table-row">
-                                <div class="d-flex justify-content-between col col-1">
-                                    <a href="/product/rating?userId={{listbidder.bidderId}}">{{maskBidderName
-                                        listbidder.bidderName}}</a>
-                                </div>
-                                <form method="post" action="/seller/denyBidder">
-                                    <input type="hidden" value="{{listbidder.bidderId}}" name="bidderId">
-                                    <input type="hidden" value="{{../proId}}" name="proId">
-                                    <input type="hidden" value="{{../stepPrice}}" name="stepPrice">
-                                    <button type="submit" class="btn btn-danger"> DENY </button>
-                                </form>
-                            </li>
-                            {{/each}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {{/if}}
-            </div>
-
-            {{/if}}
-
-            {{/each}}
-            <div class="">
-                <div class="products__related mt-3">
-                    <h2 class="products__title fw-bold">Related Product</h2>
-                    <div style="padding-left: 0" class="products__content owl-carousel owl-theme related-product">
-                        {{#each this.listProduct}}
-                        {{>product product=this}}
-                        {{/each}}
-                    </div>
                 </div>
             </div>
         </div>
+        {{!-- </div> --}}
+        <div class="p-3">
+            <div>
+            <h2 class="products__title fw-bold">
+                Description
+            </h2>
+            <div class="description-content">
+                {{{product.description}}}
+            </div>
+            {{#if (isSellerOfThis product.sellerId product.userId)}}
+            <div style="text-align: center;">
+                <button id="updateDesButton" class="bid btn btn-default" type="button" onclick="showUpdateField()">
+                    Update
+                </button>
+            </div>
+
+            <form method="post" action="/seller/add-description" hidden="hidden" id="updateField">
+                <input type="hidden" value={{product.proId}} name="proId">
+                <div>&nbsp;</div>
+                <textarea id="tinymce-input" name="description"></textarea>
+                <div style="text-align: center;">
+                    <button class="bid btn btn-default" type="submit" onclick="">
+                        Save
+                    </button>
+                </div>
+            </form>
+            {{/if}}
+        </div>
+        <div class="auction-history">
+            <h2 class="products__title fw-bold">Auction history</h2>
+            {{#if empty}}
+            <p class="alert alert-info fw-bold mt-2">No one has bid for this product yet!</p>
+            {{else}}
+            <div class="panel">
+                <div class="panel-body table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Bidder</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each auctionHistory as |history|}}
+                            <tr>
+                                <td style="min-width: 12rem;">{{parseDate history.auctionTime}}</td>
+                                <td>{{maskBidderName history.bidderName}}</td>
+                                <td>{{history.auctionPrice}} USD</td>
+                                {{#if history.isDenied}}
+                                <td> Accept</td>
+                                {{else}}
+                                <td> Denied</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{#if (isSellerOfThis product.sellerId product.userId)}}
+
+        <div>
+            <h2 class="products__title fw-bold">
+                List Bidder
+            </h2>
+            {{#if emptyBidderList}}
+            <div class="alert alert-info fw-bold">Current bidder list is empty!</div>
+            {{else}}
+            <div class="description-content">
+                <div class="container p-0">
+                    <ul class="responsive-table">
+                        {{!-- <li class="table-header">
+                            <div class="col col-1"> Bidder Name</div>
+                        </li> --}}
+                        {{#each listBidder as |listbidder|}}
+                        <li class="table-row">
+                            <div class="d-flex justify-content-between col col-1">
+                                <a href="/product/rating?userId={{listbidder.bidderId}}">{{maskBidderName
+                                    listbidder.bidderName}}</a>
+                            </div>
+                            <form method="post" action="/seller/denyBidder">
+                                <input type="hidden" value="{{listbidder.bidderId}}" name="bidderId">
+                                <input type="hidden" value="{{../product.proId}}" name="proId">
+                                <input type="hidden" value="{{../product.stepPrice}}" name="stepPrice">
+                                <button type="submit" class="btn btn-danger"> DENY </button>
+                            </form>
+                        </li>
+                        {{/each}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+        </div>
+    </div>
     </div>
 </section>
 
@@ -454,6 +441,7 @@
 
         },
     })
+
     $(".owl-carousel").owlCarousel({
         //loop:true,
         margin: 10,
@@ -462,7 +450,6 @@
             0: {
                 items: 5,
             },
-
         },
     });
 

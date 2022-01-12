@@ -84,7 +84,7 @@
       font-size: 1.1rem;
     }
     @include breakpoint-up(medium) {
-      padding-left: 3.125rem;
+      // padding-left: 3.125rem;
     }
   }
 
@@ -380,5 +380,12 @@
     @include breakpoint-down(small) {
       max-width: 10rem;
     }
+  }
+}
+
+.content__wrapper {
+  margin-left: 50px;
+  @include breakpoint-down(small) {
+    margin-left: 0;
   }
 }

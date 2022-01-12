@@ -734,11 +734,6 @@ ul.nav-pills li a:hover {
     font-size: 1.1rem;
   }
 }
-@media (min-width: 40em) {
-  .products__title {
-    padding-left: 3.125rem;
-  }
-}
 .products__content {
   padding-left: 0;
   display: grid;
@@ -1001,6 +996,15 @@ ul.nav-pills li a:hover {
 @media (max-width: 39.9375em) {
   #products-search-result .products__item--content {
     max-width: 10rem;
+  }
+}
+
+.content__wrapper {
+  margin-left: 50px;
+}
+@media (max-width: 39.9375em) {
+  .content__wrapper {
+    margin-left: 0;
   }
 }
 

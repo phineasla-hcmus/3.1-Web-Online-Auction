@@ -1,19 +1,18 @@
-
 const prevBidAction = document.getElementById('prevBidAction');
-if(prevBidAction){
+if (prevBidAction) {
   prevBidAction.onclick = function (e) {
-  const prevPrice = document.getElementById('prevPrice');
+    const prevPrice = document.getElementById('prevPrice');
 
-  const afterPrice = document.getElementById('surePrice');
+    const afterPrice = document.getElementById('surePrice');
 
-  const bidForm = document.getElementById('bidAction');
+    const bidForm = document.getElementById('bidAction');
 
-  const sureBid = document.getElementById('sureBid');
-  afterPrice.value = prevPrice.value;
+    const sureBid = document.getElementById('sureBid');
+    afterPrice.value = prevPrice.value;
 
-  bidForm.setAttribute('hidden', 'hidden');
-  sureBid.removeAttribute('hidden');
-};
+    bidForm.setAttribute('hidden', 'hidden');
+    sureBid.removeAttribute('hidden');
+  };
 }
 const backBid = document.getElementById('backBid');
 if (backBid) {
@@ -42,49 +41,47 @@ if (buyForm) {
     });
     const resJson = await res.json();
     if (resJson.status === 'error') toastr.error(resJson.msg);
-    if (resJson.status === 'success') { toastr.success(resJson.msg);
-      setTimeout(function(){
+    if (resJson.status === 'success') {
+      toastr.success(resJson.msg);
+      setTimeout(function () {
         location.reload();
-    
-      }, 1500); 
+      }, 1500);
     }
   };
 }
 
 const bidForm = document.getElementById('bidForm');
-if(bidForm){
+if (bidForm) {
   bidForm.onsubmit = async function (e) {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const res = await fetch(e.target.getAttribute('action'), {
-    method: e.target.getAttribute('method'),
-    redirect: 'follow',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(formData),
-  });
-  const resJson = await res.json();
-  if (resJson.status === 'error') toastr.error(resJson.msg);
-  if (resJson.status === 'success') { toastr.success(resJson.msg);
-    setTimeout(function(){
-      location.reload();
-  
-    }, 1500); }
-    if (resJson.status === 'info') {toastr.info(resJson.msg);
-      setTimeout(function(){
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch(e.target.getAttribute('action'), {
+      method: e.target.getAttribute('method'),
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    });
+    const resJson = await res.json();
+    if (resJson.status === 'error') toastr.error(resJson.msg);
+    if (resJson.status === 'success') {
+      toastr.success(resJson.msg);
+      setTimeout(function () {
         location.reload();
-    
       }, 1500);
     }
-  
-};
+    if (resJson.status === 'info') {
+      toastr.info(resJson.msg);
+      setTimeout(function () {
+        location.reload();
+      }, 1500);
+    }
+  };
 }
 
-
-
 const likeForm1 = document.getElementById('like1');
- if (likeForm1) {
+if (likeForm1) {
   likeForm1.onsubmit = async function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -136,7 +133,7 @@ if (likeForm3) {
       },
       body: new URLSearchParams(formData),
     });
-    
+
     const resJson = await res.json();
     if (resJson.status === 'error') toastr.error(resJson.msg);
     if (resJson.status === 'success') toastr.success(resJson.msg);
@@ -195,10 +192,9 @@ function showbid() {
 
   bidLog.removeAttribute('hidden');
   bidButton.setAttribute('hidden', 'hidden');
-  if(buyButton){
+  if (buyButton) {
     buyButton.setAttribute('hidden', 'hidden');
   }
-  
 }
 
 function showbuy() {
@@ -261,3 +257,27 @@ function showUpdateField() {
   updateField.removeAttribute('hidden');
   updateButton.setAttribute('hidden', 'hidden');
 }
+
+const imgs = document.querySelectorAll('.img-select a');
+const imgBtns = [...imgs];
+let imgId = 1;
+
+imgBtns.forEach((imgItem) => {
+  imgItem.addEventListener('click', (event) => {
+    event.preventDefault();
+    imgId = imgItem.dataset.id;
+    slideImage();
+  });
+});
+
+function slideImage() {
+  const displayWidth = document.querySelector(
+    '.img-showcase img:first-child'
+  ).clientWidth;
+
+  document.querySelector('.img-showcase').style.transform = `translateX(${
+    -(imgId - 1) * displayWidth
+  }px)`;
+}
+
+window.addEventListener('resize', slideImage);

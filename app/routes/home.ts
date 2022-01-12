@@ -265,13 +265,13 @@ homeRouter.get('/product', async (req, res) => {
   const numberofPic = [];
   for (let i = 0; i < listImage.length; i++) {
     numberofPic.push({
-      value: i,
+      value: i + 1,
       secureUrl: listImage[i].secureUrl,
     });
   }
 
   res.render('product/viewDetailProduct', {
-    product: detailedProduct,
+    product: detailedProduct[0],
     listProduct: listRelatedProduct,
     auctionHistory,
     empty: auctionHistory.length === 0,
@@ -320,7 +320,7 @@ homeRouter.post('/product', async (req, res, next) => {
 
   const { userId, firstName, lastName } = user;
   const biddername = firstName + ' ' + lastName;
-  
+
   if (content === 'buyNow') {
     const buynowPrice = req.body.buyNowPrice;
     const proId = req.body.proId;
