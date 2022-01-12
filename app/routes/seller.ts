@@ -225,7 +225,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
       bidderId,
       maxPriceOfUserInHistory[0].auctionPrice
     );
-    const url = req.headers.referer || '/';
+    
     res.redirect(url);
   } else {
     const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(
@@ -259,7 +259,6 @@ sellerRouter.post('/denyBidder', async function (req, res) {
         highestUserInHistoryList[0].auctionPrice,
         highestUserHistory
       );
-
       res.redirect(url);
     } else {
       if (secondHighestUserHistory != 0) {
@@ -271,13 +270,11 @@ sellerRouter.post('/denyBidder', async function (req, res) {
           highestUserInHistoryList[1].auctionPrice,
           secondHighestUserHistory
         );
-
         res.redirect(url);
       } else {
-        console.log(basePrice);
         //Tới:
         //bidderId : là nó bị từ chối đấu giá với sản phẩm (proId) và nó không còn là người giữ giá và sẽ được không được đấu giá nữa.
-        sellerModel.denyHighestBidder(proId, bidderId, basePrice, 0);
+        sellerModel.denyHighestBidder(proId, bidderId, basePrice, null);
 
         res.redirect(url);
       }
