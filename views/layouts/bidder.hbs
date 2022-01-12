@@ -23,11 +23,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     />
   <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
   {{{section.stylesheets}}}
 </head>
 
 <body class="bg-light">
+  <div id="loading"></div>
   <header class="header">{{>nav}}</header>
   <div class="myContainer myContainer--py pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
     <div class="row m-0 flex-grow-sm-1 flex-grow-0 pt-1 w-100">
@@ -107,6 +107,11 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
   ></script>
+  <script>
+    $(document).ready(function() {
+        $('#loading').fadeOut(200);
+    });
+  </script>
   {{{section.scripts}}}
 </body>
 
