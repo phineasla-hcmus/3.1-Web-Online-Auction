@@ -49,3 +49,18 @@ $('.parent-cat').mouseleave(function () {
 // $('.childCat').mouseleave(function () {
 //   $('.childCat').collapse('hide');
 // });
+
+$(document).on('change', '#optionCategory', function (e) {
+  const id = $(this).val();
+  $('#chosenCat').val(id);
+});
+
+$(document).ready(function (e) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const category = urlParams.get('category');
+  if (category !== '') {
+    $('#chosenCat').val(category);
+    $(`#optionCategory option[value=${category}]`).attr('selected', 'selected');
+  }
+});

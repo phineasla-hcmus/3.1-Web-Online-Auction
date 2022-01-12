@@ -7,14 +7,23 @@ import passport from 'passport';
 import path from 'path';
 import './config/nodemailer';
 import './config/passport';
-import { COOKIE_MAX_AGE, DB_CONFIG, SCHEDULER_DELAY, SESSION_SECRET } from './config/secret';
-import { getCategoryList, getSubcategoryList } from './models/category.model';
+import {
+  COOKIE_MAX_AGE,
+  DB_CONFIG,
+  SCHEDULER_DELAY,
+  SESSION_SECRET,
+} from './config/secret';
+import {
+  getCategories,
+  getCategoryList,
+  getSubcategoryList,
+} from './models/category.model';
 import productModel from './models/product.model';
 import { RoleType } from './models/role.model';
 import {
   downgradeSeller,
   findExpiredSeller,
-  findUserById
+  findUserById,
 } from './models/user.model';
 import adminRouter from './routes/admin';
 import loginRouter from './routes/auth/login';
@@ -26,14 +35,14 @@ import userRouter from './routes/user';
 import {
   sendSellerAuctionEnded,
   sendSellerNoSale,
-  sendWinner
+  sendWinner,
 } from './utils/email';
 import hbs from './utils/hbs';
 import {
   mustbeAdmin,
   mustbeSeller,
   mustLoggedIn,
-  mustLoggedOut
+  mustLoggedOut,
 } from './utils/middleware';
 
 const app = express();
@@ -110,6 +119,7 @@ app.use((req, res, next) => {
 app.use(async function (req, res, next) {
   res.locals.parentCategories = await getCategoryList();
   res.locals.childCategories = await getSubcategoryList();
+  res.locals.categories = await getCategories();
   next();
 });
 

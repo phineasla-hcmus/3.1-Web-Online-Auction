@@ -5,6 +5,7 @@ import bidderModel from '../models/bidder.model';
 import {
   findCategory,
   findParentCategoryByKeyword,
+  getCategories,
   getChildCategories,
   getParentCategories,
 } from '../models/category.model';
@@ -536,11 +537,20 @@ homeRouter.post('/product', async (req, res, next) => {
 
 homeRouter.get('/search', async (req, res) => {
   const keyword = req.query.keyword;
+  const catId = req.query.category ? +req.query.category : 0;
+  let parentCat = false;
+  const category = await findCategory(catId);
+  if (category?.parentId === null) parentCat = true;
+
   const sortby = req.query.sortby;
   if (keyword) {
     let list = [];
 
-    let amountPro: any = await productModel.countProductByKeyword(keyword);
+    let amountPro: any = await productModel.countProductByKeyword(
+      keyword,
+      catId,
+      parentCat
+    );
     amountPro = amountPro.length;
 
     const limitpage = 5;
@@ -556,56 +566,66 @@ homeRouter.get('/search', async (req, res) => {
       list = await productModel.findProductByExpiredDate(
         keyword,
         offset,
-        limitpage
+        limitpage,
+        catId,
+        parentCat
       );
     } else if (sortby === 'price') {
-      list = await productModel.findProductByPrice(keyword, offset, limitpage);
+      list = await productModel.findProductByPrice(
+        keyword,
+        offset,
+        limitpage,
+        catId,
+        parentCat
+      );
     } else
       list = await productModel.findProductByKeyword(
         keyword,
         offset,
-        limitpage
+        limitpage,
+        catId,
+        parentCat
       );
 
     // parent categories
-    if (list[0] === undefined) {
-      const category = await findParentCategoryByKeyword(keyword);
-      if (category[0] !== undefined) {
-        amountPro = await productModel.countProductByKeywordAndParentCat(
-          keyword,
-          category[0].catId
-        );
-        amountPro = amountPro.length;
+    // if (list[0] === undefined) {
+    //   const category = await findParentCategoryByKeyword(keyword);
+    //   if (category[0] !== undefined) {
+    //     amountPro = await productModel.countProductByKeywordAndParentCat(
+    //       keyword,
+    //       category[0].catId
+    //     );
+    //     amountPro = amountPro.length;
 
-        numPage = Math.floor(amountPro / limitpage);
-        if (amountPro % limitpage != 0) numPage++;
+    //     numPage = Math.floor(amountPro / limitpage);
+    //     if (amountPro % limitpage != 0) numPage++;
 
-        offset = (page - 1) * limitpage;
+    //     offset = (page - 1) * limitpage;
 
-        if (sortby === 'date') {
-          list = await productModel.findProductByExpiredDateAndParentCat(
-            keyword,
-            offset,
-            limitpage,
-            category[0].catId
-          );
-        } else if (sortby === 'price') {
-          list = await productModel.findProductByPriceAndParentCat(
-            keyword,
-            offset,
-            limitpage,
-            category[0].catId
-          );
-        } else {
-          list = await productModel.findProductByKeywordAndParentCat(
-            keyword,
-            category[0].catId,
-            offset,
-            limitpage
-          );
-        }
-      }
-    }
+    //     if (sortby === 'date') {
+    //       list = await productModel.findProductByExpiredDateAndParentCat(
+    //         keyword,
+    //         offset,
+    //         limitpage,
+    //         category[0].catId
+    //       );
+    //     } else if (sortby === 'price') {
+    //       list = await productModel.findProductByPriceAndParentCat(
+    //         keyword,
+    //         offset,
+    //         limitpage,
+    //         category[0].catId
+    //       );
+    //     } else {
+    //       list = await productModel.findProductByKeywordAndParentCat(
+    //         keyword,
+    //         category[0].catId,
+    //         offset,
+    //         limitpage
+    //       );
+    //     }
+    //   }
+    // }
 
     const userId = res.locals.user ? res.locals.user.userId : 0;
     if (userId != 0) {

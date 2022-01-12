@@ -229,195 +229,319 @@ export default {
   async findProductByKeyword(
     keyword: string | any,
     offset: number,
-    limit: number
-  ) {
-    return db('products')
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .join('categories', {
-        'products.catId': 'categories.catId',
-      })
-      .where(function () {
-        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
-          db.raw('match(proName) against(?)', [`${keyword}`])
-        );
-      })
-      .andWhere('products.expiredDate', '>=', new Date())
-      .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .limit(limit)
-      .offset(offset)
-      .select(
-        'products.*',
-        'users.firstName',
-        'users.lastName',
-        'categories.catId',
-        'secureUrl'
-      );
-  },
-  async findProductByKeywordAndParentCat(
-    keyword: string | any,
+    limit: number,
     catId: number,
-    offset: number,
-    limit: number
+    parentCat: boolean
   ) {
-    return db('categories')
-      .leftJoin('products', {
-        'categories.catId': 'products.catId',
-      })
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .where(function () {
-        this.where('categories.parentId', catId).andWhere(
-          'products.expiredDate',
-          '>=',
-          new Date()
-        );
-      })
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
-      .limit(limit)
-      .offset(offset);
+    if (catId === 0) {
+      return db('products')
+        .leftJoin('productImages', {
+          'products.thumbnailId': 'productImages.imgId',
+        })
+        .where(db.raw('match(proName) against(?)', [`${keyword}`]))
+        .andWhere('products.expiredDate', '>=', new Date())
+        .leftJoin('users', { 'products.bidderId': 'users.userId' })
+        .limit(limit)
+        .offset(offset)
+        .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl');
+    } else {
+      if (parentCat) {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .join('categories', { 'products.catId': 'categories.catId' })
+          .where(function () {
+            this.where('categories.parentId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      } else {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .where(function () {
+            this.where('products.catId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      }
+    }
   },
+  // async findProductByKeywordAndParentCat(
+  //   keyword: string | any,
+  //   catId: number,
+  //   offset: number,
+  //   limit: number
+  // ) {
+  //   return db('categories')
+  //     .leftJoin('products', {
+  //       'categories.catId': 'products.catId',
+  //     })
+  //     .leftJoin('productImages', {
+  //       'products.thumbnailId': 'productImages.imgId',
+  //     })
+  //     .where(function () {
+  //       this.where('categories.parentId', catId).andWhere(
+  //         'products.expiredDate',
+  //         '>=',
+  //         new Date()
+  //       );
+  //     })
+  //     .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+  //     .limit(limit)
+  //     .offset(offset);
+  // },
   async findProductByExpiredDate(
     keyword: string | any,
     offset: number,
-    limit: number
-  ) {
-    return db('products')
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .join('categories', {
-        'products.catId': 'categories.catId',
-      })
-      .where(function () {
-        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
-          db.raw('match(proName) against(?)', [`${keyword}`])
-        );
-      })
-      .andWhere('products.expiredDate', '>=', new Date())
-      .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .orderBy('expiredDate', 'desc')
-      .limit(limit)
-      .offset(offset)
-      .select(
-        'products.*',
-        'users.firstName',
-        'users.lastName',
-        'categories.catId',
-        'secureUrl'
-      );
-  },
-  async findProductByExpiredDateAndParentCat(
-    keyword: string | any,
-    offset: number,
     limit: number,
-    catId: number
+    catId: number,
+    parentCat: boolean
   ) {
-    return db('categories')
-      .leftJoin('products', {
-        'categories.catId': 'products.catId',
-      })
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .where(function () {
-        this.where('categories.parentId', catId).andWhere(
-          'products.expiredDate',
-          '>=',
-          new Date()
-        );
-      })
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
-      .orderBy('expiredDate', 'desc')
-      .limit(limit)
-      .offset(offset);
+    if (catId === 0) {
+      return db('products')
+        .leftJoin('productImages', {
+          'products.thumbnailId': 'productImages.imgId',
+        })
+        .where(db.raw('match(proName) against(?)', [`${keyword}`]))
+        .andWhere('products.expiredDate', '>=', new Date())
+        .leftJoin('users', { 'products.bidderId': 'users.userId' })
+        .orderBy('expiredDate', 'desc')
+        .limit(limit)
+        .offset(offset)
+        .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl');
+    } else {
+      if (parentCat) {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .join('categories', { 'products.catId': 'categories.catId' })
+          .where(function () {
+            this.where('categories.parentId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .orderBy('expiredDate', 'desc')
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      } else {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .where(function () {
+            this.where('products.catId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .orderBy('expiredDate', 'desc')
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      }
+    }
   },
+  // async findProductByExpiredDateAndParentCat(
+  //   keyword: string | any,
+  //   offset: number,
+  //   limit: number,
+  //   catId: number
+  // ) {
+  //   return db('categories')
+  //     .leftJoin('products', {
+  //       'categories.catId': 'products.catId',
+  //     })
+  //     .leftJoin('productImages', {
+  //       'products.thumbnailId': 'productImages.imgId',
+  //     })
+  //     .where(function () {
+  //       this.where('categories.parentId', catId).andWhere(
+  //         'products.expiredDate',
+  //         '>=',
+  //         new Date()
+  //       );
+  //     })
+  //     .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+  //     .orderBy('expiredDate', 'desc')
+  //     .limit(limit)
+  //     .offset(offset);
+  // },
   async findProductByPrice(
     keyword: string | any,
     offset: number,
-    limit: number
-  ) {
-    return db('products')
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .join('categories', {
-        'products.catId': 'categories.catId',
-      })
-      .where(function () {
-        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
-          db.raw('match(proName) against(?)', [`${keyword}`])
-        );
-      })
-      .andWhere('products.expiredDate', '>=', new Date())
-      .leftJoin('users', { 'products.bidderId': 'users.userId' })
-      .orderBy('currentPrice', 'asc')
-      .limit(limit)
-      .offset(offset)
-      .select(
-        'products.*',
-        'users.firstName',
-        'users.lastName',
-        'categories.catId',
-        'secureUrl'
-      );
-  },
-  async findProductByPriceAndParentCat(
-    keyword: string | any,
-    offset: number,
     limit: number,
-    catId: number
+    catId: number,
+    parentCat: boolean
   ) {
-    return db('categories')
-      .leftJoin('products', {
-        'categories.catId': 'products.catId',
-      })
-      .leftJoin('productImages', {
-        'products.thumbnailId': 'productImages.imgId',
-      })
-      .where(function () {
-        this.where('categories.parentId', catId).andWhere(
-          'products.expiredDate',
-          '>=',
-          new Date()
-        );
-      })
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
-      .orderBy('currentPrice', 'asc')
-      .limit(limit)
-      .offset(offset);
+    if (catId === 0) {
+      return db('products')
+        .leftJoin('productImages', {
+          'products.thumbnailId': 'productImages.imgId',
+        })
+        .where(db.raw('match(proName) against(?)', [`${keyword}`]))
+        .andWhere('products.expiredDate', '>=', new Date())
+        .leftJoin('users', { 'products.bidderId': 'users.userId' })
+        .orderBy('currentPrice', 'asc')
+        .limit(limit)
+        .offset(offset)
+        .select('products.*', 'users.firstName', 'users.lastName', 'secureUrl');
+    } else {
+      if (parentCat) {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .join('categories', { 'products.catId': 'categories.catId' })
+          .where(function () {
+            this.where('categories.parentId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .orderBy('currentPrice', 'asc')
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      } else {
+        return db('products')
+          .leftJoin('productImages', {
+            'products.thumbnailId': 'productImages.imgId',
+          })
+          .where(function () {
+            this.where('products.catId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date())
+          .leftJoin('users', { 'products.bidderId': 'users.userId' })
+          .orderBy('currentPrice', 'asc')
+          .limit(limit)
+          .offset(offset)
+          .select(
+            'products.*',
+            'users.firstName',
+            'users.lastName',
+            'secureUrl'
+          );
+      }
+    }
   },
-  async countProductByKeyword(keyword: string | any) {
-    return db('products')
-      .join('categories', {
-        'products.catId': 'categories.catId',
-      })
-      .where(function () {
-        this.where(db.raw('match(catName) against(?)', [`${keyword}`])).orWhere(
-          db.raw('match(proName) against(?)', [`${keyword}`])
-        );
-      })
-      .andWhere('products.expiredDate', '>=', new Date());
-  },
-  async countProductByKeywordAndParentCat(
+  // async findProductByPriceAndParentCat(
+  //   keyword: string | any,
+  //   offset: number,
+  //   limit: number,
+  //   catId: number
+  // ) {
+  //   return db('categories')
+  //     .leftJoin('products', {
+  //       'categories.catId': 'products.catId',
+  //     })
+  //     .leftJoin('productImages', {
+  //       'products.thumbnailId': 'productImages.imgId',
+  //     })
+  //     .where(function () {
+  //       this.where('categories.parentId', catId).andWhere(
+  //         'products.expiredDate',
+  //         '>=',
+  //         new Date()
+  //       );
+  //     })
+  //     .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]))
+  //     .orderBy('currentPrice', 'asc')
+  //     .limit(limit)
+  //     .offset(offset);
+  // },
+  async countProductByKeyword(
     keyword: string | any,
-    catId: number
+    catId: number,
+    parentCat: boolean
   ) {
-    return db('categories')
-      .leftJoin('products', {
-        'categories.catId': 'products.catId',
-      })
-      .where(function () {
-        this.where('categories.parentId', catId).andWhere(
-          'products.expiredDate',
-          '>=',
-          new Date()
-        );
-      })
-      .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
+    if (catId === 0) {
+      return db('products')
+        .where(db.raw('match(proName) against(?)', [`${keyword}`]))
+        .andWhere('products.expiredDate', '>=', new Date());
+    } else {
+      if (parentCat) {
+        return db('products')
+          .join('categories', { 'products.catId': 'categories.catId' })
+          .where(function () {
+            this.where('categories.parentId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date());
+      } else {
+        return db('products')
+          .where(function () {
+            this.where('products.catId', catId).andWhere(
+              db.raw('match(proName) against(?)', [`${keyword}`])
+            );
+          })
+          .andWhere('products.expiredDate', '>=', new Date());
+      }
+    }
   },
+  // async countProductByKeywordAndParentCat(
+  //   keyword: string | any,
+  //   catId: number
+  // ) {
+  //   return db('categories')
+  //     .leftJoin('products', {
+  //       'categories.catId': 'products.catId',
+  //     })
+  //     .where(function () {
+  //       this.where('categories.parentId', catId).andWhere(
+  //         'products.expiredDate',
+  //         '>=',
+  //         new Date()
+  //       );
+  //     })
+  //     .orWhere(db.raw('match(proName) against(?)', [`${keyword}`]));
+  // },
   async getAuctionHistory(proId: any) {
     return db('auctionHistory')
       .join('products AS pro', { 'auctionHistory.proId': 'pro.proId' })

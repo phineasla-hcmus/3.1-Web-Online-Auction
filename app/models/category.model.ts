@@ -44,3 +44,7 @@ export async function getParentCategories() {
 export async function getChildCategories() {
   return knex('categories').whereNot('parentId', null);
 }
+
+export async function getCategories() {
+  return knex('categories');
+}

@@ -37,3 +37,12 @@ $(document).on('click', '.page-next', function () {
   $('#sortby').val(option);
   $('#sortOption').submit();
 });
+
+$(document).ready(function (e) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const category = urlParams.get('category');
+  if (category !== '') {
+    $('#cat').val(category);
+  }
+});
