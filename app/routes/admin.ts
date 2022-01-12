@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import adminModel from '../models/admin.model';
 import bidderModel from '../models/bidder.model';
+import productModel from '../models/product.model';
 import { RoleType } from '../models/role.model';
 import { findUserById, updateUser, USER_BASIC } from '../models/user.model';
 
@@ -345,14 +346,20 @@ adminRouter.post('/deleteUser', async function (req, res) {
   //-> cập nhật currentPrice, numberOfBids và bidderId
   for (let i = 0; i < biddingList.length; i++) {
     const highestBid = await adminModel.getHighestBid(biddingList[i].proId);
-    const bidderId = highestBid[0].userId;
+    const bidderId = highestBid.length === 0 ? null : highestBid[0].userId;
     const currentBid = await adminModel.getCurrentPrice(biddingList[i].proId);
-    const currentPrice = currentBid[0].auctionPrice;
+    let currentPrice = 0;
+    if (currentBid.length === 0) {
+      const product = await productModel.findProductbyId(biddingList[i].proId);
+      currentPrice = product[0].basePrice;
+    } else {
+      currentPrice = currentBid[0].auctionPrice;
+    }
     const numberOfBids = await adminModel.getNumberOfBids(biddingList[i].proId);
     await adminModel.updateProduct(
       biddingList[i].proId,
       currentPrice,
-      +numberOfBids,
+      +numberOfBids > 0 ? +numberOfBids : 0,
       bidderId
     );
   }
