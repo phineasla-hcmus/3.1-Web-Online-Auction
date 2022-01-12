@@ -30,6 +30,7 @@ const hbs = create({
     isDeniedUser,
     isBuyNowPrice,
     isNotExpired,
+    existBidder
   },
 });
 
@@ -91,7 +92,9 @@ function maskBidderName(bidderName: string) {
   }
   return '';
 }
-
+function existBidder(bidderid: string){
+  return bidderid!=null;
+}
 function isFavorite(proId: any, listFavorite: any) {
   return listFavorite.some(function (e1: any) {
     return e1.proId === proId;
