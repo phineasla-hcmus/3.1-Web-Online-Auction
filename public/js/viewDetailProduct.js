@@ -1,3 +1,4 @@
+
 const prevBidAction = document.getElementById('prevBidAction');
 if (prevBidAction) {
   prevBidAction.onclick = function (e) {

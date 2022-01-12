@@ -12,7 +12,7 @@
                             {{/each}}
                         </div>
                     </div>
-                    <div class="img-select owl-carousel owl-theme">
+                    <div class="img-select">
                         {{#each amountPic as |pics|}}
                             <div class="img-item">
                                 <a href="#" data-id="{{pics.value}}">
@@ -446,10 +446,20 @@
         //loop:true,
         margin: 10,
         nav: true,
-        responsive: {
+       responsive: {
             0: {
+                items: 1
+            },
+            375: {
+                items: 2,
+            },
+            700: {
+                items: 3,
+            },
+            1200: {
                 items: 5,
             },
+
         },
     });
 
