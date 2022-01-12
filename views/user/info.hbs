@@ -6,7 +6,7 @@
           class="fa fa-envelope pe-2 text-warning"
           aria-hidden="true"
         ></i>
-        <span style="font-size: 14px;" class="h6">{{currentuser.email}}</span>
+        <span class="h6">{{currentuser.email}}</span>
       </p>
       <button
         style="padding: 0.25rem 0.3rem"
@@ -71,8 +71,12 @@
     </div>
     <div class="d-flex align-items-center mt-2 justify-content-between">
       <p class="h6 me-2">
-        <i class="fa fa-user pe-3 text-warning" aria-hidden="true"></i>
-        <span style="font-size: 14px;" class="h6">{{currentuser.firstName}}
+        <i
+          style="width: 1.5rem;"
+          class="fa fa-user pe-3 text-warning"
+          aria-hidden="true"
+        ></i>
+        <span class="h6">{{currentuser.firstName}}
           {{currentuser.lastName}}</span>
       </p>
       <button
@@ -117,11 +121,18 @@
     </div>
     <div class="d-flex align-items-center mt-2 justify-content-between">
       <p class="h6 me-2">
-        <i class="fa fa-birthday-cake pe-3 text-warning" aria-hidden="true"></i>
-        <span style="font-size: 14px;" class="h6">{{parseDob
-            currentuser.dob
-          }}</span>
+        <i
+          style="width: 1.5rem;"
+          class="fa fa-birthday-cake pe-3 text-warning"
+          aria-hidden="true"
+        ></i>
+        <span class="h6">{{parseDob currentuser.dob}}</span>
       </p>
+      <input
+        id="dateOfBirth"
+        type="hidden"
+        value={{parseDatePicker currentuser.dob}}
+      />
       <button
         style="padding: 0.25rem 0.3rem"
         id="btnEditDob"
@@ -152,7 +163,11 @@
     </div>
     <div class="d-flex h4 mt-2 justify-content-between">
       <div>
-        <i class="h6 fa fa-lock pe-2 text-warning" aria-hidden="true"></i>
+        <i
+          style="width: 1.5rem;"
+          class="h6 fa fa-lock pe-2 text-warning"
+          aria-hidden="true"
+        ></i>
         <input
           style="background: none; display: inline-block; width: fit-content; padding: 0.25rem 0.3rem"
           class="form-control"
@@ -215,7 +230,7 @@
       action="/auth/recovery/request-verify"
       method="post"
     >
-      <button type="submit" class="btn btn-link px-0">Forgot Password</button>
+      <button type="submit" class="btn btn-secondary mt-2">Forgot Password</button>
     </form>
 
     {{#if (isBidder currentuser.roleId)}}
@@ -232,7 +247,6 @@
           />
           <button
             id="btnUpgrade"
-            style="margin: 0 auto;"
             class="btn header__btn d-block mt-3"
             type="submit"
           >Upgrade to seller</button>
@@ -274,7 +288,8 @@
     $('#btnCloseVerifyEmail').on('click', function(e) {
     $('#verifyFormWrapper').removeClass('d-block'); })
     $('#btnEditPass').on('click', function (e) {
-    $('#passFormWrapper').addClass('d-block'); })
+    $('#passFormWrapper').addClass('d-block'); });//////////////////
+    $('#dob').datepicker("setDate", new Date($('#dateOfBirth').val()));
   </script>
   <script src="/public/js/user/info.js"></script>
 {{/section}}

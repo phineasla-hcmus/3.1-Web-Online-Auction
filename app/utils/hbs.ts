@@ -9,6 +9,7 @@ const hbs = create({
     isChildOf,
     parseDate,
     parseDob,
+    parseDatePicker,
     getRemainingTime,
     maskBidderName,
     section,
@@ -28,12 +29,12 @@ const hbs = create({
     isSellerOfThis,
     isDeniedUser,
     isBuyNowPrice,
-    isNotExpired
+    isNotExpired,
   },
 });
 
 export default hbs;
-function isBuyNowPrice(price : number){
+function isBuyNowPrice(price: number) {
   return price != null;
 }
 
@@ -49,6 +50,11 @@ function parseDate(date: string) {
 function parseDob(date: string) {
   let d = new Date(date);
   return moment(d).format('DD/MM/YYYY');
+}
+
+function parseDatePicker(date: string) {
+  let d = new Date(date);
+  return moment(d).format('MM/DD/YYYY');
 }
 
 function getRemainingTime(date: string) {
@@ -152,10 +158,10 @@ function isDeniedUser(listDenied: any, userId: any) {
   return false;
 }
 
-function isNotExpired(ExpiredDate : string){
+function isNotExpired(ExpiredDate: string) {
   var exDate = new Date(ExpiredDate);
   var curDate = new Date();
-  return  exDate >= curDate;
+  return exDate >= curDate;
 }
 /**
  * [handlebars-section](https://wolfgang-ziegler.com/blog/a-scripts-section-for-your-handlebars-layout-template)
