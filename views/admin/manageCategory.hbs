@@ -57,14 +57,10 @@
                                         aria-hidden="true"></i>
                                 </button>
                             </form>
-
-                            <form style="display: inline;" method="post" action="/admin/manage/categories">
-                                <input type="hidden" value="deleteRootCate" name="content">
-                                <input type="hidden" value="{{parent.catId}}" name="rootCateId">
-                                <button type="submit" class="btn btn-danger">
+                            <button data-id="{{parent.catId}}" class="btn btn-danger deleteRootCate">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button>
-                            </form>
+                            </button>
+                           
                         </div>
 
                     </span>
@@ -88,13 +84,8 @@
                                 <button type="submit" class="btn btn-primary" style="font-size: 15px;"><i class="fa fa-pencil-square-o"
                                         aria-hidden="true"></i></button>
                             </form>
-
-                            <form method="post" action="/admin/manage/categories">
-                                <input type="hidden" value="deleteChildCate" name="content">
-                                <input type="hidden" value="{{child.catId}}" name="childCateId">
-                                <button type="submit" class="btn btn-danger" style="font-size: 15px;"> <i class="fa fa-trash-o"
+                            <button class="btn btn-danger deleteChildCate" style="font-size: 15px;" data-id="{{child.catId}}"> <i class="fa fa-trash-o"
                                         aria-hidden="true"></i></button>
-                            </form>
                         </span>
                     </div>
                 
@@ -107,6 +98,35 @@
         </li>
         {{/each}}
     </ul>
+    <form id="deleteRootCate" method="post" action="/admin/manage/categories">
+        <input type="hidden" value="deleteRootCate" name="content">
+        <input id="rootCateId" type="hidden" name="rootCateId">    
+    </form>
+    <form id="deleteChildCate" method="post" action="/admin/manage/categories">
+        <input type="hidden" value="deleteChildCate" name="content">
+        <input id="childCateId" type="hidden" name="childCateId">
+        
+    </form>
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+        <div style="top: 50%; transform: translateY(-50%)" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="confirmMessage">
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-default"
+                        id="confirmOk"
+                    >Ok</button>
+                    <button
+                        type="button"
+                        class="btn btn-default"
+                        id="confirmCancel"
+                    >Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {{#section "scripts"}}
 <script src="/public/js/admin/manageCategory.js"></script>

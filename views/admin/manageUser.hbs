@@ -66,14 +66,14 @@
                       <td><a
                           data-id="{{item.userId}}"
                           href="javascript:;"
-                          class="btn btn-danger deleteUser"
+                          class="btn btn-sm btn-danger deleteUser"
                         ><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                       {{#if (isSeller item.roleId)}}
                         <td class="downgrade-wrapper">
                           <a
                             data-id="{{item.userId}}"
                             href="javascript:;"
-                            class="btn btn-danger downgrade"
+                            class="btn btn-sm btn-danger downgrade"
                           >Downgrade</a>
                         </td>
                       {{/if}}
@@ -89,13 +89,6 @@
                 aria-label="..."
               >
                 <ul class="pagination">
-                  {{! <li class="page-item">
-                    <a
-                      class="page-link"
-                      href="javascript:;"
-                      data-value="Previous"
-                    ><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-                  </li> }}
                   {{#each pagesUser}}
                     <li class="page-item"><a
                         role="button"
@@ -103,14 +96,6 @@
                         href="javascript:;"
                       >{{value}}</a></li>
                   {{/each}}
-                  {{! <li class="page-item">
-                    <a
-                      class="page-link"
-                      href="javascript:;"
-                      data-id="2"
-                      data-value="Next"
-                    ><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                  </li> }}
                 </ul>
               </nav>
             </div>
@@ -164,7 +149,7 @@
                           <li><a
                               data-id="{{item.userId}}"
                               href="#"
-                              class="btn btn-success approveRequest"
+                              class="btn btn-sm btn-success approveRequest"
                             ><i
                                 class="fa fa-check"
                                 aria-hidden="true"
@@ -172,7 +157,7 @@
                           <li><a
                               data-id="{{item.userId}}"
                               href="#"
-                              class="btn btn-danger declineRequest"
+                              class="btn btn-sm btn-danger declineRequest"
                             ><i class="fa fa-times"></i></a></li>
                         </ul>
                       </td>
@@ -188,12 +173,6 @@
                 aria-label="..."
               >
                 <ul class="pagination">
-                  {{! <li class="page-item">
-                    <a class="page-link" href="javascript:;"><i
-                        class="fa fa-chevron-left"
-                        aria-hidden="true"
-                      ></i></a>
-                  </li> }}
                   {{#each pagesRequest}}
                     <li class="page-item"><a
                         role="button"
@@ -201,12 +180,6 @@
                         href="javascript:;"
                       >{{value}}</a></li>
                   {{/each}}
-                  {{! <li class="page-item">
-                    <a class="page-link" href="javascript:;" data-id="2"><i
-                        class="fa fa-chevron-right"
-                        aria-hidden="true"
-                      ></i></a>
-                  </li> }}
                 </ul>
               </nav>
             </div>
@@ -214,5 +187,25 @@
         </div>
       </div>
     {{/if}}
+  </div>
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div style="top: 50%; transform: translateY(-50%)" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body" id="confirmMessage">
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default"
+            id="confirmOk"
+          >Ok</button>
+          <button
+            type="button"
+            class="btn btn-default"
+            id="confirmCancel"
+          >Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

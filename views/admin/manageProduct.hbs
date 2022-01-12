@@ -170,16 +170,17 @@
     </div>
 
     <div class="d-flex justify-content-center mt-3">
-      <form method="post" action="/admin/deleteProduct">
+      <form id="deleteAll" method="post" action="/admin/deleteProduct">
         {{#each this.listDisable as |list|}}
           <input type="hidden" value="{{list.proId}}" name="productList" />
         {{/each}}
 
         <input type="hidden" value="delete" name="content" />
-        <button class="btn btn-danger" type="submit">
-          <i class="fa fa-trash-o" aria-hidden="true"> Delete all</i>
-        </button>
+
       </form>
+      <button class="btn btn-danger deleteAll">
+        <i class="fa fa-trash-o" aria-hidden="true"> Delete all</i>
+      </button>
       <span>&nbsp; &nbsp;</span>
 
       <form method="post" action="/admin/deleteProduct">
@@ -194,6 +195,26 @@
       </form>
     </div>
   {{/if}}
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div style="top: 50%; transform: translateY(-50%)" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body" id="confirmMessage">
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default"
+            id="confirmOk"
+          >Ok</button>
+          <button
+            type="button"
+            class="btn btn-default"
+            id="confirmCancel"
+          >Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {{#section "scripts"}}
 

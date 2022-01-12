@@ -112,11 +112,32 @@ $(document).on('click', '#paginatorProduct a', function (e) {
 });
 
 $(document).on('click', '.deleteProduct', function (e) {
-  e.preventDefault();
   const id = $(this).data('id');
   $('#txtDeleteProduct').val(id);
-  $('#deleteProduct').submit();
+  confirmDialog('Are you sure you want to delete this product?', function () {
+    $('#deleteProduct').submit();
+  });
 });
+
+$(document).on('click', '.deleteAll', function (e) {
+  confirmDialog(
+    'Are you sure you want to delete all disabled products?',
+    function () {
+      $('#deleteAll').submit();
+    }
+  );
+});
+
+function confirmDialog(message, onConfirm) {
+  var fClose = function () {
+    modal.modal('hide');
+  };
+  var modal = $('#confirmModal');
+  modal.modal('show');
+  $('#confirmMessage').empty().append(message);
+  $('#confirmOk').unbind().one('click', onConfirm).one('click', fClose);
+  $('#confirmCancel').unbind().one('click', fClose);
+}
 
 $(document).on('click', '.recoveryProduct', function (e) {
   e.preventDefault();
