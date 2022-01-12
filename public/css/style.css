@@ -483,7 +483,12 @@ ul.nav-pills li a:hover {
   }
 }
 .header__content form {
-  width: 80%;
+  width: 65%;
+}
+@media (min-width: 40em) {
+  .header__content form {
+    width: 80%;
+  }
 }
 .header__btn {
   background-color: #fdb03d;
@@ -790,9 +795,9 @@ ul.nav-pills li a:hover {
   display: block;
   position: relative;
   margin-bottom: 30px;
-  -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
   max-width: 10.375rem;
 }
 @media (max-width: 39.9375em) {
@@ -1007,15 +1012,6 @@ ul.nav-pills li a:hover {
 @media (max-width: 39.9375em) {
   #products-search-result .products__item--content {
     max-width: 10rem;
-  }
-}
-
-.content__wrapper {
-  margin-left: 50px;
-}
-@media (max-width: 39.9375em) {
-  .content__wrapper {
-    margin-left: 0;
   }
 }
 
