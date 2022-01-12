@@ -956,10 +956,21 @@ ul.nav-pills li a:hover {
 }
 .products__favorite, .products__bidding, .products__winning {
   height: fit-content;
+  display: grid;
+  gap: 0.25rem;
+}
+@media (min-width: 87.5em) {
+  .products__favorite, .products__bidding, .products__winning {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media (max-width: 39.9375em) {
+  .products__favorite, .products__bidding, .products__winning {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (min-width: 64em) {
   .products__favorite, .products__bidding, .products__winning {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
   }

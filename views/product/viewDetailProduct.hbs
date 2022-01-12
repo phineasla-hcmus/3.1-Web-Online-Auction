@@ -409,6 +409,14 @@
             {{/if}}
         </div>
         {{/if}}
+        <div class="products__related mt-3">
+            <h2 class="products__title fw-bold">Related Product</h2>
+            <div style="padding-left: 0" class="products__content owl-carousel owl-theme related-product">
+                {{#each this.listProduct}}
+                {{>product product=this}}
+                {{/each}}
+            </div>
+        </div>
         </div>
     </div>
     </div>

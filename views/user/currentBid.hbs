@@ -3,7 +3,7 @@
     {{#if empty}}
         <div class="alert alert-info">You have not bid for any products yet</div>
     {{else}}
-        <div class="products__content">
+        <div class="products__bidding">
             {{#each this.productList}}
                 {{>product product=this user=../user}}
             {{/each}}
