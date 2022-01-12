@@ -337,8 +337,22 @@
   &__bidding,
   &__winning {
     height: fit-content;
+    display: grid;
+    gap: 0.25rem;
+    // @include breakpoint-up(medium) {
+    //   padding-left: 50px;
+    //   grid-template-columns: repeat(3, 1fr);
+    // }
+    // @include breakpoint-up(large) {
+    //   grid-template-columns: repeat(4, 1fr);
+    // }
+    @include breakpoint-up(xlarge) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    @include breakpoint-down(small) {
+      grid-template-columns: repeat(2, 1fr);
+    }
     @include breakpoint-up(large) {
-      display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
