@@ -416,6 +416,12 @@ ul.nav-pills li a:hover {
   margin-right: 0 !important;
 }
 
+@media (min-width: 40em) {
+  .content__wrapper {
+    padding-right: 0;
+  }
+}
+
 @media (max-width: 39.9375em) {
   .email-title,
 .email-content,

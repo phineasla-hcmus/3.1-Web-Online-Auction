@@ -369,3 +369,9 @@ ul.nav-pills li a:hover {
     // margin-right: 1.25rem !important;
   }
 }
+
+.content__wrapper {
+  @include breakpoint-up(medium) {
+    padding-right: 0;
+  }
+}
