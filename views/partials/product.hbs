@@ -62,7 +62,12 @@
 
             {{#if (isBidderOrSeller user.roleId)}}
               {{#if (isFavorite proId FavoriteProduct)}}
-                <form id="likebutton1{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product">
+                <form
+                  id="likebutton1{{proId}}{{typeHome}}"
+                  method="post"
+                  style="text-align: end;"
+                  action="/product"
+                >
                   <button
                     class="likebtn"
                     type="submit"
@@ -72,21 +77,18 @@
               background-repeat: no-repeat;
               border: none;"
                   >
-                    <span class="fa fa-heart" ></span>
-                    <input
-                      type="hidden"
-                      value="unlike"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-                      value="{{proId}}"
-                      name="proId"
-                    />
+                    <span class="fa fa-heart"></span>
+                    <input type="hidden" value="unlike" name="content" />
+                    <input type="hidden" value="{{proId}}" name="proId" />
                   </button>
                 </form>
 
-                <form id="likebutton2{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product" > 
+                <form
+                  id="likebutton2{{proId}}{{typeHome}}"
+                  method="post"
+                  style="text-align: end;"
+                  action="/product"
+                >
                   <button
                     class="likebtn"
                     type="submit"
@@ -98,22 +100,17 @@
                     hidden
                   >
                     <span class="fa fa-heart-o"></span>
-                    <input
-                      type="hidden"
-     
-                      value="like"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-             
-                      value="{{proId}}"
-                      name="proId"
-                    />
+                    <input type="hidden" value="like" name="content" />
+                    <input type="hidden" value="{{proId}}" name="proId" />
                   </button>
                 </form>
               {{else}}
-                <form id="likebutton3{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product" >
+                <form
+                  id="likebutton3{{proId}}{{typeHome}}"
+                  method="post"
+                  style="text-align: end;"
+                  action="/product"
+                >
                   <button
                     class="likebtn"
                     type="submit"
@@ -123,22 +120,17 @@
               background-repeat: no-repeat;
               border: none;"
                   >
-                    <span class="fa fa-heart-o" ></span>
-                    <input
-                      type="hidden"
-               
-                      value="like"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-            
-                      value="{{proId}}"
-                      name="proId"
-                    />
+                    <span class="fa fa-heart-o"></span>
+                    <input type="hidden" value="like" name="content" />
+                    <input type="hidden" value="{{proId}}" name="proId" />
                   </button>
                 </form>
-                <form id="likebutton4{{proId}}{{typeHome}}" method="post" style="text-align: end;" action="/product">
+                <form
+                  id="likebutton4{{proId}}{{typeHome}}"
+                  method="post"
+                  style="text-align: end;"
+                  action="/product"
+                >
                   <button
                     class="likebtn"
                     type="submit"
@@ -149,19 +141,9 @@
               border: none;"
                     hidden
                   >
-                    <span class="fa fa-heart" ></span>
-                    <input
-                      type="hidden"
-                     
-                      value="unlike"
-                      name="content"
-                    />
-                    <input
-                      type="hidden"
-               
-                      value="{{proId}}"
-                      name="proId"
-                    />
+                    <span class="fa fa-heart"></span>
+                    <input type="hidden" value="unlike" name="content" />
+                    <input type="hidden" value="{{proId}}" name="proId" />
                   </button>
                 </form>
               {{/if}}
@@ -173,7 +155,7 @@
             {{this.numberOfBids}}
           </li>
           {{#if (isBidderOrSeller user.roleId)}}
-            <li><a  
+            <li><a
                 href="/product?proId={{this.proId}}"
                 style="font-size:xx-small;"
               >Bid now</a></li>
@@ -185,7 +167,7 @@
               <input type="hidden" value={{this.proId}} name="proId" />
               <button
                 type="submit"
-                class="btn btn-danger"
+                class="btn btn-sm btn-danger"
                 style="font-size: 15px;"
               > <i class="fa fa-ban" aria-hidden="true"></i></button>
             </form>

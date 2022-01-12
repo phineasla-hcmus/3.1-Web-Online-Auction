@@ -23,7 +23,6 @@
                 </div> 
                 <div class="mt-5">
                     <input id="nPages" type="hidden" value={{pages.length}}>
-                    {{!-- <h1 class="products__title">{{this.catName}} </h1> --}}
                     <div style="padding-left: 0;" id="products-search-result" class="products__content">
                         {{#each this.listProductByKeyword as |product|}}
                             {{>product product=product user=../user}}

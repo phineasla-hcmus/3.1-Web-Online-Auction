@@ -42,6 +42,10 @@ $('.btnShowCategory').mouseenter(function () {
   let catName = $(this).data('name');
   $(`#${catName}-collapse`).collapse('show');
 });
-$('.childCat').mouseleave(function () {
-  $('.childCat').collapse('hide');
+$('.parent-cat').mouseleave(function () {
+  let catName = $(this).data('name');
+  $(`#${catName}-collapse`).collapse('hide');
 });
+// $('.childCat').mouseleave(function () {
+//   $('.childCat').collapse('hide');
+// });

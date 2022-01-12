@@ -12,6 +12,7 @@ import productModel from '../models/product.model';
 import { findUserById } from '../models/user.model';
 import { sendUpdate } from '../utils/email';
 import bcrypt from 'bcrypt';
+import { pagespeedonline } from 'googleapis/build/src/apis/pagespeedonline';
 const homeRouter = Router();
 
 homeRouter.get('/', async (req, res) => {
@@ -641,8 +642,8 @@ homeRouter.get('/search', async (req, res) => {
       numberOfProducts: amountPro,
       sortByDate: sortby === 'date',
       sortByPrice: sortby === 'price',
-      prev: +page - 1,
-      next: +page + 1,
+      prev: +page - 1 > 0 ? +page - 1 : 1,
+      next: +page + 1 <= listofPage.length ? +page + 1 : listofPage.length,
     });
   }
 });
