@@ -191,7 +191,8 @@ function showbid() {
   let bidButton = document.getElementById('bidButton');
   let buyButton = document.getElementById('buynowButton');
 
-  bidLog.removeAttribute('hidden');
+  if(bidLog){
+  bidLog.removeAttribute('hidden');}
   bidButton.setAttribute('hidden', 'hidden');
   if (buyButton) {
     buyButton.setAttribute('hidden', 'hidden');
