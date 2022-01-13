@@ -4,13 +4,13 @@
   {{#if emptyBidding}}
     <div class="alert alert-info">You don't have any bidding products</div>
   {{else}}
-      <div class="products__content">
+      <div class="products__bidding">
           {{#each this.biddingList as |product|}}
               {{>product product=product user=../user}}
           {{/each}}
       </div>
   {{/if}}
-  <h2 class="h4">List of won products</h2>
+  <h2 class="h4 mt-3">List of won products</h2>
   {{#if emptyWinning}}
       <div class="alert alert-info">You don't have any winning products</div>
   {{else}}

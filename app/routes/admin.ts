@@ -8,7 +8,7 @@ import { findUserById, updateUser, USER_BASIC } from '../models/user.model';
 const adminRouter = Router();
 
 adminRouter.get('/manage/categories', async function (req, res) {
-  res.render('admin/manageCategory', { layout: 'admin', category: true });
+  res.render('admin/manageCategory', { layout: 'user', category: true });
 });
 
 adminRouter.post('/manage/categories', async function (req, res) {
@@ -28,7 +28,7 @@ adminRouter.post('/manage/categories', async function (req, res) {
         res.redirect('/admin/manage/categories');
       } else {
         res.render('admin/manageCategory', {
-          layout: 'admin',
+          layout: 'user',
           category: true,
           HaveChildCat: true,
         });
@@ -54,7 +54,7 @@ adminRouter.post('/manage/categories', async function (req, res) {
         res.redirect('/admin/manage/categories');
       } else {
         res.render('admin/manageCategory', {
-          layout: 'admin',
+          layout: 'user',
           category: true,
           childCatHaveProduct: true,
         });
@@ -72,7 +72,7 @@ adminRouter.get('/manage/categories/addChildCat', async function (req, res) {
     parentName: parentName,
   };
   res.render('admin/ManageCategory/addChildCategory', {
-    layout: 'admin',
+    layout: 'user',
     category: true,
     parentCategory,
   });
@@ -86,7 +86,7 @@ adminRouter.get('/manage/categories/editCat', async function (req, res) {
     catName: catName,
   };
   res.render('admin/ManageCategory/editCategory', {
-    layout: 'admin',
+    layout: 'user',
     category: true,
     Category,
   });
@@ -143,7 +143,7 @@ adminRouter.get('/manage/products', async function (req, res) {
   }
 
   res.render('admin/manageProduct', {
-    layout: 'admin',
+    layout: 'user',
     product: true,
     listDisable,
     emptyDisable: listDisable.length === 0,
@@ -265,7 +265,7 @@ adminRouter.get('/manage/users', async function (req, res) {
   }
 
   res.render('admin/manageUser', {
-    layout: 'admin',
+    layout: 'user',
     users: true,
     pagingUserList,
     pagingRequestList,
@@ -316,7 +316,7 @@ adminRouter.get('/manage/users/:id', async function (req, res) {
   for (let i = 1; i <= 5; i++) {
     rate.push(stars >= i ? 'full' : 'empty');
   }
-  res.render('admin/userDetail', { layout: 'admin', user, rate, users: true });
+  res.render('admin/userDetail', { layout: 'user', user, rate, users: true });
 });
 
 adminRouter.post('/approveRequest', async function (req, res) {
@@ -348,7 +348,7 @@ adminRouter.post('/deleteUser', async function (req, res) {
     const highestBid = await adminModel.getHighestBid(biddingList[i].proId);
     const bidderId = highestBid.length === 0 ? null : highestBid[0].userId;
     const currentBid = await adminModel.getCurrentPrice(biddingList[i].proId);
-    
+
     let currentPrice = 0;
     if (currentBid.length === 0) {
       const product = await productModel.findProductbyId(biddingList[i].proId);

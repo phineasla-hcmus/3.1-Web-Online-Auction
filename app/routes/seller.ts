@@ -27,7 +27,7 @@ sellerRouter.get('/my-product', async function (req, res) {
   });
 
   res.render('seller/myProduct', {
-    layout: 'bidder',
+    layout: 'user',
     postedProduct: true,
     biddingList,
     winningList,
@@ -89,7 +89,7 @@ sellerRouter.post('/cancelTransaction', async function (req, res) {
 sellerRouter.get('/add-product', async function (req, res) {
   const listSubCategory = await getSubcategoryList();
   res.render('seller/addProduct', {
-    layout: 'bidder',
+    layout: 'user',
     uploadProduct: true,
     listSubCategory: listSubCategory,
   });

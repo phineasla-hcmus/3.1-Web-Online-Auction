@@ -39,7 +39,7 @@ userRouter.get('/info', async function (req, res) {
   }
 
   res.render('user/info', {
-    layout: 'bidder',
+    layout: 'user',
     info: true,
     request,
     currentuser,
@@ -181,7 +181,7 @@ userRouter.get('/favorite', async function (req, res) {
     }
   }
   res.render('user/favorite', {
-    layout: 'bidder',
+    layout: 'user',
     favoriteList,
     favorite: true,
     empty: favoriteList.length === 0,
@@ -222,7 +222,7 @@ userRouter.get('/currentbids', async function (req, res) {
     }
   }
   res.render('user/currentBid', {
-    layout: 'bidder',
+    layout: 'user',
     productList,
     currentBids: true,
     empty: productList.length === 0,
@@ -243,7 +243,7 @@ userRouter.get('/rating', async function (req, res) {
   const ratingPoint = user?.rating;
 
   res.render('user/rating', {
-    layout: 'bidder',
+    layout: 'user',
     ratingList,
     rating: true,
     empty: ratingList.length === 0,
@@ -265,7 +265,7 @@ userRouter.get('/win', async function (req, res) {
     element.sellerName = element.firstName + ' ' + element.lastName;
   });
   res.render('user/win', {
-    layout: 'bidder',
+    layout: 'user',
     winningList,
     win: true,
     empty: winningList.length === 0,
