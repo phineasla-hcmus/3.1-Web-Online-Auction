@@ -1,9 +1,9 @@
 <section class="myContainer myContainer--py row">
     {{>category}}
     <div class="col-sm-10 details__container">
-        <div class="content__wrapper details__wrapper rounded-3">
+        <div class="content__wrapper details__wrapper">
             <div class="card-wrapper">
-                <div class="mycard p-3 rounded-3">
+                <div class="mycard p-3 rounded-top">
                     <div class="product-imgs">
                         <div class="img-display">
                             <div class="img-showcase">
@@ -12,7 +12,7 @@
                                 {{/each}}
                             </div>
                         </div>
-                        <div class="img-select">
+                        <div class="img-select mt-3">
                             {{#each amountPic as |pics|}}
                                 <div class="img-item">
                                     <a href="#" data-id="{{pics.value}}">
@@ -312,7 +312,7 @@
                 </div>
             </div>
             {{!-- </div> --}}
-            <div style="background-color: white;" class="p-3 rounded-3">
+            <div style="background-color: white;" class="p-3 rounded-bottom">
                 {{!-- <div> --}}
                 <h2 class="products__title fw-bold">
                     Description
