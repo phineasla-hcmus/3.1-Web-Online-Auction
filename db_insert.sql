@@ -35,11 +35,11 @@ INSERT INTO categories
 VALUES (12, 'Baking dish', 3);
 
 INSERT INTO users
-VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', 8, 2, 0);
+VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', NULL, 2, 0);
 INSERT INTO users
 VALUES (2, 'popcorn.software.engineering@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', 5, 3, 0);
 INSERT INTO users
-VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', 7, 3, 0);
+VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', NULL, 3, 0);
 INSERT INTO users
 VALUES (4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', NULL, 4, 0);
 -- sample data used for [admin] manage usersINSERT INTO users

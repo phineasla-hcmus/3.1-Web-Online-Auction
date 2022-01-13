@@ -11,6 +11,7 @@ import cloudinary, { UploadApiResponse } from 'cloudinary';
 import { validationResult } from 'express-validator';
 import { bulkUpload, singleUpload } from '../utils/cloudinary';
 import { sendDenyBidder } from '../utils/email';
+import moment from 'moment';
 
 const sellerRouter = Router();
 
@@ -198,7 +199,7 @@ sellerRouter.post(`/add-description`, async function (req, res) {
     list[0].description +
     '<hr>' +
     '<div>' +
-    new Date() +
+    moment(new Date()).format('DD/MM/YYYY') +
     '</div>' +
     description;
   sellerModel.addDescription(proId, list[0].description);
@@ -225,7 +226,7 @@ sellerRouter.post('/denyBidder', async function (req, res) {
       bidderId,
       maxPriceOfUserInHistory[0].auctionPrice
     );
-    
+
     res.redirect(url);
   } else {
     const highestUserInHistoryList = await auctionModel.findMaxPriceInHistory(

@@ -68,14 +68,14 @@
 
                                     </th>
                                     <td>
-                                        <a href="/product/rating?userId={{product.sellerId}}">{{maskBidderName product.sellerName}}</a>
+                                        <a href="/product/rating?userId={{product.sellerId}}&mask=false">{{product.sellerName}}</a>
                                         &nbsp; {{product.sellerRating}}/10
                                         <i class="fa fa-star checked" aria-hidden="true"></i>
 
                                     </td>
 
                                 </tr>
-                                {{#if (existBidder bidderId)}}
+                                {{#if (existBidder product.bidderId)}}
                                 <tr>
                                     <th class="pl-0" scope="row">
                                         <strong>
@@ -390,8 +390,7 @@
                                 {{#each listBidder as |listbidder|}}
                                 <li class="table-row">
                                     <div class="d-flex justify-content-between col col-1">
-                                        <a href="/product/rating?userId={{listbidder.bidderId}}">{{maskBidderName
-                                            listbidder.bidderName}}</a>
+                                        <a href="/product/rating?userId={{listbidder.bidderId}}&mask=false">{{listbidder.bidderName}}</a>
                                     </div>
                                     <form method="post" action="/seller/denyBidder">
                                         <input type="hidden" value="{{listbidder.bidderId}}" name="bidderId">
