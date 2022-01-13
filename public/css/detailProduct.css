@@ -554,3 +554,13 @@ img {
     padding-top: 0;
   }
 }
+
+@media screen and (min-width: 992px) {
+  .details__wrapper {
+    padding-left: 50px;
+  }
+  .details__container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
