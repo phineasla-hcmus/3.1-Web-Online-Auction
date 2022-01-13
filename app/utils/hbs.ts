@@ -30,7 +30,7 @@ const hbs = create({
     isDeniedUser,
     isBuyNowPrice,
     isNotExpired,
-    existBidder
+    existBidder,
   },
 });
 
@@ -86,14 +86,20 @@ function getRemainingTime(date: string) {
 
 function maskBidderName(bidderName: string) {
   if (bidderName != undefined && bidderName.length != 0) {
-    const lastName = bidderName.substring(4);
-    const mask = '*'.repeat(4);
-    return mask + lastName;
+    let result = '';
+    for (let i = 0; i < bidderName.length; i++) {
+      if (i % 2 === 0) result += bidderName[i];
+      else result += '*';
+    }
+    return result;
+    // const lastName = bidderName.substring(4);
+    // const mask = '*'.repeat(4);
+    // return mask + lastName;
   }
   return '';
 }
-function existBidder(bidderid: string){
-  return bidderid!=null;
+function existBidder(bidderid: string) {
+  return bidderid != null;
 }
 function isFavorite(proId: any, listFavorite: any) {
   return listFavorite.some(function (e1: any) {

@@ -226,6 +226,9 @@ ul {
 
 ul.nav-pills {
   font-size: 1.25rem;
+  max-width: 21.875rem;
+  overflow: scroll;
+  flex-wrap: nowrap;
 }
 
 ul.nav-pills li a i {

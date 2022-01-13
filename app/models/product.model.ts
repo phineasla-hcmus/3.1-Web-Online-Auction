@@ -165,6 +165,7 @@ export default {
       .andWhere('products.expiredDate', '>=', new Date())
       .andWhere('products.isDisable', 1)
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .limit(limit)
       .offset(offset);
   },
@@ -179,6 +180,7 @@ export default {
       .andWhere('products.expiredDate', '>=', new Date())
       .andWhere('products.isDisable', 1)
       .leftJoin('productImages', { 'products.thumbnailId': 'imgId' })
+      .leftJoin('users', { 'products.bidderId': 'users.userId' })
       .limit(limit)
       .offset(offset);
   },

@@ -127,6 +127,12 @@ homeRouter.get('/category', async (req, res) => {
     );
   }
 
+  list.forEach((element) => {
+    if (element.firstName != null && element.lastName != null) {
+      element.bidderName = element.firstName + ' ' + element.lastName;
+    } else element.bidderName = '';
+  });
+
   const listofPage = [];
   for (let i = 1; i <= numPage; i++) {
     listofPage.push({
@@ -287,6 +293,7 @@ homeRouter.get('/product', async (req, res) => {
 
 homeRouter.get('/product/rating', async (req, res) => {
   const userId = req.query.userId ? +req.query.userId : 0;
+  const mask = req.query.mask ? false : true;
   const ratingList = await bidderModel.getRatingList(userId);
   ratingList.forEach((element, index) => {
     element.rateName = element.firstName + ' ' + element.lastName;
@@ -306,6 +313,7 @@ homeRouter.get('/product/rating', async (req, res) => {
     ratingPoint,
     myRating: true,
     name,
+    mask,
   });
 });
 
