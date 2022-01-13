@@ -580,6 +580,20 @@ ul.nav-pills li a:hover {
   font-size: 0.9375rem;
 }
 
+#optionCategory {
+  max-width: 80px;
+  font-family: "Lato";
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+@media (min-width: 40em) {
+  #optionCategory {
+    max-width: 160px;
+  }
+}
+#optionCategory option {
+  width: 5rem;
+}
+
 .b-example-divider {
   flex-shrink: 0;
   width: 1.5rem;

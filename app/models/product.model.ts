@@ -240,6 +240,7 @@ export default {
         })
         .where(db.raw('match(proName) against(?)', [`${keyword}`]))
         .andWhere('products.expiredDate', '>=', new Date())
+        .andWhere('products.isDisable', 1)
         .leftJoin('users', { 'products.bidderId': 'users.userId' })
         .limit(limit)
         .offset(offset)
@@ -257,6 +258,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .limit(limit)
           .offset(offset)
@@ -277,6 +279,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .limit(limit)
           .offset(offset)
@@ -327,6 +330,7 @@ export default {
         })
         .where(db.raw('match(proName) against(?)', [`${keyword}`]))
         .andWhere('products.expiredDate', '>=', new Date())
+        .andWhere('products.isDisable', 1)
         .leftJoin('users', { 'products.bidderId': 'users.userId' })
         .orderBy('expiredDate', 'desc')
         .limit(limit)
@@ -345,6 +349,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .orderBy('expiredDate', 'desc')
           .limit(limit)
@@ -366,6 +371,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .orderBy('expiredDate', 'desc')
           .limit(limit)
@@ -418,6 +424,7 @@ export default {
         })
         .where(db.raw('match(proName) against(?)', [`${keyword}`]))
         .andWhere('products.expiredDate', '>=', new Date())
+        .andWhere('products.isDisable', 1)
         .leftJoin('users', { 'products.bidderId': 'users.userId' })
         .orderBy('currentPrice', 'asc')
         .limit(limit)
@@ -436,6 +443,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .orderBy('currentPrice', 'asc')
           .limit(limit)
@@ -457,6 +465,7 @@ export default {
             );
           })
           .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1)
           .leftJoin('users', { 'products.bidderId': 'users.userId' })
           .orderBy('currentPrice', 'asc')
           .limit(limit)
@@ -513,7 +522,8 @@ export default {
               db.raw('match(proName) against(?)', [`${keyword}`])
             );
           })
-          .andWhere('products.expiredDate', '>=', new Date());
+          .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1);
       } else {
         return db('products')
           .where(function () {
@@ -521,7 +531,8 @@ export default {
               db.raw('match(proName) against(?)', [`${keyword}`])
             );
           })
-          .andWhere('products.expiredDate', '>=', new Date());
+          .andWhere('products.expiredDate', '>=', new Date())
+          .andWhere('products.isDisable', 1);
       }
     }
   },

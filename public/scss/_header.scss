@@ -159,3 +159,14 @@
     }
   }
 }
+#optionCategory {
+  max-width: 80px;
+  @include breakpoint-up(medium) {
+    max-width: 160px;
+  }
+  font-family: 'Lato';
+  border-radius: 0.25rem 0 0 0.25rem;
+  & option {
+    width: 5rem;
+  }
+}

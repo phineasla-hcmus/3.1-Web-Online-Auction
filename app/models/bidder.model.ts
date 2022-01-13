@@ -22,6 +22,7 @@ export default {
       .leftJoin('users', { 'p.bidderId': 'users.userId' })
       .where('watchlist.bidderId', bidderId)
       .andWhere('p.expiredDate', '>=', new Date())
+      .andWhere('p.isDisable', 1)
       .leftJoin('productImages', { 'p.thumbnailId': 'imgId' })
       .select('p.*', 'users.firstName', 'users.lastName', 'secureUrl');
   },
@@ -45,6 +46,7 @@ export default {
       .leftJoin('productImages', { 'pro.thumbnailId': 'imgId' })
       .where('auctionHistory.bidderId', bidderId)
       .andWhere('pro.expiredDate', '>=', new Date())
+      .andWhere('pro.isDisable', 1)
       .distinct('auctionHistory.proId');
   },
   async upgradeToSeller(bidderId: number) {
