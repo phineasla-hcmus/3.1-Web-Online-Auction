@@ -372,6 +372,8 @@ img {
 }
 .img-display {
   overflow: hidden;
+  max-width: 20rem;
+  margin: 0 auto;
 }
 .img-showcase {
   display: flex;
@@ -383,9 +385,13 @@ img {
 }
 .img-select {
   display: flex;
+  margin: 0 auto;
 }
 .img-item {
   margin: 0.3rem;
+}
+.img-item img {
+  max-height: 5rem;
 }
 .img-item:nth-child(1),
 .img-item:nth-child(2),
@@ -541,9 +547,9 @@ img {
   .card-wrapper {
     /* height: 100vh; */
     /* height: 100%; */
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
   }
   .product-imgs {
     display: flex;
