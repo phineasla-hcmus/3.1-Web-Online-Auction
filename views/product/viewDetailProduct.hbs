@@ -204,9 +204,11 @@
                                         </div>
                                     </form>
                                     {{/if}}
+                                    {{#if (getRatingType product.userRating 1)}}
                                     <button id="bidButton" class="bid btn btn-default" type="button" onclick="showbid()">
                                         Bid now
                                     </button>
+                                    {{/if}}
                                     <form id="bidForm" method="post" action="/product">
                                         {{#if (getRatingType product.userRating 1)}}
                                         <div id="bidAction" hidden>
@@ -284,7 +286,7 @@
                                         {{!-- </p> --}}
                                         {{/if}}
 
-                                        {{#if (getRatingType userRating 2)}}
+                                        {{#if (getRatingType product.userRating 2)}}
                                         <br>
                                         <div class="alert alert-warning">
                                             Your rating score does not meet the requirement for bidding (smaller than 80%)!!!
@@ -293,7 +295,7 @@
                                         </h5> --}}
                                         {{/if}}
 
-                                        {{#if (getRatingType userRating 3)}}
+                                        {{#if (getRatingType product.userRating 3)}}
                                         <br>
                                         <div class="alert alert-warning">
                                             Seller of this product is not allow user which doesn't have rating score to bid!!!
