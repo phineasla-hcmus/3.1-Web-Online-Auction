@@ -57,7 +57,7 @@
           </p>
           {{#if (isSellerOfThis this.sellerId user.userId)}}{{else}}
 
-            {{#if (isBidderOrSeller user.roleId)}}
+            {{#if (isUser user.roleId)}}
               {{#if (isFavorite proId FavoriteProduct)}}
                 <form
                   id="likebutton1{{proId}}{{typeHome}}"
