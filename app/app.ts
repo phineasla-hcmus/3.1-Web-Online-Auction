@@ -155,7 +155,7 @@ setTimeout(async function run() {
   const listExpireProduct = await productModel.findExpiredProductInTime();
 
   for (let i = 0; i < listExpireProduct.length; i++) {
-    console.log(listExpireProduct[i].proName);
+    // console.log(listExpireProduct[i].proName);
     const product = listExpireProduct[i];
     const sellerId = product.sellerId;
     const winId = product.bidderId;
