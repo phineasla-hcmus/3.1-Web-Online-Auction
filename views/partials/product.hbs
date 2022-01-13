@@ -55,7 +55,7 @@
             <i class="fa fa-trophy text-warning" aria-hidden="true">
               {{maskBidderName bidderName}}</i>
           </p>
-          {{#if (isSellerOfThis this.sellerId user.userId)}}{{else}}
+          {{#if (isSellerOfThis this.sellerId user.userId)}}<div>&nbsp;</div>{{else}}
 
             {{#if (isUser user.roleId)}}
               {{#if (isFavorite proId FavoriteProduct)}}
