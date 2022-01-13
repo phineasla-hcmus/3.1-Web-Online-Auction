@@ -39,6 +39,11 @@ passport.use(
       if (!user) {
         return done(undefined, false, { message: 'User not found' });
       }
+      if (user.banned) {
+        return done(undefined, false, {
+          message: 'User has been banned',
+        });
+      }
       if (!user.password) {
         // User registered with 3rd party authentication
         return done(undefined, false, {
@@ -73,7 +78,7 @@ passport.use(
       const email = emails[0].value;
 
       const result = await Promise.all<any>([
-        findUserByEmail(email, USER_BASIC),
+        findUserByEmail(email, [...USER_BASIC, 'banned']),
         findSocialById(id),
       ]);
 
@@ -90,6 +95,8 @@ passport.use(
         user = { email, firstName, lastName, roleId: RoleType.Bidder };
         userId = await addUser(user);
         user.userId = userId;
+      } else if (user.banned) {
+        return done(undefined, undefined, { message: 'User have been banned' });
       }
       // `userId` should be valid from now
       if (!social) {

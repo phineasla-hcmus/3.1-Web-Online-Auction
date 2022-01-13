@@ -19,7 +19,8 @@ export type UserColumn =
   | 'dob'
   | 'address'
   | 'rating'
-  | 'roleId';
+  | 'roleId'
+  | 'banned';
 
 /** Type hinting for req.user */
 export type User = Express.User;

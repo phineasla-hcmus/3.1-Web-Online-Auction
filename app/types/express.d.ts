@@ -9,5 +9,6 @@ declare namespace Express {
     address?: string;
     rating?: double;
     roleId: number;
+    banned?: boolean;
   }
 }

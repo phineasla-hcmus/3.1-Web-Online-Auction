@@ -16,23 +16,27 @@ VALUES (2, 'Furniture', NULL);
 INSERT INTO categories
 VALUES (3, 'Houseware', NULL);
 INSERT INTO categories
-VALUES (4, 'Laptop', 1);
+VALUES (4, 'Jewelry', NULL);
 INSERT INTO categories
-VALUES (5, 'Phone', 1);
+VALUES (5, 'Laptop', 1);
 INSERT INTO categories
-VALUES (6, 'Tablet', 1);
+VALUES (6, 'Phone', 1);
 INSERT INTO categories
-VALUES (7, 'Bed', 2);
+VALUES (7, 'Tablet', 1);
 INSERT INTO categories
-VALUES (8, 'Desk', 2);
+VALUES (8, 'Bed', 2);
 INSERT INTO categories
-VALUES (9, 'Cabinet', 2);
+VALUES (9, 'Desk', 2);
 INSERT INTO categories
-VALUES (10, 'Coffee press', 3);
+VALUES (10, 'Cabinet', 2);
 INSERT INTO categories
-VALUES (11, 'Chopping board', 3);
+VALUES (11, 'Coffee press', 3);
 INSERT INTO categories
-VALUES (12, 'Baking dish', 3);
+VALUES (12, 'Chopping board', 3);
+INSERT INTO categories
+VALUES (13, 'Baking dish', 3);
+INSERT INTO categories
+VALUES (14, 'Watches', 4);
 
 INSERT INTO users VALUES (1,'nguyenngocthanhtam9b@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Tam','Nguyen','2001-10-12','somewhere in the universe',8,2,0);
 INSERT INTO users VALUES (2,'popcorn.software.engineering@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Hong','Du Shik','1995-10-12','somewhere',5,3,0);
@@ -51,6 +55,8 @@ INSERT INTO users
 VALUES (9, 'hoho5@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
 INSERT INTO users
 VALUES (10, 'hoho6@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
+INSERT INTO users
+VALUES (11, 'lolgotbanned@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, TRUE);
 
 INSERT INTO `products` VALUES (1,'Laptop Lenovo Ideapad 3',4,500,5000,500,100,'Laptop mỏng nhẹ cực mạnh mại dô mại dô','2021-11-30 08:20:30','2022-01-25 09:30:00',0,NULL,3,0,1,1,'product/agai9qbgxv97t5iftqly');
 INSERT INTO `products` VALUES (2,'Laptop HP',4,550,5500,550,100,'Chip Intel Celeron, siêu tiết kiệm năng lượng, 1 năm mới sạc pin','2021-11-30 08:20:30','2022-01-25 09:30:00',0,NULL,3,0,1,1,'product/hav2jd8fakluchw6onit');
@@ -73,14 +79,6 @@ INSERT INTO `products` VALUES (18,'Khung giường đơn | BILLUND',7,400,NULL,4
 INSERT INTO `products` VALUES (19,'Writing Table',8,300,30000,300,50,'<p>Writing table with two drawers. Ohio, circa 1825. H 29-3/8\" W 20-3/8\" D18-1/2\" Condition: Excellent original condition.</p>','2022-01-09 20:07:38','2022-01-15 20:07:35',0,NULL,2,0,1,1,'product/i8bxlaeszanomqkkpjdl');
 INSERT INTO `products` VALUES (20,'HAMILTON 14KT YG 21 JEWEL 18 SZ, C. 1890',14,225,NULL,225,25,'<p>HAMILTON 14KT YELLOW GOLD 21 JEWEL 18 SZ. POCKET WATCH, C. 1890, SERIAL # 636137</p>','2022-01-09 20:31:40','2022-01-15 20:31:38',0,NULL,2,0,1,0,'product/zi3wdyzdp7pjchma78rm');
 INSERT INTO `products` VALUES (21,'Laptop ASUS TUF Gaming FX516PE-HN005T',4,3000,8000,3000,200,'<h2><strong>Laptop ASUS TUF FX516PE-HN005T &ndash; Laptop gaming hiệu năng vượt trội</strong></h2>\r\n<p>Nếu ai y&ecirc;u th&iacute;ch laptop Asus v&agrave; đam me chơi game th&igrave; kh&ocirc;ng thể bỏ qua d&ograve;ng laptop Asus gaming. Một trong số đ&oacute; l&agrave;&nbsp;<strong>ASUS TUF Gaming FX516PE-HN005T</strong>, laptop với vẻ ngo&agrave;i sang trọng c&ugrave;ng hiệu năng mạnh mẽ.</p>\r\n<h3><strong>Thiết kế sang trọng, m&agrave;n h&igrave;nh si&ecirc;u lớn</strong></h3>\r\n<p>Nếu thiết kế l&agrave; một nhược điểm của d&ograve;ng laptop gaming th&igrave; với&nbsp;<strong><a href=\"https://cellphones.com.vn/laptop/asus/gaming.html\" target=\"_blank\" rel=\"noopener\">ASUS TUF Gaming</a>&nbsp;FX516PE-HN005T</strong>&nbsp;sẽ l&agrave; một ngoại lệ. laptop ASUS TUF Gaming FX516PE-HN005T sở hữu thiết kế vu&ocirc;ng vắn với mặt lưng TFU v&ocirc; c&ugrave;ng sang trọng. Tuy l&agrave; d&ograve;ng m&aacute;y chơi game như Asus FX516PE-HN005T kh&ocirc;ng qu&aacute; năng nề m&agrave; vẫn giữ cho m&igrave;nh một thiết kế c&acirc;n đối.</p>','2022-01-13 00:17:39','2022-01-20 00:17:37',0,NULL,3,1,1,1,'product/lmjmgr3z9so6fhfcova9');
-
--- VALUES (16, 'Samsung Galaxy Note 20 Ultra 5G', 5, "1000", "10000", "1000", "100", "this is a product", "2021-11-30 08:20:30", "2022-01-04 09:30:00", 0, null, 2, 1, 1, 1, 'TO_BE_INSERTED');
--- INSERT INTO products
--- VALUES (17, 'Xiaomi Pad 5', 6, "400", "4000", "400", "100", "this is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 0, null, 2, 1, 1, 1, 'TO_BE_INSERTED');
--- INSERT INTO products
--- VALUES (18, 'Samsung Galaxy Tab S7', 6, "800", "8000", "800", "100", "this is a product", "2021-11-30 08:20:30", "2022-01-04 09:30:00", 0, null, 2, 1, 1, 1, 'TO_BE_INSERTED');
--- INSERT INTO products
--- VALUES (19, 'Samsung Galaxy Tab S7 Plus', 6, "1050", "10500", "1050", "100", "this is a product", "2021-11-30 08:20:30", "2022-01-25 09:30:00", 0, null, 2, 1, 1, 1, 'TO_BE_INSERTED');
 
 INSERT INTO activeProducts values(1);
 INSERT INTO activeProducts values(2);
