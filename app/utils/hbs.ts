@@ -18,6 +18,7 @@ const hbs = create({
     isSeller,
     isBidderOrSeller,
     isAdmin,
+    isUser,
     isRecentlyUploaded,
     isPendingRequest,
     isFullStar,
@@ -117,6 +118,9 @@ function isSeller(roleId: number) {
 
 function isBidderOrSeller(roleId: number) {
   return roleId === 2 || roleId === 3;
+}
+function isUser(roleId: number){
+  return roleId === 2 || roleId === 3 || roleId === 4;
 }
 function isAdmin(roleId: number) {
   return roleId === 4;

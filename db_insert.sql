@@ -34,14 +34,10 @@ VALUES (11, 'Chopping board', 3);
 INSERT INTO categories
 VALUES (12, 'Baking dish', 3);
 
-INSERT INTO users
-VALUES (1, 'nguyenngocthanhtam9b@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Tam', 'Nguyen', '2001-10-12', 'somewhere in the universe', NULL, 2, 0);
-INSERT INTO users
-VALUES (2, 'popcorn.software.engineering@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Hong', 'Du Shik', '1995-10-12', 'somewhere', 5, 3, 0);
-INSERT INTO users
-VALUES (3, 'leesuby.tl@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Bi', '2001-10-12', 'somewhere in the universe', NULL, 3, 0);
-INSERT INTO users
-VALUES (4, 'admin@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Long', 'Long', '2001-10-12', 'somewhere in the universe', NULL, 4, 0);
+INSERT INTO users VALUES (1,'nguyenngocthanhtam9b@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Tam','Nguyen','2001-10-12','somewhere in the universe',8,2,0);
+INSERT INTO users VALUES (2,'popcorn.software.engineering@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Hong','Du Shik','1995-10-12','somewhere',5,3,0);
+INSERT INTO users VALUES (3,'leesuby.tl@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Long','Bi','2001-10-12','somewhere in the universe',10,3,0);
+INSERT INTO users VALUES (4,'admin@gmail.com','$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G','Long','Long','2001-10-12','somewhere in the universe',NULL,4,0);
 -- sample data used for [admin] manage usersINSERT INTO users
 INSERT INTO users
 VALUES (5, 'hoho1@gmail.com', '$2a$10$knCAXg.TOhk69XK246nUnOhSNvM3fR5PjVWVR1cY5y6VecpatGh8G', 'Ai', 'Zay', '2001-10-12', 'abc', NULL, 2, 0);
@@ -139,6 +135,15 @@ INSERT INTO ratingHistory
 VALUES (1, 2, 1, '2021-12-19 15:07', TRUE, 'Fast transaction!');
 INSERT INTO ratingHistory
 VALUES (1, 2, 2, '2021-12-19 15:07', FALSE, 'Angry!');
+
+INSERT INTO ratingHistory VALUES (1,2,19,'2021-12-19 15:07:00',1,'Fast transaction!');
+INSERT INTO ratingHistory VALUES (1,2,17,'2021-12-20 15:07:00',0,'Angry!');
+INSERT INTO ratingHistory VALUES (1,3,18,'2021-12-19 15:07:00',1,'Good product!');
+INSERT INTO ratingHistory VALUES (2,1,19,'2021-12-19 15:07:00',0,'Angry!');
+INSERT INTO ratingHistory VALUES (2,1,15,'2021-12-25 15:07:00',1,'GOOD!');
+INSERT INTO ratingHistory VALUES (2,1,16,'2021-12-16 15:07:00',1,'GOOD!');
+INSERT INTO ratingHistory VALUES (2,1,18,'2021-12-17 15:07:00',1,'GOOD!');
+INSERT INTO ratingHistory VALUES (2,1,17,'2021-12-18 15:07:00',1,'GOOD!');
 
 UPDATE products
 SET bidderid = 1
