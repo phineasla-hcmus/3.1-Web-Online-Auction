@@ -34,9 +34,8 @@
       </figure>
 
       <div class="products__item--wrapper">
-        <div>
-          <h3 class="hide-overflow mb-0">
-            {{this.proName}}<div>&nbsp;</div>
+        <div class="mb-2">
+          <h3 class="hide-overflow mb-0">{{this.proName}}<div>&nbsp;</div>
           </h3>
           <p style="font-size: 0.7rem; margin-bottom: 0"><i
               class="fa fa-calendar"
@@ -53,10 +52,8 @@
             style="font-size: 0.6rem;"
             class="d-flex justify-content-between mb-0"
           >
-            <i
-              class="fa fa-trophy text-warning"
-              aria-hidden="true"
-            >{{maskBidderName bidderName}}</i>
+            <i class="fa fa-trophy text-warning" aria-hidden="true">
+              {{maskBidderName bidderName}}</i>
           </p>
           {{#if (isSellerOfThis this.sellerId user.userId)}}{{else}}
 
