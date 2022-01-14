@@ -16,25 +16,25 @@ VALUES (2, 'Furniture', NULL);
 INSERT INTO categories
 VALUES (3, 'Houseware', NULL);
 INSERT INTO categories
-VALUES (4, 'Jewelry', NULL);
+VALUES (4, 'Laptop', 1);
 INSERT INTO categories
-VALUES (5, 'Laptop', 1);
+VALUES (5, 'Phone', 1);
 INSERT INTO categories
-VALUES (6, 'Phone', 1);
+VALUES (6, 'Tablet', 1);
 INSERT INTO categories
-VALUES (7, 'Tablet', 1);
+VALUES (7, 'Bed', 2);
 INSERT INTO categories
-VALUES (8, 'Bed', 2);
+VALUES (8, 'Desk', 2);
 INSERT INTO categories
-VALUES (9, 'Desk', 2);
+VALUES (9, 'Cabinet', 2);
 INSERT INTO categories
-VALUES (10, 'Cabinet', 2);
+VALUES (10, 'Coffee press', 3);
 INSERT INTO categories
-VALUES (11, 'Coffee press', 3);
+VALUES (11, 'Chopping board', 3);
 INSERT INTO categories
-VALUES (12, 'Chopping board', 3);
+VALUES (12, 'Baking dish', 3);
 INSERT INTO categories
-VALUES (13, 'Baking dish', 3);
+VALUES (13, 'Jewelry', NULL);
 INSERT INTO categories
 VALUES (14, 'Watches', 4);
 
