@@ -187,9 +187,11 @@ ul {
 }
 ul.nav-pills {
   font-size: 1.25rem;
-  max-width: 21.875rem;
-  overflow: scroll;
-  flex-wrap: nowrap;
+  @include breakpoint-down(small) {
+    max-width: 21.875rem;
+    overflow: scroll;
+    flex-wrap: nowrap;
+  }
 }
 ul.nav-pills li a i {
   color: rgb(155, 155, 155);
